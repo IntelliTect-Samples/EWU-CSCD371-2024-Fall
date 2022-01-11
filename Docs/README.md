@@ -1,7 +1,7 @@
 Please feel free to submit updates.
 
 ## Instructors ##
-[Mark Michaelis](https://github.com/MarkMichaelis), [Grant Erikson](https://github.com/GrantErickson), and [Meg Woodford](https://github.com/mmwoodfo)
+[Mark Michaelis](https://github.com/MarkMichaelis), [Grant Erickson](https://github.com/GrantErickson), and [Meg Woodford](https://github.com/mmwoodfo)
 
 For any general question we suggest asking in Microsoft Teams. This is a great place to collaborate and ask questions of both each other and the instructors. Though you can message people directly, as much as possible, we encourage open discussion on the meeting chat so that others can benefit as well.
 
