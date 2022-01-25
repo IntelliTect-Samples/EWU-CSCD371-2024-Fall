@@ -31,9 +31,9 @@ For this assignment do the following:
   - C# 10.0, 
   - warnings as errors, 
   - and enabled .NET analyzers for both projects ❌✔
-- For this assignment, always use Assert.AreEquals<T>() (the generic version)
+- For this assignment, always use `Assert.AreEqual<T>()` (the generic version)
 - All of the above should be unit tested ❌✔
-- Choose simplicity over than complexity ❌✔
+- Choose simplicity over complexity ❌✔
   
 ## Extra Credit
 - Unit test your implementation that writes the joke out to the screen. How hard could it be to unit test a single line method ;)?
