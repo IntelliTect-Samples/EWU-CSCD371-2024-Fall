@@ -8,6 +8,7 @@ Chapters 10 and 11
 - `Jester` approprietly retrieves jokes and sends them to the output: ✔❌
 - Chuck Norris jokes ge filtered out: ✔❌
 - Jester code coverage is above 90%: ✔❌
+- Enable nullability in the .csproj files and ensure no errors or warnings: ✔❌
 
 ### Extra Credit
 - Output to console implementat is unit tested: ✔❌

@@ -15,6 +15,7 @@ For this assignment do the following:
 - Implement the `Jester` class. It should take in both interfaces as dependencies. These dependencies should be null checked.
 - The `Jester` class `TellJoke()` method should retrieve a joke from the `JokeService`. If the joke contains "Chuck Norris", skip it and get another. The joke should be written to the output dependency.
 - Unit test the Jester class. Code coverage should be above 90% for this class. Moq will make this significantly easier.
+- Enable nullability in the .csproj files and ensure no errors or warnings: ✔❌
 
 ## Extra Credit
 - Unit test your implementation that writes the joke out to the screen. How hard could it be to unit test a single line method ;)?
