@@ -3,8 +3,15 @@
 ## See [Docs](Docs)
 
 # Assignment 3
+
+## Overview
 For this assignment we are going to create a joke generator. For fun we will back it with a real web service that provides jokes. However, Chuck Norris jokes are over-used so we are going to filter those out. The code to retrieve the jokes from the web service is provided for you. 
 
+## Reading
+- Chapter 10 - Well Formed Types
+- Chapter 11 - Exception Handling
+
+## Assignment
 ** Please note ** This is someone else's web service, please be respectful and avoid spamming it. 
 
 For this assignment do the following:
@@ -17,6 +24,17 @@ For this assignment do the following:
 - Unit test the Jester class. Code coverage should be above 90% for this class. Moq will make this significantly easier.
 - Enable nullability in the .csproj files and ensure no errors or warnings: ✔❌
 
+## Fundamentals
+- Ensure you enable:
+  - nullable reference types is enabled
+  - net6 targetted, 
+  - C# 10.0, 
+  - warnings as errors, 
+  - and enabled .NET analyzers for both projects ❌✔
+- For this assignment, always use Assert.AreEquals<T>() (the generic version)
+- All of the above should be unit tested ❌✔
+- Choose simplicity over than complexity ❌✔
+  
 ## Extra Credit
 - Unit test your implementation that writes the joke out to the screen. How hard could it be to unit test a single line method ;)?
 - The Geek jokes API that is being used can also return jokes in a JSON format. Update the `JokeService` to retrieve jokes using JSON. `GetJoke` should still return a string.
