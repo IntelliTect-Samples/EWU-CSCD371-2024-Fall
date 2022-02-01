@@ -2,7 +2,7 @@
 
 ## See [Docs](Docs)
 
-## Assignment 5
+## Assignment 4
 The purpose of this assignment is to write a class library is to learn how to write a generic class and a generic method. To accomplish this you will write a linked list that circles back on itself. We will also look at exception throwing and handling.
 
 ## Reading
