@@ -49,6 +49,10 @@
 
         public void Clear()
         {
+            // Setting Next = this is sufficient, however if any other references to nodes are held outside the list, 
+            // this cleans them up so that all nodes' Next property reference themselves.
+            
+            // This loops around all the nodes and sets all their Next properties to themselves effectively eliminating the list.
             // This works even if there is only a single node.
             var node = Next;
             while (node.Next != this)
