@@ -9,10 +9,10 @@ with the Task Parallel Library (TPL).
 
 ### Due Dates
 
-Assignment 9&10 is due (even though you are pairing) **Monday March 21, 11:59 PM.**
-Code reviews (be everyone individually) are due **Wednesday March 23, 11:59 PM**. (Thus all PRs will be reviewed twice.)
-Final PR is due **Thursday March 24, 11:59 PM**.
-**The combination of Assignment 9&10 will be graded - starting Friday March 24.**
+- Assignment 9&10 is due (even though you are pairing) **Monday March 21, 11:59 PM.**
+- Code reviews (be everyone individually) are due **Wednesday March 23, 11:59 PM**. (Thus all PRs will be reviewed twice.)
+- Final PR is due **Thursday March 24, 11:59 PM**.
+- **The combination of Assignment 9&10 will be graded - starting Friday March 24.**
 
 ## Reading
 
