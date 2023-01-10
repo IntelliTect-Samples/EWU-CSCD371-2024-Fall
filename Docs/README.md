@@ -18,9 +18,8 @@ Please fill out this [google form](https://forms.gle/TODO) with your GitHub info
 
 ## Book ##
 
-<https://EssentialCSharp.com>
-Essential C# 8.0 (7th Edition)  
-ISBN-13: 9780135972267
+[Essential C# Book Online](https://EssentialCSharp.com)
+Essential C# 8.0 (7th Edition), ISBN-13: 9780135972267
 
 ## General Information ##
 
