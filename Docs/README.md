@@ -14,7 +14,7 @@ We will be utilizing Microsoft Teams for this class. The link to the meeting wil
 
 ## GitHub Information ##
 
-Please fill out this [google form](https://forms.gle/TODO) with your GitHub information. This is used by us so we can appropriately grade assignments.
+Please fill out this [google form](https://forms.gle/newURL) with your GitHub information. This is used by us so we can appropriately grade assignments.
 
 ## Book ##
 
