@@ -18,8 +18,8 @@ Please fill out this [google form](https://forms.gle/TODO) with your GitHub info
 
 ## Book ##
 
-[Essential C# Book Online](https://EssentialCSharp.com)
-Essential C# 8.0 (7th Edition), ISBN-13: 9780135972267
+* [Essential C# Book Online](https://EssentialCSharp.com)
+* Essential C# 8.0 (7th Edition), ISBN-13: 9780135972267
 
 ## General Information ##
 
@@ -32,13 +32,14 @@ Essential C# 8.0 (7th Edition), ISBN-13: 9780135972267
 
 ### Required ###
 
-* [.NET 5.0](https://dotnet.microsoft.com/download)
+* [.NET latest](https://dotnet.microsoft.com/download)
 
 Though most of the coursework will be cross-platform, we will be working on Windows inside of Visual Studio. For the UI portion of the class Visual Studio on Windows will be required. 
 
 ### Recommended ###
 
-* [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/). Version 17.1 or later. The community edition is fine, though we believe most students should have access to higher SKUs with EWU's MSDN (this assumption may be wrong). Lab computers should have Visual Studio Professional (or higher) already installed.
+* [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/)
+  Version 17.1 or later. The community edition is fine, though we believe most students should have access to higher SKUs with EWU's MSDN (this assumption may be wrong). Lab computers should have Visual Studio Professional (or higher) already installed.
 * [GitKraken](https://gitkraken.keboo.dev/)
   Though you can do all of the git interaction from within Visual Studio or on the command line, GitKraken is free for open-source work. It also provides a nice graphical version of the commit history so you can see how various commits and branches relate.
 * [GitHub Student Developer Pack](https://education.github.com/students)
