@@ -39,11 +39,11 @@ Though most of the coursework will be cross-platform, we will be working on Wind
 ### Recommended ###
 
 * [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/)
-  Version 17.1 or later. The community edition is fine, though we believe most students should have access to higher SKUs with EWU's MSDN (this assumption may be wrong). Lab computers should have Visual Studio Professional (or higher) already installed.
-* [GitKraken](https://gitkraken.keboo.dev/)
-  Though you can do all of the git interaction from within Visual Studio or on the command line, GitKraken is free for open-source work. It also provides a nice graphical version of the commit history so you can see how various commits and branches relate.
+  Version 17.1 or later. The community edition is fine, though we believe most students should have access to higher SKUs with EWU's MSDN (this assumption may be wrong). Lab computers should have Visual Studio Professional (or higher) already installed. When installing, select the **“ASP.NET and web development” workload**.
 * [GitHub Student Developer Pack](https://education.github.com/students)
   There are lots of great development tools and resources. The JetBrains products ReSharper (a plugin for Visual Studio), and Rider (a full C# IDE) are great tools for helping you write better code.
+* [GitKraken](https://gitkraken.keboo.dev/)
+  Though you can do all of the git interaction from within Visual Studio or on the command line, GitKraken is free for open-source work. It also provides a nice graphical version of the commit history so you can see how various commits and branches relate.
 
 ### Optional ###
 
