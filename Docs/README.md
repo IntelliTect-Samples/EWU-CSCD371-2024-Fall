@@ -53,7 +53,7 @@ Though most of the coursework will be cross-platform, we will be working on Wind
 
 ## Class Video ##
 
-We will try to record the class so that students can review it at a later time. [Recordings will be available here](https://www.dropbox.com/sh/TODO).
+We will try to record the class so that students can review it at a later time. [Recordings will be available here](https://intellitectsp.sharepoint.com/:f:/s/EWU-CSCD371-2022-Wintercopy/Eik_NAtcvCdFkehnhZ0iXncBQo6wuMfiPkzvz9ek5uJRAw?e=Qacwom).
 Please note:
 
 * **Do not expect or rely on video recordings.**  We are not making any commitment to having video recordings of the class.
