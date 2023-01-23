@@ -36,6 +36,7 @@ Read **Chapters 4-6** with an **especially careful read of Chapter 6**. Pay spec
 ## Extra Credit
 
 - Implement an additional logger. This logger must be unit tested. Some options to consider could be one that uses `System.Console` or `System.Diagnostics.Trace` ❌✔
+- Implement the factory pattern using static abstract methods on a Logger interface instead.
 
 ## Relevant APIs to know about
 
