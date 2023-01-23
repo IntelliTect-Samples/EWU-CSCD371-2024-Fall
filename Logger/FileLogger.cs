@@ -1,23 +1,22 @@
-﻿namespace Logger
+﻿namespace Logger;
+
+public class FileLogger : BaseLogger
 {
-    public class FileLogger : BaseLogger
+    public FileLogger(string logSource, string filePath)
     {
-        public FileLogger(string logSource, string filePath)
-        {
-            LogSource = logSource;
-            FilePath=filePath;
-            File = new FileInfo(FilePath);
-        }
+        LogSource = logSource;
+        FilePath=filePath;
+        File = new FileInfo(FilePath);
+    }
 
-        public override string LogSource { get; }
-        public string FilePath { get; }
+    public override string LogSource { get; }
+    public string FilePath { get; }
 
-        FileInfo File { get; }
+    FileInfo File { get; }
 
-        public override void Log(LogLevel logLevel, string message)
-        {
-            using StreamWriter writer = File.AppendText();
-            writer.WriteLine($"{ DateTime.Now },{LogSource},{logLevel},{message}");
-        }
+    public override void Log(LogLevel logLevel, string message)
+    {
+        using StreamWriter writer = File.AppendText();
+        writer.WriteLine($"{ DateTime.Now },{LogSource},{logLevel},{message}");
     }
 }
