@@ -2,10 +2,11 @@
 {
     public class LogFactory
     {
-        public BaseLogger CreateLogger(string className)
-        {
-            
-            return null;
-        }
+        public string? FileName { get; set; }
+
+        public BaseLogger? CreateLogger(string className) => 
+            FileName is null ? null : new FileLogger(className, FileName);
+
+        public void ConfigureFileLogger(string fileName) => FileName=fileName;
     }
 }
