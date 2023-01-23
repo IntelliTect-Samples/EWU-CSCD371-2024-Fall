@@ -29,7 +29,7 @@ Read **Chapters 4-6** with an **especially careful read of Chapter 6**. Pay spec
 - Ensure you turn on Warnings as Errors (TreatWarningsAsErrors) ❌✔
 - Ensure that you turn on code analysis (EnableNETAnalyzers) ❌✔
 - Ensure that you turn on CodeAnalysisTreatWarningsAsErrors ❌✔
-- Set `LangVersion` to 11.0 ❌✔
+- Set `LangVersion` and the `TargetFramework` to the latest released versions available (preview versions optional) ❌✔
 - Turn on Nullability (`Nullable`) ❌✔
 - **All of the above should be unit tested.**
 
