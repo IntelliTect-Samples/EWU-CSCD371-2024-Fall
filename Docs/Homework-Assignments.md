@@ -38,7 +38,7 @@ Do not open a pull request until you are ready to have someone else [review it](
 
 ## Peer Review
 
-All students are expected to perform a [code review](https://help.github.com/articles/about-pull-request-reviews/) of *someone else's PR* (exception if you are [pairing](Homework-Grading#Pairing)). Ensure that you are marked as a reviewer on the PR (GitHub should do this automatically after you submit a review or comment). You can submit a review using the Comment status (it is not necessary to mark it as Approve or Request Changes). Make sure you submit the review. **Failing to submit the review, may result in the review not being counted.** 
+All students are expected to perform a [code review](https://help.github.com/articles/about-pull-request-reviews/) of *someone else's PR*. Ensure that you are marked as a reviewer on the PR (GitHub should do this automatically after you submit a review or comment). You can submit a review using the Comment status (it is not necessary to mark it as Approve or Request Changes). Make sure you submit the review. **Failing to submit the review, may result in the review not being counted.** 
 
 Before starting a review, **immediately submit** a comment on the PR saying "I will review this", so other people do not start reviewing the same PR. 
 
