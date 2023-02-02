@@ -1,4 +1,4 @@
-# Assignment 2
+# Assignment
 
 ## Overview
 
@@ -12,13 +12,14 @@ Read **Chapters 9 - Introducing Structs and Records & Chapter 10 - Well Formed T
 
 - Define a full name record (first, last, middle) handling optional and null appropriately.
 - Provide a comment on the full name record on why you selected to define a value or a reference type and why or why not the type is immutable.
-- Define an `IEntity` interface 
+- Define an `IEntity` interface:
   - Add an id property of type `Guid` that is init-only setter.
   - Add a Name property that is string.
 - Define an abstract base class that implements `IEntity` - appropriately choosing to implement the interface explicitly or implicitly.
 - Define book, student, and employee records - all with entity capabilities.
-
 - Provide a comment on the interface method explaining why you implemented it implicitly or explicitly.
+
+- Unit tests for the Storage class using various entities to ensure that there are not bugs.
 
 
 - There is an existing `BaseLogger` class. It needs an **auto property** to hold the class name. This property should be set in the `LogFactory` using an **object initializer**. ❌✔
@@ -37,7 +38,8 @@ Read **Chapters 9 - Introducing Structs and Records & Chapter 10 - Well Formed T
   - `Debug`. ❌✔
   Each of these methods should take in a `string` for the message, as well as a **parameter array** of arguments for the message. Each of these extension methods is expected to be a shortcut for calling the `BaseLogger.Log` method, by automatically supplying the appropriate `LogLevel`. These methods should throw an exception if the `BaseLogger` parameter is null. There are a couple example unit tests to get you started.
 - Use the nameof() operator when identifying the class name to the logger ❌✔
-- Ensure you turn on Warnings as Errors (TreatWarningsAsErrors) ❌✔
+
+
 - Ensure that you turn on code analysis (EnableNETAnalyzers) ❌✔
 - Ensure that you turn on CodeAnalysisTreatWarningsAsErrors ❌✔
 - Set `LangVersion` to 11.0 ❌✔
