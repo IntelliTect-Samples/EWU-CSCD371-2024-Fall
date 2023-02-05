@@ -26,7 +26,7 @@ Read **Chapters 9 - Introducing Structs and Records & Chapter 10 - Well Formed T
   - Given the properties on the full name record, you should consider which entities it makes sense to use it. ❌✔
   - Test that the equality behavior on these entities behaves as expected. ❌✔
   - Provide a comment on each interface method explaining why you implemented it implicitly or explicitly.
-- Unit tests for the Storage class using various entities to ensure that there are no bugs.
+- Unit test the Storage class using various entities to ensure that there are no bugs.
 - Code review (using TODO: comments if there are any issues - which there may not be) all logger-related classes.)
   - Pay special attention to the CreateLogger methods throughout.
 
