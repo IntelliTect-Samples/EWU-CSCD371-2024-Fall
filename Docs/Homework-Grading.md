@@ -10,7 +10,7 @@
 Students are ***HIGHLY*** encouraged to [pair program](https://en.wikipedia.org/wiki/Pair_programming) on assignments. Collaboration is different from copying someone else' work. When collaborating with another student should do the following:
 * Only **one** of you should submit the pull request
 * In the description explicitly **[mention](https://blog.github.com/2011-03-23-mention-somebody-they-re-notified/)** (just @ their GitHub name) with a comment indicating you collaborated on the assignment.
-* If you pair with someone on an assignment, you both do the peer review on **your** pull request. You do not need to do a peer review of anyone elses assignment.
+* If you pair with someone on an assignment, you both need to do a peer review independently on someone elses pull request.
 
 ## Grading ##
 
