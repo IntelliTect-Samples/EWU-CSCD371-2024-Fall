@@ -1,42 +1,59 @@
 # Assignment
 
-The purpose of this assignment is to learn how to write a generic class and a generic method. To accomplish this you will write a linked list that circles back on itself. We will also look at exception throwing and handling.
+The purpose of this assignment is to learn how to work with delegates and lambda expressions. We will define a 
+calculator class that stores 4 actions corresponding to +, -, *, /, and multiple. The calculator class will
+also support customizable behavior for reading and writing content.
 
 ## Reading
 
-Chapters 11, 12
+### Due 2/20:
+
+Chapter 13: Delegates and Lambda Expressions
+Chapter 15: Collection Interfaces with Standard Query Operators
+
+### Due 2/27:
+
+Chapter 17: Building Custom Collections (You can skim the More Collection Interfaces and Primary Collection Classes sections)
+Chapter 20: Programming with Task-Based Asynchronous Pattern
+Chapter 22: Thread Synchronization
+
+### Due 3/06
+
+Chapter 19: Introducing Multithreading
+Chapter 21: Iterating in Parallel
+
+### Recommended But Not Required (in order of priority)
+
+Chapter 19: Introducing Multithreading
+Chapter 21: Iterating in Parallel
+Chapter 18: Reflection, Attributes, and Dynamic Programming
+Chapter 16: LINQ with Query Expressions
+Chapter 14: Events
 
 ## Instructions
 
-- Create a *class library* project called "GenericsHomework.". ❌✔
-- Create a node class that can contain a value of any type and points to the next node and traversing the next node points back to the first item.
-  - Define the `Node` class
-  - The values should be homogeneous.
-  - Include a constructor that takes a value.  (No validation is necessary on the value). ❌✔
-  - Add a `ToString()` override that writes out the value's `ToString()` result. ❌✔
-  - Add a `Next` property that references the next node or else refers back to itself if there are no other nodes in the list. ❌✔
-    - The `Next` property should be non-nullable (careful to follow the non-nullable property guidelines) ❌✔
-    - The `Next` property setter should be private. ❌✔
-  - Add an `Append` method that takes a value and appends a new `Node` instance after the current node (by invoking the `Next` property). ❌✔
-  - Add a Clear method that effectively removes all items from a list except the current node. Pay attention as to whether you should be concerned with the following:
-    - Whether it is sufficient to only set Next to itself ❌✔
-    - Whether to set the removed items to circle back on themselves. In other words, whether to close the loop of the removed items. (Provide a test to show why this is required if it is required). ❌✔
-    - Given there is a circular list of items, provide a comment to indicate whether you need to worry about garbage collection because all the items point to each other and therefore may never be garbage collected. ❌✔
-  - Create an Exists method to test to see if a value exists in the list. ❌✔
-  - Throw an error on an attempt to Append a duplicate value. (Make sure you test for this case) ❌✔
-- You should not rely on any BCL generic classes for your implementation. ❌✔
+- Create a *Console* project called "Calculate.". ❌✔
+- Define a Calculator class ❌✔
+  - Define two init-only setter properties, `WriteLine` and `ReadLine`, that contain delegates for writing a line of text and reading a line of text respectively ❌✔
+  - Write a test that sets these properties at construction time and then invokes the properties and verifies the expected behavior occurs. ❌✔
+  - Set the default behavior for the `WriteLine` and `ReadLine` properties to invoke `System.Console` versions of the methods and add an empty default constructor. ❌✔
+  - Define static `Add`, `Subtract`, `Multiple`, and `Divide` methods that have two parameters and return a third parameter. ❌✔
+  - Define a read-only property, `MathematicalOperations`, of type `System.Collections.Generics.IReadOnlyDictionary<TKey,TValue>` that:
+    - is initialized to a `System.Collections.Generics.Dictionary<<TKey,TValue>` instance that. ❌✔
+      - Uses `char` for the key corresponding to the operators +, -, *, and /. ❌✔
+      - Has values that correspond with the Add, Subtract, Multiple, and Divide methods. ❌✔
+  - Write a `Calculate` method ❌✔
+    - with a `string` parameter corresponding to a `calculation` such as "3 + 4", "42 - 2" ❌✔
+    - If there is no whitespace around the operator, you can assume the `calculation` is invalid and invoke the `WriteLine` property with an error message. ❌✔
+    - Use `string.Split()` and pattern matching to parse the string ❌✔
+    - Index into the `MathematicalOperations` method using the operator parsed during pattern matching to find the corresponding implementation and invoke it. ❌✔
+- Implement the Program class to instantiate the calculator and invoke it based on user input from the console. ❌✔
 
 ## Extra Credit
 
 Do one of the following two options (or both if you want extra, extra credit) :)
 
-1. Implement a `VennDiagram` structure that contains `n` `Circle`s that only contains homogenous **reference types** of any type. ❌✔
-
-- Each circle contains n items and each item can belong to one or more `Circle` instances.
-- You are not required to use a `Node` from earlier in the homework for your Venn diagram implementation.
-- You are welcome to use existing BCL generic classes for the extra credit.
-
-1. Implement `System.Collections.Generic.ICollection<T>` on the `Node` class ❌✔
+Pending...
 
 ## Fundamentals
 
