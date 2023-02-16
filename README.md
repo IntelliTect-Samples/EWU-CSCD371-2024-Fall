@@ -33,10 +33,11 @@ Chapter 14: Events
 ## Instructions
 
 - Create a *Console* project called "Calculate.". ❌✔
-- Define a Calculator class ❌✔
+- Define a Program Class
   - Define two init-only setter properties, `WriteLine` and `ReadLine`, that contain delegates for writing a line of text and reading a line of text respectively ❌✔
   - Write a test that sets these properties at construction time and then invokes the properties and verifies the expected behavior occurs. ❌✔
   - Set the default behavior for the `WriteLine` and `ReadLine` properties to invoke `System.Console` versions of the methods and add an empty default constructor. ❌✔
+- Define a Calculator class ❌✔
   - Define static `Add`, `Subtract`, `Multiple`, and `Divide` methods that have two parameters and return a third parameter. ❌✔
   - Define a read-only property, `MathematicalOperations`, of type `System.Collections.Generics.IReadOnlyDictionary<TKey,TValue>` that:
     - is initialized to a `System.Collections.Generics.Dictionary<<TKey,TValue>` instance that. ❌✔
@@ -53,7 +54,8 @@ Chapter 14: Events
 
 Do one of the following two options (or both if you want extra, extra credit) :)
 
-Pending...
+- Refactor the redirect portion of the `Program` class into 'ProgramBase`
+- Move ProgramBase into a ConsoleUtilities assembly to be used in other console based projects
 
 ## Fundamentals
 
