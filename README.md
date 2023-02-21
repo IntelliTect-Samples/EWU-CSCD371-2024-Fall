@@ -1,8 +1,4 @@
-# EWU-CSCD371-2021-Winter
-
-## See [Docs](Docs)
-
-## Assignment 5&6
+# Assignment
 
 The purpose of this assignment is to solidify your learning of:
 
@@ -19,24 +15,32 @@ Given the amount of material (reading and assignment), **the homework will span 
 
 ## Reading
 
-Prior to Thu 2/15:
+### Due 2/20
 
-- Chapter 13: Delegates and Lambda Expressions
-- Chapter 15: Collection Interfaces with Standard Query Operators
-- Chapter 17: Building Custom Collections (You can skim the More Collection Interfaces and Primary Collection Classes sections)
+Chapter 13: Delegates and Lambda Expressions
+Chapter 15: Collection Interfaces with Standard Query Operators
 
-Prior to Tue 2/22:
+### Due 2/27
 
-- Chapter 20: Programming with Task-Based Asynchronous Pattern
-- Chapter 22: Thread Synchronization
+https://essentialcsharp.com/pattern-matching#pattern-matching (Added)
+https://essentialcsharp.com/record-class-inheritance#record-class-inheritance (Added)
+https://essentialcsharp.com/customizing-record-behavior#customizing-record-behavior (Added)
+Chapter 17: Building Custom Collections
+Chapter 20: Programming with Task-Based Asynchronous Pattern
+Chapter 22: Thread Synchronization
 
-Recommended But **Not** Required (in order of priority)
+### Due 3/06
 
-- Chapter 19: Introducing Multithreading
-- Chapter 21: Iterating in Parallel
-- Chapter 18: Reflection, Attributes, and Dynamic Programming
-- Chapter 16: LINQ with Query Expressions
-- Chapter 14: Events
+Chapter 19: Introducing Multithreading
+Chapter 21: Iterating in Parallel
+
+### Recommended But Not Required (in order of priority)
+
+Chapter 19: Introducing Multithreading
+Chapter 21: Iterating in Parallel
+Chapter 18: Reflection, Attributes, and Dynamic Programming
+Chapter 16: LINQ with Query Expressions
+Chapter 14: Events
 
 ## Instructions
 
@@ -65,7 +69,7 @@ Recommended But **Not** Required (in order of priority)
 4. Implement the `ISampleData.People` property to return all the items in `People.csv` as `Person` objects ❌✔
 
    - Use `ISampleData.CsvRows` as the source of the data. ❌✔
-   - Sort the list by State, City, Zip. (Sort the addresses first then select). ❌✔
+   - Sort the list by State, City, and Zip. (Sort the addresses first then select). ❌✔
    - Be sure that `Person.Address` is also populated. ❌✔
    - Adding null validation to all the `Person` and `Address` properties is **optional**.
    - Consider using `ISampleData.CsvRows` in your test to verify your results. ❌✔
@@ -74,10 +78,10 @@ Recommended But **Not** Required (in order of priority)
 
    - Use `ISampleData.People` for your data source. ❌✔
 
-6. Implement `ISampleData.GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)` to return a `string` that contains a **unique**, comma separated list of states. ❌✔
+6. Implement `ISampleData.GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)` to return a `string` that contains a **unique**, comma-separated list of states. ❌✔
 
    - Use the `people` parameter from `ISampleData.People` property for your data source. ❌✔
-   - At a minimum, use `System.Linq.Enumerable.Aggregate` LINQ method to create your result. ❌✔
+   - At a minimum, use the `System.Linq.Enumerable.`Aggregate` LINQ method to create your result. ❌✔
    - Don't forget the list should be unique. ❌✔
    - It is recommended that, at a minimum, you use `ISampleData.GetUniqueSortedListOfStatesGivenCsvRows` to validate your result.
 
@@ -92,11 +96,14 @@ Recommended But **Not** Required (in order of priority)
 
 ## Fundamentals
 
-- Ensure you enable:
-  - nullable reference types is enabled ❌✔
-  - net6 targeted ❌✔
-  - C# 10.0 ❌✔
-  - and enabled .NET analyzers for both projects ❌✔
-- For this assignment, favor using Assert.AreEqual<T>() (the generic version) ❌✔
+- Place all shared project properties into a `Directory.Build.Props` file.
+- Place all shared project items into a `Directory.Build.targets` file.
+- Ensure nullable reference types is enabled  ❌✔
+- Ensure that you turn on code analysis for all projects(EnableNETAnalyzers)  ❌✔
+- Set `LangVersion` and the `TargetFramework` to the latest released versions available (preview versions optional)   ❌✔
+- and enabled .NET analyzers for both projects ❌✔
+- For this assignment, consider using `Assert.AreEqual<T>()` (the generic version)  ❌✔
 - All of the above should be unit tested ❌✔
 - Choose simplicity over complexity ❌✔
+
+## See [Docs](Docs)
