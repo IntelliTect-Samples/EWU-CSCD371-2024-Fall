@@ -35,9 +35,9 @@ Previously Assigned
 3. Add support for an optional cancellation token to the `PingProcess.RunAsync()` signature. ❌✔
    Inside the `PingProcess.RunAsync()` invoke the token's `ThrowIfCancellationRequested()` method so an exception is thrown. ❌✔
    Test that, when cancelled from the test method, the exception thrown is an `AggregateException` ❌✔ with a `TaskCanceledException` inner exception ❌✔ using the test methods `RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping` ❌✔and `RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException` ❌✔ respectively.
-4. Complete/fix **AND test** `async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)` which executes ping for and array of hostNameOrAddresses (which can all be "localhost") **in parallel**, adding synchronization if needed. ❌✔
+4. Complete/fix **AND test** `async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)` which executes ping for an array of hostNameOrAddresses (which can all be "localhost") **in parallel**, adding synchronization if needed. ❌✔
    NOTE:
-      - The order of the items in the stdOutput is irrelevent and expected to be intermingled.
+      - The order of the items in the stdOutput is irrelevant and expected to be intermingled.
       - StdOutput must have all the ping output returned (no lines can be missing) even though intermingled. ❌✔
 5. Implement **AND test** `public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)` using `Task.Factory.StartNew()` and invoking `RunProcessInternal` with a `TaskCreation` value of `TaskCreationOptions.LongRunning` and a `TaskScheduler` value of `TaskScheduler.Current`. Returning a `Task<PingResult>` is also okay.
    NOTE: This method does **NOT** use `Task.Run`.
