@@ -1,9 +1,8 @@
-﻿namespace PrincessBrideTrivia
+﻿namespace PrincessBrideTrivia;
+
+public class Question
 {
-    public class Question
-    {
-        public string Text;
-        public string[] Answers;
-        public string CorrectAnswerIndex;
-    }
+    public string Text;
+    public string[] Answers;
+    public string CorrectAnswerIndex;
 }
