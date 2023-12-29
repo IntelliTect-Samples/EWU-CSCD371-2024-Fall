@@ -5,7 +5,9 @@ on:
     branches: 
         - Assignment**
 
-
 jobs:
   build-and-test:
-  uses: IntelliTect-Samples/EWU-CSCD371-2024-Winter/.github/workflows/build-and-test.yml
+    name: Run Shared Build and Test Workflow
+    uses: IntelliTect-Samples/EWU-CSCD371-2024-Winter/.github/workflows/build-and-test.yml@main
+    with:
+      working-directory: './PrincessBrideTrivia/'
