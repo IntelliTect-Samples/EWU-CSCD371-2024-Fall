@@ -25,7 +25,8 @@ Please fill out this [google form](https://forms.gle/TODOREPLACE) with your GitH
 
 * [**Grading System**](Homework-Grading.md)
 * **Office Hours**: Office hours are available before class on Tuesday's and Thursdays starting at 1 PM.  To ensure that an instructor will be available, please schedule an appointment 24-hours beforehand by sending a meeting request email to EWU-Instructors@IntelliTect.com.  Alternative times may be available upon request.
-* **Code for the Book**: <https://github.com/IntelliTect/EssentialCSharp>
+* **Code for the Website**: <https://github.com/IntelliTect/EssentialCSharp.Web>
+* **Code for the Book Examples**: <https://github.com/IntelliTect/EssentialCSharp>
 * [Teams Chat Room](https://teams.microsoft.com/l/TODOREPLACE)
 
 ## Calendar
