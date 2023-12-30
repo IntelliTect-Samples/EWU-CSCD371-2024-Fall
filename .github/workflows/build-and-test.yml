@@ -7,7 +7,11 @@ on:
           description: 'The working directory to execute from'
           required: false
           type: string
-          default: 'john-doe'
+          default: './'
+        add-editorconfig:
+          description: 'Condition for whether the job "check-formatting" will run or not'
+          required: true
+          type: boolean
 
   pull_request:
     branches: 
@@ -21,6 +25,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+    - name: Download .editorconfig file
+      uses: actions/checkout@v4
+      if: ${{ inputs.run-check-formatting }}
+      with:
+        repository: 'IntelliTect-Samples/EWU-CSCD371-2024-Winter'
+        ref: 'main'
+        path: 'temp'
+        sparse-checkout: 'Shared/.editorconfig'
+        sparse-checkout-cone-mode: true
+    - name: Copy .editorconfig file
+      if: ${{ inputs.run-check-formatting }}
+      run: cp temp/Shared/.editorconfig ./
+    - name: Run dotnet format
+      if: ${{ inputs.run-check-formatting }}
+      run: dotnet format --verify-no-changes --verbosity diagnostic
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
