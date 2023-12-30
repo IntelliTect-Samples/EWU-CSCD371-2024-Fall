@@ -41,8 +41,9 @@ jobs:
         sparse-checkout: 'Shared/.editorconfig'
         sparse-checkout-cone-mode: true
     - name: Copy .editorconfig file
+      working-directory: '.'
       if: ${{ inputs.add-editorconfig }}
-      run: cp temp/Shared/.editorconfig ./
+      run: cp temp/Shared/.editorconfig ${{ inputs.working-directory }}
     - name: Run dotnet format
       if: ${{ inputs.check-formatting }}
       run: dotnet format --verify-no-changes --verbosity diagnostic
