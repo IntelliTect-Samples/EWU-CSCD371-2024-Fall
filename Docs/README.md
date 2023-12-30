@@ -58,13 +58,13 @@ Finals Week - 3/21
 
 ## Computer Setup
 
-### Required#
+### Required
 
 * [.NET latest](https://dotnet.microsoft.com/download)
 
-Though most of the coursework will be cross-platform, we will be working on Windows inside of Visual Studio. For the UI portion of the class Visual Studio on Windows will be required. 
+Though most of the coursework will be cross-platform, we will be working on Windows inside of Visual Studio. For the UI portion of the class Visual Studio on Windows will be required.
 
-### Recommended#
+### Recommended
 
 * [Visual Studio 2022](https://visualstudio.microsoft.com/downloads/)
   Version 17.8 or later. The community edition is fine, though we believe most students should have access to higher SKUs with EWU's MSDN (this assumption may be wrong). Lab computers should have Visual Studio Professional (or higher) already installed. When installing, select the **“ASP.NET and web development” workload**.
@@ -73,7 +73,7 @@ Though most of the coursework will be cross-platform, we will be working on Wind
 * [GitKraken](https://www.gitkraken.com/invite/bX2Nqsqr)
   Though you can do all of the git interaction from within Visual Studio or on the command line, GitKraken is free for open-source work. It also provides a nice graphical version of the commit history so you can see how various commits and branches relate.
 
-### Optional#
+### Optional
 
 * [Visual Studio Live Share](https://visualstudio.microsoft.com/services/live-share/) This lets you easily collaborate with other people on a shared set of code.
 * [Visual Studio Code](https://code.visualstudio.com/) This can largely be used as an alternative to Visual Studio. Many of us also use it as our catch-all lightweight text/code editor.
