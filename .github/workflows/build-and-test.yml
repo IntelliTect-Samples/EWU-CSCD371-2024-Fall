@@ -10,7 +10,8 @@ on:
           default: 'john-doe'
 
   pull_request:
-    branches: [ main ]
+    branches: 
+        - Assignment**
 
 jobs:
   build-and-test:
