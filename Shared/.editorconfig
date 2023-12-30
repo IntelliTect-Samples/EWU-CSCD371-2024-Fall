@@ -148,3 +148,6 @@ dotnet_diagnostic.CA1829.severity = warning
 dotnet_diagnostic.CA1828.severity = warning
 dotnet_diagnostic.CA1836.severity = warning
 indent_style = space
+
+[*Tests.cs]
+dotnet_diagnostic.CA1707.severity = none
