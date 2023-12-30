@@ -2,7 +2,7 @@
 
 public class Question
 {
-    public string Text;
-    public string[] Answers;
-    public string CorrectAnswerIndex;
+    public string Text { get; set; }
+    public string[] Answers { get; set; }
+    public string CorrectAnswerIndex { get; set; }
 }
