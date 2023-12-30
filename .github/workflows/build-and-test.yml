@@ -9,9 +9,15 @@ on:
           type: string
           default: './'
         add-editorconfig:
-          description: 'Condition for whether the job "check-formatting" will run or not'
-          required: true
+          description: 'Condition for whether the editorconfig gets added'
+          required: false
           type: boolean
+          default: true
+        check-formatting:
+          description: 'Condition for whether dotnet format gets run'
+          required: false
+          type: boolean
+          default: true
 
   pull_request:
     branches: 
@@ -27,7 +33,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Download .editorconfig file
       uses: actions/checkout@v4
-      if: ${{ inputs.run-check-formatting }}
+      if: ${{ inputs.add-editorconfig }}
       with:
         repository: 'IntelliTect-Samples/EWU-CSCD371-2024-Winter'
         ref: 'main'
@@ -35,10 +41,10 @@ jobs:
         sparse-checkout: 'Shared/.editorconfig'
         sparse-checkout-cone-mode: true
     - name: Copy .editorconfig file
-      if: ${{ inputs.run-check-formatting }}
+      if: ${{ inputs.add-editorconfig }}
       run: cp temp/Shared/.editorconfig ./
     - name: Run dotnet format
-      if: ${{ inputs.run-check-formatting }}
+      if: ${{ inputs.check-formatting }}
       run: dotnet format --verify-no-changes --verbosity diagnostic
 
     - name: Setup .NET
