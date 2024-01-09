@@ -2,19 +2,19 @@
 
 ## Instructors
 
-[Mark Michaelis](https://github.com/MarkMichaelis), and [Benjamin Michaelis](https://github.com/BenjaminMichaelis)
+[Mark Michaelis](https://github.com/MarkMichaelis/https://mark.michaelis.net), and [Benjamin Michaelis](https://github.com/BenjaminMichaelis)
 
-For any general questions, we suggest asking in Microsoft Teams. This is a great place to collaborate and ask questions of both each other and the instructors. Though you can message people directly, as much as possible, we encourage open discussion on the meeting chat so that others can benefit as well.
+For any general questions, we suggest asking in [EWU-CSCD371-2024-Winter Microsoft Team's Channel](https://teams.microsoft.com/l/channel/19%3A73I56PmdISR6THSj2W7W4ajflw_Hvs2RoXvjItVangY1%40thread.tacv2/General?groupId=6452359c-346d-44d6-8732-25821a03b6e6&tenantId=). This is a great place to collaborate and ask questions of both each other and the instructors. Though you can message people directly, we encourage open discussion on the meeting chat so that others can benefit as well.
 
 You can also send an e-mail to: EWU-Instructors@IntelliTect.com
 
-## Online Meeting
+## Online Class
 
-We will be utilizing Microsoft Teams for this class. The link to the meeting will be in the course syllabus on Canvas. You can find additional information for accessing Teams [here](MicrosoftTeams.md)
+Class will NOT generally be available online.
 
 ## GitHub Information
 
-Please fill out this [google form](https://forms.gle/TODOREPLACE) with your GitHub information. This is used by us so we can appropriately grade assignments.
+Please fill out this [Form](https://forms.office.com/r/fzrjcspJfY) with your GitHub information. This is used by us so we can appropriately grade assignments.
 
 ## Book
 
@@ -24,37 +24,10 @@ Please fill out this [google form](https://forms.gle/TODOREPLACE) with your GitH
 ## General Information
 
 * [**Grading System**](Homework-Grading.md)
-* **Office Hours**: Office hours are available before class on Tuesday's and Thursdays starting at 1 PM.  To ensure that an instructor will be available, please schedule an appointment 24-hours beforehand by sending a meeting request email to EWU-Instructors@IntelliTect.com.  Alternative times may be available upon request.
+* **Office Hours**: Office hours are available before class on Tuesdays and Thursdays starting at 1 PM.  To ensure that an instructor will be available, please schedule an appointment 24-hours beforehand by sending a meeting request email to EWU-Instructors@IntelliTect.com.  Alternative times may be available after class upon request.
 * **Code for the Website**: <https://github.com/IntelliTect/EssentialCSharp.Web>
 * **Code for the Book Examples**: <https://github.com/IntelliTect/EssentialCSharp>
-* [Teams Chat Room](https://teams.microsoft.com/l/TODOREPLACE)
-
-## Calendar
-
-### Week 6  - 2/14
-
-* Due: Assignment 5
-* Assign: Assignment 6 - Delegates and Lambda Expressions
-
-Week 7  - 2/21
-
-* Due: Assignment 6
-* Assign: Assignment 7-8 - LINQ and Collections
-
-Week 8  - 2/28
-
-Week 9  - 3/06
-
-* Due: Assignment 7-8
-* Assign: Assignment 9&10 - Multithreaded Programming with Task Parallel Library (TPL)
-
-Week 10 - 3/14
-
-* Last Week of Class
-
-Finals Week - 3/21
-
-* Due: Assignment 9&10
+* [Teams Chat Room](https://teams.microsoft.com/l/channel/19%3A73I56PmdISR6THSj2W7W4ajflw_Hvs2RoXvjItVangY1%40thread.tacv2/General?groupId=6452359c-346d-44d6-8732-25821a03b6e6&tenantId=)
 
 ## Computer Setup
 
@@ -85,4 +58,42 @@ We will try to record the class so that students can review it at a later time. 
 Please note:
 
 * **Do not expect or rely on video recordings.**  We are not making any commitment to having video recordings of the class.
-* Please keep all videos ***confidential***. These videos are for people enrolled in this class.  No videos or parts of videos should be copied/distributed/shared.
+* Please keep all videos ***confidential***. These videos are for people enrolled in this class.  No videos or parts of videos may be copied/distributed/shared.
+
+## Calendar
+
+## Week 1 - 2023-01-09
+
+## Week 2 - 2023-01-16
+
+## Week 3 - 2023-01-23
+
+## Week 4 - 2023-01-30
+
+## Week 5 - 2023-01-30
+
+### Week 6  - 2023-02-06
+
+* Due: Assignment 5
+* Assign: Assignment 6 - Delegates and Lambda Expressions
+
+### Week 7  - 2023-02-13
+
+* Due: Assignment 6
+* Assign: Assignment 7-8 - LINQ and Collections
+
+### Week 8  - 2023-02-20
+
+### Week 9  - 2023-02-27
+
+* Due: Assignment 7-8
+* Assign: Assignment 9&10 - Multithreaded Programming with Task Parallel Library (TPL)
+
+### Week 10 - 2023-03-05
+
+* Last Week of Class
+
+### Finals Week -
+
+* No Class
+* Due: Assignment 9&10
