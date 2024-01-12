@@ -44,12 +44,18 @@ jobs:
         repository: 'IntelliTect-Samples/EWU-CSCD371-2024-Winter'
         ref: 'main'
         path: 'temp'
-        sparse-checkout: 'Shared/.editorconfig'
+        sparse-checkout: |
+          Shared/.editorconfig
+          Shared/.runsettings
         sparse-checkout-cone-mode: true
     - name: Copy .editorconfig file
       working-directory: '.'
       if: ${{ inputs.add-editorconfig }}
       run: cp temp/Shared/.editorconfig ${{ inputs.working-directory }}
+    - name: Copy .runsettings file
+      working-directory: '.'
+      if: ${{ inputs.add-editorconfig }}
+      run: cp temp/Shared/.runsettings ${{ inputs.working-directory }}
     - name: Run dotnet format
       if: ${{ inputs.check-formatting }}
       run: dotnet format --verify-no-changes --verbosity diagnostic
