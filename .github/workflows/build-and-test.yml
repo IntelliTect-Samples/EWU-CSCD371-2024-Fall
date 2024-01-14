@@ -51,7 +51,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: "IntelliTect-Samples/EWU-CSCD371-2024-Winter"
-          ref: "BMichaelis/AddAnalyzers"
+          ref: "main"
           path: "temp"
           sparse-checkout: |
             Shared/.editorconfig
