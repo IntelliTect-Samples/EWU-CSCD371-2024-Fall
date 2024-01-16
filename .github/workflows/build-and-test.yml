@@ -14,3 +14,4 @@ jobs:
       add-editorconfig: false
       add-analyzers: false
       enable-net-analyzers: false
+      enable-nullability: false
