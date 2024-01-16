@@ -33,6 +33,11 @@ on:
         required: false
         type: boolean
         default: true
+      enable-nullability:
+        description: "Condition for whether .nullability gets enabled"
+        required: false
+        type: boolean
+        default: true
   pull_request:
     branches:
       - Assignment**
@@ -107,6 +112,6 @@ jobs:
         run: dotnet format --verify-no-changes --verbosity diagnostic
 
       - name: Build
-        run: dotnet build --no-restore -p:Nullable=enable -p:TreatWarningsAsErrors=true -p:EnableNETAnalyzers=${{ inputs.enable-net-analyzers }} -p:CodeAnalysisTreatWarningsAsErrors=true -p:NoWarn=EnableGenerateDocumentationFile -p:AnalysisLevel=latest-Recommended -p:EnforceCodeStyleInBuild=${{ inputs.dotnet-build-enforce-code-style }}
+        run: dotnet build --no-restore -p:Nullable=${{ inputs.enable-nullability == 'true' && 'enable' || 'disable' }} -p:TreatWarningsAsErrors=true -p:EnableNETAnalyzers=${{ inputs.enable-net-analyzers }} -p:CodeAnalysisTreatWarningsAsErrors=true -p:NoWarn=EnableGenerateDocumentationFile -p:AnalysisLevel=latest-Recommended -p:EnforceCodeStyleInBuild=${{ inputs.dotnet-build-enforce-code-style }}
       - name: Test
         run: dotnet test --no-build --verbosity normal
