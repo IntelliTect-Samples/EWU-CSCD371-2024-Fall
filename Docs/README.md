@@ -54,7 +54,7 @@ Though most of the coursework will be cross-platform, we will be working on Wind
 
 ## Class Video
 
-We will try to record the class so that students can review it at a later time. [Recordings will be available here](https://intellitectsp.sharepoint.com/:f:/s/TODOREPLACE).
+We will try to record the class so that students can review it at a later time. [Recordings will be available here (Under files in the teams channel)](https://intellitectsp.sharepoint.com/:f:/r/sites/EWU-CSCD371-2024-Winter/Shared%20Documents/General/Class%20Recordings).
 Please note:
 
 * **Do not expect or rely on video recordings.**  We are not making any commitment to having video recordings of the class.
