@@ -1,7 +1,7 @@
 name: Build and Test .NET
 
 on:
-  pull_request:
+  pull_request_target:
 
 jobs:
   build-and-test:
@@ -10,4 +10,3 @@ jobs:
     with:
       check-formatting: false
       add-analyzers: false
-      post-code-coverage-comment: false
