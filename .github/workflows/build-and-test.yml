@@ -48,6 +48,11 @@ on:
         required: false
         type: boolean
         default: true
+      post-code-coverage-comment:
+        description: "Condition for whether to post the code coverage comment"
+        required: false
+        type: boolean
+        default: true
   pull_request:
     branches:
       - Assignment**
@@ -167,7 +172,7 @@ jobs:
           reporttypes: MarkdownSummaryGithub
 
       - name: Post comment to PR
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && ${{ inputs.post-code-coverage-comment }}
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           recreate: true
