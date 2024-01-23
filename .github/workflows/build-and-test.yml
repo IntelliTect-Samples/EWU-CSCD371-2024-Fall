@@ -48,11 +48,6 @@ on:
         required: false
         type: boolean
         default: true
-      post-code-coverage-comment:
-        description: "Condition for whether to post the code coverage comment"
-        required: false
-        type: boolean
-        default: true
   pull_request:
     branches:
       - Assignment**
@@ -68,6 +63,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+            ref: ${{ github.event.pull_request.head.sha }}
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
@@ -164,7 +161,7 @@ jobs:
 
       - name: ReportGenerator
         id: reportgenerator
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request_target'
         uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
         with:
           reports: '**/coverage.cobertura.xml'
@@ -172,7 +169,7 @@ jobs:
           reporttypes: MarkdownSummaryGithub
 
       - name: Post comment to PR
-        if: github.event_name == 'pull_request' && inputs.post-code-coverage-comment == 'true'
+        if: github.event_name == 'pull_request_target'
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           recreate: true
