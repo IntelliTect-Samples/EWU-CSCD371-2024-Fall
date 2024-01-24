@@ -1,25 +1,38 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿namespace Logger.Tests;
 
-namespace Logger.Tests;
-
-[TestClass]
-public class FileLoggerTestsBase
+public class FileLoggerTestsBase : IDisposable
 {
-    #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    private bool disposedValue;
+
     protected string FilePath { get; set; }
     protected FileLogger Logger { get; set; }
-    #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     
-    [TestInitialize]
-    public virtual void TestInitialize()
+    public FileLoggerTestsBase()
     {
         FilePath = Path.GetTempFileName();
         Logger = new FileLogger(nameof(FileLoggerTests), FilePath);
     }
 
-    [TestCleanup]
-    public virtual void TestCleanup()
+    protected virtual void Dispose(bool disposing)
     {
-        if (File.Exists(FilePath)) File.Delete(FilePath);
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                // Dispose managed state (managed objects)
+                if (File.Exists(FilePath)) File.Delete(FilePath);
+            }
+
+            // Free unmanaged resources (unmanaged objects)
+            // Set large fields to null
+            disposedValue = true;
+        }
+    }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

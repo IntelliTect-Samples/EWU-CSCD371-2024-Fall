@@ -1,20 +1,19 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Xunit;
 
 namespace Logger.Tests;
 
-[TestClass]
 public class BaseLoggerMixinsTests
 {
-    [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
+    [Fact]
     public void Error_WithNullLogger_ThrowsException()
     {
-        BaseLoggerMixins.Error(null!, "");
+        Assert.Throws<ArgumentNullException>(() =>
+            BaseLoggerMixins.Error(null!, ""));
     }
 
-    [TestMethod]
+    [Fact]
     public void Error_WithData_LogsMessage()
     {
         // Arrange
@@ -24,9 +23,9 @@ public class BaseLoggerMixinsTests
         logger.Error("Message 42");
 
         // Assert
-        Assert.AreEqual(1, logger.LoggedMessages.Count);
-        Assert.AreEqual(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
-        Assert.AreEqual("Message 42", logger.LoggedMessages[0].Message);
+        Assert.Single(logger.LoggedMessages);
+        Assert.Equal(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
+        Assert.Equal("Message 42", logger.LoggedMessages[0].Message);
     }
 
 }
