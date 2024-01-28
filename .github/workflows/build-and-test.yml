@@ -176,4 +176,5 @@ jobs:
           path: coveragereport/SummaryGithub.md
 
       - name: Write to Job Summary
+        working-directory: "."
         run: cat coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
