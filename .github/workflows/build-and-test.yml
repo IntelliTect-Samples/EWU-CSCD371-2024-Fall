@@ -89,7 +89,7 @@ jobs:
       - name: Copy .runsettings file
         working-directory: "."
         if: ${{ inputs.add-runsettings }}
-        run: cp temp/Shared/.runsettings ${{ inputs.working-directory }}
+        run: cp temp/Shared/.runsettings .
 
       - name: Restore dependencies
         run: dotnet restore
