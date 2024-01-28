@@ -87,7 +87,10 @@ jobs:
         if: ${{ inputs.add-editorconfig }}
         run: |
           if [ ! -f ${{ inputs.working-directory }}/.editorconfig ]; then
+            echo ".editorconfig not found in ${{ inputs.working-directory }}, so copying to ${{ inputs.working-directory }}"
             cp temp/Shared/.editorconfig ${{ inputs.working-directory }}
+          else
+            echo ".editorconfig found in ${{ inputs.working-directory }}"
           fi
       - name: Copy .runsettings file
         working-directory: "."
