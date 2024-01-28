@@ -82,10 +82,13 @@ jobs:
             Shared/.runsettings
             Shared/analyzers.txt
           sparse-checkout-cone-mode: true
-      - name: Copy .editorconfig file
+      - name: Copy .editorconfig file if not exists
         working-directory: "."
         if: ${{ inputs.add-editorconfig }}
-        run: cp temp/Shared/.editorconfig ${{ inputs.working-directory }}
+        run: |
+          if [ ! -f ${{ inputs.working-directory }}/.editorconfig ]; then
+            cp temp/Shared/.editorconfig ${{ inputs.working-directory }}
+          fi
       - name: Copy .runsettings file
         working-directory: "."
         if: ${{ inputs.add-runsettings }}
