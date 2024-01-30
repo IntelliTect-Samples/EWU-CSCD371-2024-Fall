@@ -36,8 +36,6 @@ Read **Chapters 9 - Introducing Structs and Records & Chapter 10 - Well Formed T
   - Enable Nullability for all projects  ❌✔
   - Set `LangVersion` and the `TargetFramework` to the latest released versions available (preview versions optional) ❌✔
   - Ensure that you turn on code analysis for all projects(`EnableNETAnalyzers`) ❌✔
-  - Ensure that you turn on treat warnings as errors for all projects ❌✔
-  - Ensure that you turn on `CodeAnalysisTreatWarningsAsErrors` ❌✔
   - Ensure that you turn on `EnforceCodeStyleInBuild` ❌✔
   - Ensure that you turn on Nullability (`Nullable`) ❌✔
 - **Ensure there are no errors or warnings (including code analysis warnings)** ❌✔
