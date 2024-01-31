@@ -7,7 +7,7 @@
 
 ## Pairing ##
 
-Students are ***HIGHLY*** encouraged to [pair program](https://en.wikipedia.org/wiki/Pair_programming) on assignments. Collaboration is different from copying someone else' work. When collaborating with another student should do the following:
+Students are ***REQUIRED*** to [pair program](https://en.wikipedia.org/wiki/Pair_programming) on assignments. Collaboration is different from copying someone else' work. When collaborating with another student should do the following:
 
 * Both students **Must** have commits on the PR.
 * Only **one** of you should submit the pull request
