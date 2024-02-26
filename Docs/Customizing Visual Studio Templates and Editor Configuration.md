@@ -40,7 +40,7 @@ Adjust the default namespace curly brace behavior using either of the following 
   
   Save by pressing CTRL + S.
 
-### Method 2: Using .editorconfig File:
+### Method 2: Using .editorconfig File(Better method imo):
 
   Generate .editorconfig file if not present.
 
