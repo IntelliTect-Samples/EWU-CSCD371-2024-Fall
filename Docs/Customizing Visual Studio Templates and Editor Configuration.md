@@ -14,31 +14,33 @@
    ![image](images/Customizing-Templates-and-Editor-Configuration1.png)
 
 ### Edit Class.cs:
-1. From this
 
-![image](images/Customizing-Templates-and-Editor-Configuration2.png)
+Before:
+<p align="center">
+    <img src="images/Customizing-Templates-and-Editor-Configuration2.png" alt="Before Editing">
+</p>
 
-// Removed using statements per Marks recommendation
+After:
+<p align="center">
+    <img src="images/Customizing-Templates-and-Editor-Configuration3.png" alt="After Editing">
+</p>
+Note: Removed using statements per Mark's recommendation.
 
-3. To this:
-   <p alight="center">
-    <img src="images/Customizing-Templates-and-Editor-Configuration3.png">
-   </p>
-   
 ## Changing Namespace Curly Brace Behavior
 
 Adjust the default namespace curly brace behavior using either of the following methods:
 
 ### Method 1: Directly in Class Template:
 
-  Path: C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\ItemTemplates\CSharp\Code\1033\Class\Class.cs
-    Edit the file:
-        Remove the curly braces.
-        Add a semicolon.
-        Unindent the class to be inline with namespace.
-        ![image](images/Customizing-Templates-and-Editor-Configuration4.png)
-  
-  Save by pressing CTRL + S.
+  **Path**: `C:\Program Files\Microsoft Visual Studio\2022\Preview\Common7\IDE\ItemTemplates\CSharp\Code\1033\Class\Class.cs`
+  *(Note: Your path may vary depending on your Visual Studio version)*
+
+  Edit the file:
+  * Remove the curly braces.
+  * Add a semicolon.
+  * Unindent the class to be inline with namespace.
+  * ![image](images/Customizing-Templates-and-Editor-Configuration4.png)
+  * Save by pressing CTRL + S.
 
 ### Method 2: Using .editorconfig File(Better method imo):
 
@@ -55,6 +57,6 @@ Adjust the default namespace curly brace behavior using either of the following 
   5. Save the file with CTRL + S.
 
 Implementing these changes will help you have consistency to your coding experience and across your project. Make sure your partner adopts the changes by updating their class template.
-Note: if you implement the namespace file scope through the .editorconfig this will be project wide and will be applicable to your partner aswell.
+Note: if you implement the namespace file scope through the .editorconfig it'll be project wide and will be applicable to your partner aswell.
 
 
