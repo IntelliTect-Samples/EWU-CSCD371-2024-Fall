@@ -16,9 +16,10 @@
 ### Edit Class.cs:
 1. From this
 ![image](images/Customizing-Templates-and-Editor-Configuration2.png)
+
 // Removed using statements per Marks recommendation
 
-2. To this:
+3. To this:
    <p alight="center">
     <img src="images/Customizing-Templates-and-Editor-Configuration3.png">
    </p>
