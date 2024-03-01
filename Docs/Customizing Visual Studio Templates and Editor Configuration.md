@@ -15,15 +15,11 @@
 
 ### Edit Class.cs:
 1. From this
-* ![image](https://github.com/HadiM2/C-Sharp/assets/97601068/cd14f7e6-bcc7-4db3-8e56-8f9ece0a449a)
-![image](https://github.com/IntelliTect-Samples/EWU-CSCD371-2024-Winter/tree/main/Docs/images/Customizing-Templates-and-Editor-Configuration2.png)
 ![image](images/Customizing-Templates-and-Editor-Configuration2.png)
 // Removed using statements per Marks recommendation
 
 2. To this:
    <p alight="center">
-    <img src="https://github.com/HadiM2/C-Sharp/assets/97601068/9df0e254-1ae5-45d7-be7a-e2a744374ce2">
-    <img src="https://github.com/IntelliTect-Samples/EWU-CSCD371-2024-Winter/tree/main/Docs/images/Customizing-Templates-and-Editor-Configuration3.png">
     <img src="images/Customizing-Templates-and-Editor-Configuration3.png">
    </p>
    
