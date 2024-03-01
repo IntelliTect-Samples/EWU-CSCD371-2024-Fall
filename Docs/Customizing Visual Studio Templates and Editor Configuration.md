@@ -11,7 +11,7 @@
 
 1. Right-click on `Class.cs`, select "Copy path", then press the Windows key, search for Notepad, right-click, and choose "Run as administrator".
 2. Go to `File` > `Open`, paste the path, or navigate to it manually. Change the file search type to `All Files (*.*)`.
-   ![image](https://github.com/HadiM2/C-Sharp/assets/97601068/8b2c35b5-7c9a-4ab1-94e1-319200e5ea1d)
+   
    ![image](https://github.com/HadiM2/EWU-CSCD371-2024-Winter/tree/main/Docs/images/Customizing-Templates-and-Editor-Configuration1.png)
 
 ### Edit Class.cs:
