@@ -43,7 +43,7 @@ namespace IntelliTect.TestTools
     /// <summary>
     /// Represents a wildcard pattern.
     /// </summary>
-    public sealed class WildcardPattern
+    public sealed partial class WildcardPattern
     {
         //
         // char that escapes special chars
@@ -164,8 +164,7 @@ namespace IntelliTect.TestTools
         /// <returns></returns>
         public static WildcardPattern Get(string pattern, WildcardOptions options)
         {
-            if (pattern == null)
-                throw new ArgumentNullException(nameof(pattern));
+            ArgumentNullException.ThrowIfNull(pattern);
 
             if (pattern.Length == 1 && pattern[0] == '*')
                 return s_matchAllIgnoreCasePattern;
@@ -223,15 +222,9 @@ namespace IntelliTect.TestTools
         {
 #pragma warning disable 56506
 
-            if (pattern == null)
-            {
-                throw new ArgumentNullException(nameof(pattern));
-            }
+            ArgumentNullException.ThrowIfNull(pattern);
 
-            if (charsNotToEscape == null)
-            {
-                throw new ArgumentNullException(nameof(charsNotToEscape));
-            }
+            ArgumentNullException.ThrowIfNull(charsNotToEscape);
 
             char[] temp = new char[(pattern.Length * 2) + 1];
             int tempIndex = 0;
@@ -335,10 +328,7 @@ namespace IntelliTect.TestTools
         public static string Unescape(
             string pattern, char escapeCharacter)
         {
-            if (pattern == null)
-            {
-                throw new ArgumentNullException(nameof(pattern));
-            }
+            ArgumentNullException.ThrowIfNull(pattern);
 
             char[] temp = new char[pattern.Length];
             int tempIndex = 0;
@@ -408,7 +398,7 @@ namespace IntelliTect.TestTools
         public static string NormalizeLineEndings(string input, bool trimTrailingNewline = false)
         {
             // https://stackoverflow.com/questions/140926/normalize-newlines-in-c-sharp
-            input = Regex.Replace(input, @"\r\n|\n\r|\n|\r", Environment.NewLine);
+            input = NormalizeNewLines().Replace(input, Environment.NewLine);
 
             if (trimTrailingNewline && input.EndsWith(Environment.NewLine))
             {
@@ -417,6 +407,9 @@ namespace IntelliTect.TestTools
 
             return input;
         }
+
+        [GeneratedRegex(@"\r\n|\n\r|\n|\r")]
+        private static partial Regex NormalizeNewLines();
     }
 
     /// <summary>
