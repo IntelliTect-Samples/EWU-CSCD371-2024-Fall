@@ -17,12 +17,12 @@ Given the amount of material (reading and assignment), **the homework will span 
 
 ## Reading
 
-### Due 2/20
+### Before Class Week 7
 
 Chapter 13: Delegates and Lambda Expressions
 Chapter 15: Collection Interfaces with Standard Query Operators
 
-### Due 2/27
+### Before Class Week 8
 
 https://essentialcsharp.com/pattern-matching#pattern-matching (Added)
 https://essentialcsharp.com/record-class-inheritance#record-class-inheritance (Added)
@@ -31,7 +31,7 @@ Chapter 17: Building Custom Collections
 Chapter 20: Programming with Task-Based Asynchronous Pattern
 Chapter 22: Thread Synchronization
 
-### Due 3/06
+### Before Class Week 9
 
 Chapter 19: Introducing Multithreading
 Chapter 21: Iterating in Parallel
