@@ -1,6 +1,6 @@
 # Homework Schedule #
 
-* [Homework](Homework-Assignments.md) assignment will be assigned on Tuesday each week.
+* [Homework](Homework-Assignments.md) assignment will be assigned on Tuesday each week (except the first week of class)
 * [Homework](Homework-Assignments.md) is due by 11:59 pm the following Monday.
 * Peer review of another student's homework assignment due the following Wednesday by 11:59 pm.
 * Any final corrections to your assignment due by 11:59 pm the following Thursday.
@@ -12,7 +12,7 @@ Students are ***REQUIRED*** to [pair program](https://en.wikipedia.org/wiki/Pair
 * Both students **Must** have commits on the PR.
 * Only **one** of you should submit the pull request
 * In the description explicitly **[mention](https://blog.github.com/2011-03-23-mention-somebody-they-re-notified/)** (just @ their GitHub name) with a comment indicating you collaborated on the assignment.
-* If you pair with someone on an assignment, you both need to do a peer review independently on someone elses pull request.
+* Even though you pair with someone on an assignment, you **both** need to do a peer review independently on someone else's pull request.
 
 ## Grading ##
 
@@ -23,7 +23,7 @@ Each assignment is a total of 70 points. Assignment may contain up to 10 points 
 #### (40 points + potentially 10 points extra credit) ####
 
 * Fundamentals: 10 points
-  * Assignment submitted on time (See [Late Work](#Late-Work))
+  * Assignment submitted on time (See [Late Work](#late-work))
   * All code compiles
   * Run without exceptions
   * All unit tests pass
@@ -37,8 +37,8 @@ Each assignment is a total of 70 points. Assignment may contain up to 10 points 
 
 #### (20 points) ####
 
-* A peer review is a [code review](Homework-Assignments.md#Peer-Review) where you submit the grading report.
-* Review submitted on time (See [Late Work](#Late-Work))
+* A peer review is a [code review](./Homework-Assignments.md#Peer-Review) where you submit the grading report.
+* Review submitted on time (See [Late Work](#late-work))
 * Accuracy of code review (does your review line up with the instructor's review)
 * All Xs on code review report must have comments on the relevant portion of code explaining why.
 
@@ -51,6 +51,6 @@ Each assignment is a total of 70 points. Assignment may contain up to 10 points 
 
 ## Late Work ##
 
-Our policy is to not accept work turned in after the due date. If there are extenuating circumstances, either talk to one of the instructors or send an email to EWU-Instructors@IntelliTect.com as early as possible. Exceptions may be made at the instructors discretion on a case-by-case basis.
+Our policy is to not accept work turned in after the due date. If there are extenuating circumstances, either talk to one of the instructors or send an email to <EWU-Instructors@IntelliTect.com> as early as possible. Exceptions may be made at the instructors discretion on a case-by-case basis.
 
 If you have questions/comments/concerns about your grade please come email (<EWU-Instructors@IntelliTect.com>) or talk with one of the instructors.
