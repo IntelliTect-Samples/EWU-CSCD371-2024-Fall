@@ -4,7 +4,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("This is the princess bride trivia.");
+        Console.WriteLine("I admit, I am uglier...");
         string filePath = GetFilePath();
         Question[] questions = LoadQuestions(filePath);
 
