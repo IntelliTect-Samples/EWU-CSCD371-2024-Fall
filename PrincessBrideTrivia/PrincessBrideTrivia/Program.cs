@@ -19,7 +19,7 @@ public class Program
         Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
     }
 
-    public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
+    public static string GetPercentCorrect(float numberCorrectAnswers, float numberOfQuestions)
     {
         return (numberCorrectAnswers / numberOfQuestions * 100) + "%";
     }
