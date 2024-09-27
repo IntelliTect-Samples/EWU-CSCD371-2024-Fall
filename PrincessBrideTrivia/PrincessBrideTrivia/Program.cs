@@ -4,7 +4,6 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("I admit, I am uglier...");
         string filePath = GetFilePath();
         Question[] questions = LoadQuestions(filePath);
 
@@ -22,7 +21,7 @@ public class Program
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        double percent = (numberCorrectAnswers / (double)numberOfQuestions * 1 * 100);
+        double percent = (numberCorrectAnswers / (double)numberOfQuestions * 100);
         return $"{percent:0.##}%";
     }
 
