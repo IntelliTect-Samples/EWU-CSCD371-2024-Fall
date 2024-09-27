@@ -22,7 +22,8 @@ public class Program
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        return (numberCorrectAnswers / numberOfQuestions * 100) + "%";
+        double percent = (numberCorrectAnswers / (double)numberOfQuestions * 100);
+        return $"{percent:0.##}%";
     }
 
     public static bool AskQuestion(Question question)
