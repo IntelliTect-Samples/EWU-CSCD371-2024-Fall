@@ -4,7 +4,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine("This is the princess bride trivia.")
+        Console.WriteLine("This is the princess bride trivia.");
         string filePath = GetFilePath();
         Question[] questions = LoadQuestions(filePath);
 
@@ -87,6 +87,7 @@ public class Program
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
+            questions[i] = question;
         }
         return questions;
     }
