@@ -22,7 +22,7 @@ public class Program
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        double percent = (numberCorrectAnswers / (double)numberOfQuestions * 100);
+        double percent = (numberCorrectAnswers / (double)numberOfQuestions * 1 * 100);
         return $"{percent:0.##}%";
     }
 
