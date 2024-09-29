@@ -71,7 +71,18 @@ public class ProgramTests
         Assert.AreEqual(expectedString, percentage);
     }
 
+    [TestMethod]
+    [DataRow(7, new int[] {0,1,2,3,4,5,6})]
+    public void QuestionRandomizer_ReturnsExpectedQuestions(int numberOfQuestions, int[] expectedResult)
+    {
+        //Arrange
 
+        //Act
+        int[] numQuestions = Program.QuestionRandomizer(numberOfQuestions);
+
+        //Assert
+        CollectionAssert.AreEquivalent(expectedResult, numQuestions);
+    }
     private static void GenerateQuestionsFile(string filePath, int numberOfQuestions)
     {
         for (int i = 0; i < numberOfQuestions; i++)
