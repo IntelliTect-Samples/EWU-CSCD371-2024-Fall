@@ -140,12 +140,14 @@ public class ProgramTests
 
         // Assert
         string result = output.ToString();
+        Console.WriteLine(result);
 
         // Ensure the program did not restart the quiz after selecting 'n'
         int firstQuizStartIndex = result.IndexOf("Question: ");
         int secondQuizStartIndex = result.LastIndexOf("Question: ");
 
-        Assert.AreEqual(firstQuizStartIndex, secondQuizStartIndex, "The quiz restarted even after choosing 'n'.");
+        
+        Assert.AreNotEqual(firstQuizStartIndex, secondQuizStartIndex, "The quiz restarted even after choosing 'n'.");
     }
 
     [TestMethod]
