@@ -79,31 +79,31 @@ public class Program
             switch (numberStreaks)
             {
                 case 1:
-                    Console.WriteLine("Good choice! You've earned a strike!");
+                    Console.WriteLine("Good choice! You've earned a streak!");
                     break;
                 case 2:
-                    Console.WriteLine("That was a sharp decision. You’ve earned a strike!");
+                    Console.WriteLine("That was a sharp decision. You’ve earned a streak!");
                     break;
                 case 3:
-                    Console.WriteLine("Great thinking! You've earned a strike with style!");
+                    Console.WriteLine("Great thinking! You've earned a streak with style!");
                     break;
                 case 4:
-                    Console.WriteLine("Brilliant choice! You've earned a well-deserved strike!");
+                    Console.WriteLine("Brilliant choice! You've earned a well-deserved streak!");
                     break;
                 case 5:
-                    Console.WriteLine("You've made a bold, epic choice! A strike is yours!");
+                    Console.WriteLine("You've made a bold, epic choice! A streak is yours!");
                     break;
                 case 6:
-                    Console.WriteLine("You have chosen... wisely. You've earned a strike like a legend!");
+                    Console.WriteLine("You have chosen... wisely. You've earned a streak like a legend!");
                     break;
                 default:
-                    Console.WriteLine("You've earned a strike!");
+                    Console.WriteLine("You've earned a streak!");
                     break;
             }
         }
         else 
         {
-            Console.WriteLine("You have chosen... poorly. Your strike is now gone!");
+            Console.WriteLine("You have chosen... poorly. Your streak is now gone!");
         }
     }
 
