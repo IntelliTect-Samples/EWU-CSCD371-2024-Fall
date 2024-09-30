@@ -12,6 +12,7 @@ public class Program
 
         int numberCorrect = 0;
         int numberStreaks = 0;
+        int highestStreak = 0;
         for (int i = 0; i < questions.Length; i++)
         {
             bool result = AskQuestion(questions[i]);
@@ -23,12 +24,16 @@ public class Program
             }
             else 
             {
+                if (numberStreaks > highestStreak)
+                {
+                    highestStreak = numberStreaks;
+                }
                 numberStreaks = 0;
                 AnswerStreak(result, numberStreaks);
 
             }
         }
-        Console.WriteLine("Your highest streaks is " + numberStreaks );
+        Console.WriteLine("Your highest streaks is " + highestStreak);
         Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
     }
 
@@ -103,7 +108,7 @@ public class Program
         }
         else 
         {
-            Console.WriteLine("You have chosen... poorly. Your streak is now gone!");
+            Console.WriteLine("You have chosen... poorly. Your streaks is now gone!");
         }
     }
 
