@@ -67,8 +67,12 @@ public class Program
     public static Question[] LoadQuestions(string filePath)
     {
         string[] lines = File.ReadAllLines(filePath);
-
+        Random random = new Random();
+        
         Question[] questions = new Question[lines.Length / 5];
+        int randomNumber = random.Next(0, questions.Length);
+        int tracker = randomNumber;
+
         for (int i = 0; i < questions.Length; i++)
         {
             int lineIndex = i * 5;
@@ -87,7 +91,8 @@ public class Program
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
-            questions[i] = question;
+            questions[tracker % 7] = question;
+            tracker++;
         }
         return questions;
     }
