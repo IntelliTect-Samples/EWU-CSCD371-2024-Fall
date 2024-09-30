@@ -92,7 +92,7 @@ public class ProgramTests
     public void ProgramAsksToRetakeQuizAfterCompletion()
     {
         // Arrange
-        var input = new StringReader("1\nn\n"); // Simulate answering one question and then selecting 'n'
+        var input = new StringReader("1\\n1\\n1\\n1\\n1\\n1\\n1\\nn\\n"); // Simulate answering one question and then selecting 'n'
         Console.SetIn(input);
         var output = new StringWriter();
         Console.SetOut(output);
@@ -110,7 +110,7 @@ public class ProgramTests
     public void ProgramRestartsOnYInput()
     {
         // Arrange
-        var input = new StringReader("1\ny\n1\nn\n"); // Simulate answering, then retaking, then exiting
+        var input = new StringReader("1\\n1\\n1\\n1\\n1\\n1\\n1\\ny\\n"); // Simulate answering, then retaking, then exiting
         Console.SetIn(input);
         var output = new StringWriter();
         Console.SetOut(output);
@@ -125,12 +125,12 @@ public class ProgramTests
         Assert.AreNotEqual(firstQuizStartIndex, secondQuizStartIndex, "Quiz did not restart.");
     }
 
-    /*
+    
     [TestMethod]
     public void ProgramExitsOnNInput()
     {
         // Arrange
-        var input = new StringReader("1\nn\n"); // Simulate answering one question, then selecting 'n' to exit
+        var input = new StringReader("1\\n1\\n1\\n1\\n1\\n1\\n1\\nn\\n"); // Answer all questions then opt to quit quiz with 'n'
         Console.SetIn(input);
         var output = new StringWriter();
         Console.SetOut(output);
@@ -152,7 +152,7 @@ public class ProgramTests
     public void ProgramPromptsAgainOnInvalidInput()
     {
         // Arrange
-        var input = new StringReader("1\nz\ny\n"); // Simulate invalid input and then valid input
+        var input = new StringReader("1\\n1\\n1\\n1\\n1\\n1\\n1\\nz\\nn\\n"); // Simulate invalid input and then valid input
         Console.SetIn(input);
         var output = new StringWriter();
         Console.SetOut(output);
@@ -162,9 +162,10 @@ public class ProgramTests
 
         // Assert
         string result = output.ToString();
+
         Assert.IsTrue(result.Contains("Invalid input, please enter 'y' or 'n'."), "Invalid input message not found.");
         Assert.IsTrue(result.Contains("Do you want to retake the quiz? (y/n)"), "Retake prompt not repeated after invalid input.");
     }
-    */
+    
 
 }
