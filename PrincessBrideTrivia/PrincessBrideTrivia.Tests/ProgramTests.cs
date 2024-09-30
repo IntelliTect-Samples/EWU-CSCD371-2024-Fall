@@ -70,6 +70,27 @@ public class ProgramTests
         // Assert
         Assert.AreEqual(expectedString, percentage);
     }
+    
+    [TestMethod]
+    [DataRow(10, 10, "What an amazing job! You're now a trivia master!")]
+    [DataRow(8, 10, "Great job! It seems that you really know your stuff huh.")]
+    [DataRow(5, 10, "Um :| keep practicing and you'll eventually get even better.")]
+    [DataRow(3, 10, "Oh don't give up! Study up more and try again.")]
+    public void DisplayMotivationalMessage_DisplaysCorrectMessage(int numberCorrect, int totalQuestions, string expectedMessage)
+    {
+        // Arrange
+        StringWriter stringWriter = new StringWriter();
+        Console.SetOut(stringWriter); // Redirects Console output to StringWriter
+
+        // Act
+        Program.DisplayMotivationalMessage(numberCorrect, totalQuestions);
+
+        // Assert
+        string output = stringWriter.ToString().Trim(); // Captures console output
+        Assert.AreEqual(expectedMessage, output);
+        
+    }
+
 
 
     private static void GenerateQuestionsFile(string filePath, int numberOfQuestions)

@@ -8,6 +8,7 @@ public class Program
         Question[] questions = LoadQuestions(filePath);
 
         int numberCorrect = 0;
+        int numberIncorrect = 0;
         for (int i = 0; i < questions.Length; i++)
         {
             bool result = AskQuestion(questions[i]);
@@ -15,12 +16,29 @@ public class Program
             {
                 numberCorrect++;
             }
+            else
+            {
+                numberIncorrect++;
+            }
         }
+        
+        
+        // added a message to let the user know that the trivia has been completed along with some additional stats
+        Console.WriteLine("\nYou have completed the trivia!");
+        Console.WriteLine("Correct answers: " + numberCorrect);
+        Console.WriteLine("Incorrect answers: " + numberIncorrect);
         Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
+        
+        DisplayMotivationalMessage(numberCorrect, questions.Length);
     }
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
+        /*
+         Casted the numerCorrectAnswers to a double value so we could a correct perentage value then casted
+            the result back to an int
+         */
+        
         return (int)((double)numberCorrectAnswers / numberOfQuestions * 100) + "%";
     }
 
@@ -47,6 +65,34 @@ public class Program
 
         Console.WriteLine("Incorrect");
         return false;
+    }
+    
+    /*
+        Created the DisplayMotivationalMessage method as "feature request"
+        it takes the # of correct answers and divides it from the number 
+        of total answers and based on the result it displays a motivational 
+        message
+     */
+    public static void DisplayMotivationalMessage(int numberCorrect, int totalQuestions)
+    {
+        double percentage = (double)numberCorrect / totalQuestions * 100;
+
+        if (percentage == 100)
+        {
+            Console.WriteLine("What an amazing job! You're now a trivia master!");
+        }
+        else if (percentage >= 80)
+        {
+            Console.WriteLine("Great job! It seems that you really know your stuff huh.");
+        }
+        else if (percentage >= 50)
+        {
+            Console.WriteLine(" Um :| keep practicing and you'll eventually get even better.");
+        }
+        else
+        {
+            Console.WriteLine("Oh don't give up! Study up more and try again.");
+        }
     }
 
     public static void DisplayQuestion(Question question)
@@ -87,6 +133,7 @@ public class Program
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
             
+            // The questions weren't being stored for future use so we created an array to store the questions w/ answers
             questions[i] = question;
         }
         return questions;
