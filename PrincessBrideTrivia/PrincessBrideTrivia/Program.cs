@@ -1,4 +1,7 @@
-﻿namespace PrincessBrideTrivia;
+﻿using Microsoft.VisualBasic;
+using System.Net.NetworkInformation;
+
+namespace PrincessBrideTrivia;
 
 public class Program
 {
@@ -8,14 +11,24 @@ public class Program
         Question[] questions = LoadQuestions(filePath);
 
         int numberCorrect = 0;
+        int numberStreaks = 0;
         for (int i = 0; i < questions.Length; i++)
         {
             bool result = AskQuestion(questions[i]);
             if (result)
             {
                 numberCorrect++;
+                numberStreaks++;
+                AnswerStreak(result, numberStreaks);
+            }
+            else 
+            {
+                numberStreaks = 0;
+                AnswerStreak(result, numberStreaks);
+
             }
         }
+        Console.WriteLine("Your highest streaks is " + numberStreaks );
         Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
     }
 
@@ -46,6 +59,7 @@ public class Program
         }
 
         Console.WriteLine("Incorrect");
+
         return false;
     }
 
@@ -57,6 +71,42 @@ public class Program
             Console.WriteLine((i + 1) + ": " + question.Answers[i]);
         }
     }
+
+    public static void AnswerStreak(bool CorrectAnswer, int numberStreaks)
+    {
+        if (CorrectAnswer)
+        {
+            switch (numberStreaks)
+            {
+                case 1:
+                    Console.WriteLine("Good choice! You've earned a strike!");
+                    break;
+                case 2:
+                    Console.WriteLine("That was a sharp decision. You’ve earned a strike!");
+                    break;
+                case 3:
+                    Console.WriteLine("Great thinking! You've earned a strike with style!");
+                    break;
+                case 4:
+                    Console.WriteLine("Brilliant choice! You've earned a well-deserved strike!");
+                    break;
+                case 5:
+                    Console.WriteLine("You've made a bold, epic choice! A strike is yours!");
+                    break;
+                case 6:
+                    Console.WriteLine("You have chosen... wisely. You've earned a strike like a legend!");
+                    break;
+                default:
+                    Console.WriteLine("You've earned a strike!");
+                    break;
+            }
+        }
+        else 
+        {
+            Console.WriteLine("You have chosen... poorly. Your strike is now gone!");
+        }
+    }
+
 
     public static string GetFilePath()
     {
