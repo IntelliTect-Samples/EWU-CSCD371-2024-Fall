@@ -4,19 +4,50 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        string filePath = GetFilePath();
-        Question[] questions = LoadQuestions(filePath);
+        bool retakeQuiz = true;
 
-        int numberCorrect = 0;
-        for (int i = 0; i < questions.Length; i++)
+        while (retakeQuiz)
         {
-            bool result = AskQuestion(questions[i]);
-            if (result)
+
+            string filePath = GetFilePath();
+            Question[] questions = LoadQuestions(filePath);
+
+            int numberCorrect = 0;
+            for (int i = 0; i < questions.Length; i++)
             {
-                numberCorrect++;
+                bool result = AskQuestion(questions[i]);
+                if (result)
+                {
+                    numberCorrect++;
+                }
             }
+
+            Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
+
+            Console.WriteLine("Do you want to retake the quiz? (y/n)");
+            string response = Console.ReadLine()?.ToLower();
+
+            if (string.IsNullOrEmpty(response))
+            {
+                retakeQuiz = false;
+                break;
+            }
+
+            while (response != "y" && response != "n")
+            {
+                Console.WriteLine("Invalid input, please enter 'y' or 'n'.");
+                response = Console.ReadLine()?.ToLower();
+
+                if (string.IsNullOrEmpty(response))
+                {
+                    retakeQuiz = false;
+                    break;
+                }
+            }
+
+            retakeQuiz = response == "y";
+
         }
-        Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
     }
 
     public static string GetPercentCorrect(float numberCorrectAnswers, float numberOfQuestions)

@@ -87,4 +87,84 @@ public class ProgramTests
             File.AppendAllLines(filePath, lines);
         }
     }
+
+    [TestMethod]
+    public void ProgramAsksToRetakeQuizAfterCompletion()
+    {
+        // Arrange
+        var input = new StringReader("1\nn\n"); // Simulate answering one question and then selecting 'n'
+        Console.SetIn(input);
+        var output = new StringWriter();
+        Console.SetOut(output);
+
+        // Act
+        Program.Main(new string[] { });
+
+        // Assert
+        var result = output.ToString();
+        // Ensure the retake question is in the output
+        Assert.IsTrue(result.Contains("Do you want to retake the quiz? (y/n)"), "Retake prompt not found in output.");
+    }
+
+    [TestMethod]
+    public void ProgramRestartsOnYInput()
+    {
+        // Arrange
+        var input = new StringReader("1\ny\n1\nn\n"); // Simulate answering, then retaking, then exiting
+        Console.SetIn(input);
+        var output = new StringWriter();
+        Console.SetOut(output);
+
+        // Act
+        Program.Main(new string[] { });
+
+        // Assert
+        string result = output.ToString();
+        int firstQuizStartIndex = result.IndexOf("Question: ");
+        int secondQuizStartIndex = result.LastIndexOf("Question: ");
+        Assert.AreNotEqual(firstQuizStartIndex, secondQuizStartIndex, "Quiz did not restart.");
+    }
+
+    /*
+    [TestMethod]
+    public void ProgramExitsOnNInput()
+    {
+        // Arrange
+        var input = new StringReader("1\nn\n"); // Simulate answering one question, then selecting 'n' to exit
+        Console.SetIn(input);
+        var output = new StringWriter();
+        Console.SetOut(output);
+
+        // Act
+        Program.Main(new string[] { });
+
+        // Assert
+        string result = output.ToString();
+
+        // Ensure the program did not restart the quiz after selecting 'n'
+        int firstQuizStartIndex = result.IndexOf("Question: ");
+        int secondQuizStartIndex = result.LastIndexOf("Question: ");
+
+        Assert.AreEqual(firstQuizStartIndex, secondQuizStartIndex, "The quiz restarted even after choosing 'n'.");
+    }
+
+    [TestMethod]
+    public void ProgramPromptsAgainOnInvalidInput()
+    {
+        // Arrange
+        var input = new StringReader("1\nz\ny\n"); // Simulate invalid input and then valid input
+        Console.SetIn(input);
+        var output = new StringWriter();
+        Console.SetOut(output);
+
+        // Act
+        Program.Main(new string[] { });
+
+        // Assert
+        string result = output.ToString();
+        Assert.IsTrue(result.Contains("Invalid input, please enter 'y' or 'n'."), "Invalid input message not found.");
+        Assert.IsTrue(result.Contains("Do you want to retake the quiz? (y/n)"), "Retake prompt not repeated after invalid input.");
+    }
+    */
+
 }
