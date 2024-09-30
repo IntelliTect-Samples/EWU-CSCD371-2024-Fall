@@ -92,7 +92,7 @@ public class ProgramTests
     public void ProgramAsksToRetakeQuizAfterCompletion()
     {
         // Arrange
-        var input = new StringReader("1\\n1\\n1\\n1\\n1\\n1\\n1\\nn\\n"); // Simulate answering one question and then selecting 'n'
+        var input = new StringReader("1\n1\n1\n1\n1\n1\n1\nn\n"); // Simulate answering one question and then selecting 'n'
         Console.SetIn(input);
         var output = new StringWriter();
         Console.SetOut(output);
@@ -110,7 +110,7 @@ public class ProgramTests
     public void ProgramRestartsOnYInput()
     {
         // Arrange
-        var input = new StringReader("1\\n1\\n1\\n1\\n1\\n1\\n1\\ny\\n"); // Simulate answering, then retaking, then exiting
+        var input = new StringReader("1\n1\n1\n1\n1\n1\n1\ny\n"); // Simulate answering, then retaking, then exiting
         Console.SetIn(input);
         var output = new StringWriter();
         Console.SetOut(output);
@@ -130,7 +130,7 @@ public class ProgramTests
     public void ProgramExitsOnNInput()
     {
         // Arrange
-        var input = new StringReader("1\\n1\\n1\\n1\\n1\\n1\\n1\\nn\\n"); // Answer all questions then opt to quit quiz with 'n'
+        var input = new StringReader("1\n1\n1\n1\n1\n1\n1\nn\n"); // Answer all questions then opt to quit quiz with 'n'
         Console.SetIn(input);
         var output = new StringWriter();
         Console.SetOut(output);
@@ -152,7 +152,7 @@ public class ProgramTests
     public void ProgramPromptsAgainOnInvalidInput()
     {
         // Arrange
-        var input = new StringReader("1\\n1\\n1\\n1\\n1\\n1\\n1\\nz\\nn\\n"); // Simulate invalid input and then valid input
+        var input = new StringReader("1\n1\n1\n1\n1\n1\n1\nz\nn\n"); // Simulate invalid input and then valid input
         Console.SetIn(input);
         var output = new StringWriter();
         Console.SetOut(output);
