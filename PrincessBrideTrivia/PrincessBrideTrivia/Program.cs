@@ -27,9 +27,11 @@ public class Program
             Console.WriteLine("Do you want to retake the quiz? (y/n)");
             string response = Console.ReadLine()?.ToLower();
 
-            if (string.IsNullOrEmpty(response))
+            if (string.IsNullOrEmpty(response) || response.Equals("n"))
             {
                 retakeQuiz = false;
+
+                Console.WriteLine("Goodbye!");
                 break;
             }
 
@@ -46,7 +48,11 @@ public class Program
             }
 
             retakeQuiz = response == "y";
-
+            if (retakeQuiz)
+            {
+                Console.WriteLine("\nRetaking Quiz.\n");
+            }
+            
         }
     }
 
