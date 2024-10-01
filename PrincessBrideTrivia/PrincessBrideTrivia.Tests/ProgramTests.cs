@@ -87,4 +87,18 @@ public class ProgramTests
             File.AppendAllLines(filePath, lines);
         }
     }
+
+    [TestMethod]
+    public void RessetingTheGame()
+    {
+        //Arrange
+        var userInput = new StringReader("1");
+
+        //Act
+        Console.SetIn(userInput);
+        bool result = Program.ResetGame();
+
+        //Assert
+        Assert.IsTrue(result);
+    }
 }
