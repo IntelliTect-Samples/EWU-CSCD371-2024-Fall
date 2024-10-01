@@ -92,7 +92,7 @@ public class ProgramTests
     public void ProgramAsksToRetakeQuizAfterCompletion()
     {
         // Arrange
-        var input = new StringReader("1\n1\n1\n1\n1\n1\n1\nn\n"); // Simulate answering one question and then selecting 'n'
+        var input = new StringReader("1\n1\n1\n1\n1\n1\n1\nn\n"); // Simulate answering all questions and then selecting 'n'
         Console.SetIn(input);
         var output = new StringWriter();
         Console.SetOut(output);
@@ -103,7 +103,7 @@ public class ProgramTests
         // Assert
         var result = output.ToString();
         // Ensure the retake question is in the output
-        Assert.IsTrue(result.Contains("Do you want to retake the quiz? (y/n)"), "Retake prompt not found in output.");
+        Assert.IsTrue(result.Contains("Do you want to retake the quiz? (y/n)"));
     }
 
     [TestMethod]
@@ -120,9 +120,9 @@ public class ProgramTests
 
         // Assert
         string result = output.ToString();
-        int firstQuizStartIndex = result.IndexOf("Question: ");
-        int secondQuizStartIndex = result.LastIndexOf("Question: ");
-        Assert.AreNotEqual(firstQuizStartIndex, secondQuizStartIndex, "Quiz did not restart.");
+        int lineCount = result.Split("Question: ").Length;
+        Assert.IsTrue(lineCount > 8, "Expected more than 8 questions but got "+lineCount);
+        Assert.IsTrue(result.Contains("Retaking Quiz"));
     }
 
     
@@ -142,12 +142,11 @@ public class ProgramTests
         string result = output.ToString();
         Console.WriteLine(result);
 
-        // Ensure the program did not restart the quiz after selecting 'n'
-        int firstQuizStartIndex = result.IndexOf("Question: ");
-        int secondQuizStartIndex = result.LastIndexOf("Question: ");
+        // Ensure the program ends on N
+        Assert.IsFalse(result.Contains("Retaking Quiz"),result);
 
         
-        Assert.AreNotEqual(firstQuizStartIndex, secondQuizStartIndex, "The quiz restarted even after choosing 'n'.");
+
     }
 
     [TestMethod]
