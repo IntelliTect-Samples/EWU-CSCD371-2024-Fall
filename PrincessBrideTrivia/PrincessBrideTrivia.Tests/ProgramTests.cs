@@ -89,17 +89,21 @@ public class ProgramTests
     }
 
     [TestMethod]
-    [DataRow(true, 5, 5, 5)]
-    [DataRow(true, 1, 2, 2)]
-    [DataRow(false, 2, 2, 2)]
-    public static void UpdateStreak_SetsStreakToZero(bool check, int numberStreaks, int numberCorrect, int highestStreak, int expectInt)
+    [DataRow(true, 1, "Good choice! You've earned a streak!")]
+    [DataRow(true, 2, "That was a sharp decision. You’ve earned a streak!")]
+    [DataRow(true, 3, "Great thinking! You've earned a streak with style!")]
+    [DataRow(true, 4, "Brilliant choice! You've earned a well-deserved streak!")]
+    [DataRow(true, 5, "You've made a bold, epic choice! A streak is yours!")]
+    [DataRow(true, 6, "You have chosen... wisely. You've earned a streak like a legend!")]
+    [DataRow(false, 0, "You have chosen... poorly. Your streaks is now gone!")]
+    public static void GetAnswerStreak_ReturnExpectedString(bool answer, int streaks, string expectedString) 
     {
-        //Arrange
+        // Arrange
 
         // Act
-        Program.UpdateStreak(false, ref numberStreaks, ref numberCorrect, ref highestStreak);
-
+        string = Program.AnswerStreak(answer, streaks);
+        
         // Assert
-        Assert.AreEqual(0, numberStreaks, "Incorrect answer resets numberStreak to zero.");
+        Assert.AreEqual(expectedString, actualString, $"Expected string: {streaks} and answer: {answer} do not match.");
     }
 }
