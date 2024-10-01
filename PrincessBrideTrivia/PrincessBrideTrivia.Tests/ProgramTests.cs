@@ -5,6 +5,7 @@ namespace PrincessBrideTrivia.Tests;
 [TestClass]
 public class ProgramTests
 {
+
     [TestMethod]
     public void LoadQuestions_RetrievesQuestionsFromFile()
     {
@@ -69,6 +70,23 @@ public class ProgramTests
 
         // Assert
         Assert.AreEqual(expectedString, percentage);
+    }
+
+    [TestMethod]
+    [DataRow(1, 1, "You are a trivia master!")]
+    [DataRow(6, 10, "You barely passed. Go back and try again!")]
+    [DataRow(8, 10, "You are a talented trivia guru, but you could get better.")]
+    [DataRow(0, 10, "Sorry but you didn't pass. Let's try again!")]
+    public void EncouragingResponse_ReturnsExpectedPercentage(int numberCorrectAnswers,
+        int numberOfQuestions, string expectedString)
+    {
+        // Arrange
+
+        // Act
+        string encouragingResponse = Program.EncouragingResponse(numberCorrectAnswers, numberOfQuestions);
+
+        // Assert
+        Assert.AreEqual(expectedString, encouragingResponse);
     }
 
 
