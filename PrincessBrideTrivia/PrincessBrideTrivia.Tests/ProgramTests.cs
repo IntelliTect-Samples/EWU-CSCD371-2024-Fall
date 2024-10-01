@@ -1,4 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
+using System.Linq;
 
 namespace PrincessBrideTrivia.Tests;
 
@@ -114,5 +116,31 @@ public class ProgramTests
 
         //Assert
         Assert.IsFalse(result);
+    }
+
+    [TestMethod]
+    public void LoadQuestions_RandomizesQuestions()
+    {
+        // Arrange
+        string filePath = Path.GetRandomFileName();
+        try
+        {
+            GenerateQuestionsFile(filePath, 10);  
+            Question[] firstLoad = Program.LoadQuestions(filePath);
+            Question[] secondLoad = Program.LoadQuestions(filePath);
+
+            // Act
+            bool areDifferent = !Enumerable.SequenceEqual(
+                firstLoad.Select(q => q.Text),
+                secondLoad.Select(q => q.Text)
+            );
+
+            // Assert
+            Assert.IsTrue(areDifferent, "The order of questions should be different between loads.");
+        }
+        finally
+        {
+            File.Delete(filePath);
+        }
     }
 }
