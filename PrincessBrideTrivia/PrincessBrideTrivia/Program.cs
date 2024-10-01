@@ -16,30 +16,25 @@ public class Program
         for (int i = 0; i < questions.Length; i++)
         {
             bool result = AskQuestion(questions[i]);
-            UpdateStreak(result, ref numberStreaks, ref numberCorrect, ref highestStreak);
+            if (result)
+            {
+                numberCorrect++;
+                numberStreaks++;
+                Console.WriteLine(AnswerStreak(result, numberStreaks));
+            }
+            else 
+            {
+                if (numberStreaks > highestStreak)
+                {
+                    highestStreak = numberStreaks;
+                }
+                numberStreaks = 0;
+                Console.WriteLine(AnswerStreak(result, numberStreaks));
+
+            }
         }
         Console.WriteLine("Your highest streaks is " + highestStreak);
         Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
-    }
-
-    public static void UpdateStreak(bool result, ref int numberStreaks, ref int numberCorrect, ref int highestStreak)
-    {
-        if (result)
-        {
-            numberCorrect++;
-            numberStreaks++;
-        }
-        else
-        {
-            if (numberStreaks > highestStreak)
-            {
-                highestStreak = numberStreaks;
-            }
-            numberStreaks = 0;
-
-        }
-
-        AnswerStreak(result, numberStreaks);
     }
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
@@ -82,38 +77,31 @@ public class Program
         }
     }
 
-    public static void AnswerStreak(bool CorrectAnswer, int numberStreaks)
+    public static string AnswerStreak(bool CorrectAnswer, int numberStreaks)
     {
         if (CorrectAnswer)
         {
             switch (numberStreaks)
             {
                 case 1:
-                    Console.WriteLine("Good choice! You've earned a streak!");
-                    break;
+                    return "Good choice! You've earned a streak!";
                 case 2:
-                    Console.WriteLine("That was a sharp decision. You’ve earned a streak!");
-                    break;
+                    return "That was a sharp decision. You’ve earned a streak!";
                 case 3:
-                    Console.WriteLine("Great thinking! You've earned a streak with style!");
-                    break;
+                    return "Great thinking! You've earned a streak with style!";
                 case 4:
-                    Console.WriteLine("Brilliant choice! You've earned a well-deserved streak!");
-                    break;
+                    return "Brilliant choice! You've earned a well-deserved streak!";
                 case 5:
-                    Console.WriteLine("You've made a bold, epic choice! A streak is yours!");
-                    break;
+                    return "You've made a bold, epic choice! A streak is yours!";
                 case 6:
-                    Console.WriteLine("You have chosen... wisely. You've earned a streak like a legend!");
-                    break;
+                    return "You have chosen... wisely. You've earned a streak like a legend!";
                 default:
-                    Console.WriteLine("You've earned a streak!");
-                    break;
+                    return "You've earned a streak!";
             }
         }
         else 
         {
-            Console.WriteLine("You have chosen... poorly. Your streaks is now gone!");
+            return "You have chosen... poorly. Your streaks is now gone!";
         }
     }
 

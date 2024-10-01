@@ -89,11 +89,12 @@ public class ProgramTests
     }
 
     [TestMethod]
-    public static void UpdateStreak_SetsStreakToZero()
+    [DataRow(true, 5, 5, 5)]
+    [DataRow(true, 1, 2, 2)]
+    [DataRow(false, 2, 2, 2)]
+    public static void UpdateStreak_SetsStreakToZero(bool check, int numberStreaks, int numberCorrect, int highestStreak, int expectInt)
     {
-        int numberStreaks = 5;
-        int numberCorrect = 5;
-        int highestStreak = 5;
+        //Arrange
 
         // Act
         Program.UpdateStreak(false, ref numberStreaks, ref numberCorrect, ref highestStreak);
