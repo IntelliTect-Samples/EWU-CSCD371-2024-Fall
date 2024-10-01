@@ -16,25 +16,30 @@ public class Program
         for (int i = 0; i < questions.Length; i++)
         {
             bool result = AskQuestion(questions[i]);
-            if (result)
-            {
-                numberCorrect++;
-                numberStreaks++;
-                AnswerStreak(result, numberStreaks);
-            }
-            else 
-            {
-                if (numberStreaks > highestStreak)
-                {
-                    highestStreak = numberStreaks;
-                }
-                numberStreaks = 0;
-                AnswerStreak(result, numberStreaks);
-
-            }
+            UpdateStreak(result, ref numberStreaks, ref numberCorrect, ref highestStreak);
         }
         Console.WriteLine("Your highest streaks is " + highestStreak);
         Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
+    }
+
+    public static void UpdateStreak(bool result, ref int numberStreaks, ref int numberCorrect, ref int highestStreak)
+    {
+        if (result)
+        {
+            numberCorrect++;
+            numberStreaks++;
+        }
+        else
+        {
+            if (numberStreaks > highestStreak)
+            {
+                highestStreak = numberStreaks;
+            }
+            numberStreaks = 0;
+
+        }
+
+        AnswerStreak(result, numberStreaks);
     }
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
