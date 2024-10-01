@@ -87,4 +87,18 @@ public class ProgramTests
             File.AppendAllLines(filePath, lines);
         }
     }
+
+    [TestMethod]
+    public static void UpdateStreak_SetsStreakToZero()
+    {
+        int numberStreaks = 5;
+        int numberCorrect = 5;
+        int highestStreak = 5;
+
+        // Act
+        Program.UpdateStreak(false, ref numberStreaks, ref numberCorrect, ref highestStreak);
+
+        // Assert
+        Assert.AreEqual(0, numberStreaks, "Incorrect answer resets numberStreak to zero.");
+    }
 }
