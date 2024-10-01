@@ -1,4 +1,6 @@
-﻿namespace PrincessBrideTrivia;
+﻿// Looked over Bens changes and confirmed tests pass
+
+namespace PrincessBrideTrivia;
 
 public class Program
 {
@@ -23,7 +25,7 @@ public class Program
     {
         return ((float)numberCorrectAnswers / numberOfQuestions * 100) + "%";
     }
-
+    
     public static bool AskQuestion(Question question)
     {
         DisplayQuestion(question);
