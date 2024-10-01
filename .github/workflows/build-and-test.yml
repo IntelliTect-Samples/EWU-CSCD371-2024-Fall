@@ -74,7 +74,7 @@ jobs:
       - name: Download .editorconfig file
         uses: actions/checkout@v4
         with:
-          repository: "IntelliTect-Samples/EWU-CSCD371-2024-Winter"
+          repository: ${{ github.repository }}
           ref: "main"
           path: "temp"
           sparse-checkout: |
