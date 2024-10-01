@@ -101,4 +101,18 @@ public class ProgramTests
         //Assert
         Assert.IsTrue(result);
     }
+
+    [TestMethod]
+    public void EndingTheGame()
+    {
+        //Arrange
+        var userInput = new StringReader("");
+
+        //Act
+        Console.SetIn(userInput);
+        bool result = Program.ResetGame();
+
+        //Assert
+        Assert.IsFalse(result);
+    }
 }
