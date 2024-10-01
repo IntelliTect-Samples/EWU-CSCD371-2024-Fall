@@ -72,6 +72,8 @@ public class ProgramTests
         Assert.AreEqual(expectedString, percentage);
     }
 
+
+    // Develop test method for Encouraging Responses. Passed test. Changed the first DataRow to 1, 2 and the test failed.
     [TestMethod]
     [DataRow(1, 1, "You are a trivia master!")]
     [DataRow(6, 10, "You barely passed. Go back and try again!")]
