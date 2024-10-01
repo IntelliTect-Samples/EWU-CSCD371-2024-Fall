@@ -8,31 +8,39 @@ public class Program
         Question[] questions = LoadQuestions(filePath);
 
         int numberCorrect = 0;
-        for (int i = 0; i < questions.Length; i++)
+        bool playAgain = true;
+
+        while (playAgain)
         {
-            bool result = AskQuestion(questions[i]);
-            if (result)
+            for (int i = 0; i < questions.Length; i++)
             {
-                numberCorrect++;
-            }
-            if (i == questions.Length - 1)
-            {
-                Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct.");
-                Console.Write("Type 1 if you would like to play again: ");
-
-                string userInput = Console.ReadLine();
-                int choice;
-
-                if (int.TryParse(userInput, out choice))
+                bool result = AskQuestion(questions[i]);
+                if (result)
                 {
-                    if (choice == 1)
-                    {
-                        i = 0;
-                        numberCorrect = 0;
-                    }
+                    numberCorrect++;
                 }
             }
-        } 
+
+            Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct.");
+            playAgain = ResetGame();
+        }
+    }
+
+    public static bool ResetGame()
+    {
+        Console.Write("Type 1 if you would like to play again: ");
+
+        string userInput = Console.ReadLine();
+        int choice;
+
+        if (int.TryParse(userInput, out choice))
+        {
+            if (choice == 1)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
