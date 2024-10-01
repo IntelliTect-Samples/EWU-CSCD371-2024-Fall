@@ -6,17 +6,21 @@ namespace MathTest
     public class MathExTests
     {
         [TestMethod]
-        public void Add_OneAndTwo_ReturnsThree()
+        [DataRow(1, 2, 3)]
+        [DataRow(2, 3, 5)]
+        [DataRow(3, 4, 7)]
+        [DataRow(0, 1, 1)]
+        public void Add_LeftAndRight_ReturnsExpected(int left, int right, int expected)
         {
             //Arange
-            int left = 1;
-            int right = 2;
+            //int left = 1;
+            //int right = 2;
 
             //Act
             int result = MathEx.Add(left, right);
 
             //Assert
-            Assert.AreEqual(expected:3, result);
+            Assert.AreEqual(expected, result);
 
         }
         [TestMethod]
