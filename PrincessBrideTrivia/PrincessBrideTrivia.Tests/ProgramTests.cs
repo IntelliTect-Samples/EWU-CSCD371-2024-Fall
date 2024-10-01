@@ -95,15 +95,15 @@ public class ProgramTests
     [DataRow(true, 4, "Brilliant choice! You've earned a well-deserved streak!")]
     [DataRow(true, 5, "You've made a bold, epic choice! A streak is yours!")]
     [DataRow(true, 6, "You have chosen... wisely. You've earned a streak like a legend!")]
-    [DataRow(false, 0, "You have chosen... poorly. Your streaks is now gone!")]
-    public static void GetAnswerStreak_ReturnExpectedString(bool answer, int streaks, string expectedString) 
+    [DataRow(false, 5, "You have chosen... poorly. Your streaks is now gone!")]
+    public void GetAnswerStreak_ReturnExpectedString(bool answer, int streaks, string expectedString) 
     {
         // Arrange
 
         // Act
-        string = Program.AnswerStreak(answer, streaks);
+        string actualString = Program.AnswerStreak(answer, streaks);
         
         // Assert
-        Assert.AreEqual(expectedString, actualString, $"Expected string: {streaks} and answer: {answer} do not match.");
+        Assert.AreEqual(expectedString, actualString);
     }
 }
