@@ -89,7 +89,7 @@ public class ProgramTests
     }
 
     [TestMethod]
-    public void RessetingTheGame()
+    public void RessetingTheGame_ReturnsTrueIfCorrect()
     {
         //Arrange
         var userInput = new StringReader("1");
@@ -103,7 +103,7 @@ public class ProgramTests
     }
 
     [TestMethod]
-    public void EndingTheGame()
+    public void EndingTheGame_ReturnsFalseIfCorrect()
     {
         //Arrange
         var userInput = new StringReader("");
