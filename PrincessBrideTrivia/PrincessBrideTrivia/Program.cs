@@ -15,8 +15,24 @@ public class Program
             {
                 numberCorrect++;
             }
-        }
-        Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
+            if (i == questions.Length - 1)
+            {
+                Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct.");
+                Console.Write("Type 1 if you would like to play again: ");
+
+                string userInput = Console.ReadLine();
+                int choice;
+
+                if (int.TryParse(userInput, out choice))
+                {
+                    if (choice == 1)
+                    {
+                        i = 0;
+                        numberCorrect = 0;
+                    }
+                }
+            }
+        } 
     }
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
@@ -91,7 +107,7 @@ public class Program
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
-            questions[tracker % 7] = question;
+            questions[tracker % questions.Length] = question;
             tracker++;
         }
         return questions;
