@@ -23,6 +23,7 @@ public class Program
 
             Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct.");
             playAgain = ResetGame();
+            numberCorrect = 0;
         }
     }
 
