@@ -4,14 +4,14 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        string filePath = GetFilePath();
-        Question[] questions = LoadQuestions(filePath);
-
-        int numberCorrect = 0;
         bool playAgain = true;
 
         while (playAgain)
         {
+            string filePath = GetFilePath();
+            Question[] questions = LoadQuestions(filePath);
+
+            int numberCorrect = 0;
             for (int i = 0; i < questions.Length; i++)
             {
                 bool result = AskQuestion(questions[i]);
@@ -23,7 +23,6 @@ public class Program
 
             Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct.");
             playAgain = ResetGame();
-            numberCorrect = 0;
         }
     }
 
@@ -95,7 +94,7 @@ public class Program
         Random random = new Random();
         
         Question[] questions = new Question[lines.Length / 5];
-        int randomNumber = random.Next(0, questions.Length);
+        int randomNumber = random.Next(0, 100);
         int tracker = randomNumber;
 
         for (int i = 0; i < questions.Length; i++)
