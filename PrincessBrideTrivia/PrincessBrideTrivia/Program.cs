@@ -43,9 +43,9 @@ public class Program
         return false;
     }
 
-    public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
+    public static string GetPercentCorrect(int numberCorrectAnswers, double numberOfQuestions)
     {
-        double percent = (numberCorrectAnswers / (double)numberOfQuestions * 100);
+        double percent = (numberCorrectAnswers / numberOfQuestions * 100);
         return $"{percent:0.##}%";
     }
 
