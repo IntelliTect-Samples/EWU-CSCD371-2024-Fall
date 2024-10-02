@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 
@@ -125,7 +126,7 @@ public class ProgramTests
         string filePath = Path.GetRandomFileName();
         try
         {
-            GenerateQuestionsFile(filePath, 10);  
+            GenerateQuestionsFile(filePath, 100);  
             Question[] firstLoad = Program.LoadQuestions(filePath);
             Question[] secondLoad = Program.LoadQuestions(filePath);
 
