@@ -44,11 +44,14 @@ public class Program
     {
         if (userGuess == question.CorrectAnswerIndex)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Correct");
+            Console.ForegroundColor = ConsoleColor.White;
             return true;
         }
-
+        Console.ForegroundColor= ConsoleColor.Red;
         Console.WriteLine("Incorrect");
+        Console.ForegroundColor = ConsoleColor.White;
         return false;
     }
 
