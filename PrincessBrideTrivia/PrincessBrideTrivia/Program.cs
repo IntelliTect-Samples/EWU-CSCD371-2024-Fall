@@ -65,10 +65,10 @@ public class Program
 
     public static Question[] LoadQuestions(string filePath)
     {
-        string[] lines = File.ReadAllLines(filePath);
+        string[] lines = File.ReadAllLines(filePath);//creates array lines
 
-        Question[] questions = new Question[lines.Length / 5];
-        for (int i = 0; i < questions.Length; i++)
+        Question[] questions = new Question[lines.Length / 5];//creates array questions
+        for (int i = 0; i < questions.Length; i++)//for every item in array questions
         {
             int lineIndex = i * 5;
             string questionText = lines[lineIndex];
@@ -79,13 +79,14 @@ public class Program
 
             string correctAnswerIndex = lines[lineIndex + 4];
 
-            Question question = new();
+            Question question = new();//create question object
             question.Text = questionText;
             question.Answers = new string[3];
             question.Answers[0] = answer1;
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
+            questions[i] = question;//load newly created question into the questions array
         }
         return questions;
     }
