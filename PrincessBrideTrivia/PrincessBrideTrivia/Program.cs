@@ -21,6 +21,9 @@ public class Program
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
+        if (numberOfQuestions == 0)
+            throw new DivideByZeroException("numberOfQuestions cannot be 0");
+
         return ((double)numberCorrectAnswers / (double)numberOfQuestions * 100) + "%";
     }
 
