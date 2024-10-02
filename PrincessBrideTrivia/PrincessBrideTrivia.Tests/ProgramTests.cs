@@ -120,7 +120,26 @@ public class ProgramTests
     }
 
     [TestMethod]
-    public void LoadQuestions_RandomizesQuestions()
+    [DataRow("1", true)]
+    [DataRow("2", false)]
+    [DataRow("", false)]
+    [DataRow("-1", false)]
+    public void ResetGame_ValidInput_TrueOrFalse(string userInput, bool expectedResult)
+    {
+        //Arrange
+        var input = new StringReader(userInput);
+        Console.SetIn(input);
+
+        //Act
+        bool result = Program.ResetGame();
+
+        //Assert
+        Assert.AreEqual(expectedResult, result);
+
+    }
+
+    [TestMethod]
+    public void LoadQuestions_RandomizesQuestions_ExpectArraysToBeDifferent()
     {
         // Arrange
         string filePath = Path.GetRandomFileName();
