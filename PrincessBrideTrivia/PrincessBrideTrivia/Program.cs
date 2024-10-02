@@ -1,5 +1,7 @@
 ﻿namespace PrincessBrideTrivia;
 
+//@dav1dmoore worked with @oscar-ruelas to pair program.
+
 public class Program
 {
     public static void Main(string[] args)
