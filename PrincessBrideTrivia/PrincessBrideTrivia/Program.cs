@@ -4,24 +4,49 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        string filePath = GetFilePath();
-        Question[] questions = LoadQuestions(filePath);
+        bool playAgain = true;
 
-        int numberCorrect = 0;
-        for (int i = 0; i < questions.Length; i++)
+        while (playAgain)
         {
-            bool result = AskQuestion(questions[i]);
-            if (result)
+            string filePath = GetFilePath();
+            Question[] questions = LoadQuestions(filePath);
+
+            int numberCorrect = 0;
+            for (int i = 0; i < questions.Length; i++)
             {
-                numberCorrect++;
+                bool result = AskQuestion(questions[i]);
+                if (result)
+                {
+                    numberCorrect++;
+                }
             }
+
+            Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct.");
+            playAgain = ResetGame();
         }
-        Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
     }
 
-    public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
+    public static bool ResetGame()
     {
-        return (numberCorrectAnswers / numberOfQuestions * 100) + "%";
+        Console.Write("Type 1 if you would like to play again: ");
+
+        string userInput = Console.ReadLine();
+        int choice;
+
+        if (int.TryParse(userInput, out choice))
+        {
+            if (choice == 1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static string GetPercentCorrect(int numberCorrectAnswers, double numberOfQuestions)
+    {
+        double percent = (numberCorrectAnswers / numberOfQuestions * 100);
+        return $"{percent:0.##}%";
     }
 
     public static bool AskQuestion(Question question)
@@ -66,8 +91,12 @@ public class Program
     public static Question[] LoadQuestions(string filePath)
     {
         string[] lines = File.ReadAllLines(filePath);
-
+        Random random = new Random();
+        
         Question[] questions = new Question[lines.Length / 5];
+        int randomNumber = random.Next(0, 100);
+        int tracker = randomNumber;
+
         for (int i = 0; i < questions.Length; i++)
         {
             int lineIndex = i * 5;
@@ -86,6 +115,8 @@ public class Program
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
+            questions[tracker % questions.Length] = question;
+            tracker++;
         }
         return questions;
     }

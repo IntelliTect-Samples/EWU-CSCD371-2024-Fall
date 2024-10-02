@@ -1,4 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
 
 namespace PrincessBrideTrivia.Tests;
 
@@ -85,6 +88,79 @@ public class ProgramTests
                 "2",
             ];
             File.AppendAllLines(filePath, lines);
+        }
+    }
+
+    [TestMethod]
+    public void ResetGame_1_True()
+    {
+        //Arrange
+        var userInput = new StringReader("1");
+        Console.SetIn(userInput);
+
+        //Act
+        bool result = Program.ResetGame();
+
+        //Assert
+        Assert.IsTrue(result);
+    }
+
+    [TestMethod]
+    public void ResetGame_Empty_False()
+    {
+        //Arrange
+        var userInput = new StringReader("");
+        Console.SetIn(userInput);
+
+        //Act
+        bool result = Program.ResetGame();
+
+        //Assert
+        Assert.IsFalse(result);
+    }
+
+    [TestMethod]
+    [DataRow("1", true)]
+    [DataRow("2", false)]
+    [DataRow("", false)]
+    [DataRow("-1", false)]
+    public void ResetGame_ValidInput_TrueOrFalse(string userInput, bool expectedResult)
+    {
+        //Arrange
+        var input = new StringReader(userInput);
+        Console.SetIn(input);
+
+        //Act
+        bool result = Program.ResetGame();
+
+        //Assert
+        Assert.AreEqual(expectedResult, result);
+
+    }
+
+    [TestMethod]
+    public void LoadQuestions_RandomizesQuestions_ExpectArraysToBeDifferent()
+    {
+        // Arrange
+        string filePath = Path.GetRandomFileName();
+        try
+        {
+            GenerateQuestionsFile(filePath, 100);  
+            Question[] firstLoad = Program.LoadQuestions(filePath);
+            Question[] secondLoad = Program.LoadQuestions(filePath);
+
+            // Act
+            bool areDifferent = !Enumerable.SequenceEqual(
+                firstLoad.Select(q => q.Text),
+                secondLoad.Select(q => q.Text)
+            );
+
+            // Assert
+            Assert.IsTrue(areDifferent, "The order of questions should be different between loads.");
+        }
+        finally
+        {
+            File.Delete(filePath);
         }
     }
 }
