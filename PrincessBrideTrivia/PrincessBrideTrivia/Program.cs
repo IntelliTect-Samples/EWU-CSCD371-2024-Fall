@@ -1,4 +1,7 @@
-﻿namespace PrincessBrideTrivia;
+﻿using Microsoft.VisualBasic;
+using System.Security.Cryptography;
+
+namespace PrincessBrideTrivia;
 
 public class Program
 {
@@ -21,7 +24,7 @@ public class Program
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        return (numberCorrectAnswers / numberOfQuestions * 100) + "%";
+        return ((int)((double)numberCorrectAnswers / numberOfQuestions * 100)) + "%";
     }
 
     public static bool AskQuestion(Question question)
@@ -66,11 +69,12 @@ public class Program
     public static Question[] LoadQuestions(string filePath)
     {
         string[] lines = File.ReadAllLines(filePath);
+        int[] questionIndex = QuestionRandomizer(lines.Length / 5);
 
         Question[] questions = new Question[lines.Length / 5];
         for (int i = 0; i < questions.Length; i++)
         {
-            int lineIndex = i * 5;
+            int lineIndex = questionIndex[i] * 5; 
             string questionText = lines[lineIndex];
 
             string answer1 = lines[lineIndex + 1];
@@ -86,7 +90,22 @@ public class Program
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
+            questions[i] = question;
         }
+
         return questions;
+    }
+    public static int[] QuestionRandomizer(int numberOfQuestions) 
+    {
+        int[] randomArray = new int[numberOfQuestions];
+
+        for (int i = 0; i < numberOfQuestions; i++)
+        {
+            randomArray[i] = i;   
+        }
+
+        Random.Shared.Shuffle(randomArray);
+
+        return randomArray;
     }
 }
