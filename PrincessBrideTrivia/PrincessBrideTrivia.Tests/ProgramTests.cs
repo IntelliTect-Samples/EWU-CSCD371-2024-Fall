@@ -96,9 +96,9 @@ public class ProgramTests
     {
         //Arrange
         var userInput = new StringReader("1");
+        Console.SetIn(userInput);
 
         //Act
-        Console.SetIn(userInput);
         bool result = Program.ResetGame();
 
         //Assert
@@ -110,9 +110,9 @@ public class ProgramTests
     {
         //Arrange
         var userInput = new StringReader("");
+        Console.SetIn(userInput);
 
         //Act
-        Console.SetIn(userInput);
         bool result = Program.ResetGame();
 
         //Assert
