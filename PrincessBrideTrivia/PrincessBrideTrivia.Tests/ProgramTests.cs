@@ -89,10 +89,13 @@ public class ProgramTests
     }
 
     [TestMethod]
-
     [DataRow("y",true)]
     [DataRow("n", false)]
-    public void RestartQuiz_ReturnsExpected(String userInput,bool expected)
+    [DataRow("Z\nn", false)] //fail
+    [DataRow("adsf\nn", false)] //fail
+    [DataRow("[][]\ny", true)]
+    [DataRow("234)(\ny", true)]
+    public void RestartQuiz_UserInput_ReturnsExpected(String userInput,bool expected)
     {
         var reader = new StringReader(userInput);
         //arrange
@@ -105,11 +108,11 @@ public class ProgramTests
     }
 
     [TestMethod]
-    public void ProgramAsksToRetakeQuizAfterCompletion()
+    [DataRow("1\n1\n1\n1\n1\n1\n1\nn\n")]
+    public void Main_UserInput_ConsoleOutputContainsRetakePrompt(String userInput)
     {
         // Arrange
-        var input = new StringReader("1\n1\n1\n1\n1\n1\n1\nn\n"); // Simulate answering all questions and then selecting 'n'
-        Console.SetIn(input);
+        Console.SetIn(new StringReader(userInput));
         var output = new StringWriter();
         Console.SetOut(output);
 
@@ -121,68 +124,4 @@ public class ProgramTests
         // Ensure the retake question is in the output
         Assert.IsTrue(result.Contains("Do you want to retake the quiz? (y/n)"));
     }
-
-    [TestMethod]
-    public void ProgramRestartsOnYInput()
-    {
-        // Arrange
-        var input = new StringReader("1\n1\n1\n1\n1\n1\n1\ny\n"); // Simulate answering, then retaking, then exiting
-        Console.SetIn(input);
-        var output = new StringWriter();
-        Console.SetOut(output);
-
-        // Act
-        Program.Main(new string[] { });
-
-        // Assert
-        string result = output.ToString();
-        int lineCount = result.Split("Question: ").Length;
-        Assert.IsTrue(lineCount > 8, "Expected more than 8 questions but got "+lineCount);
-        Assert.IsTrue(result.Contains("Retaking Quiz"));
-    }
-
-    
-    [TestMethod]
-    public void ProgramExitsOnNInput()
-    {
-        // Arrange
-        var input = new StringReader("1\n1\n1\n1\n1\n1\n1\nn\n"); // Answer all questions then opt to quit quiz with 'n'
-        Console.SetIn(input);
-        var output = new StringWriter();
-        Console.SetOut(output);
-
-        // Act
-        Program.Main(new string[] { });
-
-        // Assert
-        string result = output.ToString();
-        Console.WriteLine(result);
-
-        // Ensure the program ends on N
-        Assert.IsFalse(result.Contains("Retaking Quiz"),result);
-
-        
-
-    }
-
-    [TestMethod]
-    public void ProgramPromptsAgainOnInvalidInput()
-    {
-        // Arrange
-        var input = new StringReader("1\n1\n1\n1\n1\n1\n1\nz\nn\n"); // Simulate invalid input and then valid input
-        Console.SetIn(input);
-        var output = new StringWriter();
-        Console.SetOut(output);
-
-        // Act
-        Program.Main(new string[] { });
-
-        // Assert
-        string result = output.ToString();
-
-        Assert.IsTrue(result.Contains("Invalid input, please enter 'y' or 'n'."), "Invalid input message not found.");
-        Assert.IsTrue(result.Contains("Do you want to retake the quiz? (y/n)"), "Retake prompt not repeated after invalid input.");
-    }
-    
-
 }
