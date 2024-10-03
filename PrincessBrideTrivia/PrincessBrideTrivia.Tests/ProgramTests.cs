@@ -87,4 +87,23 @@ public class ProgramTests
             File.AppendAllLines(filePath, lines);
         }
     }
+
+    [TestMethod]
+    [DataRow(true, 1, "Good choice! You've earned a streak!")]
+    [DataRow(true, 2, "That was a sharp decision. You’ve earned a streak!")]
+    [DataRow(true, 3, "Great thinking! You've earned a streak with style!")]
+    [DataRow(true, 4, "Brilliant choice! You've earned a well-deserved streak!")]
+    [DataRow(true, 5, "You've made a bold, epic choice! A streak is yours!")]
+    [DataRow(true, 6, "You have chosen... wisely. You've earned a streak like a legend!")]
+    [DataRow(false, 5, "You have chosen... poorly. Your streaks is now gone!")]
+    public void GetAnswerStreak_ReturnExpectedString(bool answer, int streaks, string expectedString) 
+    {
+        // Arrange
+
+        // Act
+        string actualString = Program.AnswerStreak(answer, streaks);
+        
+        // Assert
+        Assert.AreEqual(expectedString, actualString);
+    }
 }

@@ -1,4 +1,7 @@
-﻿namespace PrincessBrideTrivia;
+﻿using Microsoft.VisualBasic;
+using System.Net.NetworkInformation;
+
+namespace PrincessBrideTrivia;
 
 public class Program
 {
@@ -8,20 +11,35 @@ public class Program
         Question[] questions = LoadQuestions(filePath);
 
         int numberCorrect = 0;
+        int numberStreaks = 0;
+        int highestStreak = 0;
         for (int i = 0; i < questions.Length; i++)
         {
             bool result = AskQuestion(questions[i]);
             if (result)
             {
                 numberCorrect++;
+                numberStreaks++;
+                Console.WriteLine(AnswerStreak(result, numberStreaks));
+            }
+            else 
+            {
+                if (numberStreaks > highestStreak)
+                {
+                    highestStreak = numberStreaks;
+                }
+                numberStreaks = 0;
+                Console.WriteLine(AnswerStreak(result, numberStreaks));
+
             }
         }
+        Console.WriteLine("Your highest streaks is " + highestStreak);
         Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
     }
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        return (numberCorrectAnswers / numberOfQuestions * 100) + "%";
+        return ((double)numberCorrectAnswers / numberOfQuestions * 100) + "%";
     }
 
     public static bool AskQuestion(Question question)
@@ -46,6 +64,7 @@ public class Program
         }
 
         Console.WriteLine("Incorrect");
+
         return false;
     }
 
@@ -57,6 +76,35 @@ public class Program
             Console.WriteLine((i + 1) + ": " + question.Answers[i]);
         }
     }
+
+    public static string AnswerStreak(bool correctAnswer, int numberStreaks)
+    {
+        if (correctAnswer)
+        {
+            switch (numberStreaks)
+            {
+                case 1:
+                    return "Good choice! You've earned a streak!";
+                case 2:
+                    return "That was a sharp decision. You’ve earned a streak!";
+                case 3:
+                    return "Great thinking! You've earned a streak with style!";
+                case 4:
+                    return "Brilliant choice! You've earned a well-deserved streak!";
+                case 5:
+                    return "You've made a bold, epic choice! A streak is yours!";
+                case 6:
+                    return "You have chosen... wisely. You've earned a streak like a legend!";
+                default:
+                    return "You've earned a streak!";
+            }
+        }
+        else 
+        {
+            return "You have chosen... poorly. Your streaks is now gone!";
+        }
+    }
+
 
     public static string GetFilePath()
     {
@@ -86,6 +134,8 @@ public class Program
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
+
+            questions[i] = question;
         }
         return questions;
     }
