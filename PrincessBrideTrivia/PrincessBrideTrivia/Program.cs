@@ -130,20 +130,8 @@ public class Program
 
     public static bool ReplayQuiz()
     {
-        string playAgain;
-        while (true)
-        {
-            Console.WriteLine("Would you like to play again? 'y'/'n'");
-            playAgain = Console.ReadLine();
-            if (playAgain == "y" || playAgain == "n")
-            {
-                break;
-            }
-            else
-            {
-                Console.WriteLine("Error: Enter a valid input.");
-            }
-        }
+        Console.WriteLine("Would you like to play again? 'y'/'n'");
+        string playAgain = Console.ReadLine();
 
         return playAgain == "y";
     }

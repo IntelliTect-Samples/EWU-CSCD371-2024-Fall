@@ -72,53 +72,33 @@ public class ProgramTests
     }
 
     [TestMethod]
-    public void GetGameMode_ReturnsNormalMode()
+    [DataRow("1\n", 0)]
+    [DataRow("\n", 0)]
+    [DataRow("f\n", 0)]
+    [DataRow("2\n", 1)]
+    public void GetGameMode_ReturnsCorrectMode(string input, int expectedResult)
     {
         // Arrange
-        var input = new StringReader("1\n");
-        Console.SetIn(input);
+        Console.SetIn(new StringReader(input));
         // Act
         int result = Program.GetGameMode();
         // Assert
-        Assert.AreEqual(0, result);
+        Assert.AreEqual(expectedResult, result);
     }
 
     [TestMethod]
-    public void GetGameMode_ReturnsEasyMode()
+    [DataRow("y\n", true)]
+    [DataRow("n\n", false)]
+    [DataRow("\n", false)]
+    public void ReplayQuiz_ReturnsCorrectReplayValue(string input, bool expectedResult)
     {
         // Arrange
-        var input = new StringReader("2\n");
-        Console.SetIn(input);
-        // Act
-        int result = Program.GetGameMode();
-        // Assert
-        Assert.AreEqual(1, result);
-    }
-
-    [TestMethod]
-    public void ReplayQuiz_ReturnsTrueIfUserPlaysAgain()
-    {
-        // Arrange
-        var input = new StringReader("y\n");
-        Console.SetIn(input);
+        Console.SetIn(new StringReader(input));
         // Act
         bool result = Program.ReplayQuiz();
         // Assert
-        Assert.IsTrue(result);
+        Assert.AreEqual(expectedResult, result);
     }
-
-    [TestMethod]
-    public void ReplayQuiz_ReturnsFalseIfUserDoesNotPlayAgain()
-    {
-        // Arrange
-        var input = new StringReader("n\n");
-        Console.SetIn(input);
-        // Act
-        bool result = Program.ReplayQuiz();
-        // Assert
-        Assert.IsFalse(result);
-    }
-
 
     private static void GenerateQuestionsFile(string filePath, int numberOfQuestions)
     {
