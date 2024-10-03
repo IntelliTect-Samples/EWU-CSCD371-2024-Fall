@@ -12,22 +12,21 @@ public class Program
         for (int i = 0; i < questions.Length; i++)
         {
             bool result = AskQuestion(questions[i]);
-            if (result && mode != 1)
+            if (result)
             {
                 numberCorrect++;
             }
             else if (!result && mode == 1)
             {
-                    while (!result)
-                    {
-                        result = AskQuestion(questions[i]);
-                    }
+                while (!result)
+                {
+                    Console.WriteLine("Try again");
+                    result = AskQuestion(questions[i]);
+                }
+                numberCorrect++;
             }
         }
-        if (mode != 1)
-        {
-            Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
-        }
+        Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
     }
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
@@ -107,7 +106,7 @@ public class Program
     {
         Console.WriteLine("Select what mode you want to play:\n" +
                           "1. Normal\n" +
-                          "2. Easy Mode (Score disabled)"
+                          "2. Easy Mode"
                           );
         string input = Console.ReadLine();
         if (input == "2")
