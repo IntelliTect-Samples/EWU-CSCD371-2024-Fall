@@ -86,20 +86,6 @@ public class ProgramTests
         Assert.AreEqual(expectedResult, result);
     }
 
-    [TestMethod]
-    [DataRow("y\n", true)]
-    [DataRow("n\n", false)]
-    [DataRow("\n", false)]
-    public void ReplayQuiz_ReturnsCorrectReplayValue(string input, bool expectedResult)
-    {
-        // Arrange
-        Console.SetIn(new StringReader(input));
-        // Act
-        bool result = Program.ReplayQuiz();
-        // Assert
-        Assert.AreEqual(expectedResult, result);
-    }
-
     private static void GenerateQuestionsFile(string filePath, int numberOfQuestions)
     {
         for (int i = 0; i < numberOfQuestions; i++)

@@ -7,37 +7,26 @@ public class Program
         string filePath = GetFilePath();
         Question[] questions = LoadQuestions(filePath);
 
-        int highScore = 0, mode;
-        bool playAgain = true;
-
-        while(playAgain){
-            mode = GetGameMode();
-            int numberCorrect = 0;
-            for (int i = 0; i < questions.Length; i++)
+        int mode = GetGameMode();
+        int numberCorrect = 0;
+        for (int i = 0; i < questions.Length; i++)
+        {
+            bool result = AskQuestion(questions[i]);
+            if (result && mode != 1)
             {
-                bool result = AskQuestion(questions[i]);
-                if (result && mode != 1)
-                {
-                    numberCorrect++;
-                }
-                else if (!result && mode == 1)
-                {
-                        while (!result)
-                        {
-                            result = AskQuestion(questions[i]);
-                        }
-                }
+                numberCorrect++;
             }
-            if (numberCorrect > highScore)
+            else if (!result && mode == 1)
             {
-                Console.WriteLine("Congrats! You got a new high score!");
-                highScore = numberCorrect;
+                    while (!result)
+                    {
+                        result = AskQuestion(questions[i]);
+                    }
             }
-            if (mode != 1)
-            {
-                Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
-            }
-            playAgain = ReplayQuiz();
+        }
+        if (mode != 1)
+        {
+            Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
         }
     }
 
@@ -126,13 +115,5 @@ public class Program
             return 1;
         }
         return 0;
-    }
-
-    public static bool ReplayQuiz()
-    {
-        Console.WriteLine("Would you like to play again? 'y'/'n'");
-        string playAgain = Console.ReadLine();
-
-        return playAgain == "y";
     }
 }
