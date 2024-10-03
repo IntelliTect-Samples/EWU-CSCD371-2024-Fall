@@ -9,7 +9,10 @@
 
 ## Week 1 - Assignment 1
 
-9/26 - Syllabus, Intro to Git
+### 9/26
+
+- Syllabus
+- Intro to Git
 
 ## Week 2
 
@@ -24,10 +27,11 @@
 - PR's and PR Reviews
 - Due: Assignment 1
 
-## Week 3
+## Week 3 - Assignment 2
 
 ### 10/8
 
+- Go over Assignment 1
 - Data Types
 - nullables
 - Analyzers
@@ -38,32 +42,63 @@
 - Properties
 - Methods
 
-## Week 4
+## Week 4 - Assignment 3
 
-## Week 5
+### 10/15
 
-### Week 6
+-  string interpolation
+-  nullability/testing continuation
 
-- Due: Assignment 5
-- Assign: Assignment 6 - Delegates and Lambda Expressions
+### 10/17
 
-### Week 7
+- Interfaces
+
+## Week 5 - Assignment 4
+
+### 10/22
+
+- Interfaces
+
+### 10/24
+
+- Explicit vs implicit interface implementation
+- Pattern matching
+- Mocking
+
+## Week 6 - Assignment 5
+
+### 10/29
+
+- ref vs value types
+- record classes
+
+### 10/31
+
+- Exception Handling
+- using statements
+- Dispose
+
+## Week 7
+
+### 11/5
+
+### 11/7
 
 - Due: Assignment 6
 - Assign: Assignment 7-8 - LINQ and Collections
 
-### Week 8
+## Week 8
 
-### Week 9
+## Week 9
 
 - Due: Assignment 7-8
 - Assign: Assignment 9&10 - Multithreaded Programming with Task Parallel Library (TPL)
 
-### Week 10
+## Week 10
 
 - Last Week of Class
 
-### Finals Week
+## Finals Week
 
 - No Class
 - Due: Assignment 9&10
