@@ -46,7 +46,7 @@ public class Program
             Console.WriteLine("Invalid input, please enter 'y' or 'n'.");
             response = Console.ReadLine()?.ToLower();
 
-            if (string.IsNullOrEmpty(response) || response.Equals('n'))
+            if (string.IsNullOrEmpty(response) || response.Equals("n"))
             {
                 return false;
             }
