@@ -77,9 +77,9 @@ public class Program
         }
     }
 
-    public static string AnswerStreak(bool CorrectAnswer, int numberStreaks)
+    public static string AnswerStreak(bool correctAnswer, int numberStreaks)
     {
-        if (CorrectAnswer)
+        if (correctAnswer)
         {
             switch (numberStreaks)
             {
