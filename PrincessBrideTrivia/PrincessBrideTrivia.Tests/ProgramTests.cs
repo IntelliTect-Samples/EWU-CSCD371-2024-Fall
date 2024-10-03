@@ -89,6 +89,22 @@ public class ProgramTests
     }
 
     [TestMethod]
+
+    [DataRow("y",true)]
+    [DataRow("n", false)]
+    public void RestartQuiz_ReturnsExpected(String userInput,bool expected)
+    {
+        var reader = new StringReader(userInput);
+        //arrange
+        bool returnVar;
+        Console.SetIn(reader);
+        //act
+        returnVar = Program.RestartQuiz();
+        //assert
+        Assert.AreEqual(returnVar,expected,"Method returned: "+returnVar+ " expected: "+expected);
+    }
+
+    [TestMethod]
     public void ProgramAsksToRetakeQuizAfterCompletion()
     {
         // Arrange
