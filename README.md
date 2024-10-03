@@ -45,4 +45,4 @@ Read **Chapters 4-6** with an **especially careful read of Chapter 6**. Pay spec
 
 [System.IO.File](https://docs.microsoft.com/dotnet/api/system.io.file) A simple class that can handle simple file reads and writes.
 
-## See [Docs](https://github.com/IntelliTect-Samples/EWU-CSCD371-2024-Winter/blob/main/Docs/README.md)
+## See [Docs](https://github.com/IntelliTect-Samples/EWU-CSCD371-2024-Fall/blob/main/README.md)
