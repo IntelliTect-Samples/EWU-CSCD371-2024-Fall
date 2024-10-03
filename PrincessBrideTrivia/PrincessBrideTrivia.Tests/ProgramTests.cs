@@ -71,6 +71,54 @@ public class ProgramTests
         Assert.AreEqual(expectedString, percentage);
     }
 
+    [TestMethod]
+    public void GetGameMode_ReturnsNormalMode()
+    {
+        // Arrange
+        var input = new StringReader("1\n");
+        Console.SetIn(input);
+        // Act
+        int result = Program.GetGameMode();
+        // Assert
+        Assert.AreEqual(0, result);
+    }
+
+    [TestMethod]
+    public void GetGameMode_ReturnsEasyMode()
+    {
+        // Arrange
+        var input = new StringReader("2\n");
+        Console.SetIn(input);
+        // Act
+        int result = Program.GetGameMode();
+        // Assert
+        Assert.AreEqual(1, result);
+    }
+
+    [TestMethod]
+    public void ReplayQuiz_ReturnsTrueIfUserPlaysAgain()
+    {
+        // Arrange
+        var input = new StringReader("y\n");
+        Console.SetIn(input);
+        // Act
+        bool result = Program.ReplayQuiz();
+        // Assert
+        Assert.IsTrue(result);
+    }
+
+    [TestMethod]
+    public void ReplayQuiz_ReturnsFalseIfUserDoesNotPlayAgain()
+    {
+        // Arrange
+        var input = new StringReader("n\n");
+        Console.SetIn(input);
+        // Act
+        bool result = Program.ReplayQuiz();
+        // Assert
+        Assert.IsFalse(result);
+    }
+
 
     private static void GenerateQuestionsFile(string filePath, int numberOfQuestions)
     {
