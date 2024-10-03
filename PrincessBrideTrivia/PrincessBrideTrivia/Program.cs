@@ -21,7 +21,10 @@ public class Program
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        return (numberCorrectAnswers / numberOfQuestions * 100) + "%";
+        if (numberOfQuestions == 0)
+            throw new DivideByZeroException("numberOfQuestions cannot be 0");
+
+        return ((double)numberCorrectAnswers / (double)numberOfQuestions * 100) + "%";
     }
 
     public static bool AskQuestion(Question question)
@@ -41,11 +44,14 @@ public class Program
     {
         if (userGuess == question.CorrectAnswerIndex)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Correct");
+            Console.ForegroundColor = ConsoleColor.White;
             return true;
         }
-
+        Console.ForegroundColor= ConsoleColor.Red;
         Console.WriteLine("Incorrect");
+        Console.ForegroundColor = ConsoleColor.White;
         return false;
     }
 
@@ -86,6 +92,7 @@ public class Program
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
+            questions[i] = question;
         }
         return questions;
     }
