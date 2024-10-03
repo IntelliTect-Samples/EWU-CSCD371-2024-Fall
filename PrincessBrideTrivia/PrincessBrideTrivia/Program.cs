@@ -24,36 +24,37 @@ public class Program
 
             Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
 
-            Console.WriteLine("Do you want to retake the quiz? (y/n)");
-            string response = Console.ReadLine()?.ToLower();
+            retakeQuiz = RestartQuiz();
+            
+        }
+    }
 
-            if (string.IsNullOrEmpty(response) || response.Equals("n"))
+    public static bool RestartQuiz()
+    {
+        Console.WriteLine("Do you want to retake the quiz? (y/n)");
+        string response = Console.ReadLine()?.ToLower();
+
+        if (string.IsNullOrEmpty(response) || response.Equals("n"))
+        {
+            
+            Console.WriteLine("Goodbye!");
+            return false;
+        }
+
+        while (response != "y" && response != "n")
+        {
+            Console.WriteLine("Invalid input, please enter 'y' or 'n'.");
+            response = Console.ReadLine()?.ToLower();
+
+            if (string.IsNullOrEmpty(response) || response.Equals('n'))
             {
-                retakeQuiz = false;
-
-                Console.WriteLine("Goodbye!");
-                break;
-            }
-
-            while (response != "y" && response != "n")
-            {
-                Console.WriteLine("Invalid input, please enter 'y' or 'n'.");
-                response = Console.ReadLine()?.ToLower();
-
-                if (string.IsNullOrEmpty(response))
-                {
-                    retakeQuiz = false;
-                    break;
-                }
-            }
-
-            retakeQuiz = response == "y";
-            if (retakeQuiz)
-            {
-                Console.WriteLine("\nRetaking Quiz.\n");
+                return false;
             }
             
         }
+        Console.WriteLine("\nRetaking Quiz.\n");
+        return true;
+
     }
 
     public static string GetPercentCorrect(float numberCorrectAnswers, float numberOfQuestions)
