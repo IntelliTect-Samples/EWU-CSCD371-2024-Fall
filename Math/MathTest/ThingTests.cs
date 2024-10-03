@@ -65,5 +65,11 @@ public sealed class ThingTests
         Assert.AreEqual("Inigo", thing.FirstName);
     }
 
-
+    [TestMethod]
+    public void StringStuff()
+    {
+        string name = "Bob";
+        name.ToUpper();
+        Assert.AreEqual("BOB", name);
+    }
 }
