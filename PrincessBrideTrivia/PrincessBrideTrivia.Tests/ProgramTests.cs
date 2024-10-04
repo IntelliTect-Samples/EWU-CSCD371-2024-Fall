@@ -6,6 +6,29 @@ namespace PrincessBrideTrivia.Tests;
 public class ProgramTests
 {
     [TestMethod]
+public void IncorrectQuestions_AreRecordedWhenAnsweredWrong()
+{
+    // Arrange
+    Question question1 = new()
+    {
+        Text = "What is the name of the Dread Pirate?",
+        Answers = new string[] { "Roberts", "Smith", "Jones" },
+        CorrectAnswerIndex = "1"
+    };
+
+    List<Question> incorrectQuestions = new List<Question>();
+
+    // Act
+    bool result = Program.AskQuestion(question1);
+    if (!result)
+    {
+        incorrectQuestions.Add(question1);
+    }
+
+    // Assert
+    Assert.AreEqual(1, incorrectQuestions.Count); // Ensure the question is recorded in the list
+}
+    [TestMethod]
     public void LoadQuestions_RetrievesQuestionsFromFile()
     {
         string filePath = Path.GetRandomFileName();
@@ -70,8 +93,6 @@ public class ProgramTests
         // Assert
         Assert.AreEqual(expectedString, percentage);
     }
-
-
     private static void GenerateQuestionsFile(string filePath, int numberOfQuestions)
     {
         for (int i = 0; i < numberOfQuestions; i++)
