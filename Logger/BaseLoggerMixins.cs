@@ -6,6 +6,6 @@ public static class BaseLoggerMixins
 {
     public static void Error(object value, string v)
     {
-        throw new NotImplementedException();
+        if (value is null) throw new ArgumentNullException("BaseLoggerMixins.Error was passed in anull for value");
     }
 }
