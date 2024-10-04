@@ -11,8 +11,8 @@ public void IncorrectQuestions_AreRecordedWhenAnsweredWrong()
     // Arrange
     Question question1 = new()
     {
-        Text = "What is the name of the Dread Pirate?",
-        Answers = new string[] { "Roberts", "Smith", "Jones" },
+        Text = "What is my name?",
+        Answers = new string[] { "Chris", "Bill", "Frank" },
         CorrectAnswerIndex = "1"
     };
 
@@ -26,7 +26,29 @@ public void IncorrectQuestions_AreRecordedWhenAnsweredWrong()
     }
 
     // Assert
-    Assert.AreEqual(1, incorrectQuestions.Count); // Ensure the question is recorded in the list
+    Assert.AreEqual(1, incorrectQuestions.Count); 
+}
+
+[TestMethod]
+public void IncorrectQuestion_IsReAsked()
+{
+    // Arrange
+    Question question1 = new()
+    {
+        Text = "What is my name?",
+        Answers = new string[] { "Chris", "Bill", "Frank" },
+        CorrectAnswerIndex = "1"
+    };
+
+    List<Question> incorrectQuestions = new List<Question>();
+
+    // Act
+    bool result = Program.AskQuestion(question1);
+    if (!result) incorrectQuestions.Add(question1); 
+
+    // Assert
+    Assert.AreEqual(1, incorrectQuestions.Count); 
+    Assert.AreEqual(question1, incorrectQuestions[0]); 
 }
     [TestMethod]
     public void LoadQuestions_RetrievesQuestionsFromFile()
