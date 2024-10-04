@@ -17,6 +17,7 @@ public class BaseLoggerMixinsTests
         BaseLoggerMixins.Error(null, "");
 
         // Assert
+        //Assertion done with [ExpectedException] above
     }
 
     [TestMethod]
@@ -26,7 +27,7 @@ public class BaseLoggerMixinsTests
         var logger = new TestLogger();
 
         // Act
-        //logger.Error("Message {0}", 42);
+        logger.Error("Message {0}", 42);
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
