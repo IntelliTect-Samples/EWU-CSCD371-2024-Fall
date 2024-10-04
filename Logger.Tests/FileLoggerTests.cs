@@ -11,7 +11,7 @@ public class FileLoggerTests
         //Arrange
         string className = "TestClass";
         //Act
-        TestLogger logger = new();
+        FileLogger logger = new();
         logger.ClassName = className;
         //Assert
         Assert.AreEqual(className, logger.ClassName);
