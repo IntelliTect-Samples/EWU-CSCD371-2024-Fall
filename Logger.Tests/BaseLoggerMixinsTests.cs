@@ -34,11 +34,23 @@ public class BaseLoggerMixinsTests
         Assert.AreEqual("Message 42", logger.LoggedMessages[0].Message);
     }
 
+    [TestMethod]
+    public void ClassName_TestClass_Success()
+    {
+        //Arrange
+        string className = "TestClass";
+        //Act
+        TestLogger logger = new();
+        logger.ClassName = className;
+        //Assert
+        Assert.AreEqual(className, logger.ClassName);
+    }
 }
 
 public class TestLogger : BaseLogger
 {
     public List<(LogLevel LogLevel, string Message)> LoggedMessages { get; } = new List<(LogLevel, string)>();
+    public override string ClassName { get; set; }
 
     public override void Log(LogLevel logLevel, string message)
     {
