@@ -19,6 +19,8 @@ public class BaseLoggerMixinsTests
         // Assert
         //Assertion done with [ExpectedException] above
     }
+
+
     [TestMethod]
     //Format 
     [DataRow("Message {0}", "Message 2", new object[] { 2 })]
