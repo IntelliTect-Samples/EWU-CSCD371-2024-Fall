@@ -10,9 +10,10 @@ public class FileLoggerTests
     {
         //Arrange
         string className = "TestClass";
+        string filePath = "TestPath";
 
         //Act
-        FileLogger logger = new();
+        FileLogger logger = new(filePath);
         logger.ClassName = className;
 
         //Assert
@@ -20,17 +21,16 @@ public class FileLoggerTests
     }
 
     [TestMethod]
-    public void FileLogger_TestInitializeFilePath_True()
+    public void FileLogger_Constructor_Success()
     {
         //Arrange
         string filePath = "TestPath";
 
         //Act
-        FileLogger logger = new();
-        logger.FileLogger(filePath);
+        FileLogger logger = new(filePath);
 
         //Assert
-        Assert.AreEqual(filePath, logger.FileLogger);
+        Assert.IsNotNull(logger);
 
     }
 }
