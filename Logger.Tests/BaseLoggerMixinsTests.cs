@@ -35,9 +35,10 @@ namespace Logger.Tests
     {
         public List<(LogLevel LogLevel, string Message)> LoggedMessages { get; } = new List<(LogLevel, string)>();
 
-        public override void Log(LogLevel logLevel, string message)
+        public override void Log(LogLevel level, string message)  // Change 'logLevel' to 'level'
         {
-            LoggedMessages.Add((logLevel, message));
+            LoggedMessages.Add((level, message));  // Use the renamed parameter here
         }
     }
+
 }
