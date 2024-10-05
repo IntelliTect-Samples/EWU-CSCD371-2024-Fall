@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.IO;
 using System.Reflection;
 
@@ -8,7 +7,7 @@ namespace Logger.Tests
     [TestClass]
 public class LogFactoryTests
 {
-    private string _expectedFilePath = string.Empty;
+    private string _expectedFilePath;
 
     [TestInitialize]
     public void Setup()
@@ -50,7 +49,7 @@ public class LogFactoryTests
         logFactory.ConfigureFileLogger();
 
         // Act
-        var logger = logFactory.CreateLogger();
+        var logger = logFactory.CreateLogger("TestClassName");
 
         // Assert
         Assert.IsNotNull(logger);
@@ -65,7 +64,7 @@ public class LogFactoryTests
         logFactory.ConfigureFileLogger();
 
         // Act
-        var logger = logFactory.CreateLogger();
+        var logger = logFactory.CreateLogger("TestClassName");
         logger!.Log(LogLevel.Debug, "Test message");
 
         // Assert

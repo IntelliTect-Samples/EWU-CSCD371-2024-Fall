@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
+
 
 namespace Logger;
 
@@ -17,7 +17,13 @@ public class FileLogger : BaseLogger
 
     public override void Log(LogLevel level, string message)
     {
-        var logEntry = $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)} {ClassName} {level}: {message}{Environment.NewLine}";
+        var logEntry = string.Format("{0} {1} {2}: {3}{4}",
+            DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture),
+            ClassName,
+            level,
+            message,
+            Environment.NewLine);
+
         File.AppendAllText(_filePath, logEntry);
     }
 

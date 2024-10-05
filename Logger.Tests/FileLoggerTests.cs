@@ -9,7 +9,7 @@ namespace Logger.Tests
     [TestClass]
     public class FileLoggerTests
     {
-        private string _logFilePath = string.Empty;
+        private string _logFilePath = String.Empty;
 
         [TestInitialize]
         public void Setup()
