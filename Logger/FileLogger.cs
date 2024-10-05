@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-
+using System.Reflection;
 
 namespace Logger;
 
@@ -12,11 +12,6 @@ public class FileLogger : BaseLogger
 
     public FileLogger(string filePath)
     {
-        if (string.IsNullOrEmpty(filePath))
-        {
-            throw new ArgumentNullException(nameof(filePath), "File path cannot be null or empty.");
-        }
-
         _filePath = filePath;
     }
 

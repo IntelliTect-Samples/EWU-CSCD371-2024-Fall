@@ -1,6 +1,5 @@
-﻿using System;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -48,44 +47,42 @@ public class LogFactoryTests
     {
         // Arrange
         var logFactory = new LogFactory();
-        logFactory.ConfigureFileLogger();  // Configure the file logger with a valid file path
+        logFactory.ConfigureFileLogger();
 
         // Act
-        var logger = logFactory.CreateLogger("TestClassName");
+        var logger = logFactory.CreateLogger("Test Class");
 
-        // Assert that logger is not null
-        Assert.IsNotNull(logger, "Logger should not be null");
-
-        // Further check that it's an instance of FileLogger
+        // Assert
+        Assert.IsNotNull(logger);
         Assert.IsInstanceOfType(logger, typeof(FileLogger));
     }
-
 
     [TestMethod]
     public void CreateLogger_ShouldUseHardcodedFilePath()
     {
         // Arrange
         var logFactory = new LogFactory();
-        string hardcodedFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "file.txt");
-        logFactory.ConfigureFileLogger();  // Configure with a valid file path
+        logFactory.ConfigureFileLogger();
 
         // Act
-        var logger = logFactory.CreateLogger("TestClassName");
+        var logger = logFactory.CreateLogger("Test Class");
+        logger!.Log(LogLevel.Debug, "Test message");
 
-        // Assert that logger is not null
-        Assert.IsNotNull(logger, "Logger should not be null");
-
-        // Log a message
-        logger.Log(LogLevel.Debug, "Test message");
-
-        // Check that the log file exists and contains the expected content
-        Assert.IsTrue(File.Exists(hardcodedFilePath), $"File '{hardcodedFilePath}' should exist");
-
-        var logContent = File.ReadAllText(hardcodedFilePath);
-        Assert.IsTrue(logContent.Contains("Test message"), "Log content should contain the test message");
+        // Assert
+        Assert.IsTrue(File.Exists(_expectedFilePath));
+        var logContent = File.ReadAllText(_expectedFilePath);
+        Assert.IsTrue(logContent.Contains("Test message"));
     }
 
-    
+    [TestCleanup]
+    public void Cleanup()
+    {
+        // Clean up the log file after each test
+        if (File.Exists(_expectedFilePath))
+        {
+            File.Delete(_expectedFilePath);
+        }
+    }
 }
 
 }

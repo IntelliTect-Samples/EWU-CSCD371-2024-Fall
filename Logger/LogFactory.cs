@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Logger;
+﻿namespace Logger;
 
 using System.IO;
 using System.Reflection;
@@ -11,16 +9,10 @@ public class LogFactory
 
     public void ConfigureFileLogger()
     {
-        // Set a valid, writable file path
-        FilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "file.txt");
-
-        // You can also add a null check to ensure the file path is valid
-        if (string.IsNullOrEmpty(FilePath))
-        {
-            throw new InvalidOperationException("File path is not configured correctly.");
-        }
+        // Use Path.Combine with Assembly.GetExecutingAssembly().Location
+        string assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
+        FilePath = Path.Combine(assemblyLocation, "file.txt");
     }
-
     public BaseLogger? CreateLogger(string className)
     {
         if (string.IsNullOrEmpty(FilePath))

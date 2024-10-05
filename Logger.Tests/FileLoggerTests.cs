@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Globalization;
 using System.IO;
@@ -9,7 +9,7 @@ namespace Logger.Tests
     [TestClass]
     public class FileLoggerTests
     {
-        private string? _logFilePath;
+        private string _logFilePath = string.Empty;
 
         [TestInitialize]
         public void Setup()
