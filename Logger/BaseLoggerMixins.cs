@@ -15,9 +15,11 @@ public static class BaseLoggerMixins
     //and thus these method can be used as a Baselogger method in the directory
     //ex: BaseLoggerChild.Error()
     
-    public static void Error(this BaseLogger logger, string baseMessage, params object[] intsToInsert)
+    public static void Error(this BaseLogger logger, string baseMessage, params object[] objectsToInsert)
     {
         if (logger is null) throw new ArgumentNullException("BaseLoggerMixins.Error was passed in anull for value");
+        string formatResult = string.Format(baseMessage, objectsToInsert);
+        logger.Log(LogLevel.Error, formatResult);
 
     }
 }
