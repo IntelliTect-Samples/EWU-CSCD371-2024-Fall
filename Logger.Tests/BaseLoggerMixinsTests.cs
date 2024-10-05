@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
@@ -21,18 +21,18 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    public void Error_WithData_LogsMessage()
-    {
+
+    [DataRow("Message {0}", "Message 2", new object[] { 2 })]
         // Arrange
         var logger = new TestLogger();
 
         // Act
-        logger.Error("Message {0}", 42);
+        logger.Error(message,insertionValues);
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
         Assert.AreEqual(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
-        Assert.AreEqual("Message 42", logger.LoggedMessages[0].Message);
+        Assert.AreEqual(result, logger.LoggedMessages[0].Message);
     }
 
 }
