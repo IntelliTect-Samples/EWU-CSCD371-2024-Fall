@@ -19,20 +19,6 @@ public class BaseLoggerMixinsTests
         // Assert
         //Assertion done with [ExpectedException] above
     }
-
-    [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
-    public void Error_WithNullMessage_ThrowsException()
-    {
-        // Arrange
-        TestLogger test = new();
-        // Act
-        BaseLoggerMixins.Error(test, null);
-
-        // Assert
-        //Assertion done with [ExpectedException] above
-    }
-
     [TestMethod]
     //Format 
     [DataRow("Message {0}", "Message 2", new object[] { 2 })]
@@ -41,7 +27,11 @@ public class BaseLoggerMixinsTests
     [DataRow("Message {0}{0}", "Message repeatrepeat", new object[] { "repeat" })]
     [DataRow("Message {0}{1}", "Message hello.2", new object[] { "hello.", 2 })]
     [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { "" })]
+    //null tests
     [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { null })]
+    [DataRow(null, "", new object[] { "String here"})]
+    [DataRow("", "", null)]
+
     public void Error_WithValidData_LogsMessage(string message, string result, object[] insertionValues)
     {
 
