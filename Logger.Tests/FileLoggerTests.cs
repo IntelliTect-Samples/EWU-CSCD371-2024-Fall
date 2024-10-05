@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 
@@ -64,8 +65,9 @@ namespace Logger.Tests
             DateTime currentDateTime = DateTime.Now;
 
             // Check that the log file contains a date/time similar to the current date/time
-            Assert.IsTrue(logContent.Contains(currentDateTime.ToString("M/d/yyyy")));  // Check if date is included
+            Assert.IsTrue(logContent.Contains(currentDateTime.ToString("M/d/yyyy", CultureInfo.InvariantCulture)));  // Use CultureInfo.InvariantCulture
         }
+
 
         [TestMethod]
         public void Log_FileShouldCreateIfNotExists()

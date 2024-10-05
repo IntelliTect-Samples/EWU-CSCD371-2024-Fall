@@ -6,13 +6,12 @@ namespace Logger.Tests
 {
     [TestClass]
     public class BaseLoggerMixinsTests
-    {
-        [TestMethod]
+    {[TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Error_WithNullLogger_ThrowsException()
         {
             // Act
-            BaseLoggerMixins.Error(null, "");  // Passing null should throw an ArgumentNullException
+            BaseLoggerMixins.Error(null!, "");  // The `!` suppresses the warning by saying we're deliberately passing null
         }
 
         [TestMethod]
