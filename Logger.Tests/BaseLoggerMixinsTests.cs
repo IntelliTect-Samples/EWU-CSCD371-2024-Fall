@@ -29,7 +29,7 @@ public class BaseLoggerMixinsTests
     [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { "" })]
     //null tests
     [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { null })]
-    [DataRow(null, "", new object[] { "String here"})]
+    [DataRow(null, "Null message passed in", new object[] { "String here"})]
     [DataRow("", "", null)]
 
     public void Error_WithValidData_LogsMessage(string message, string result, object[] insertionValues)
