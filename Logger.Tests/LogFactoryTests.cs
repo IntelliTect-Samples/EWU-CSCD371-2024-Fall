@@ -48,14 +48,14 @@ public class LogFactoryTests
     {
         // Arrange
         var logFactory = new LogFactory();
-        logFactory.ConfigureFileLogger();
+        logFactory.ConfigureFileLogger();  // Configure the file logger with a valid file path
 
         // Act
         var logger = logFactory.CreateLogger("TestClassName");
 
         // Assert
-        Assert.IsNotNull(logger);
-        Assert.IsInstanceOfType(logger, typeof(FileLogger));
+        Assert.IsNotNull(logger, "Logger should not be null");
+        Assert.IsInstanceOfType(logger, typeof(FileLogger));  // Ensure it's of type FileLogger
     }
 
     [TestMethod]
@@ -63,28 +63,25 @@ public class LogFactoryTests
     {
         // Arrange
         var logFactory = new LogFactory();
-        logFactory.ConfigureFileLogger();
-    
+        logFactory.ConfigureFileLogger();  // Configure with a hardcoded file path
+
         // Act
         var logger = logFactory.CreateLogger("TestClassName");
-        logger!.Log(LogLevel.Debug, "Test message");
-    
-        // Assert
-        Assert.IsTrue(File.Exists(_expectedFilePath));
-        var logContent = File.ReadAllText(_expectedFilePath);
-        Assert.IsTrue(logContent.Contains("Test message"));
-    }
+        Assert.IsNotNull(logger, "Logger should not be null");
 
-
-    [TestCleanup]
-    public void Cleanup()
-    {
-        // Clean up the log file after each test
-        if (File.Exists(_expectedFilePath))
+        // Log message if logger is not null
+        if (logger != null)
         {
-            File.Delete(_expectedFilePath);
+            logger.Log(LogLevel.Debug, "Test message");
         }
+
+        // Assert
+        string hardcodedFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "file.txt");
+        Assert.IsTrue(File.Exists(hardcodedFilePath), $"File '{hardcodedFilePath}' should exist");
+        var logContent = File.ReadAllText(hardcodedFilePath);
+        Assert.IsTrue(logContent.Contains("Test message"), "Log content should contain the test message");
     }
+    
 }
 
 }
