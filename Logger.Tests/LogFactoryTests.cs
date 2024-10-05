@@ -53,34 +53,38 @@ public class LogFactoryTests
         // Act
         var logger = logFactory.CreateLogger("TestClassName");
 
-        // Assert
+        // Assert that logger is not null
         Assert.IsNotNull(logger, "Logger should not be null");
-        Assert.IsInstanceOfType(logger, typeof(FileLogger));  // Ensure it's of type FileLogger
+
+        // Further check that it's an instance of FileLogger
+        Assert.IsInstanceOfType(logger, typeof(FileLogger));
     }
+
 
     [TestMethod]
     public void CreateLogger_ShouldUseHardcodedFilePath()
     {
         // Arrange
         var logFactory = new LogFactory();
-        logFactory.ConfigureFileLogger();  // Configure with a hardcoded file path
+        string hardcodedFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "file.txt");
+        logFactory.ConfigureFileLogger();  // Configure with a valid file path
 
         // Act
         var logger = logFactory.CreateLogger("TestClassName");
+
+        // Assert that logger is not null
         Assert.IsNotNull(logger, "Logger should not be null");
 
-        // Log message if logger is not null
-        if (logger != null)
-        {
-            logger.Log(LogLevel.Debug, "Test message");
-        }
+        // Log a message
+        logger.Log(LogLevel.Debug, "Test message");
 
-        // Assert
-        string hardcodedFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "file.txt");
+        // Check that the log file exists and contains the expected content
         Assert.IsTrue(File.Exists(hardcodedFilePath), $"File '{hardcodedFilePath}' should exist");
+
         var logContent = File.ReadAllText(hardcodedFilePath);
         Assert.IsTrue(logContent.Contains("Test message"), "Log content should contain the test message");
     }
+
     
 }
 

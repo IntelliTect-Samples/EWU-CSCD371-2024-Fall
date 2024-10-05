@@ -11,15 +11,21 @@ public class LogFactory
 
     public void ConfigureFileLogger()
     {
-        // Set the file path to a writable location, ensuring it's not null
+        // Set a valid, writable file path
         FilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "file.txt");
+
+        // You can also add a null check to ensure the file path is valid
+        if (string.IsNullOrEmpty(FilePath))
+        {
+            throw new InvalidOperationException("File path is not configured correctly.");
+        }
     }
 
     public BaseLogger? CreateLogger(string className)
     {
         if (string.IsNullOrEmpty(FilePath))
         {
-            throw new InvalidOperationException("FilePath is not configured.");
+            return null;  // Ensure that null is handled
         }
 
         return new FileLogger(FilePath)
