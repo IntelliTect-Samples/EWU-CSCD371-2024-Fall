@@ -22,6 +22,7 @@ namespace Logger.Tests
             if (File.Exists(_logFilePath))
             {
                 File.Delete(_logFilePath);
+                //
             }
         }
 
