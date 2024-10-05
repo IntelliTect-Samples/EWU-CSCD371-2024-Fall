@@ -63,11 +63,12 @@ namespace Logger.Tests
 
             // Assert
             string logContent = File.ReadAllText(_logFilePath);
-            DateTime currentDateTime = DateTime.Now;
+            string expectedDate = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);  // Compare only the date
 
-            // Check that the log file contains a date/time similar to the current date/time
-            Assert.IsTrue(logContent.Contains(currentDateTime.ToString("M/d/yyyy", CultureInfo.InvariantCulture)));  // Use CultureInfo.InvariantCulture
+            // Check that the log file contains the correct date
+            Assert.IsTrue(logContent.Contains(expectedDate), $"Log content did not contain expected date: {expectedDate}");
         }
+
 
 
         [TestMethod]
