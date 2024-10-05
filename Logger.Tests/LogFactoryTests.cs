@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Reflection;
 
@@ -7,7 +8,7 @@ namespace Logger.Tests
     [TestClass]
 public class LogFactoryTests
 {
-    private string _expectedFilePath;
+    private string? _expectedFilePath;
 
     [TestInitialize]
     public void Setup()
@@ -55,23 +56,33 @@ public class LogFactoryTests
         Assert.IsNotNull(logger);
         Assert.IsInstanceOfType(logger, typeof(FileLogger));
     }
-
+    
     [TestMethod]
     public void CreateLogger_ShouldUseHardcodedFilePath()
     {
         // Arrange
         var logFactory = new LogFactory();
-        logFactory.ConfigureFileLogger();
+        string hardcodedFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "file.txt");  // Define the expected file path
+        logFactory.ConfigureFileLogger();  // Configure with a hardcoded file path
 
         // Act
         var logger = logFactory.CreateLogger("TestClassName");
-        logger!.Log(LogLevel.Debug, "Test message");
+
+        // Assert that logger is not null
+        Assert.IsNotNull(logger, "Logger should not be null");
+
+        // Log message if logger is not null
+        if (logger != null)
+        {
+            logger.Log(LogLevel.Debug, "Test message");
+        }
 
         // Assert
-        Assert.IsTrue(File.Exists(_expectedFilePath));
-        var logContent = File.ReadAllText(_expectedFilePath);
-        Assert.IsTrue(logContent.Contains("Test message"));
+        Assert.IsTrue(File.Exists(hardcodedFilePath), $"File '{hardcodedFilePath}' should exist");
+        var logContent = File.ReadAllText(hardcodedFilePath);
+        Assert.IsTrue(logContent.Contains("Test message"), "Log content should contain the test message");
     }
+
 
     [TestCleanup]
     public void Cleanup()

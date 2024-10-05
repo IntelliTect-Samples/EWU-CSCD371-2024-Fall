@@ -10,8 +10,8 @@ public class LogFactory
     public void ConfigureFileLogger()
     {
         // Use Path.Combine with Assembly.GetExecutingAssembly().Location
-        //string assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
-        FilePath = Path.Combine(Assembly.GetExecutingAssembly().Location, "file.txt");
+        string assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
+        FilePath = Path.Combine(assemblyLocation, "file.txt");
     }
 
     public BaseLogger? CreateLogger(string className)
