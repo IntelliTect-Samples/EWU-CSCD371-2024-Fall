@@ -1,4 +1,4 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
@@ -19,10 +19,19 @@ public class BaseLoggerMixinsTests
         // Assert
         //Assertion done with [ExpectedException] above
     }
-
     [TestMethod]
-
+    //Format 
     [DataRow("Message {0}", "Message 2", new object[] { 2 })]
+    [DataRow("Message {0}", "Message 2", new object[] { "2" })]
+    [DataRow("Message {0}", "Message hello.", new object[] { "hello." })]
+    [DataRow("Message {0}{0}", "Message repeatrepeat", new object[] { "repeat" })]
+    [DataRow("Message {0}{1}", "Message hello.2", new object[] { "hello.", 2 })]
+    [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { "" })]
+    [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { })]
+    [DataRow("Empty Message: {0}", "Empty Message: ", new object[] {null })]
+    public void Error_WithValidData_LogsMessage(string message,string result, object[] insertionValues )
+    {
+    
         // Arrange
         var logger = new TestLogger();
 
