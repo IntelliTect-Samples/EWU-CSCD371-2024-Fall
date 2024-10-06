@@ -2,7 +2,7 @@
 
 public abstract class BaseLogger
 {
-    public abstract string ClassName { get; set; }
+    public string ClassName { get; set; } = string.Empty;
     
     public abstract void Log(LogLevel logLevel, string message);
 }

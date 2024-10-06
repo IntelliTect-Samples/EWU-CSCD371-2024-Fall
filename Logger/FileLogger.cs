@@ -7,7 +7,6 @@ public class FileLogger : BaseLogger
     {
         _filePath = filePath;
     }
-    public override string ClassName { get; set; } = string.Empty;
 
     public override void Log(LogLevel logLevel, string message)
     {
