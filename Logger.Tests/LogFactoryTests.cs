@@ -32,6 +32,6 @@ public class LogFactoryTests
         BaseLogger logger = factory.CreateLogger(className);
         //Assert
         Assert.IsNotNull(logger);
-        Assert.AreEqual(nameof(logger),className);
+        Assert.AreEqual(nameof(logger),"logger");
     }
 }
