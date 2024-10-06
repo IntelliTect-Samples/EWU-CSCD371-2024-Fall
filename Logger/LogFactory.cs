@@ -3,13 +3,19 @@ using System.IO;
 using System.Reflection;
 public class LogFactory
 {
-    public BaseLogger CreateLogger(string className)
+    private string? _filePath { get; set; }
+    public BaseLogger? CreateLogger(string className)
     {
-
-        return null;
+        if(_filePath == null)
+        {
+            return null;
+        }
+        else 
+        {
+            return new FileLogger(_filePath, className);
+        }
     }
 
-    private string? _filePath;
     public void ConfigureFileLogger(string filePath)
     {
         if (filePath == null) {
