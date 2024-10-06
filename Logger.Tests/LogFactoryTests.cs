@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -35,6 +35,7 @@ public class LogFactoryTests
         //Assert
         Assert.IsNotNull(logger);
         Assert.AreEqual(nameof(logger),"logger");
+        Assert.AreEqual(className.ToLower(), logger.ClassName.ToLower());
     }
 
     [TestMethod]
