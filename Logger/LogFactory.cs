@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Logger;
 
@@ -21,7 +21,7 @@ public class LogFactory
                 throw new ArgumentException("Empty class name passed into Create Logger");
                 break;
             case "testlogger":
-                return new TestLogger();
+                return new TestLogger() { ClassName = "TestLogger"};
                 break;
             default:
                 throw new ArgumentException("No class with name " + className + " found");
