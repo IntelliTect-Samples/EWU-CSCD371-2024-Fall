@@ -23,7 +23,7 @@ public class BaseLoggerMixinsTests
     public void Error_WithData_LogsMessage()
     {
         // Arrange
-        var logger = new TestLogger();
+        var logger = new TestLogger(nameof(BaseLoggerMixinsTests));
 
         // Act
         //logger.Error("Message {0}", 42);
@@ -38,6 +38,11 @@ public class BaseLoggerMixinsTests
 
 public class TestLogger : BaseLogger
 {
+    public override string _className { get; }
+    public TestLogger(string className)
+    {
+        _className = className;
+    }
     public List<(LogLevel LogLevel, string Message)> LoggedMessages { get; } = new List<(LogLevel, string)>();
 
     public override void Log(LogLevel logLevel, string message)
