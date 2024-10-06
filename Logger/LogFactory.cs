@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace Logger;
 
@@ -22,6 +22,11 @@ public class LogFactory
                 break;
             case "testlogger":
                 return new TestLogger() { ClassName = "TestLogger"};
+                break;
+
+            case "filelogger":
+                FileLogger logger =new FileLogger(){ClassName = "FileLogger"};
+                return new FileLogger();
                 break;
             default:
                 throw new ArgumentException("No class with name " + className + " found");
