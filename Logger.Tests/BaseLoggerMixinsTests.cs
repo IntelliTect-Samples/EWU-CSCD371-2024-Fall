@@ -54,6 +54,18 @@ public class BaseLoggerMixinsTests
         Assert.AreEqual(result, logger.LoggedMessages[0].Message);
     }
 
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Warning_WithNullLogger_ThrowsException()
+    {
+        // Arrange
+
+        // Act
+        BaseLoggerMixins.Warning(null, "");
+
+        // Assert
+        //Assertion done with [ExpectedException] above
+    }
 
 
     public class TestLogger : BaseLogger
