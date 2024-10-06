@@ -2,14 +2,7 @@ namespace Logger;
 
 public abstract class BaseLogger
 {
-    public string ClassName {
-        get;
-        set;
-    }
-
-    public BaseLogger(string className) {
-        ClassName = className;
-    }
+    public abstract string _className { get; }
 
     public abstract void Log(LogLevel logLevel, string message);
 }
