@@ -45,7 +45,7 @@ public static class BaseLoggerMixins
     }
     public static void Debug(this BaseLogger logger, string baseMessage, params object[] objectsToInsert)
     {
-        CheckAndLog(logger, baseMessage, objectsToInsert, LogLevel.Information);
+        CheckAndLog(logger, baseMessage, objectsToInsert, LogLevel.Debug);
 
     }
 
