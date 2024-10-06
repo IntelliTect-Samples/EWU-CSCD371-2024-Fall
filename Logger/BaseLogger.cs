@@ -1,7 +1,6 @@
 ﻿namespace Logger;
 
 public abstract class BaseLogger
-
 {
     public abstract string ClassName { get; set; }
     

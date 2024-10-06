@@ -14,7 +14,7 @@ public class BaseLoggerMixinsTests
         // Arrange
 
         // Act
-        //BaseLoggerMixins.Error(null, "");
+        BaseLoggerMixins.Error(null, "This will throw an exception.");
 
         // Assert
     }
@@ -26,7 +26,7 @@ public class BaseLoggerMixinsTests
         var logger = new TestLogger();
 
         // Act
-        //logger.Error("Message {0}", 42);
+        logger.Error("Message {0}", 42);
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -39,9 +39,11 @@ public class BaseLoggerMixinsTests
     {
         //Arrange
         string className = "TestClass";
+
         //Act
         TestLogger logger = new();
         logger.ClassName = className;
+
         //Assert
         Assert.AreEqual(className, logger.ClassName);
     }
