@@ -25,4 +25,15 @@ public static class BaseLoggerMixins
         logger.Log(LogLevel.Error, formatResult);
 
     }
+    public static void Warning(this BaseLogger logger, string baseMessage, params object[] objectsToInsert)
+    {
+        if (logger is null) throw new ArgumentNullException("BaseLoggerMixins.Error was passed in null for logger");
+        if (baseMessage is null) baseMessage = "Null message passed in";
+        if (objectsToInsert is null) objectsToInsert = new object[] { };
+
+        string formatResult = string.Format(baseMessage, objectsToInsert);
+        logger.Log(LogLevel.Warning, formatResult);
+
+    }
+
 }
