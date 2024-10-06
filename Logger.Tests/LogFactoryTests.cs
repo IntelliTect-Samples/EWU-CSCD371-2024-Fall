@@ -21,5 +21,17 @@ public class LogFactoryTests
         //assert
         Assert.AreEqual(factory.FilePath, path);
     }
+    [TestMethod]
+    [DataRow("TestLogger")]
+    public void CreateLogger_ValidClassName_ReturnsLogger(string className)
+    {
 
+        //Arrange
+        LogFactory factory = new();
+       //act
+        BaseLogger logger = factory.CreateLogger(className);
+        //Assert
+        Assert.IsNotNull(logger);
+        Assert.AreEqual(nameof(logger),className);
+    }
 }
