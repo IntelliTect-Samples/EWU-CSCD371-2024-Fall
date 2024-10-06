@@ -15,6 +15,16 @@ public class LogFactory
 
     public BaseLogger CreateLogger(string className)
     {
-        return null;
+        switch (className.ToLower())
+        {
+            case "":
+                throw new ArgumentException("Empty class name passed into Create Logger");
+                break;
+            case "testlogger":
+                return new TestLogger();
+                break;
+            default:
+                throw new ArgumentException("No class with name " + className + " found");
+        }
     }
 }
