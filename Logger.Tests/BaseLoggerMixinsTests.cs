@@ -28,7 +28,12 @@ public class BaseLoggerMixinsTests
     [DataRow("Message {0}", "Message hello.", new object[] { "hello." })]
     [DataRow("Message {0}{0}", "Message repeatrepeat", new object[] { "repeat" })]
     [DataRow("Message {0}{1}", "Message hello.2", new object[] { "hello.", 2 })]
+    [DataRow("Message {1}{0}", "Message hello.2", new object[] { 2, "hello." })]
+    [DataRow("Message {0}{1}", "Message hello.2", new object[] { "hello.", 2," third" })]
+    [DataRow("Message {2}{1}{0}", "Message third2hello.", new object[] { "hello.", 2, "third" })]
+    //Empty stuff
     [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { "" })]
+    [DataRow("", "", new object[] { "test" })]
     //null tests
     [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { null })]
     [DataRow(null, "Null message passed in", new object[] { "String here"})]
