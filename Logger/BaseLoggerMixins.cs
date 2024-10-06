@@ -17,7 +17,7 @@ public static class BaseLoggerMixins
 
 
 
-    public static void CheckAndLog(BaseLogger logger, string baseMessage, object[] objectsToInsert, LogLevel level)
+    private static void CheckAndLog(BaseLogger logger, string baseMessage, object[] objectsToInsert, LogLevel level)
     {
         if (logger is null) throw new ArgumentNullException("BaseLoggerMixins.Error was passed in null for logger");
         if (baseMessage is null) baseMessage = "Null message passed in";
