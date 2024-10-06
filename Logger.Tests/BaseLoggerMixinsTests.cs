@@ -7,6 +7,8 @@ namespace Logger.Tests;
 [TestClass]
 public class BaseLoggerMixinsTests
 {
+    [TestCategory("Error")]
+
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void Error_WithNullLogger_ThrowsException()
@@ -29,14 +31,14 @@ public class BaseLoggerMixinsTests
     [DataRow("Message {0}{0}", "Message repeatrepeat", new object[] { "repeat" })]
     [DataRow("Message {0}{1}", "Message hello.2", new object[] { "hello.", 2 })]
     [DataRow("Message {1}{0}", "Message hello.2", new object[] { 2, "hello." })]
-    [DataRow("Message {0}{1}", "Message hello.2", new object[] { "hello.", 2," third" })]
+    [DataRow("Message {0}{1}", "Message hello.2", new object[] { "hello.", 2, " third" })]
     [DataRow("Message {2}{1}{0}", "Message third2hello.", new object[] { "hello.", 2, "third" })]
     //Empty stuff
     [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { "" })]
     [DataRow("", "", new object[] { "test" })]
     //null tests
     [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { null })]
-    [DataRow(null, "Null message passed in", new object[] { "String here"})]
+    [DataRow(null, "Null message passed in", new object[] { "String here" })]
     [DataRow("", "", null)]
 
     public void Error_WithValidData_LogsMessage(string message, string result, object[] insertionValues)
@@ -53,6 +55,8 @@ public class BaseLoggerMixinsTests
         Assert.AreEqual(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
         Assert.AreEqual(result, logger.LoggedMessages[0].Message);
     }
+
+    [TestCategory("Warning")]
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
@@ -100,6 +104,9 @@ public class BaseLoggerMixinsTests
         Assert.AreEqual(result, logger.LoggedMessages[0].Message);
     }
 
+
+    [TestCategory("Information")]
+
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
     public void Information_WithNullLogger_ThrowsException()
@@ -112,6 +119,7 @@ public class BaseLoggerMixinsTests
         // Assert
         //Assertion done with [ExpectedException] above
     }
+    [TestCategory("Debug")]
 
 
     public class TestLogger : BaseLogger
