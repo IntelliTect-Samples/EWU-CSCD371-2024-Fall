@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -25,6 +25,7 @@ public class LogFactoryTests
 
     [TestMethod]
     [DataRow("TestLogger")]
+    [DataRow("FileLogger")]
     public void CreateLogger_ValidClassName_ReturnsLogger(string className)
     {
 
