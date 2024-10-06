@@ -25,8 +25,9 @@ public class LogFactory
                 break;
 
             case "filelogger":
-                FileLogger logger =new FileLogger(){ClassName = "FileLogger"};
-                return new FileLogger();
+                FileLogger logger =new FileLogger(this.FilePath){ClassName = "FileLogger"};
+                
+                return logger;
                 break;
             default:
                 throw new ArgumentException("No class with name " + className + " found");
