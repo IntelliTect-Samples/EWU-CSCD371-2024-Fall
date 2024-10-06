@@ -11,6 +11,7 @@ public class LogFactoryTests
     [DataRow("")]
     [DataRow("./")]
     [DataRow("/C:/Users/test/Documents")]
+    [DataRow(null)]
 
     public void ConfigureFileLogger_GivenString_StoresValue(string path)
     {
@@ -21,6 +22,7 @@ public class LogFactoryTests
         //assert
         Assert.AreEqual(factory.FilePath, path);
     }
+
     [TestMethod]
     [DataRow("TestLogger")]
     public void CreateLogger_ValidClassName_ReturnsLogger(string className)
@@ -33,5 +35,22 @@ public class LogFactoryTests
         //Assert
         Assert.IsNotNull(logger);
         Assert.AreEqual(nameof(logger),"logger");
+    }
+
+    [TestMethod]
+    [DataRow("TestLoggerton")]
+    [DataRow(1)]
+    [DataRow("")]
+    [ExpectedException(typeof(ArgumentException))]
+    public void CreateLogger_InvalidClassName_ThrowsError(string? className)
+    {
+
+        //Arrange
+        LogFactory factory = new();
+        //act
+        BaseLogger logger = factory.CreateLogger(className);
+        //Assert
+        Assert.IsNotNull(logger);
+        Assert.AreEqual(nameof(logger), "logger");
     }
 }
