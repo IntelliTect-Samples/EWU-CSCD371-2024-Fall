@@ -30,12 +30,12 @@ public class FileLoggerTests
         // Handled by data rows
 
         // Act
-        var logger = new FileLogger(path) { ClassName = "FileLogger" };
+        var logger = new FileLogger(path) { ClassName = nameof(FileLoggerTests).ToLower() };
 
         // Assert
         Assert.IsNotNull(logger, "FileLogger should not be null.");
         Assert.IsNotNull(logger.ClassName);
-        Assert.AreEqual(logger.ClassName.ToLower(), "filelogger");
+        Assert.AreEqual(logger.ClassName.ToLower(), nameof(FileLoggerTests).ToLower());
     }
 
     [TestMethod]
@@ -46,7 +46,7 @@ public class FileLoggerTests
         string path = null;
 
         //Act
-        var logger = new FileLogger(path) { ClassName = "FileLogger" };
+        var logger = new FileLogger(path) { ClassName = nameof(FileLoggerTests).ToLower() };
     }
 
 
@@ -54,7 +54,7 @@ public class FileLoggerTests
     public void GetCallingClassName_ReturnsExpectedClassName()
     {
         //Arrange
-        var logger = new FileLogger("C\\:") {ClassName = "FileLogger"};
+        var logger = new FileLogger("C\\:") {ClassName = nameof(FileLoggerTests).ToLower()};
         string expectedCallingClassName = MethodBase.GetCurrentMethod().DeclaringType.Name;
         //Act
         string callingClassName = logger.GetCallingClassName();
@@ -65,25 +65,28 @@ public class FileLoggerTests
 
     [TestMethod]
     [DataRow(LogLevel.Warning, "Test message")]
-    [DataRow(LogLevel.Warning, "Test message")]
+    [DataRow(LogLevel.Error, "Test message")]
+    [DataRow(LogLevel.Information, "Test message")]
+    [DataRow(LogLevel.Debug, "Test message")]
 
     public void CreateOutputString_ValidInput_ReturnsExpected(LogLevel LogLevel, string message)
     {
         //Arrange
         string path = Path.GetTempPath();
-        var logger = new FileLogger(path) { ClassName = "FileLogger" };
+        string expectedCaller = MethodBase.GetCurrentMethod().DeclaringType.Name;
+        var logger = new FileLogger(path) { ClassName = expectedCaller };
         
         //we see on this next line that we can grab the current method's calling class name
-        string expectedCaller = MethodBase.GetCurrentMethod().DeclaringType.Name;
+        
         DateTime dateTime = DateTime.Now;
         string expectedOutput = $"{dateTime} {expectedCaller} {LogLevel}: {message}";
-        string actualCaller = logger.GetCallingClassName();
+       
 
         //Act
         //I don't care for having to pass the dateTime and actualCaller in as arguments
         //There are unique reasons why it's easier to pass them in as parameters
         //These reasons aid in testing but limit the method's usability
-        string outputString = logger.CreateOutputString(LogLevel, message, dateTime, actualCaller);
+        string outputString = logger.CreateOutputString(LogLevel, message, dateTime, expectedCaller);
 
         //Assert
         Assert.AreEqual(expectedOutput, outputString);
@@ -99,10 +102,10 @@ public class FileLoggerTests
         //Arrange
         string path = Directory.GetCurrentDirectory();
         path = Path.Combine(path, logLevel + ".txt");
+        string caller =nameof(FileLoggerTests).ToLower();
 
-        var logger = new FileLogger(path) { ClassName = "FileLogger" };
-        string callingClassName = logger.GetCallingClassName();
-       message = logger.CreateOutputString(logLevel, message, DateTime.Now, callingClassName);
+        var logger = new FileLogger(path) { ClassName = caller };
+        string expectedOutput = DateTime.Now + " "+caller+" "+logLevel+": "+message;
         //Act
         switch (logLevel)
         {
@@ -128,6 +131,6 @@ public class FileLoggerTests
         //assert/check if the message is there
         string lastLine = File.ReadLines(path).LastOrDefault();
         if (lastLine is null) throw new NullReferenceException("Last line in file " + path + " Is null");
-        Assert.AreEqual(lastLine,message);
+        Assert.AreEqual(lastLine,expectedOutput);
     }
 }
