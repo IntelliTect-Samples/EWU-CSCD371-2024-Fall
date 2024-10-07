@@ -23,23 +23,21 @@ public class  FileLogger : BaseLogger
     }
     public override void Log(LogLevel logLevel, string message)
     {
+        string path = Path.Combine(_filePath,"DebugLog.txt");
         if (string.IsNullOrEmpty(_filePath))
         {
-            throw new ArgumentNullException(nameof(_filePath));
+            throw new ArgumentNullException(nameof("DebugLog.txt"));
         }
-        using (var fs = new StreamWriter(_filePath, true))
+        using (var fs = new StreamWriter(path, true))  // We need a have a way to name the file I think that this is making the file in an unspecified location named by the var _Path instead.
         {
             fs.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)} {nameof(ClassName)} {logLevel} {message}{Environment.NewLine}");
         }
     }
     
 
-               // sudo code
 
-    /*        public static void CreateFileLog(string validFilePath)
-        {
-            throw new NotImplementedException();
 
+    /*     
 
             /*Appends to Baselogger   
              -The current date/time ❌✔

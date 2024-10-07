@@ -15,8 +15,9 @@ public class FileLoggerTests
     [TestMethod]
     public void CreateLogger_Successful()
     {
+        FileLogger TestLogger = new(""); // Will fix this when filePath is figured out
         string validFilePath = "xxxx";
-        FileLogger.CreateFileLog(validFilePath);
+        FileLogger.Log(LogLevel.Debug, validFilePath);
 
         Assert.AreEqual<>;
 
