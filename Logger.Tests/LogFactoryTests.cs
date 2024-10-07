@@ -39,4 +39,19 @@ public class LogFactoryTests
         Assert.AreEqual(filePath, factory._filepath);
 
     }
+
+    [TestMethod]
+    public void CreateLogger_WithNullFilePath_Null()
+    {
+        //Arrange
+        LogFactory factory = new();
+        string testClass = "TestClass";
+        factory.ConfigureFileLogger(null);
+
+        //Act
+        BaseLogger logger = factory.CreateLogger(testClass);
+
+        //Assert
+        Assert.IsNull(logger);
+    }
 }
