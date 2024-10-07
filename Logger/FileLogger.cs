@@ -26,19 +26,19 @@ public class FileLogger : BaseLogger
             //try to append line using path to file
         }
 
+        //I want to be able to call this method statically and get the correct input
+        //Consider exploring .. directory traversal?
         public string GetCallingClassName([CallerFilePath] string callerFilePath = "")
         {
+            //IDE does not like this line unless you include System.IO despite the using statement above
             return System.IO.Path.GetFileNameWithoutExtension(callerFilePath);
         }
 
         public string CreateOutputString(LogLevel logLevel, string message, DateTime dateTime, string caller)
         {
-            //date time AM/PM ClassName logLevel: message
-            //add in datetime 
-            //Example: 10/7/2019 12:38:59 AM
-            //Add 
-            //$()
-            //consider modifying test and method so that datetime is generated here instead
+            //consider modifying test and method so that datetime is generated here instead?
+            //In this case, the method relies on outside information to generate its calling class name
+            //Is there a way to get the calling class name without relying on outside information?
             string baseString = $"{dateTime} {caller} {logLevel}: {message}";
             return baseString;
         }
