@@ -5,21 +5,21 @@ namespace Logger;
 
 public class LogFactory
 {
-    public BaseLogger CreateLogger(string className)
-    {
-        return new BaseLogger
-        {
-            ClassName = className,
-        };
-    }
-
+    private string _filePath;
     public string ConfigureFileLogger(string filePath)
     {
-        private string privFilePath = filePath;
-        
-        
-        return privFilePath; 
-    
+        _filePath = filePath;
+    }
+    public BaseLogger CreateLogger(string className)
+    {
+        if (_filePath == null)
+        {
+            return null;
+        }
+        return new FileLogger(_filePath)
+        {
+            ClassName = className
+        };
     }
 }
 

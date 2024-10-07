@@ -13,16 +13,29 @@ public class  FileLogger : BaseLogger
     {
         _filePath = filePath;
     }
-    protected override void Log(LogLevel logLevel, string message )
+    protected override void Log(LogLevel logLevel, string message)
     {
         if (string.IsNullOrEmpty(_filePath))
         {
-            throw new ArgumentNullException(nameof())
+            throw new ArgumentNullException(nameof(_filePath))
         }
-        using (var fs = new FileStream(_filePath,))
+        using (var fs = new StreamWriter(_filePath, true))
         {
-            writer.WriteLine($"{DateTime.Now} FileLogger {logLevel} {message}");
+            Writer.WriteLine($"{DateTime.Now} {nameof()} {logLevel} {message}");
         }
     }
+    
+    /*        public static void CreateFileLog(string validFilePath)
+        {
+            throw new NotImplementedException();
+
+
+            /*Appends to Baselogger   
+             -The current date/time ❌✔
+            -The name of the class that created the logger ❌✔
+            - The log level ❌✔
+            - The message ❌✔ The format may vary, but an example might look like this "10/7/2019 12:38:59 AM FileLoggerTests Warning: Test message"
+            
+        }*/
 }
 
