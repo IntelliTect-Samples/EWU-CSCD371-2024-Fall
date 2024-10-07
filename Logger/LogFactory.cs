@@ -5,7 +5,7 @@ namespace Logger;
 
 public class LogFactory
 {
-    private string _filePath;
+    private string _filePath{get; set;}
     public string ConfigureFileLogger(string filePath)
     {
         _filePath = filePath;

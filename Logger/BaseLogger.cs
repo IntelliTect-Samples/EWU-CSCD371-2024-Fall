@@ -4,6 +4,7 @@ public abstract class BaseLogger
 {
     public abstract void Log(LogLevel logLevel, string message);
 }
+public string ClassName { get; set; }
 
 public class  FileLogger : BaseLogger
 {
@@ -21,7 +22,7 @@ public class  FileLogger : BaseLogger
         }
         using (var fs = new StreamWriter(_filePath, true))
         {
-            Writer.WriteLine($"{DateTime.Now} {nameof()} {logLevel} {message}");
+            Writer.WriteLine($"{DateTime.Now.ToString("ddd, dd MMMM yyyy HH:mm:ss tt")} {nameof(ClassName)} {logLevel} {message}");
         }
     }
     
