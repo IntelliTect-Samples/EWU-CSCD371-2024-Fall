@@ -47,7 +47,7 @@ public class BaseLoggerMixinsTests
     }
 
     [TestMethod]
-    public void Warning_LogsMessage()
+    public void Warning_WithData_LogsMessage()
     {
         // Arrange
         var logger = new TestLogger();

@@ -7,7 +7,7 @@ namespace Logger.Tests;
 [TestClass]
 public class FileLoggerTests
 {
-    private string filePath = "testLogFile.log";
+    private readonly string filePath = "testLogFile.log";
 
     [TestInitialize]
     public void Setup()

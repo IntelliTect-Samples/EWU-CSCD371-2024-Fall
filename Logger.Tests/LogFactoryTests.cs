@@ -36,7 +36,7 @@ public class LogFactoryTests
         factory.ConfigureFileLogger(filePath);
 
         //Assert
-        Assert.AreEqual(filePath, factory.FilePath);
+        Assert.AreEqual(filePath, factory.testFilePath);
 
     }
 }
