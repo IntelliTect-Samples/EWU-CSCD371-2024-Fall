@@ -6,14 +6,14 @@ public class LogFactory
     
 {
 
-    public string FilePath { get; set; }
+    public string? FilePath { get; set; }
 
-    public void ConfigureFileLogger(string path)
+    public void ConfigureFileLogger(string? path)
     {
        this.FilePath = path;
     }
 
-    public BaseLogger CreateLogger(string className)
+    public BaseLogger? CreateLogger(string? className)
     {
         if (className is null) return null;
         switch (className.ToLower())
