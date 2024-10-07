@@ -7,12 +7,21 @@ namespace Logger.Tests;
 [TestClass]
 public class FileLoggerTests
 {
+    private string filePath = "testLogFile.log";
+
+    [TestInitialize]
+    public void Setup()
+    {
+        // Ensures the file is clean before each test
+        if (File.Exists(filePath))
+            File.Delete(filePath);
+    }
+
     [TestMethod]
     public void FileLogger_TestClassName_Success()
     {
         //Arrange
         string className = "TestClass";
-        string filePath = "TestPath";
 
         //Act
         FileLogger logger = new(filePath);
@@ -26,7 +35,6 @@ public class FileLoggerTests
     public void FileLogger_Constructor_Success()
     {
         //Arrange
-        string filePath = "TestPath";
 
         //Act
         FileLogger logger = new(filePath);
@@ -39,11 +47,9 @@ public class FileLoggerTests
     public void FileLogger_Log_Success()
     {
         //Arrange
-        string filePath = "testLogFile.log";
-        string expectedLogEntry = "10/7/2019 12:38:59 AM TestLogger Error: Test message";
         string message = "Test message";
         FileLogger logger = new(filePath);
-        logger.ClassName = "TestLogger";
+        string className = logger.ClassName = "TestLogger";
         LogLevel logLevel = LogLevel.Error;
 
         //Act
@@ -51,7 +57,14 @@ public class FileLoggerTests
 
         //Assert
         string logContents = File.ReadAllText(filePath);
+        string expectedLogEntry = $"{className} {logLevel}: {message}";
         Assert.IsTrue(logContents.Contains(expectedLogEntry));
-
+    }
+    [TestCleanup]
+    public void Cleanup()
+    {
+        // Cleans up the file after tests
+        if (File.Exists(filePath))
+            File.Delete(filePath);
     }
 }
