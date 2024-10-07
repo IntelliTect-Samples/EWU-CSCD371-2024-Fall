@@ -107,7 +107,7 @@ public class BaseLoggerMixinsTests
         var logger = new TestLogger();
 
         // Act
-        logger.Warning("Warning about {0}", "condition");
+        logger.Debug("Warning about {0}", "condition");
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
