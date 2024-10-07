@@ -11,9 +11,9 @@ namespace Logger
 public class FileLogger : BaseLogger
     {
 
-        public string Path { get; private set; }
+        public string? Path { get; private set; }
 
-        public FileLogger(string path)
+        public FileLogger(string? path)
         {
             if (path is null) throw new ArgumentNullException();
             this.Path = path;
@@ -37,13 +37,13 @@ public class FileLogger : BaseLogger
 
         //I want to be able to call this method statically and get the correct input
         //Consider exploring .. directory traversal?
-        public string GetCallingClassName([CallerFilePath] string callerFilePath = "")
+        public string? GetCallingClassName([CallerFilePath] string callerFilePath = "")
         {
             //IDE does not like this line unless you include System.IO despite the using statement above
             return System.IO.Path.GetFileNameWithoutExtension(callerFilePath);
         }
 
-        public string CreateOutputString(LogLevel logLevel, string message, DateTime dateTime, string caller)
+        public string CreateOutputString(LogLevel logLevel, string message, DateTime dateTime, string? caller)
         {
             //consider modifying test and method so that datetime is generated here instead?
             //In this case, the method relies on outside information to generate its calling class name
