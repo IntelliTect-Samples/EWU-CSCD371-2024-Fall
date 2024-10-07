@@ -7,8 +7,10 @@ public class LogFactory
 {
     public BaseLogger CreateLogger(string className)
     {
-
-        return null;
+        return new BaseLogger
+        {
+            ClassName = className,
+        };
     }
 
     public string ConfigureFileLogger(string filePath)
