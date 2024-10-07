@@ -24,9 +24,13 @@ public class FileLogger : BaseLogger
             //set info in file.
             //calls format to append datetime to message
             //try to append line using path to file
+            //get caller name
+            // get create output string
+            string callingClassName = GetCallingClassName();
+            string finalMessage = CreateOutputString(logLevel, message, DateTime.Now, callingClassName);
             FileStream outFile = new(logLevel+".txt",FileMode.Append);
             StreamWriter writer  = new StreamWriter(outFile);
-            writer.WriteLine(message);
+            writer.WriteLine(finalMessage);
             writer.Close();
             outFile.Close();
 
