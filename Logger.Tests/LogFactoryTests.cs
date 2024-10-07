@@ -16,43 +16,27 @@ public class LogFactoryTests
     public void CreateLogger_NoConfiguration_Null()
     {
         //Arrange
-        var factory = new LogFactory();
+        LogFactory factory = new();
 
         //Act
-        var logger = factory.CreateLogger("TestClass");
+        BaseLogger logger = factory.CreateLogger("TestClass");
 
         //Assert
         Assert.IsNull(logger);
     }
 
     [TestMethod]
-    public void LogFactory_FilePathField_Success()
+    public void ConfigureFileLogger_Filepath_Success()
     {
         //Arrange
+        LogFactory factory = new();
         string filePath = "TestPath";
 
         //Act
-        LogFactory factory = new();
-        factory.filepath = filePath;
+        factory.ConfigureFileLogger(filePath);
 
         //Assert
         Assert.AreEqual(filePath, factory.FilePath);
 
     }
-
-    //[TestMethod]
-    //public void ConfigureFileLogger_WithConfiguration_Success()
-    //{
-    //    //Arrange
-    //    LogFactory factory = new();
-    //    string filePath = "TestPath";
-
-    //    //Act
-    //    factory.ConfigureFileLogger(filePath);
-
-    //    //Assert
-    //    Assert.AreEqual(filePath, factory.FilePath);
-
-    //}
-}
 }
