@@ -121,6 +121,43 @@ public class BaseLoggerMixinsTests
     [DataRow(LogLevel.Warning)]
     [DataRow(LogLevel.Information)]
     [DataRow(LogLevel.Debug)]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Log_WithNullLogger_ThrowsException(LogLevel level)
+    {
+        // Arrange
+
+        // Act
+        InvokeLogWithNullLogger(level);
+
+        // Assert
+    }
+
+    private void InvokeLogWithNullLogger(LogLevel level)
+    {
+        switch (level)
+        {
+            case LogLevel.Error:
+                BaseLoggerMixins.Error(null, "This should throw an exception.");
+                break;
+            case LogLevel.Warning:
+                BaseLoggerMixins.Warning(null, "This should throw an exception.");
+                break;
+            case LogLevel.Information:
+                BaseLoggerMixins.Information(null, "This should throw an exception.");
+                break;
+            case LogLevel.Debug:
+                BaseLoggerMixins.Debug(null, "This should throw an exception.");
+                break;
+            default:
+                throw new ArgumentException("Unsupported LogLevel");
+        }
+    }
+
+    [TestMethod]
+    [DataRow(LogLevel.Error)]
+    [DataRow(LogLevel.Warning)]
+    [DataRow(LogLevel.Information)]
+    [DataRow(LogLevel.Debug)]
     public void Log_LogsCorrectly_WithDifferentLevels(LogLevel level)
     {
         // Arrange
