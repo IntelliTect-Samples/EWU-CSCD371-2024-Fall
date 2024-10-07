@@ -17,7 +17,7 @@ public class  FileLogger : BaseLogger
     {
         if (string.IsNullOrEmpty(_filePath))
         {
-            throw new ArgumentNullException(nameof(_filePath))
+            throw new ArgumentNullException(nameof(_filePath));
         }
         using (var fs = new StreamWriter(_filePath, true))
         {
@@ -25,6 +25,9 @@ public class  FileLogger : BaseLogger
         }
     }
     
+
+               // sudo code
+
     /*        public static void CreateFileLog(string validFilePath)
         {
             throw new NotImplementedException();

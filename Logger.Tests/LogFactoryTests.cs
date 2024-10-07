@@ -6,7 +6,7 @@ namespace Logger.Tests;
 public class LogFactoryTests
 {
     [TestMethod]
-    public void LogFactory_Creation_Test()
+    public void LogFactory_Creation_Test_Successful()
     {
 
     }
