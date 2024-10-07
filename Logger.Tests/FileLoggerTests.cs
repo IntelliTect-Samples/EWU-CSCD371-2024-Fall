@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -64,6 +65,8 @@ public class FileLoggerTests
 
     [TestMethod]
     [DataRow(LogLevel.Warning, "Test message")]
+    [DataRow(LogLevel.Warning, "Test message")]
+
     public void CreateOutputString_ValidInput_ReturnsExpected(LogLevel LogLevel, string message)
     {
         //Arrange
@@ -87,26 +90,33 @@ public class FileLoggerTests
     }
 
     [TestMethod]
-    public void Log_ValidInputs_AppendsLog(LogLevel LogLevel, string message)
+    [DataRow(LogLevel.Error, "Hello!")]
+    [DataRow(LogLevel.Warning, "Hello!")]
+    [DataRow(LogLevel.Debug, "Hello!")]
+    [DataRow(LogLevel.Information, "Hello!")]
+    public void Log_ValidInputs_AppendsLog(LogLevel logLevel, string message)
     {
         //Arrange
-        string path = Path.GetTempPath();
+        string path = Directory.GetCurrentDirectory();
+        path = Path.Combine(path, logLevel + ".txt");
         var logger = new FileLogger(path) { ClassName = "FileLogger" };
-
+        string className = logger.GetCallingClassName();
+        DateTime now = DateTime.Now;
+        string finalMessage = logger.CreateOutputString(logLevel, message, now, className);
         //Act
-        switch (LogLevel)
+        switch (logLevel)
         {
             case LogLevel.Error:
-                logger.Error(message);
+                logger.Error(finalMessage);
                 break;
             case LogLevel.Warning:
-                logger.Warning(message);
+                logger.Warning(finalMessage);
                 break;
             case LogLevel.Information:
-                logger.Information(message);
+                logger.Information(finalMessage);
                 break;
             case LogLevel.Debug:
-                logger.Debug(message);
+                logger.Debug(finalMessage);
                 break;
         }
 
@@ -116,6 +126,8 @@ public class FileLoggerTests
         //use open file to read the file
         //use stream reader to traverse to one away from the end
         //assert/check if the message is there
+        string lastLine = File.ReadLines(path).LastOrDefault();
+        if (lastLine is null) throw new NullReferenceException("Last line in file " + path + " Is null");
+        Assert.AreEqual(lastLine,finalMessage);
     }
-
 }
