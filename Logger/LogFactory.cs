@@ -1,4 +1,6 @@
-﻿namespace Logger;
+﻿using System;
+
+namespace Logger;
 
 public class LogFactory
 {
@@ -10,6 +12,10 @@ public class LogFactory
     }
     public BaseLogger? CreateLogger(string className)
     {
-        return null;
+        if (_filepath == null)
+        {
+            return null;
+        }
+        return new FileLogger(_filepath) { ClassName = className };
     }
 }
