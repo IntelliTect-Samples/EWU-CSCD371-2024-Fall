@@ -61,6 +61,59 @@ public class BaseLoggerMixinsTests
         Assert.AreEqual("Warning about condition", logger.LoggedMessages[0].Message);
     }
 
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Information_WithNullLogger_ThrowsException()
+    {
+        // Arrange
+
+        // Act
+        BaseLoggerMixins.Information(null, "This should throw an exception.");
+
+        // Assert
+    }
+
+    [TestMethod]
+    public void Information_WithData_LogsMessage()
+    {
+        // Arrange
+        var logger = new TestLogger();
+
+        // Act
+        logger.Information("Warning about {0}", "condition");
+
+        // Assert
+        Assert.AreEqual(1, logger.LoggedMessages.Count);
+        Assert.AreEqual(LogLevel.Information, logger.LoggedMessages[0].LogLevel);
+        Assert.AreEqual("Warning about condition", logger.LoggedMessages[0].Message);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Debug_WithNullLogger_ThrowsException()
+    {
+        // Arrange
+
+        // Act
+        BaseLoggerMixins.Debug(null, "This should throw an exception.");
+
+        // Assert
+    }
+
+    [TestMethod]
+    public void Debug_WithData_LogsMessage()
+    {
+        // Arrange
+        var logger = new TestLogger();
+
+        // Act
+        logger.Warning("Warning about {0}", "condition");
+
+        // Assert
+        Assert.AreEqual(1, logger.LoggedMessages.Count);
+        Assert.AreEqual(LogLevel.Debug, logger.LoggedMessages[0].LogLevel);
+        Assert.AreEqual("Warning about condition", logger.LoggedMessages[0].Message);
+    }
 
     [TestMethod]
     public void ClassName_TestClass_Success()
