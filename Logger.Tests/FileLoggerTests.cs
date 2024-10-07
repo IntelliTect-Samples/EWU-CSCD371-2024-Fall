@@ -48,20 +48,36 @@ public class FileLoggerTests
         var logger = new FileLogger(path) { ClassName = "FileLogger" };
     }
 
+
     [TestMethod]
-    [DataRow(LogLevel.Warning, "Test message", "10/7/2019 12:38:59 AM FileLoggerTests Warning: Test message")]
-public void CreateOutputString_ValidInput_ReturnsExpected(LogLevel LogLevel, string message, string expected)
+    public void GetCallingClassName_ReturnsExpectedClassName()
+    {
+        //Arrange
+        var logger = new FileLogger("C\\:") {ClassName = "FileLogger"};
+        string expectedCallingClassName = MethodBase.GetCurrentMethod().DeclaringType.Name;
+        //Act
+        string callingClassName = logger.GetCallingClassName();
+        
+        //Assert
+        Assert.AreEqual(expectedCallingClassName, callingClassName);
+    }
+
+    [TestMethod]
+    [DataRow(LogLevel.Warning, "Test message")]
+    public void CreateOutputString_ValidInput_ReturnsExpected(LogLevel LogLevel, string message)
     {
         //Arrange
         string path = Path.GetTempPath();
         var logger = new FileLogger(path) { ClassName = "FileLogger" };
-        
-
+        string expectedCaller = MethodBase.GetCurrentMethod().DeclaringType.Name;
+        DateTime dateTime = DateTime.Now;
+        string expectedOutput = $"{dateTime} {expectedCaller} {LogLevel}: {message}";
+        string actualCaller = logger.GetCallingClassName();
         //Act
-        string outputString = logger.CreateOutputString(LogLevel, message);
+        string outputString = logger.CreateOutputString(LogLevel, message, dateTime, actualCaller);
 
         //Assert
-        Assert.AreEqual(expected, outputString);
+        Assert.AreEqual(expectedOutput, outputString);
     }
 
     [TestMethod]
@@ -89,6 +105,11 @@ public void CreateOutputString_ValidInput_ReturnsExpected(LogLevel LogLevel, str
         }
 
         //Assert
+        //check to see if file exists
+        //if it does, read the file and check if the message is there
+        //use open file to read the file
+        //use stream reader to traverse to one away from the end
+        //assert/check if the message is there
     }
 
 }
