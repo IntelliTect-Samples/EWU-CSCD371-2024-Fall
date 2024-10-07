@@ -9,7 +9,9 @@ namespace Logger
 
         public string Path { get; private set; }
 
-        public FileLogger(string path) { 
+        public FileLogger(string path)
+        {
+         if (path is null) throw new ArgumentNullException(); 
          this.Path = path;
         }
         
