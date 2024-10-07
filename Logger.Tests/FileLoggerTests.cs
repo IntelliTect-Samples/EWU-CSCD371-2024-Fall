@@ -20,7 +20,6 @@ public class FileLoggerTests
     [DataRow("")]
     [DataRow("C:\\")]
     [DataRow("C:\\Users\\test\\Documents")]
-    [DataRow(null)]
     public void FileLogger_GivenValidPath_CreatesLogger(string path)
     {
         //Arrange
@@ -35,5 +34,15 @@ public class FileLoggerTests
         Assert.AreEqual(logger.ClassName.ToLower(), "filelogger");
     }
 
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void FileLogger_GivenNullPath_ThrowsArgumentNullException()
+    {
+        //Arrange
+        string path = null;
+
+        //Act
+        var logger = new FileLogger(path) { ClassName = "FileLogger" };
+    }
 
 }
