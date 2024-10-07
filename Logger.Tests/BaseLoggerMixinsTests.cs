@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Logger.Tests;
 
@@ -113,6 +114,27 @@ public class BaseLoggerMixinsTests
         Assert.AreEqual(1, logger.LoggedMessages.Count);
         Assert.AreEqual(LogLevel.Debug, logger.LoggedMessages[0].LogLevel);
         Assert.AreEqual("Warning about condition", logger.LoggedMessages[0].Message);
+    }
+
+    [TestMethod]
+    [DataRow(LogLevel.Error)]
+    [DataRow(LogLevel.Warning)]
+    [DataRow(LogLevel.Information)]
+    [DataRow(LogLevel.Debug)]
+    public void Log_LogsCorrectly_WithDifferentLevels(LogLevel level)
+    {
+        // Arrange
+        TestLogger logger = new ();
+        string message = "Message for {0}";
+        object arg = level.ToString();
+
+        // Act
+        logger.Log(level, message, arg);
+
+        // Assert
+        var logged = logger.LoggedMessages.Last();
+        Assert.AreEqual(level, logged.LogLevel);
+        Assert.AreEqual($"Message for {level}", logged.Message);
     }
 
     [TestMethod]
