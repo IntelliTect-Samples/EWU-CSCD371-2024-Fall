@@ -9,7 +9,7 @@ namespace Logger
 
         public string Path { get; private set; }
 
-        public FileLogger(String path) { 
+        public FileLogger(string path) { 
          this.Path = path;
         }
         
