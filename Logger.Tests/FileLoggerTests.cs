@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
 
 namespace Logger.Tests;
 /*
@@ -43,6 +46,49 @@ public class FileLoggerTests
 
         //Act
         var logger = new FileLogger(path) { ClassName = "FileLogger" };
+    }
+
+    [TestMethod]
+    [DataRow(LogLevel.Warning, "Test message", "10/7/2019 12:38:59 AM FileLoggerTests Warning: Test message")]
+public void CreateOutputString_ValidInput_ReturnsExpected(LogLevel LogLevel, string message, string expected)
+    {
+        //Arrange
+        string path = Path.GetTempPath();
+        var logger = new FileLogger(path) { ClassName = "FileLogger" };
+        
+
+        //Act
+        string outputString = logger.CreateOutputString(LogLevel, message);
+
+        //Assert
+        Assert.AreEqual(expected, outputString);
+    }
+
+    [TestMethod]
+    public void Log_ValidInputs_AppendsLog(LogLevel LogLevel, string message)
+    {
+        //Arrange
+        string path = Path.GetTempPath();
+        var logger = new FileLogger(path) { ClassName = "FileLogger" };
+
+        //Act
+        switch (LogLevel)
+        {
+            case LogLevel.Error:
+                logger.Error(message);
+                break;
+            case LogLevel.Warning:
+                logger.Warning(message);
+                break;
+            case LogLevel.Information:
+                logger.Information(message);
+                break;
+            case LogLevel.Debug:
+                logger.Debug(message);
+                break;
+        }
+
+        //Assert
     }
 
 }
