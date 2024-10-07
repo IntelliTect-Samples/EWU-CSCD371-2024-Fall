@@ -1,10 +1,17 @@
-﻿namespace Logger;
+﻿using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Globalization;
+using System;
+namespace Logger;
 
 public abstract class BaseLogger
 {
     public abstract void Log(LogLevel logLevel, string message);
+
+    public string? ClassName { get; set; }
 }
-public string ClassName { get; set; }
+
 
 public class  FileLogger : BaseLogger
 {
@@ -14,7 +21,7 @@ public class  FileLogger : BaseLogger
     {
         _filePath = filePath;
     }
-    protected override void Log(LogLevel logLevel, string message)
+    public override void Log(LogLevel logLevel, string message)
     {
         if (string.IsNullOrEmpty(_filePath))
         {
@@ -22,7 +29,7 @@ public class  FileLogger : BaseLogger
         }
         using (var fs = new StreamWriter(_filePath, true))
         {
-            Writer.WriteLine($"{DateTime.Now.ToString("ddd, dd MMMM yyyy HH:mm:ss tt")} {nameof(ClassName)} {logLevel} {message}");
+            fs.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)} {nameof(ClassName)} {logLevel} {message}{Environment.NewLine}");
         }
     }
     
