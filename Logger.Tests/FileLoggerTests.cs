@@ -69,11 +69,17 @@ public class FileLoggerTests
         //Arrange
         string path = Path.GetTempPath();
         var logger = new FileLogger(path) { ClassName = "FileLogger" };
+        
+        //we see on this next line that we can grab the current method's calling class name
         string expectedCaller = MethodBase.GetCurrentMethod().DeclaringType.Name;
         DateTime dateTime = DateTime.Now;
         string expectedOutput = $"{dateTime} {expectedCaller} {LogLevel}: {message}";
         string actualCaller = logger.GetCallingClassName();
+
         //Act
+        //I don't care for having to pass the dateTime and actualCaller in as arguments
+        //There are unique reasons why it's easier to pass them in as parameters
+        //These reasons aid in testing but limit the method's usability
         string outputString = logger.CreateOutputString(LogLevel, message, dateTime, actualCaller);
 
         //Assert
