@@ -26,11 +26,9 @@ public class FileLogger : BaseLogger
             //try to append line using path to file
             //get caller name
             // get create output string
-            string callingClassName = GetCallingClassName();
-            string finalMessage = CreateOutputString(logLevel, message, DateTime.Now, callingClassName);
             FileStream outFile = new(logLevel+".txt",FileMode.Append);
             StreamWriter writer  = new StreamWriter(outFile);
-            writer.WriteLine(finalMessage);
+            writer.WriteLine(message);
             writer.Close();
             outFile.Close();
 

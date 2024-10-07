@@ -99,24 +99,24 @@ public class FileLoggerTests
         //Arrange
         string path = Directory.GetCurrentDirectory();
         path = Path.Combine(path, logLevel + ".txt");
+
         var logger = new FileLogger(path) { ClassName = "FileLogger" };
-        string className = logger.GetCallingClassName();
-        DateTime now = DateTime.Now;
-        string finalMessage = logger.CreateOutputString(logLevel, message, now, className);
+        string callingClassName = logger.GetCallingClassName();
+       message = logger.CreateOutputString(logLevel, message, DateTime.Now, callingClassName);
         //Act
         switch (logLevel)
         {
             case LogLevel.Error:
-                logger.Error(finalMessage);
+                logger.Error(message);
                 break;
             case LogLevel.Warning:
-                logger.Warning(finalMessage);
+                logger.Warning(message);
                 break;
             case LogLevel.Information:
-                logger.Information(finalMessage);
+                logger.Information(message);
                 break;
             case LogLevel.Debug:
-                logger.Debug(finalMessage);
+                logger.Debug(message);
                 break;
         }
 
@@ -128,6 +128,6 @@ public class FileLoggerTests
         //assert/check if the message is there
         string lastLine = File.ReadLines(path).LastOrDefault();
         if (lastLine is null) throw new NullReferenceException("Last line in file " + path + " Is null");
-        Assert.AreEqual(lastLine,finalMessage);
+        Assert.AreEqual(lastLine,message);
     }
 }
