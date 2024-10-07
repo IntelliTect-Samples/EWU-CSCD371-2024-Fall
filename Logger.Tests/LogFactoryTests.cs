@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -31,7 +31,9 @@ public class LogFactoryTests
 
         //Arrange
         LogFactory factory = new();
-       //act
+        if (className.ToLower().Equals("filelogger")) factory.ConfigureFileLogger(Environment.ProcessPath) ;
+        //act
+
         BaseLogger logger = factory.CreateLogger(className);
         //Assert
         Assert.IsNotNull(logger);
@@ -40,11 +42,12 @@ public class LogFactoryTests
     }
 
     [TestMethod]
+
+    [DataRow("FileLogger")]
     [DataRow("TestLoggerton")]
-    [DataRow(1)]
     [DataRow("")]
-    [ExpectedException(typeof(ArgumentException))]
-    public void CreateLogger_InvalidClassName_ThrowsError(string? className)
+    [DataRow(null)]
+    public void CreateLogger_InvalidClassName_ReturnsNull(string className)
     {
 
         //Arrange
@@ -52,7 +55,6 @@ public class LogFactoryTests
         //act
         BaseLogger logger = factory.CreateLogger(className);
         //Assert
-        Assert.IsNotNull(logger);
-        Assert.AreEqual(nameof(logger), "logger");
+        Assert.IsNull(logger);
     }
 }
