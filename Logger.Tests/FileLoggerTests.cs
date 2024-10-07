@@ -24,7 +24,7 @@ public class FileLoggerTests
     [DataRow("")]
     [DataRow("C:\\")]
     [DataRow("C:\\Users\\test\\Documents")]
-    public void FileLogger_GivenValidPath_CreatesLogger(string path)
+    public void FileLogger_GivenValidPath_CreatesLogger(string? path)
     {
         //Arrange
         // Handled by data rows
@@ -43,7 +43,7 @@ public class FileLoggerTests
     public void FileLogger_GivenNullPath_ThrowsArgumentNullException()
     {
         //Arrange
-        string path = null;
+        string? path = null;
 
         //Act
         var logger = new FileLogger(path) { ClassName = nameof(FileLoggerTests).ToLower() };
@@ -55,9 +55,9 @@ public class FileLoggerTests
     {
         //Arrange
         var logger = new FileLogger("C\\:") {ClassName = nameof(FileLoggerTests).ToLower()};
-        string expectedCallingClassName = MethodBase.GetCurrentMethod().DeclaringType.Name;
+        string? expectedCallingClassName = MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
         //Act
-        string callingClassName = logger.GetCallingClassName();
+        string? callingClassName = logger.GetCallingClassName();
         
         //Assert
         Assert.AreEqual(expectedCallingClassName, callingClassName);
@@ -72,8 +72,8 @@ public class FileLoggerTests
     public void CreateOutputString_ValidInput_ReturnsExpected(LogLevel LogLevel, string message)
     {
         //Arrange
-        string path = Path.GetTempPath();
-        string expectedCaller = MethodBase.GetCurrentMethod().DeclaringType.Name;
+        string? path = Path.GetTempPath();
+        string? expectedCaller = MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
         var logger = new FileLogger(path) { ClassName = expectedCaller };
         
         //we see on this next line that we can grab the current method's calling class name
@@ -100,7 +100,7 @@ public class FileLoggerTests
     public void Log_ValidInputs_AppendsLog(LogLevel logLevel, string message)
     {
         //Arrange
-        string path = Directory.GetCurrentDirectory();
+        string? path = Directory.GetCurrentDirectory();
         path = Path.Combine(path, logLevel + ".txt");
         string caller =nameof(FileLoggerTests).ToLower();
 
@@ -129,7 +129,7 @@ public class FileLoggerTests
         //use open file to read the file
         //use stream reader to traverse to one away from the end
         //assert/check if the message is there
-        string lastLine = File.ReadLines(path).LastOrDefault();
+        string? lastLine = File.ReadLines(path).LastOrDefault();
         if (lastLine is null) throw new NullReferenceException("Last line in file " + path + " Is null");
         Assert.AreEqual(lastLine,expectedOutput);
     }
