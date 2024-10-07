@@ -24,6 +24,12 @@ public class FileLogger : BaseLogger
             //set info in file.
             //calls format to append datetime to message
             //try to append line using path to file
+            FileStream outFile = new(logLevel+".txt",FileMode.Append);
+            StreamWriter writer  = new StreamWriter(outFile);
+            writer.WriteLine(message);
+            writer.Close();
+            outFile.Close();
+
         }
 
         //I want to be able to call this method statically and get the correct input
@@ -38,7 +44,9 @@ public class FileLogger : BaseLogger
         {
             //consider modifying test and method so that datetime is generated here instead?
             //In this case, the method relies on outside information to generate its calling class name
-            //Is there a way to get the calling class name without relying on outside information?
+            //Is there a way to get the calling class name without relying on outside information
+            //
+
             string baseString = $"{dateTime} {caller} {logLevel}: {message}";
             return baseString;
         }
