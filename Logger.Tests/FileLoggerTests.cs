@@ -6,7 +6,7 @@ namespace Logger.Tests;
 public class FileLoggerTests
 {
     [TestMethod]
-    public void ClassName_TestClass_Success()
+    public void FileLogger_TestClassName_Success()
     {
         //Arrange
         string className = "TestClass";
