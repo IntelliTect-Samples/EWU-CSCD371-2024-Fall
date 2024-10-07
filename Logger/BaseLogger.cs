@@ -26,7 +26,7 @@ public class  FileLogger : BaseLogger
         string path = Path.Combine(_filePath,"DebugLog.txt");
         if (string.IsNullOrEmpty(_filePath))
         {
-            throw new ArgumentNullException(nameof("DebugLog.txt"));
+            throw new ArgumentNullException(nameof(path));
         }
         using (var fs = new StreamWriter(path, true))  // We need a have a way to name the file I think that this is making the file in an unspecified location named by the var _Path instead.
         {
