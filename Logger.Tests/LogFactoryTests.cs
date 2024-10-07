@@ -54,4 +54,22 @@ public class LogFactoryTests
         //Assert
         Assert.IsNull(logger);
     }
+
+    [TestMethod]
+    public void CreateLogger_WithConfiguration_FileLogger()
+    {
+        //Arrange
+        LogFactory factory = new();
+        string filePath = "TestPath";
+        string testClass = "TestClass";
+        factory.ConfigureFileLogger(filePath);
+
+        //Act
+        BaseLogger logger = factory.CreateLogger(testClass);
+
+        //Assert
+        Assert.IsInstanceOfType(logger, typeof(FileLogger));
+        Assert.AreEqual(testClass, logger.ClassName);
+
+    }
 }
