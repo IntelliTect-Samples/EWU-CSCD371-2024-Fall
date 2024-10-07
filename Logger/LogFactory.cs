@@ -15,22 +15,23 @@ public class LogFactory
 
     public BaseLogger CreateLogger(string className)
     {
+        if (className is null) return null;
         switch (className.ToLower())
         {
             case "":
-                throw new ArgumentException("Empty class name passed into Create Logger");
-                break;
+                return null;
+               
             case "testlogger":
                 return new TestLogger() { ClassName = "TestLogger"};
-                break;
+               
 
             case "filelogger":
-                FileLogger logger =new FileLogger(this.FilePath){ClassName = "FileLogger"};
-                
+                if (this.FilePath is null) return null;
+                FileLogger logger =new FileLogger(this.FilePath){ClassName = "FileLogger" };
                 return logger;
-                break;
+
             default:
-                throw new ArgumentException("No class with name " + className + " found");
+                return null;
         }
     }
 }
