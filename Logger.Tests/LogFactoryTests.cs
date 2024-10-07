@@ -13,7 +13,7 @@ public class LogFactoryTests
     [DataRow("/C:/Users/test/Documents")]
     [DataRow(null)]
 
-    public void ConfigureFileLogger_GivenString_StoresValue(string path)
+    public void ConfigureFileLogger_GivenString_StoresValue(string? path)
     {
         //arrange
         LogFactory factory = new();
@@ -34,11 +34,11 @@ public class LogFactoryTests
         if (className.ToLower().Equals("filelogger")) factory.ConfigureFileLogger(Environment.ProcessPath) ;
         //act
 
-        BaseLogger logger = factory.CreateLogger(className);
+        BaseLogger? logger = factory.CreateLogger(className);
         //Assert
         Assert.IsNotNull(logger);
         Assert.AreEqual(nameof(logger),"logger");
-        Assert.AreEqual(className.ToLower(), logger.ClassName.ToLower());
+        Assert.AreEqual(className.ToLower(), logger?.ClassName?.ToLower());
     }
 
     [TestMethod]
@@ -53,7 +53,7 @@ public class LogFactoryTests
         //Arrange
         LogFactory factory = new();
         //act
-        BaseLogger logger = factory.CreateLogger(className);
+        BaseLogger? logger = factory.CreateLogger(className);
         //Assert
         Assert.IsNull(logger);
     }
