@@ -17,7 +17,7 @@ public class BaseLoggerMixinsTests
     public void Log_WithNullLogger_ThrowsException(LogLevel level)
     {
         // Arrange
-        BaseLogger logger = null;
+        BaseLogger logger = null!;
 
         // Act
         BaseLoggerMixins.Log(logger, level, "This should throw an exception.");

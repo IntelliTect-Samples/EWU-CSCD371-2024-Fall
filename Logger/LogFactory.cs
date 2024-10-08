@@ -6,14 +6,14 @@ public class LogFactory
 {
     private string _filepath = string.Empty;
 
-    public void ConfigureFileLogger(string filePath)
+    public void ConfigureFileLogger(string? filePath)
     {
-        _filepath = filePath;
+        _filepath = filePath ?? string.Empty;
     }
     public BaseLogger? CreateLogger(string className)
     {
-        if (_filepath == null)
-        {
+        if (string.IsNullOrEmpty(_filepath))
+        {   
             return null;
         }
         return new FileLogger(_filepath) { ClassName = className };
