@@ -39,15 +39,28 @@ public class LoggerFactoryTests
     }
 
     [TestMethod]
-    public void CreateLogger_TestLoggerClass_ReturnsNull()
+    public void CreateLogger_ConsoleLoggerClass_ReturnsLogger()
     {
+        //Arrange
+        ConsoleLoggerFactory factory = new();
+        //Act
+        ConsoleLogger? logger = factory.CreateLogger();
+        //Assert
+        Assert.IsNotNull(logger);
+        Assert.AreEqual(nameof(logger), "logger");
+    }
 
+    [TestMethod]
+    public void CreateLogger_TestLoggerClass_ReturnsLogger()
+    {
         //Arrange
         TestLoggerFactory factory = new();
-        //act
+        //Act
         TestLogger? logger = factory.CreateLogger();
         //Assert
-        Assert.IsNull(logger);
-        Assert.AreEqual(nameof(logger).ToLower(), "testlogger");
+        Assert.IsNotNull(logger);
+        Assert.AreEqual(nameof(logger), "logger");
     }
+
+
 }
