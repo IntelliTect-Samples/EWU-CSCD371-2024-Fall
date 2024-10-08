@@ -14,9 +14,10 @@ public class BaseLoggerMixinsTests
         // Arrange
 
         // Act
-        //BaseLoggerMixins.Error(null, "");
+         BaseLoggerMixins.Error(null, "");
 
         // Assert
+        Assert.Fail("Exemption thrown");
     }
 
     [TestMethod]
@@ -26,7 +27,7 @@ public class BaseLoggerMixinsTests
         var logger = new TestLogger();
 
         // Act
-        //logger.Error("Message {0}", 42);
+        logger.Error("Message {0}", 42);
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);

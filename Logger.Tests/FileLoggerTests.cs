@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Intrinsics.X86;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,24 +14,25 @@ namespace Logger.Tests;
 public class FileLoggerTests
 {
     [TestMethod]
-    public void CreateLogger_Successful()
+    public void CreateLogger_IsNotNull()
     {
-        FileLogger TestLogger = new(""); // Will fix this when filePath is figured out
-        string validFilePath = "xxxx";
-        FileLogger.Log(LogLevel.Debug, validFilePath);
+        FileLogger TestLogger = new FileLogger(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
 
-        Assert.AreEqual<>;
+        Assert.IsNotNull(TestLogger);
 
     }
 
     [TestMethod]
     public void CreateLogger_InvalidFilePath()
     {
-        string invalidFilePath = null;
-        FileLogger.CreateFileLog(invalidFilePath);
+
+        FileLogger TestLogger = new FileLogger("");
 
 
-        Assert.ThrowsException<>;
+
+        Assert.ThrowsException<System.ArgumentNullException>(() => TestLogger.Log(LogLevel.Error, "Test Message")); // Not sure if this works 
+
+
     }
 }
 
