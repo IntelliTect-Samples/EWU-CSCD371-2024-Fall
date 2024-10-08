@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Logger.Tests;
 
 [TestClass]
-public class LogFactoryTests
+public class LoggerFactoryTests
 {
     [TestMethod]
     [DataRow("")]
@@ -16,7 +16,7 @@ public class LogFactoryTests
     public void ConfigureFileLogger_GivenString_StoresValue(string? path)
     {
         //arrange
-        FileLogFactory factory = new FileLogFactory();
+        FileLoggerFactory factory = new FileLoggerFactory();
         //act
         factory.ConfigureFileLogger(path);
         //assert
@@ -28,7 +28,7 @@ public class LogFactoryTests
     {
 
         //Arrange
-        FileLogFactory factory = new();
+        FileLoggerFactory factory = new();
         factory.ConfigureFileLogger(Environment.ProcessPath) ;
         //Act
 
@@ -43,7 +43,7 @@ public class LogFactoryTests
     {
 
         //Arrange
-        TestLogFactory factory = new();
+        TestLoggerFactory factory = new();
         //act
         TestLogger? logger = factory.CreateLogger();
         //Assert
