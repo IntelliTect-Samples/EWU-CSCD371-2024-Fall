@@ -13,11 +13,11 @@ public class LogFactoryTests
     {
         //Arrange
         var logFactory = new LogFactory();
-        //logFactory.ConfigureFileLogger();
+        logFactory.ConfigureFileLogger("Test");
         //Act
         var testLogger = logFactory.CreateLogger("Test");
         //Assert
-        Assert.IsNotNull(testLogger);
+       
         Assert.AreEqual("Test", testLogger.ClassName);
     }
     [TestMethod]
@@ -28,7 +28,7 @@ public class LogFactoryTests
         //Act
         var testLogger = logFactory.CreateLogger("");
         //Assert
-        Assert.IsNullOrEmpty(testLogger);
+        Assert.IsNull(testLogger);
     }
     [TestMethod]
     public void ConfigureFileLogger_FilePathCorrect()

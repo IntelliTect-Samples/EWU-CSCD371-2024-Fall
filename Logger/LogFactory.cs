@@ -18,7 +18,7 @@ public class LogFactory
 
     public BaseLogger? CreateLogger(string className)
     {
-        if (_filePath == null)
+        if (String.IsNullOrEmpty(_filePath ))
         {
             return null;
         }
