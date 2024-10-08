@@ -2,7 +2,7 @@
 
 namespace Logger;
 
-public abstract class LogFactory
+public abstract class LoggerFactory
     
 {
 
