@@ -86,10 +86,10 @@ public class BaseLoggerMixinsTests
 
 public class TestLogger : BaseLogger
 {
-    public override string _className { get; }
+    public override string ClassName { get; }
     public TestLogger(string className)
     {
-        _className = className;
+        ClassName = className;
     }
     public List<(LogLevel LogLevel, string Message)> LoggedMessages { get; } = new List<(LogLevel, string)>();
 

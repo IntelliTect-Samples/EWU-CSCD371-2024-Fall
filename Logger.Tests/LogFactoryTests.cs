@@ -51,7 +51,7 @@ public class LogFactoryTests
         _newPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\logNew.txt";
         facLog.ConfigureFileLogger(_newPath);
         // Assert
-        Assert.AreEqual(_newPath, ((FileLogger)facLog.CreateLogger("Test"))._filePath);
+        Assert.AreEqual(_newPath, ((FileLogger)facLog.CreateLogger("Test")).FilePath);
     }
 
 
