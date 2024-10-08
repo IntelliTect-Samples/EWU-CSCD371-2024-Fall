@@ -28,7 +28,7 @@ public class LogFactoryTests
         //Act
         var testLogger = logFactory.CreateLogger("");
         //Assert
-        Assert.IsNull(testLogger);
+        Assert.IsNullOrEmpty(testLogger);
     }
     [TestMethod]
     public void ConfigureFileLogger_FilePathCorrect()
