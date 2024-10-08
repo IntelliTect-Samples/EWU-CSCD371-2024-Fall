@@ -39,19 +39,15 @@ public class LogFactoryTests
     }
 
     [TestMethod]
-
-    [DataRow("FileLogger")]
-    [DataRow("TestLoggerton")]
-    [DataRow("")]
-    [DataRow(null)]
-    public void CreateLogger_InvalidClassName_ReturnsNull(string className)
+    public void CreateLogger_TestLoggerClass_ReturnsNull()
     {
 
         //Arrange
-        LogFactory factory = new();
+        TestLogFactory factory = new();
         //act
-        BaseLogger? logger = factory.CreateLogger(className);
+        TestLogger? logger = factory.CreateLogger();
         //Assert
         Assert.IsNull(logger);
+        Assert.AreEqual(nameof(logger).ToLower(), "testlogger");
     }
 }
