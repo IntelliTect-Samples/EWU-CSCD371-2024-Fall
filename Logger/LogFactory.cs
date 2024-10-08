@@ -2,39 +2,34 @@
 
 namespace Logger;
 
-public class LogFactory
+public abstract class LogFactory
     
 {
 
     public string? FilePath { get; set; }
 
-    public void ConfigureFileLogger(string? path)
-    {
-       this.FilePath = path;
-    }
-
-    public BaseLogger? CreateLogger(string? className)
-    {
-        if (className is null) return null;
-        switch (className.ToLower())
-        {
-            case "":
-                return null;
+    public abstract BaseLogger? CreateLogger();
+    //{
+    //    if (className is null) return null;
+    //    switch (className.ToLower())
+    //    {
+    //        case "":
+    //            return null;
                
-            case "testlogger":
-                return new TestLogger() { ClassName = "TestLogger"};
+    //        case "testlogger":
+    //            return new TestLogger() { ClassName = "TestLogger"};
 
-            case "filelogger":
-                if (this.FilePath is null) return null;
-                FileLogger fileLogger = new FileLogger(this.FilePath){ClassName = "FileLogger" };
-                return fileLogger;
+    //        case "filelogger":
+    //            if (this.FilePath is null) return null;
+    //            FileLogger fileLogger = new FileLogger(this.FilePath){ClassName = "FileLogger" };
+    //            return fileLogger;
 
-            case "consolelogger":
-                ConsoleLogger consoleLogger = new ConsoleLogger { ClassName = "ConsoleLogger" };
-                return consoleLogger;
+    //        case "consolelogger":
+    //            ConsoleLogger consoleLogger = new ConsoleLogger { ClassName = "ConsoleLogger" };
+    //            return consoleLogger;
 
-            default:
-                return null;
-        }
-    }
+    //        default:
+    //            return null;
+    //    }
+    
 }
