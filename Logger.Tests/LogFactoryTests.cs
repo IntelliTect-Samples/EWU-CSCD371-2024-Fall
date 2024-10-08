@@ -35,7 +35,7 @@ public class LogFactoryTests
     {
         //Arrange
         var logFactory = new LogFactory();
-        string logger = logFactory.ConfigureFileLogger(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+        string? logger = logFactory.ConfigureFileLogger(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "Debuglog.txt");
        
         string expectedFilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "Debuglog.txt";
         //Act

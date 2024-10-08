@@ -16,7 +16,7 @@ public class FileLoggerTests
     [TestMethod]
     public void CreateLogger_IsNotNull()
     {
-        FileLogger TestLogger = new FileLogger(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+        FileLogger TestLogger = new FileLogger(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "Debuglog.txt");
 
         Assert.IsNotNull(TestLogger);
 
