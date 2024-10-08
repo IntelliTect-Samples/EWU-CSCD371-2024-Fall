@@ -37,7 +37,7 @@ public class BaseLoggerMixinsTests
     [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { "" })]
     [DataRow("", "", new object[] { "test" })]
     //null tests
-    [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { null })]
+    [DataRow("Empty Message: {0}", "Empty Message: ", new object?[] { null })]
     [DataRow(null, "Null message passed in", new object[] { "String here" })]
     [DataRow("", "", null)]
 
@@ -85,7 +85,7 @@ public class BaseLoggerMixinsTests
     [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { "" })]
     [DataRow("", "", new object[] { "test" })]
     //null tests
-    [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { null })]
+    [DataRow("Empty Message: {0}", "Empty Message: ", new object?[] { null })]
     [DataRow(null, "Null message passed in", new object[] { "String here" })]
     [DataRow("", "", null)]
 
@@ -134,7 +134,7 @@ public class BaseLoggerMixinsTests
     [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { "" })]
     [DataRow("", "", new object[] { "test" })]
     //null tests
-    [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { null })]
+    [DataRow("Empty Message: {0}", "Empty Message: ", new object?[] { null })]
     [DataRow(null, "Null message passed in", new object[] { "String here" })]
     [DataRow("", "", null)]
 
@@ -183,7 +183,7 @@ public class BaseLoggerMixinsTests
     [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { "" })]
     [DataRow("", "", new object[] { "test" })]
     //null tests
-    [DataRow("Empty Message: {0}", "Empty Message: ", new object[] { null })]
+    [DataRow("Empty Message: {0}", "Empty Message: ", new object?[] { null })]
     [DataRow(null, "Null message passed in", new object[] { "String here" })]
     [DataRow("", "", null)]
 
