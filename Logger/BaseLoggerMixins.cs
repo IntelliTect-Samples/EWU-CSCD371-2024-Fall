@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Logger;
 
@@ -12,7 +13,7 @@ public static class BaseLoggerMixins
             throw new ArgumentNullException(nameof(logger), "The logger instance can't be null.");
         }
 
-        string formattedMessage = string.Format(message, args);
+        string formattedMessage = string.Format(CultureInfo.InvariantCulture, message, args);
         logger.Log(level, formattedMessage);
     }
 
