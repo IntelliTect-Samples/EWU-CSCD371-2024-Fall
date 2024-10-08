@@ -20,7 +20,7 @@ public class LogFactoryTests
         factory.ConfigureFileLogger(null);
 
         //Act
-        BaseLogger logger = factory.CreateLogger("TestClass");
+        BaseLogger? logger = factory.CreateLogger("TestClass");
 
         //Assert
         Assert.IsNotNull(logger);
@@ -50,7 +50,7 @@ public class LogFactoryTests
         factory.ConfigureFileLogger(null);
 
         //Act
-        BaseLogger logger = factory.CreateLogger(testClass);
+        BaseLogger? logger = factory.CreateLogger(testClass);
 
         //Assert
         Assert.IsNull(logger);
@@ -66,11 +66,11 @@ public class LogFactoryTests
         factory.ConfigureFileLogger(testFilePath);
 
         //Act
-        BaseLogger logger = factory.CreateLogger(testClass);
+        BaseLogger? logger = factory.CreateLogger(testClass);
 
         //Assert
+        Assert.IsNotNull (logger);
         Assert.IsInstanceOfType(logger, typeof(FileLogger));
-        Assert.AreEqual(testClass, logger.ClassName);
-
+        Assert.AreEqual(testClass, ((FileLogger)logger!).ClassName);
     }
 }
