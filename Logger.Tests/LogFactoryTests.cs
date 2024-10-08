@@ -35,13 +35,13 @@ public class LogFactoryTests
     {
         //Arrange
         var logFactory = new LogFactory();
-        logFactory.ConfigureFileLogger(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
-        var logger = logFactory.FilePath;
+        var logger = logFactory.ConfigureFileLogger(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+       
         string expectedFilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         //Act
         
         //Assert
-        Assert.AreEqual(expectedFilePath, logger.FilePath);
+        Assert.AreEqual(expectedFilePath, logger);
         
     }
 
