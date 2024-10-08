@@ -17,6 +17,7 @@ public class LogFactoryTests
     {
         //Arrange
         LogFactory factory = new();
+        factory.ConfigureFileLogger(null);
 
         //Act
         BaseLogger logger = factory.CreateLogger("TestClass");
