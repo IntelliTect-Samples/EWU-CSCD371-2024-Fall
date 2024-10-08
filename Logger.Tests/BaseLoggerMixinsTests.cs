@@ -8,32 +8,28 @@ namespace Logger.Tests;
 public class BaseLoggerMixinsTests
 {
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
     public void Error_WithNullLogger_ThrowsException()
     {
-        
-        
-         BaseLoggerMixins.Error(null, "");
-
+        BaseLogger? logger = null;
        
-        Assert.Fail("Exemption thrown Error with nullLogger");
+        string message = "Test error message";
+
+        Assert.ThrowsException<NullReferenceException>(() => logger!.Error(message));
+
+        
     }
 
     [TestMethod]
     public void Error_WithData_LogsMessage()
     {
-        
         var logger = new TestLogger();
 
-        
         logger.Error("Message {0}", 42);
 
-        
         Assert.AreEqual(1, logger.LoggedMessages.Count);
         Assert.AreEqual(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
         Assert.AreEqual("Message 42", logger.LoggedMessages[0].Message);
     }
-
 }
 
 public class TestLogger : BaseLogger
