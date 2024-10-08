@@ -16,7 +16,7 @@ public class LogFactoryTests
     public void ConfigureFileLogger_GivenString_StoresValue(string? path)
     {
         //arrange
-        LogFactory factory = new();
+        FileLogFactory factory = new FileLogFactory();
         //act
         factory.ConfigureFileLogger(path);
         //assert
