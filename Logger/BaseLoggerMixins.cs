@@ -17,7 +17,7 @@ public static class BaseLoggerMixins
 
 
 
-    private static void CheckAndLog(BaseLogger logger, string baseMessage, object[] objectsToInsert, LogLevel level)
+    private static void CheckAndLog(BaseLogger? logger, string baseMessage, object[] objectsToInsert, LogLevel level)
     {
         if (logger is null) throw new ArgumentNullException("BaseLoggerMixins.Error was passed in null for logger");
         if (baseMessage is null) baseMessage = "Null message passed in";
@@ -27,23 +27,23 @@ public static class BaseLoggerMixins
 
     }
 
-    public static void Error(this BaseLogger logger, string baseMessage, params object[] objectsToInsert)
+    public static void Error(this BaseLogger? logger, string baseMessage, params object[] objectsToInsert)
     {
          CheckAndLog(logger, baseMessage, objectsToInsert,LogLevel.Error);
    
     }
-    public static void Warning(this BaseLogger logger, string baseMessage, params object[] objectsToInsert)
+    public static void Warning(this BaseLogger? logger, string baseMessage, params object[] objectsToInsert)
     {
         CheckAndLog(logger, baseMessage, objectsToInsert,LogLevel.Warning);
     }
 
     
-    public static void Information(this BaseLogger logger, string baseMessage, params object[] objectsToInsert)
+    public static void Information(this BaseLogger? logger, string baseMessage, params object[] objectsToInsert)
     {
         CheckAndLog(logger, baseMessage, objectsToInsert,LogLevel.Information);
     
     }
-    public static void Debug(this BaseLogger logger, string baseMessage, params object[] objectsToInsert)
+    public static void Debug(this BaseLogger? logger, string baseMessage, params object[] objectsToInsert)
     {
         CheckAndLog(logger, baseMessage, objectsToInsert, LogLevel.Debug);
 
