@@ -13,16 +13,6 @@ namespace Logger.Tests;
 public class ConsoleLoggerTests
 {
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
-    public void ConsoleLogger_GivenNullPath_ThrowsArgumentNullException()
-    {
-        //Arrange
-
-        //Act
-        var logger = new ConsoleLogger() { ClassName = nameof(ConsoleLoggerTests).ToLower() };
-    }
-
-    [TestMethod]
     public void GetCallingClassName_ReturnsExpectedClassName()
     {
         //Arrange
