@@ -17,7 +17,6 @@ public class LogFactoryTests
     {
         //Arrange
         LogFactory factory = new();
-        factory._filepath = null;
 
         //Act
         BaseLogger logger = factory.CreateLogger("TestClass");
@@ -37,7 +36,7 @@ public class LogFactoryTests
         factory.ConfigureFileLogger(filePath);
 
         //Assert
-        Assert.AreEqual(filePath, factory._filepath);
+        Assert.AreEqual(filePath, factory.GetFilePath());
 
     }
 
