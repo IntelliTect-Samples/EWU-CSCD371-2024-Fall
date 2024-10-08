@@ -2,7 +2,7 @@
 
 namespace Logger;
 
-public class FileLogFactory : LogFactory
+public class FileLoggerFactory : LoggerFactory
     
 {
 
@@ -14,7 +14,7 @@ public class FileLogFactory : LogFactory
     public override FileLogger? CreateLogger()
     {
                 if (this.FilePath is null) return null;
-                FileLogger fileLogger = new FileLogger(this.FilePath){ClassName = "FileLogger" };
+                FileLogger fileLogger = new FileLogger(this.FilePath){ClassName = nameof(FileLoggerFactory).ToLower()};
                 return fileLogger;
         
     }
