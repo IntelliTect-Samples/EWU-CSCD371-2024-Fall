@@ -24,21 +24,18 @@ public class LogFactoryTests
     }
 
     [TestMethod]
-    [DataRow("TestLogger")]
-    [DataRow("FileLogger")]
-    public void CreateLogger_ValidClassName_ReturnsLogger(string className)
+    public void CreateLogger_FileLoggerClass_ReturnsLogger()
     {
 
         //Arrange
-        LogFactory factory = new();
-        if (className.ToLower().Equals("filelogger")) factory.ConfigureFileLogger(Environment.ProcessPath) ;
-        //act
+        FileLogFactory factory = new();
+        factory.ConfigureFileLogger(Environment.ProcessPath) ;
+        //Act
 
-        BaseLogger? logger = factory.CreateLogger(className);
+        FileLogger? logger = factory.CreateLogger();
         //Assert
         Assert.IsNotNull(logger);
         Assert.AreEqual(nameof(logger),"logger");
-        Assert.AreEqual(className.ToLower(), logger?.ClassName?.ToLower());
     }
 
     [TestMethod]
