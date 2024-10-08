@@ -6,7 +6,7 @@ public abstract class LoggerFactory
     
 {
 
-    public string? FilePath { get; set; }
+    
 
     public abstract BaseLogger? CreateLogger();
     //{

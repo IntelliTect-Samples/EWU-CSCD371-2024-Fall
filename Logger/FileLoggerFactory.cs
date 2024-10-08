@@ -5,6 +5,7 @@ namespace Logger;
 public class FileLoggerFactory : LoggerFactory
     
 {
+    public string? FilePath { get; set; }
 
     public void ConfigureFileLogger(string? path)
     {
