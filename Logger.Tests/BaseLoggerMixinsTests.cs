@@ -13,11 +13,12 @@ public class BaseLoggerMixinsTests
     {
         // Arrange
 
-        // Act
-        BaseLoggerMixins.Error(null, "");
-        BaseLoggerMixins.Warning(null, "");
-        BaseLoggerMixins.Information(null, "");
-        BaseLoggerMixins.Debug(null, "");
+        // Act 
+        // added ! to suppress null warning since they should be null
+        BaseLoggerMixins.Error(null!, "");
+        BaseLoggerMixins.Warning(null!, "");
+        BaseLoggerMixins.Information(null!, ""); 
+        BaseLoggerMixins.Debug(null!, "");
 
         // Assert
     }

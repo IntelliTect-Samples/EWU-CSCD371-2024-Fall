@@ -9,8 +9,8 @@ namespace Logger.Tests
     [TestClass]
     public class FileLoggerTests
     {
-        private string _filePath;
-        private FileLogger _logger;
+        private string _filePath = "";
+        private FileLogger _logger = null!;
 
         [TestInitialize]
         public void TestInitialize()
@@ -64,7 +64,7 @@ namespace Logger.Tests
             // Assert
             string logEntry = File.ReadAllText(_filePath);
             DateTime parsedDateTime;
-            bool containsTimestamp = DateTime.TryParse(logEntry.Substring(0, 22), out parsedDateTime);
+            bool containsTimestamp = DateTime.TryParse(logEntry.AsSpan(0, 22), out parsedDateTime);
             Assert.IsTrue(containsTimestamp, "Entry doesn't have correct timestamp.");
         }
 

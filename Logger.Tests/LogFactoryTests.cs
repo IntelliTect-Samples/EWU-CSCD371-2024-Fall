@@ -8,10 +8,9 @@ namespace Logger.Tests;
 [TestClass]
 public class LogFactoryTests
 {
-    protected string _filePath;
-    protected FileLogger _logger;
-
-    protected string _newPath;
+    private string _filePath = "";
+    private FileLogger _logger = null!;
+    private string _newPath = "";
 
     [TestInitialize]
     public void TestInitialize()
@@ -37,7 +36,7 @@ public class LogFactoryTests
         // Arrange
         LogFactory facLog = new LogFactory();
         // Act
-        facLog.ConfigureFileLogger(null);
+        facLog.ConfigureFileLogger(null!);
         // Assert
         Assert.IsNull(facLog.CreateLogger("Test"));
     }
@@ -47,11 +46,12 @@ public class LogFactoryTests
     {
         // Arrange
         LogFactory facLog = new LogFactory();
-        // Act
         _newPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\logNew.txt";
+        // Act
         facLog.ConfigureFileLogger(_newPath);
+        var newLogger = (FileLogger)facLog.CreateLogger("Test")!; //this need be done seperately to avoid null exception CS8600
         // Assert
-        Assert.AreEqual(_newPath, ((FileLogger)facLog.CreateLogger("Test")).FilePath);
+        Assert.AreEqual(_newPath, newLogger.FilePath) ;
     }
 
 
