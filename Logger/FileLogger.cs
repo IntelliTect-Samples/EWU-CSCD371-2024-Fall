@@ -27,6 +27,7 @@ public class FileLogger : BaseLogger
             //get caller name
             // get create output string
             //Missing the functionality to get calling class name.
+            string fullPath = System.IO.Path.Combine(this.Path!, logLevel + ".txt");
             FileStream outFile = new(logLevel+".txt",FileMode.Append);
             StreamWriter writer  = new StreamWriter(outFile);
             writer.WriteLine(CreateOutputString(logLevel, message, DateTime.Now, this.ClassName));
