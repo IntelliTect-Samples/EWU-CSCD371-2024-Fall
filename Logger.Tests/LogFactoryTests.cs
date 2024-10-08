@@ -17,8 +17,8 @@ public class LogFactoryTests
         //Act
         var testLogger = logFactory.CreateLogger("Test");
         //Assert
-       
-        Assert.AreEqual("Test", testLogger.ClassName);
+        Assert.IsNotNull(testLogger, "Logger should not be null.");
+        Assert.AreEqual("Test", testLogger?.ClassName);
     }
     [TestMethod]
     public void LogFactory_FilePathNotSet_ReturnsNull()
@@ -37,7 +37,7 @@ public class LogFactoryTests
         var logFactory = new LogFactory();
         string logger = logFactory.ConfigureFileLogger(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
        
-        string expectedFilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        string expectedFilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? "Debuglog.txt";
         //Act
         
         //Assert

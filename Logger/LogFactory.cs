@@ -12,6 +12,10 @@ public class LogFactory
 
     public string ConfigureFileLogger(string filePath)
     {
+        if (string.IsNullOrEmpty(filePath))
+        {  
+            _filePath = "Debuglog.txt";
+        }
         _filePath = filePath;
         return _filePath;
     }

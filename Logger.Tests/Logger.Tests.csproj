@@ -4,6 +4,10 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<IsPackable>false</IsPackable>
 		<LangVersion>11.0</LangVersion>
+		<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+   		<LangVersion>latest</LangVersion>
+   		<TargetFramework>net8.0</TargetFramework>
+    	<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
