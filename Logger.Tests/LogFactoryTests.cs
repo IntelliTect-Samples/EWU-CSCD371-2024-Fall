@@ -13,21 +13,33 @@ public class LogFactoryTests
     {
         //Arrange
         var logFactory = new LogFactory();
-        logFactory.ConfigureFileLogger();
+        //logFactory.ConfigureFileLogger();
         //Act
         var testLogger = logFactory.CreateLogger("Test");
         //Assert
         Assert.IsNotNull(testLogger);
+        Assert.AreEqual("Test", testLogger.ClassName);
+    }
+    [TestMethod]
+    public void LogFactory_FilePathNotSet_ReturnsNull()
+    {
+        //Arrange
+        var logFactory = new LogFactory();
+        //Act
+        var testLogger = logFactory.CreateLogger("");
+        //Assert
+        Assert.IsNull(testLogger);
     }
     [TestMethod]
     public void ConfigureFileLogger_FilePathCorrect()
     {
         //Arrange
         var logFactory = new LogFactory();
+        logFactory.ConfigureFileLogger(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
         var logger = logFactory.FilePath;
         string expectedFilePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         //Act
-        logFactory.ConfigureFileLogger(expectedFilePath);
+        
         //Assert
         Assert.AreEqual(expectedFilePath, logger.FilePath);
         
