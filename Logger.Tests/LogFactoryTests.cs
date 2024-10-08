@@ -31,13 +31,13 @@ public class LogFactoryTests
     {
         //Arrange
         LogFactory factory = new();
-        string filePath = "TestPath";
+        string testFilePath = "TestPath";
 
         //Act
-        factory.ConfigureFileLogger(filePath);
+        factory.ConfigureFileLogger(testFilePath);
 
         //Assert
-        Assert.AreEqual(filePath, factory.GetFilePath());
+        Assert.AreEqual(testFilePath, factory.GetFilePath());
 
     }
 
@@ -61,9 +61,9 @@ public class LogFactoryTests
     {
         //Arrange
         LogFactory factory = new();
-        string filePath = "TestPath";
+        string testFilePath = "TestPath";
         string testClass = "TestClass";
-        factory.ConfigureFileLogger(filePath);
+        factory.ConfigureFileLogger(testFilePath);
 
         //Act
         BaseLogger logger = factory.CreateLogger(testClass);
