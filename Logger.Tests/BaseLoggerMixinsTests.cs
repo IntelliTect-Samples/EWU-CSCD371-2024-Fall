@@ -11,25 +11,24 @@ public class BaseLoggerMixinsTests
     [ExpectedException(typeof(ArgumentNullException))]
     public void Error_WithNullLogger_ThrowsException()
     {
-        // Arrange
-
-        // Act
+        
+        
          BaseLoggerMixins.Error(null, "");
 
-        // Assert
-        Assert.Fail("Exemption thrown");
+       
+        Assert.Fail("Exemption thrown Error with nullLogger");
     }
 
     [TestMethod]
     public void Error_WithData_LogsMessage()
     {
-        // Arrange
+        
         var logger = new TestLogger();
 
-        // Act
+        
         logger.Error("Message {0}", 42);
 
-        // Assert
+        
         Assert.AreEqual(1, logger.LoggedMessages.Count);
         Assert.AreEqual(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
         Assert.AreEqual("Message 42", logger.LoggedMessages[0].Message);
