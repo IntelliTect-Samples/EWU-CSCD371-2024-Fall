@@ -26,7 +26,7 @@ public class FileLogger : BaseLogger
         string path = Path.Combine(_filePath, "DebugLog.txt");
         if (string.IsNullOrEmpty(_filePath))
         {
-            throw new ArgumentNullException(nameof(path));
+            throw new ArgumentNullException(_filePath);
         }
         using (var fs = new StreamWriter(path, true))
         {
