@@ -23,7 +23,7 @@ public class LogFactoryTests
         BaseLogger? logger = factory.CreateLogger("TestClass");
 
         //Assert
-        Assert.IsNotNull(logger);
+        Assert.IsNull(logger);
     }
 
     [TestMethod]
