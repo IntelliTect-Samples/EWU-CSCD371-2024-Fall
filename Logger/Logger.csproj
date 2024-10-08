@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <AnalysisLevel>latest-Recommended</AnalysisLevel>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>11.0</LangVersion>
+    <TargetFramework>net7.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
