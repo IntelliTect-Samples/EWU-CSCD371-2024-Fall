@@ -1,4 +1,5 @@
-﻿namespace Logger;
+﻿// test
+namespace Logger;
 
 public abstract class BaseLogger
 {
