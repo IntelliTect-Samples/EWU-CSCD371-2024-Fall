@@ -30,12 +30,12 @@ public class FileLoggerTests
         // Handled by data rows
 
         // Act
-        var logger = new FileLogger(path) { ClassName = nameof(FileLoggerTests).ToLower() };
+        var logger = new FileLogger(path) { ClassName = nameof(FileLoggerTests) };
 
         // Assert
         Assert.IsNotNull(logger, "FileLogger should not be null.");
         Assert.IsNotNull(logger.ClassName);
-        Assert.AreEqual(logger.ClassName.ToLower(), nameof(FileLoggerTests).ToLower());
+        Assert.AreEqual(logger.ClassName, nameof(FileLoggerTests));
     }
 
     [TestMethod]
@@ -46,22 +46,9 @@ public class FileLoggerTests
         string? path = null;
 
         //Act
-        var logger = new FileLogger(path) { ClassName = nameof(FileLoggerTests).ToLower() };
+        var logger = new FileLogger(path) { ClassName = nameof(FileLoggerTests) };
     }
 
-
-    [TestMethod]
-    public void GetCallingClassName_ReturnsExpectedClassName()
-    {
-        //Arrange
-        var logger = new FileLogger("C\\:") {ClassName = nameof(FileLoggerTests).ToLower()};
-        string? expectedCallingClassName = MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
-        //Act
-        string? callingClassName = logger.GetCallingClassName();
-        
-        //Assert
-        Assert.AreEqual(expectedCallingClassName, callingClassName);
-    }
 
     [TestMethod]
     [DataRow(LogLevel.Warning, "Test message")]
@@ -86,7 +73,7 @@ public class FileLoggerTests
         //I don't care for having to pass the dateTime and actualCaller in as arguments
         //There are unique reasons why it's easier to pass them in as parameters
         //These reasons aid in testing but limit the method's usability
-        string outputString = logger.CreateOutputString(LogLevel, message, dateTime, expectedCaller);
+        string outputString = FileLogger.CreateOutputString(LogLevel, message, dateTime, expectedCaller);
 
         //Assert
         Assert.AreEqual(expectedOutput, outputString);
@@ -96,13 +83,13 @@ public class FileLoggerTests
     [DataRow(LogLevel.Error, "Hello!")]
     [DataRow(LogLevel.Warning, "Hello!")]
     [DataRow(LogLevel.Debug, "Hello!")]
-    [DataRow(LogLevel.Information, "Hello!")]
+    [DataRow(LogLevel.Information, "Hello!")]   
     public void Log_ValidInputs_AppendsLog(LogLevel logLevel, string message)
     {
         //Arrange
         string? path = Directory.GetCurrentDirectory();
         path = Path.Combine(path, logLevel + ".txt");
-        string caller =nameof(FileLoggerTests).ToLower();
+        string caller =nameof(FileLoggerTests);
 
         var logger = new FileLogger(path) { ClassName = caller };
         string expectedOutput = DateTime.Now + " "+caller+" "+logLevel+": "+message;
@@ -130,7 +117,7 @@ public class FileLoggerTests
         //use stream reader to traverse to one away from the end
         //assert/check if the message is there
         string? lastLine = File.ReadLines(path).LastOrDefault();
-        if (lastLine is null) throw new NullReferenceException("Last line in file " + path + " Is null");
+        if (lastLine is null) throw new ArgumentNullException("Last line in file " + path + " Is null");
         Assert.AreEqual(lastLine,expectedOutput);
     }
 }

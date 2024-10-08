@@ -10,7 +10,7 @@ namespace Logger
     {
         public override TestLogger? CreateLogger()
         {
-        TestLogger testLogger = new TestLogger() {ClassName = nameof(TestLoggerFactory).ToLower() };
+        TestLogger testLogger = new TestLogger() {ClassName = nameof(TestLoggerFactory) };
         return testLogger;
         }
     }

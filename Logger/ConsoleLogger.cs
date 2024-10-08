@@ -25,12 +25,8 @@ namespace Logger
             Console.WriteLine(CreateOutputString(logLevel, message, DateTime.Now, this.ClassName));
         }
 
-        public string? GetCallingClassName([CallerFilePath] string callerFilePath = "")
-        {
-            return System.IO.Path.GetFileNameWithoutExtension(callerFilePath);
-        }
 
-        public string CreateOutputString(LogLevel logLevel, string message, DateTime dateTime, string? caller)
+        public static string CreateOutputString(LogLevel logLevel, string message, DateTime dateTime, string? caller)
         {
             string baseString = $"{dateTime} {caller} {logLevel}: {message}";
             return baseString;

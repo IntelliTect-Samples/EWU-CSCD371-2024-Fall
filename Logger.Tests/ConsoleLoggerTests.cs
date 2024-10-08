@@ -13,19 +13,6 @@ namespace Logger.Tests;
 public class ConsoleLoggerTests
 {
     [TestMethod]
-    public void GetCallingClassName_ReturnsExpectedClassName()
-    {
-        //Arrange
-        var logger = new ConsoleLogger() { ClassName = nameof(ConsoleLoggerTests).ToLower() };
-        string? expectedCallingClassName = MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
-        //Act
-        string? callingClassName = logger.GetCallingClassName();
-
-        //Assert
-        Assert.AreEqual(expectedCallingClassName, callingClassName);
-    }
-
-    [TestMethod]
     [DataRow(LogLevel.Warning, "Test message")]
     [DataRow(LogLevel.Error, "Test message")]
     [DataRow(LogLevel.Information, "Test message")]
@@ -40,7 +27,7 @@ public class ConsoleLoggerTests
         string expectedOutput = $"{dateTime} {expectedCaller} {LogLevel}: {message}";
 
         //Act
-        string outputString = logger.CreateOutputString(LogLevel, message, dateTime, expectedCaller);
+        string outputString = FileLogger.CreateOutputString(LogLevel, message, dateTime, expectedCaller);
 
         //Assert
         Assert.AreEqual(expectedOutput, outputString);
@@ -54,7 +41,7 @@ public class ConsoleLoggerTests
     public void Log_ValidInputs_PrintsToConsole(LogLevel logLevel, string message)
     {
         //Arrange
-        string caller = nameof(FileLoggerTests).ToLower();
+        string caller = nameof(FileLoggerTests);
         var logger = new ConsoleLogger() { ClassName = caller };
         string expectedOutput = DateTime.Now + " " + caller + " " + logLevel + ": " + message;
 

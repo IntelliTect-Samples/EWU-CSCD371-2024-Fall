@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Logger;
 
@@ -19,10 +20,10 @@ public static class BaseLoggerMixins
 
     private static void CheckAndLog(BaseLogger? logger, string baseMessage, object[] objectsToInsert, LogLevel level)
     {
-        if (logger is null) throw new ArgumentNullException("BaseLoggerMixins.Error was passed in null for logger");
+        ArgumentNullException.ThrowIfNull(logger);
         if (baseMessage is null) baseMessage = "Null message passed in";
-        if (objectsToInsert is null) objectsToInsert = new object[] { };
-        string formatResult = string.Format(baseMessage, objectsToInsert);
+        if (objectsToInsert is null) objectsToInsert = Array.Empty<object>();
+        string formatResult = string.Format(CultureInfo.InvariantCulture, baseMessage, objectsToInsert);
         logger.Log(level, formatResult);
 
     }

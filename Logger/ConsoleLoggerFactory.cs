@@ -10,7 +10,7 @@ namespace Logger
     {
         public override ConsoleLogger? CreateLogger()
         {
-            ConsoleLogger consoleLogger = new ConsoleLogger() { ClassName = nameof(ConsoleLoggerFactory).ToLower() };
+            ConsoleLogger consoleLogger = new() {ClassName = nameof(ConsoleLoggerFactory).ToLowerInvariant()};
             return consoleLogger;
         }
     }
