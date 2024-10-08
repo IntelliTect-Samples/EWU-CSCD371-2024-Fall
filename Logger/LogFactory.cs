@@ -23,12 +23,15 @@ public class LogFactory
                
             case "testlogger":
                 return new TestLogger() { ClassName = "TestLogger"};
-               
 
             case "filelogger":
                 if (this.FilePath is null) return null;
-                FileLogger logger =new FileLogger(this.FilePath){ClassName = "FileLogger" };
-                return logger;
+                FileLogger fileLogger = new FileLogger(this.FilePath){ClassName = "FileLogger" };
+                return fileLogger;
+
+            case "consolelogger":
+                ConsoleLogger consoleLogger = new ConsoleLogger { ClassName = "ConsoleLogger" };
+                return consoleLogger;
 
             default:
                 return null;
