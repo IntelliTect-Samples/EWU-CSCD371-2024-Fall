@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Logger.Tests;
@@ -33,7 +32,7 @@ public class BaseLoggerMixinsTests
     public void Log_LogsCorrectly_WithDifferentLevels(LogLevel level)
     {
         // Arrange
-        TestLogger logger = new ();
+        TestLogger logger = new();
         string message = "Message for {0}";
         object arg = level.ToString();
 
@@ -102,15 +101,5 @@ public class BaseLoggerMixinsTests
 
         //Assert
         Assert.AreEqual(className, logger.ClassName);
-    }
-}
-
-public class TestLogger : BaseLogger
-{
-    public List<(LogLevel LogLevel, string Message)> LoggedMessages { get; } = new List<(LogLevel, string)>();
-
-    public override void Log(LogLevel logLevel, string message)
-    {
-        LoggedMessages.Add((logLevel, message));
     }
 }
