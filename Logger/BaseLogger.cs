@@ -5,4 +5,4 @@ public abstract class BaseLogger
     public string? ClassName { get; set; }
 
     public abstract void Log(LogLevel level, string message);
-}
+}   
