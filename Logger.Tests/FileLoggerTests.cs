@@ -80,15 +80,15 @@ public class FileLoggerTests
     }
 
     [TestMethod]
-    [DataRow(LogLevel.Error, "Hello!")]
-    [DataRow(LogLevel.Warning, "Hello!")]
-    [DataRow(LogLevel.Debug, "Hello!")]
-    [DataRow(LogLevel.Information, "Hello!")]   
-    public void Log_ValidInputs_AppendsLog(LogLevel logLevel, string message)
+    [DataRow(LogLevel.Error, "Hello!", "./")]
+    [DataRow(LogLevel.Warning, "Hello!", ".\\")]
+    [DataRow(LogLevel.Debug, "Hello!", "./")]
+    [DataRow(LogLevel.Information, "Hello!", ".\\")]
+    [DataRow(LogLevel.Error, "Hello!", "./")]
+    public void Log_ValidInputs_AppendsLog(LogLevel logLevel, string message, string path)
     {
         //Arrange
-        string? path = Directory.GetCurrentDirectory();
-        path = Path.Combine(path, logLevel + ".txt");
+        //path = Directory.GetCurrentDirectory();
         string caller =nameof(FileLoggerTests);
 
         var logger = new FileLogger(path) { ClassName = caller };
