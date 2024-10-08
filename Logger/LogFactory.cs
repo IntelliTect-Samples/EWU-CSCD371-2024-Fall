@@ -4,7 +4,7 @@ using System.Reflection;
 public class LogFactory
 {
     private string? _filePath { get; set; }
-    public BaseLogger? CreateLogger(string className)
+    public BaseLogger? CreateLogger(string? className)
     {
         if(_filePath == null)
         {
@@ -12,11 +12,11 @@ public class LogFactory
         }
         else 
         {
-            return new FileLogger(_filePath, className);
+            return new FileLogger(_filePath, className ?? string.Empty);
         }
     }
 
-    public void ConfigureFileLogger(string filePath)
+    public void ConfigureFileLogger(string? filePath)
     {
         if (filePath == null) {
             return;

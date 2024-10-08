@@ -8,10 +8,10 @@ namespace Logger.Tests;
 [TestClass]
 public class LogFactoryTests
 {
-    protected string _filePath { get; set; }
-    protected FileLogger _logger { get; set; }
+    protected string _filePath;
+    protected FileLogger _logger;
 
-    protected string _newPath { get; set; }
+    protected string _newPath;
 
     [TestInitialize]
     public void TestInitialize()
