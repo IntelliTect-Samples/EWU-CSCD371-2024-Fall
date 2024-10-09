@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualBasic;
+﻿using System;
+using System.IO;
+
+using Microsoft.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Logger.Tests;
@@ -13,17 +16,29 @@ public class LogFactoryTests
      */
 
     [TestMethod]
-    public void CreateLogger_NoConfiguration_Null()
+    public void ConfigureFileLogger_NullFilePath_ThrowsException()
     {
         //Arrange
-        LogFactory factory = new();
-        factory.ConfigureFileLogger(null);
+        string? nullFilePath = null;
 
         //Act
-        BaseLogger? logger = factory.CreateLogger("TestClass");
+        LogFactory factory = new();
 
         //Assert
-        Assert.IsNull(logger);
+        Assert.ThrowsException<ArgumentException>(() => factory.ConfigureFileLogger(nullFilePath!));
+    }
+
+    [TestMethod]
+    public void ConfigureFileLogger_EmptyFilePath_ThrowsException()
+    {
+        //Arrange
+        string emptyFilePath = string.Empty;
+
+        //Act
+        LogFactory factory = new();
+
+        //Assert
+        Assert.ThrowsException<ArgumentException>(() => factory.ConfigureFileLogger(emptyFilePath));
     }
 
     [TestMethod]
@@ -42,36 +57,45 @@ public class LogFactoryTests
     }
 
     [TestMethod]
-    public void CreateLogger_WithNullFilePath_Null()
+    public void CreateLogger_WithNoConfiguration_Null()
     {
         //Arrange
         LogFactory factory = new();
-        string testClass = "TestClass";
-        factory.ConfigureFileLogger(null);
 
         //Act
-        BaseLogger? logger = factory.CreateLogger(testClass);
+        FileLogger? logger = factory.CreateLogger(nameof(LogFactoryTests));
 
         //Assert
         Assert.IsNull(logger);
     }
 
     [TestMethod]
-    public void CreateLogger_WithConfiguration_FileLogger()
+    public void CreateLogger_WithConfiguration_Success()
     {
         //Arrange
         LogFactory factory = new();
         string testFilePath = "TestPath";
-        string testClass = "TestClass";
+        string testClass = "LogFactoryTests";
         factory.ConfigureFileLogger(testFilePath);
 
         //Act
-        FileLogger? logger = factory.CreateLogger(testClass);
+        BaseLogger? logger = factory.CreateLogger(nameof(LogFactoryTests));
 
         //Assert
         Assert.IsNotNull (logger);
-        Assert.IsInstanceOfType(logger, typeof(FileLogger));
+        Assert.IsInstanceOfType(logger, typeof(BaseLogger));
         Assert.AreEqual(testClass, logger!.ClassName);
         // Used the ! only because we assert that the logger is not null
+    }
+
+    [TestMethod]
+    public void FilePath_Normalization_Check()
+    {
+        string inputPath = "some\\path/to/log.txt"; // Intentionally mixed separators
+        LogFactory factory = new LogFactory();
+        factory.ConfigureFileLogger(inputPath);
+
+        string expected = Path.Combine("some", "path", "to", "log.txt");
+        Assert.AreEqual(expected, factory.FilePath);
     }
 }
