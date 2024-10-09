@@ -7,7 +7,7 @@ namespace Logger.Tests
     public class LogFactoryTests
     {
         [TestMethod]
-        public void CreateLogger_ReturnFileLogger()
+        public void CreateLogger_CreateFileLogger_Pass()
         {
             // Arrange
             var logFactory = new LogFactory();
@@ -19,6 +19,9 @@ namespace Logger.Tests
             // Assert
             Assert.IsNotNull(logger);
             Assert.IsInstanceOfType(logger, typeof(FileLogger));
+
         }
+
+
     }
 }

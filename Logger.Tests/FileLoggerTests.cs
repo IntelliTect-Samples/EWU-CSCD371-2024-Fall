@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
 using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace Logger.Tests;
 
@@ -17,9 +18,9 @@ public class FileLoggerTests
     [TestInitialize]
     public void Setup()
     {
-        //set up loog file path
+        //set up logger file path
         string assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
-        _logFilePath = Path.Combine(assemblyPath, "testlog.txt");
+        _logFilePath = Path.Combine(assemblyPath, "file.txt");
 
         // clear file contents if it already exists 
         if (File.Exists(_logFilePath))
@@ -29,10 +30,34 @@ public class FileLoggerTests
     
 
     }
-    //[TestMethod]
-    //public string
+    [TestMethod]
+    public void ConfigureFileLogger_FindCorrectFilePath() 
+    {
+        //arrange
+        var logFactory = new LogFactory();
 
+        //act
+        logFactory.ConfigureFileLogger();
 
+        var filePath = typeof(LogFactory).GetProperty("FilePath", BindingFlags.NonPublic | BindingFlags.Instance);
+        var filePathValue = filePath?.GetValue(logFactory) as string;
+        Assert.IsNotNull(filePathValue);
+        Assert.AreEqual(filePathValue, _logFilePath);
+     }
+    [TestMethod]
+    public void Log_AppendMessageInFile()
+    {
+        //arrange
+        var fileLogger = new FileLogger(_logFilePath);
+        string testMessage = "Test message";
 
-  
+        //act
+        fileLogger.Log(LogLevel.Information, testMessage);
+        var logMessage = File.ReadAllText(_logFilePath);
+        //
+        Assert.IsTrue(logMessage.Contains(testMessage));
+        
+    }
+
 }
+

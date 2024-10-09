@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
+using System.Reflection.Emit;
 
 namespace Logger
 {
@@ -16,7 +18,9 @@ namespace Logger
 
         public override void Log(LogLevel logLevel, string message)
         {
-            throw new NotImplementedException();
+            var logAppend = $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)} {ClassName} {logLevel}: {message}{Environment.NewLine}";
+            File.AppendAllText(_filePath, logAppend);
+            Console.WriteLine(logAppend);
         }
     }
 
