@@ -24,7 +24,7 @@ public class LoggerFactoryTests
     }
 
     [TestMethod]
-    public void CreateLogger_FileLoggerClass_ReturnsLogger()
+    public void CreateLogger_FileLoggerClass_ReturnsValidLogger()
     {
 
         //Arrange
@@ -39,7 +39,7 @@ public class LoggerFactoryTests
     }
 
     [TestMethod]
-    public void CreateLogger_ConsoleLoggerClass_ReturnsLogger()
+    public void CreateLogger_ConsoleLoggerClass_ReturnsValidLogger()
     {
         //Arrange
         ConsoleLoggerFactory factory = new();
@@ -51,7 +51,7 @@ public class LoggerFactoryTests
     }
 
     [TestMethod]
-    public void CreateLogger_TestLoggerClass_ReturnsLogger()
+    public void CreateLogger_TestLoggerClass_ReturnsValidLogger()
     {
         //Arrange
         TestLoggerFactory factory = new();
