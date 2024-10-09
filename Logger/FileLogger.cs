@@ -21,12 +21,6 @@ public class FileLogger : BaseLogger
 
         public override void Log(LogLevel logLevel, string message)
         {
-            //set info in file.
-            //calls format to append datetime to message
-            //try to append line using path to file
-            //get caller name
-            // get create output string
-            //Missing the functionality to get calling class name.
             if (!Directory.Exists(Path!))
             {
                 Directory.CreateDirectory(Path!);

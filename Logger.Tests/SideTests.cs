@@ -13,8 +13,9 @@ namespace Logger.Tests
     public class SideTests
     {
         [TestMethod]
-        [DataRow("C:\\Users\\ValidUserHere\\logger", LogLevel.Error, "Hello!")]
-        [DataRow("C:\\Users\\ValidUserHere\\logger\\internalFolder", LogLevel.Error, "Hello!")]
+        //  [DataRow("C:\\Users\\ValidUserHere\\logger", LogLevel.Error, "Hello!")]
+        //[DataRow("C:\\Users\\ValidUserHere\\logger\\internalFolder", LogLevel.Error, "Hello!")]
+        [DataRow("./",LogLevel.Warning,"Hi")]
         public void TestFileCanBeAppended(string path, LogLevel logLevel, string message)
         {
             if (!Directory.Exists(path))

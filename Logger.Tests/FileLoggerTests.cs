@@ -7,15 +7,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
 
 namespace Logger.Tests;
-/*
- - Create a `FileLogger` that derives from `BaseLogger`. It should take in a path to a file to write the log message to. When its `Log` method is called, it should **append** messages on their own line in the file. The output should include all of the following:
-   - The current date/time ❌✔
-   - The name of the class that created the logger ❌✔
-   - The log level ❌✔
-   - The message ❌✔
-   - The format may vary, but an example might look like this "10/7/2019 12:38:59 AM FileLoggerTests Warning: Test message"
- */
-
 
 [TestClass]
 public class FileLoggerTests
@@ -62,17 +53,11 @@ public class FileLoggerTests
         string? path = Path.GetTempPath();
         string? expectedCaller = MethodBase.GetCurrentMethod()?.DeclaringType?.Name;
         var logger = new FileLogger(path) { ClassName = expectedCaller };
-        
-        //we see on this next line that we can grab the current method's calling class name
-        
         DateTime dateTime = DateTime.Now;
         string expectedOutput = $"{dateTime} {expectedCaller} {LogLevel}: {message}";
        
 
         //Act
-        //I don't care for having to pass the dateTime and actualCaller in as arguments
-        //There are unique reasons why it's easier to pass them in as parameters
-        //These reasons aid in testing but limit the method's usability
         string outputString = FileLogger.CreateOutputString(LogLevel, message, dateTime, expectedCaller);
 
         //Assert
