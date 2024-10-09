@@ -8,9 +8,9 @@ namespace Logger
 {
     public class TestLoggerFactory : LoggerFactory
     {
-        public override TestLogger? CreateLogger()
+        public override TestLogger? CreateLogger(string callingClassName)
         {
-        TestLogger testLogger = new TestLogger() {ClassName = nameof(TestLoggerFactory) };
+        TestLogger testLogger = new TestLogger() {ClassName = callingClassName };
         return testLogger;
         }
     }

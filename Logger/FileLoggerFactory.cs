@@ -12,10 +12,10 @@ public class FileLoggerFactory : LoggerFactory
        this.FilePath = path;
     }
 
-    public override FileLogger? CreateLogger()
+    public override FileLogger? CreateLogger(string callingClassName)
     {
                 if (this.FilePath is null) return null;
-                FileLogger fileLogger = new FileLogger(this.FilePath){ClassName = nameof(FileLoggerFactory) };
+                FileLogger fileLogger = new FileLogger(this.FilePath){ClassName = callingClassName };
                 return fileLogger;
         
     }

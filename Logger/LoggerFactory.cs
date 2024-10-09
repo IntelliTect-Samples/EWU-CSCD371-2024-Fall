@@ -8,7 +8,7 @@ public abstract class LoggerFactory
 
     
 
-    public abstract BaseLogger? CreateLogger();
+    public abstract BaseLogger? CreateLogger(string callingClassName);
     //{
     //    if (className is null) return null;
     //    switch (className.ToLower())
