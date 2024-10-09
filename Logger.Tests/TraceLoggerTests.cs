@@ -115,6 +115,17 @@ public class TraceLoggerTests : IDisposable
         Assert.AreEqual("Warning: Attempted to write a null message", _listener.Messages[0]);
     }
 
+    [TestMethod]
+    public void Cleaup_RemovesListenerFromTrace_Correctly()
+    {
+        //Arrange
+        //Act
+        Cleanup();
+
+        //Assert
+        Assert.IsFalse(Trace.Listeners.Contains(_listener));
+    }
+
     public void Dispose()
     {
         _listener?.Dispose();
