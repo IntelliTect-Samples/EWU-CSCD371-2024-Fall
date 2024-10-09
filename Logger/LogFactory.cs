@@ -29,7 +29,7 @@ public class LogFactory
 
     private static string NormalizePath(string path)
     {
-        char[] separators = new char[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar };
+        char[] separators = new char[] { '/', '\\' };
         var pathParts = path.Split(separators, StringSplitOptions.RemoveEmptyEntries);
         return Path.Combine(pathParts);
     }
