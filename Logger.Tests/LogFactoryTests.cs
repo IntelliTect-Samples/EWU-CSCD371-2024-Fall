@@ -101,6 +101,8 @@ public class LogFactoryTests
 
         //Assert
         expected = expected.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
-        Assert.AreEqual(expected, factory.FilePath);
+        string actual = factory.FilePath!.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+
+        Assert.AreEqual(expected, actual);
     }
 }
