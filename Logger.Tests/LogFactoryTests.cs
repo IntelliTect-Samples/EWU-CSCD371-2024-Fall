@@ -89,7 +89,7 @@ public class LogFactoryTests
     }
 
     [TestMethod]
-    public void FilePath_Normalization_Check()
+    public void ConfigureFileLogger_Normalization_SuccessfullyNormalizes()
     {
         string inputPath = "some\\path/to/log.txt"; // Intentionally mixed separators
         LogFactory factory = new LogFactory();
