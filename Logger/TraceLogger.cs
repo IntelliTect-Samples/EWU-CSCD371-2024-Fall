@@ -31,7 +31,6 @@ public class TraceLogger : BaseLogger
             default:
                 Trace.WriteLine(logMessage, logLevel.ToString());
                 break;
-
         }
     }
 }

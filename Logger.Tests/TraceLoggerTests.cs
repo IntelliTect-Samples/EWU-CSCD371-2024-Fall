@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -67,5 +68,23 @@ public class TraceLoggerTests : IDisposable
 
         //Assert
         Assert.AreEqual(expectedClassName, logger.ClassName);
+    }
+
+    [TestMethod]
+    [DataRow(LogLevel.Information, "Test message", "Information: Test message")]
+    [DataRow(LogLevel.Error, "Error occurred", "Error: Error occurred")]
+    [DataRow(LogLevel.Warning, "Warning issued", "Warning: Warning issued")]
+    [DataRow(LogLevel.Debug, "Debug info", "Debug: Debug info")]
+    public void Log_LogsDifferentMessages_Correctly(LogLevel level, string message, string expectedOutput)
+    {
+        // Arrange
+        var logger = new TraceLogger("TestLogger");
+
+        // Act
+        logger.Log(level, message);
+        bool isMessageLogged = _listener!.Messages.Any(loggedMessage => loggedMessage.Contains(expectedOutput));
+
+        // Assert
+        Assert.IsTrue(isMessageLogged, $"Failed to log '{expectedOutput}' for level {level}");
     }
 }
