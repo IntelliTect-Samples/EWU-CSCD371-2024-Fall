@@ -12,7 +12,10 @@ namespace Logger.Tests
         {
             // Arrange
             string testFilePath = "testlog.txt";
-            FileLogger logger = new FileLogger(testFilePath);
+            FileLogger logger = new FileLogger
+            {
+                FilePath = testFilePath,
+            };
 
             // Act
             logger.Log(LogLevel.Error, "Test log entry");
@@ -28,7 +31,11 @@ namespace Logger.Tests
         {
             // Arrange
             string testFilePath = "test.txt";
-            FileLogger logger = new FileLogger(testFilePath);
+            FileLogger logger = new FileLogger
+            {
+                FilePath = testFilePath,
+            };
+
             string message = "Test";
 
             // Act

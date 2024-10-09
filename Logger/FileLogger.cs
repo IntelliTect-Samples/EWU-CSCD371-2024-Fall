@@ -7,21 +7,16 @@ namespace Logger
     // derives from BaseLogger
     public class FileLogger : BaseLogger
     {
-        private string _filePath;
-
-        public FileLogger(string filePath)
-        {
-            _filePath = filePath;
-        }
+        public string FilePath { get; set; } = "";
 
         public override void Log(LogLevel logLevel, string message)
         {
             var logMessage = $"{DateTime.Now} {ClassName} {logLevel}: {message}";
 
             // Check if the file exists, if not create it and write to it
-            if (!File.Exists(_filePath))
+            if (!File.Exists(FilePath))
             {
-                using (StreamWriter sw = File.CreateText(_filePath))
+                using (StreamWriter sw = File.CreateText(FilePath))
                 {
                     sw.WriteLine(logMessage);
                 }
@@ -29,7 +24,7 @@ namespace Logger
             else
             {
                 // If the file exists, append the log message
-                using (StreamWriter sw = File.AppendText(_filePath))
+                using (StreamWriter sw = File.AppendText(FilePath))
                 {
                     sw.WriteLine(logMessage);
                 }

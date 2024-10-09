@@ -3,24 +3,26 @@
 public class LogFactory
 {
 
-    private string _filePath;
-    public BaseLogger CreateLogger(string className)
+    private string FilePath { get; set; } = "";
+    public BaseLogger? CreateLogger(string className)
     {
-
-        FileLogger logger = new FileLogger(_filePath);
-
-        if (logger != null)
-        {
-            return logger;
-        }
-        else
+        if (FilePath == "" || FilePath is null)
         {
             return null;
         }
+
+        FileLogger logger = new FileLogger
+        { 
+            FilePath = this.FilePath,
+            ClassName = className
+        };
+
+        return logger;
+
     }
 
     public void ConfigureFileLogger(string filePath)
     {
-        _filePath = filePath;
+        FilePath = filePath;
     }
 }
