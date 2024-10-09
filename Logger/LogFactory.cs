@@ -8,8 +8,13 @@ public class LogFactory
 
     public void ConfigureFileLogger(string? filePath)
     {
-        FilePath = filePath ?? string.Empty;
+        if (string.IsNullOrEmpty(filePath))
+        {
+            throw new ArgumentException("File path cannot be null or empty.", nameof(filePath));
+        }
+        FilePath = filePath;
     }
+
     public FileLogger? CreateLogger(string className)
     {
         if (string.IsNullOrEmpty(FilePath))
