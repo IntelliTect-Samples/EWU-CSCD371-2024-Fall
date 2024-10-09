@@ -8,11 +8,12 @@ namespace Logger
 {
     public class ConsoleLoggerFactory : LoggerFactory
     {
-        public override ConsoleLogger? CreateLogger()
+        public override ConsoleLogger? CreateLogger(string callingClassName)
         {
-            ConsoleLogger consoleLogger = new() {ClassName = nameof(ConsoleLoggerFactory).ToLowerInvariant()};
+            ConsoleLogger consoleLogger = new() {ClassName = callingClassName };
             return consoleLogger;
         }
     }
 }
 
+ 

@@ -32,7 +32,7 @@ public class LoggerFactoryTests
         factory.ConfigureFileLogger(Environment.ProcessPath) ;
         //Act
 
-        FileLogger? logger = factory.CreateLogger();
+        FileLogger? logger = factory.CreateLogger(nameof(LoggerFactory));
         //Assert
         Assert.IsNotNull(logger);
         Assert.AreEqual(nameof(logger),"logger");
@@ -44,7 +44,7 @@ public class LoggerFactoryTests
         //Arrange
         ConsoleLoggerFactory factory = new();
         //Act
-        ConsoleLogger? logger = factory.CreateLogger();
+        ConsoleLogger? logger = factory.CreateLogger(nameof(LoggerFactory));
         //Assert
         Assert.IsNotNull(logger);
         Assert.AreEqual(nameof(logger), "logger");
@@ -56,7 +56,7 @@ public class LoggerFactoryTests
         //Arrange
         TestLoggerFactory factory = new();
         //Act
-        TestLogger? logger = factory.CreateLogger();
+        TestLogger? logger = factory.CreateLogger(nameof(LoggerFactory));
         //Assert
         Assert.IsNotNull(logger);
         Assert.AreEqual(nameof(logger), "logger");
