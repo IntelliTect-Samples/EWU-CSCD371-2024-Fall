@@ -33,6 +33,21 @@ public class TraceLoggerTests
         }
     }
 
+    private TestTraceListener? _listener;
+
+    [TestInitialize]
+    public void Setup()
+    {
+        _listener = new TestTraceListener();
+        Trace.Listeners.Add(_listener);
+    }
+
+    [TestCleanup]
+    public void Cleanup()
+    {
+        Trace.Listeners.Remove(_listener);
+    }
+
     [TestMethod]
     public void Constructor_SetsClassName_Correctly()
     {

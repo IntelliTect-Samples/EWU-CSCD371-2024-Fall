@@ -1,4 +1,7 @@
-﻿namespace Logger;
+﻿using System.Diagnostics;
+using System;
+
+namespace Logger;
 
 public class TraceLogger : BaseLogger
 {
@@ -9,6 +12,27 @@ public class TraceLogger : BaseLogger
 
     public override void Log(LogLevel logLevel, string message)
     {
+        string logMessage = $"{DateTime.Now} {ClassName} {logLevel}: {message}";
 
+        switch (logLevel)
+        {
+            case LogLevel.Error:
+                Trace.TraceError(logMessage);
+                break;
+            case LogLevel.Warning:
+                Trace.TraceWarning(logMessage);
+                break;
+            case LogLevel.Information:
+                Trace.TraceInformation(logMessage);
+                break;
+            case LogLevel.Debug:
+                // Trace does not have a built-in Debug level so we use WriteLine
+                Trace.WriteLine(logMessage, "Debug");
+                break;
+            default:
+                Trace.WriteLine(logMessage, logLevel.ToString());
+                break;
+
+        }
     }
 }
