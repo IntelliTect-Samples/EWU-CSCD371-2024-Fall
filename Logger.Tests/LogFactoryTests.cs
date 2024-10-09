@@ -96,7 +96,7 @@ public class LogFactoryTests
         LogFactory factory = new LogFactory();
         factory.ConfigureFileLogger(inputPath);
 
-        // Expected path, constructed dynamically to reflect normalization
+        // Act
         string expected = Path.Combine("some", "path", "to", "log.txt");
 
         // Assert

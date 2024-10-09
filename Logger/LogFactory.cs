@@ -14,7 +14,6 @@ public class LogFactory
             throw new ArgumentException("File path cannot be null or empty.", nameof(filePath));
         }
 
-        // Normalize the filePath to ensure it is correctly formatted for the current OS
         FilePath = NormalizePath(filePath);
     }
 
