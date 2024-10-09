@@ -35,13 +35,13 @@ public class TraceLoggerTests : IDisposable
         }
     }
 
-    private TestTraceListener? _listener;
+    private TestTraceListener? Listener { get; set; }
 
     [TestInitialize]
     public void Setup()
     {
-        _listener = new TestTraceListener();
-        Trace.Listeners.Add(_listener);
+        Listener = new TestTraceListener();
+        Trace.Listeners.Add(Listener);
     }
 
     [TestMethod]
@@ -69,7 +69,7 @@ public class TraceLoggerTests : IDisposable
 
         // Act
         logger.Log(level, message);
-        bool isMessageLogged = _listener!.Messages.Any(loggedMessage => loggedMessage.Contains(expectedOutput));
+        bool isMessageLogged = Listener!.Messages.Any(loggedMessage => loggedMessage.Contains(expectedOutput));
 
         // Assert
         Assert.IsTrue(isMessageLogged, $"Failed to log '{expectedOutput}' for level {level}");
@@ -84,7 +84,7 @@ public class TraceLoggerTests : IDisposable
         Dispose();
 
         // Assert
-        Assert.IsNull(_listener);
+        Assert.IsNull(Listener);
     }
 
     [TestMethod]
@@ -94,11 +94,11 @@ public class TraceLoggerTests : IDisposable
         string? message = null;
 
         //Act
-        _listener!.Write(message);
+        Listener!.Write(message);
 
         //Assert
-        Assert.AreEqual(1, _listener.Messages.Count);
-        Assert.AreEqual("Warning: Attempted to write a null message", _listener.Messages[0]);
+        Assert.AreEqual(1, Listener.Messages.Count);
+        Assert.AreEqual("Warning: Attempted to write a null message", Listener.Messages[0]);
     }
 
     [TestMethod]
@@ -108,11 +108,11 @@ public class TraceLoggerTests : IDisposable
         string? message = null;
 
         //Act
-        _listener!.WriteLine(message);
+        Listener!.WriteLine(message);
 
         //Assert
-        Assert.AreEqual(1, _listener.Messages.Count);
-        Assert.AreEqual("Warning: Attempted to write a null message", _listener.Messages[0]);
+        Assert.AreEqual(1, Listener.Messages.Count);
+        Assert.AreEqual("Warning: Attempted to write a null message", Listener.Messages[0]);
     }
 
     [TestMethod]
@@ -123,19 +123,19 @@ public class TraceLoggerTests : IDisposable
         Cleanup();
 
         //Assert
-        Assert.IsFalse(Trace.Listeners.Contains(_listener));
+        Assert.IsFalse(Trace.Listeners.Contains(Listener));
     }
 
     public void Dispose()
     {
-        _listener?.Dispose();
-        _listener = null;
+        Listener?.Dispose();
+        Listener = null;
         GC.SuppressFinalize(this);
     }
 
     [TestCleanup]
     public void Cleanup()
     {
-        Trace.Listeners.Remove(_listener);
+        Trace.Listeners.Remove(Listener);
     }
 }
