@@ -14,43 +14,43 @@ public static class BaseLoggerMixins
 
     //private static BaseLogger Logger { get; } = new FileLogger();
     
-    // Error
-    public static void Error(this BaseLogger? Logger, string message, params string[] args)
+    // Error extension method
+    public static void Error(this BaseLogger? logger, string message, params string[] args)
     {
         // Throw Exception if BaseLogger param is null
-        ArgumentNullException.ThrowIfNull(Logger);
+        ArgumentNullException.ThrowIfNull(logger);
 
         // Call BaseLogger.Log passing in the Error LogLevel
+        
 
-
-        Logger.Log(LogLevel.Error, message);
+        logger.Log(LogLevel.Error, message);
     }
 
-    // Warning
-    public static void Warning(this BaseLogger? Logger, string message, params string[] args)
+    // Warning extension method
+    public static void Warning(this BaseLogger? logger, string message, params string[] args)
     {
         // Throw Exception if BaseLogger param is null
-        ArgumentNullException.ThrowIfNull(Logger);
+        ArgumentNullException.ThrowIfNull(logger);
 
-        Logger.Log(LogLevel.Warning, message);
+        logger.Log(LogLevel.Warning, message);
     }
 
-    // Information
-    public static void Information(this BaseLogger? Logger, string message, params string[] args)
+    // Information extension method
+    public static void Information(this BaseLogger? logger, string message, params string[] args)
     {
         // Throw Exception if BaseLogger param is null
-        ArgumentNullException.ThrowIfNull(Logger);
+        ArgumentNullException.ThrowIfNull(logger);
 
-        Logger.Log(LogLevel.Information, message);
+        logger.Log(LogLevel.Information, message);
     }
 
-    // Debug
-    public static void Debug(this BaseLogger? Logger, string message, params string[] args)
+    // Debug extension method
+    public static void Debug(this BaseLogger? logger, string message, params string[] args)
     {
         // Throw Exception if BaseLogger param is null
-        ArgumentNullException.ThrowIfNull(Logger);
+        ArgumentNullException.ThrowIfNull(logger);
 
-        Logger.Log(LogLevel.Debug, message);
+        logger.Log(LogLevel.Debug, message);
     }
 
 }
