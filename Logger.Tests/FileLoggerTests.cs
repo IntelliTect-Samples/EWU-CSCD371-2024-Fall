@@ -48,7 +48,7 @@ public class FileLoggerTests
     public void Log_AppendMessageInFile()
     {
         //arrange
-        var fileLogger = new FileLogger(_logFilePath);
+        var fileLogger = new FileLogger(_logFilePath, "testClass");
         string testMessage = "Test message";
 
         //act
@@ -56,6 +56,8 @@ public class FileLoggerTests
         var logMessage = File.ReadAllText(_logFilePath);
         //
         Assert.IsTrue(logMessage.Contains(testMessage));
+        Assert.IsTrue(logMessage.Contains("Information"));
+        Assert.IsTrue(logMessage.Contains("testClass"));
         
     }
 

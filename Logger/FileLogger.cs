@@ -9,10 +9,12 @@ namespace Logger
     public class FileLogger : BaseLogger
     {
         private readonly string _filePath;
+       
 
-        public FileLogger(string filePath)
+        public FileLogger(string filePath, string className)
         {
             _filePath = filePath;
+            ClassName = className;
         }
        
 
@@ -20,7 +22,6 @@ namespace Logger
         {
             var logAppend = $"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture)} {ClassName} {logLevel}: {message}{Environment.NewLine}";
             File.AppendAllText(_filePath, logAppend);
-            Console.WriteLine(logAppend);
         }
     }
 

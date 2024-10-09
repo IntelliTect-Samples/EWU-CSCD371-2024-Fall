@@ -22,6 +22,6 @@ public class LogFactory
         {
             return null;
         }
-        return new FileLogger(FilePath) { ClassName = className };
+        return new FileLogger(FilePath, className);
     }
 }
