@@ -13,22 +13,25 @@ namespace Logger.Tests
     public class SideTests
     {
         [TestMethod]
-        [DataRow("C:\\Users\\ericm\\temp", LogLevel.Error, "Hello!")]
+        [DataRow("C:\\Users\\Nina\\logger", LogLevel.Error, "Hello!")]
+        [DataRow("C:\\Users\\Nina\\logger\\internalFolder", LogLevel.Error, "Hello!")]
         //[DataRow("C:\\Users\\ericm\\repos\\EWU-CSCD371-2024-Fall\\Logger.Tests\\bin\\Debug\\net7.0\\testfile.txt")]
         //[DataRow("C:\\Users\\ericm\\repos\\EWU-CSCD371-2024-Fall\\Logger.Tests\\bin\\Debug\\net7.0", LogLevel.Error, "Hello!")]
-        public void TestFileCanBeAppended(string filePath, LogLevel logLevel, string message)
+        public void TestFileCanBeAppended(string path, LogLevel logLevel, string message)
         {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
             // Arrange
-            filePath = System.IO.Path.Combine(filePath, logLevel + ".txt");
-            string initialText = "Initial content.";
+            path = System.IO.Path.Combine(path, logLevel + ".txt");
+
             string appendText = " Appended content.";
-
-            // Ensure the file is created and has initial content
-            File.WriteAllText(filePath, initialText);
-
+     
             // Act
-            File.AppendAllText(filePath, appendText);
-            string result = File.ReadAllText(filePath);
+            File.AppendAllText(path, appendText);
+            string result = File.ReadAllText(path);
 
             // Assert
             Assert.IsTrue(result.Contains(appendText), "The file could not be appended.");
