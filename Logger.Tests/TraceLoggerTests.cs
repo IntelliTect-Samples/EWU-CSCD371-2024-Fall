@@ -44,19 +44,6 @@ public class TraceLoggerTests : IDisposable
         Trace.Listeners.Add(_listener);
     }
 
-    [TestCleanup]
-    public void Cleanup()
-    {
-        Trace.Listeners.Remove(_listener);
-    }
-
-    public void Dispose()
-    {
-        _listener?.Dispose();
-        _listener = null;
-        GC.SuppressFinalize(this);
-    }
-
     [TestMethod]
     public void Constructor_SetsClassName_Correctly()
     {
@@ -86,5 +73,44 @@ public class TraceLoggerTests : IDisposable
 
         // Assert
         Assert.IsTrue(isMessageLogged, $"Failed to log '{expectedOutput}' for level {level}");
+    }
+
+    [TestMethod]
+    public void Dispose_WhenListenerIsNotNull_DisposesListener()
+    {
+        // Arrange
+
+        // Act
+        Dispose();
+
+        // Assert
+        Assert.IsNull(_listener);
+    }
+
+    [TestMethod]
+    public void Write_WhenMessageIsNull_AddsWarningToMessage()
+    {
+        //Arrange
+        string? message = null;
+
+        //Act
+        _listener!.Write(message);
+
+        //Assert
+        Assert.AreEqual(1, _listener.Messages.Count);
+        Assert.AreEqual("Warning: Attempted to write a null message", _listener.Messages[0]);
+    }
+
+    public void Dispose()
+    {
+        _listener?.Dispose();
+        _listener = null;
+        GC.SuppressFinalize(this);
+    }
+
+    [TestCleanup]
+    public void Cleanup()
+    {
+        Trace.Listeners.Remove(_listener);
     }
 }
