@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting.Logging;
 
 using System;
 using System.IO;
@@ -28,12 +29,10 @@ public class FileLoggerTests
     
 
     }
-    [TestMethod]
-    public void CreateLogger_CreateLogger_Sucess() 
-    {
-        //arrange
-        
-        
-    
-    }
+    //[TestMethod]
+    //public string
+
+
+
+  
 }
