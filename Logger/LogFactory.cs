@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Logger;
 
@@ -12,7 +13,9 @@ public class LogFactory
         {
             throw new ArgumentException("File path cannot be null or empty.", nameof(filePath));
         }
-        FilePath = filePath;
+        char[] separators = new char[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar };
+        string[] pathParts = filePath.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+        FilePath = Path.Combine(pathParts);
     }
 
     public FileLogger? CreateLogger(string className)
