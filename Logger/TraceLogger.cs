@@ -26,7 +26,6 @@ public class TraceLogger : BaseLogger
                 Trace.TraceInformation(logMessage);
                 break;
             case LogLevel.Debug:
-                // Trace does not have a built-in Debug level so we use WriteLine
                 Trace.WriteLine(logMessage, "Debug");
                 break;
             default:
