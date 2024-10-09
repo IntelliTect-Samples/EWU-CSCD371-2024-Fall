@@ -11,7 +11,6 @@ namespace Logger
     public class ConsoleLogger : BaseLogger
     {
 
-        public string? Path { get; private set; }
 
         public override void Log(LogLevel logLevel, string message)
         {
