@@ -91,16 +91,20 @@ public class LogFactoryTests
     [TestMethod]
     public void ConfigureFileLogger_Normalization_SuccessfullyNormalizes()
     {
-        // Arrange
+        //Arrange
         string inputPath = "some\\path/to/log.txt"; // Intentionally mixed separators
         LogFactory factory = new LogFactory();
         factory.ConfigureFileLogger(inputPath);
 
-        // Expected path, dynamically constructed to reflect normalization
-        string expected = Path.Combine("some", "path", "to", "log.txt");
-        expected = expected.Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar);
+        //Act
+        string expected = Path.GetFullPath(Path.Combine("some", "path", "to", "log.txt"));
+        string actual = Path.GetFullPath(factory.FilePath!);
 
-        // Assert
-        Assert.AreEqual(expected, factory.FilePath);
+        //Assert
+        expected = expected.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+        actual = actual.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+
+        Assert.AreEqual(expected, actual);
     }
+
 }
