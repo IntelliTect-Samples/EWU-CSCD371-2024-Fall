@@ -91,11 +91,15 @@ public class LogFactoryTests
     [TestMethod]
     public void ConfigureFileLogger_Normalization_SuccessfullyNormalizes()
     {
+        //Arrange
         string inputPath = "some\\path/to/log.txt"; // Intentionally mixed separators
-        LogFactory factory = new LogFactory();
-        factory.ConfigureFileLogger(inputPath);
+        LogFactory factory = new ();
 
+        //Act
+        factory.ConfigureFileLogger(inputPath);
         string expected = Path.Combine("some", "path", "to", "log.txt");
+
+        //Assert
         Assert.AreEqual(Path.GetFullPath(expected), Path.GetFullPath(factory.FilePath!));
     }
 }
