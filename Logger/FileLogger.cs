@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using System.IO;
 using System.Collections.Generic;
@@ -31,13 +31,10 @@ public class FileLogger : BaseLogger
             {
                 Directory.CreateDirectory(Path!);
             }
-            string path = System.IO.Path.Combine(this.Path!, logLevel + ".txt");
-            FileStream outFile = new(path,FileMode.Append);
-            StreamWriter writer  = new StreamWriter(outFile);
-            writer.WriteLine(CreateOutputString(logLevel, message, DateTime.Now, this.ClassName));
-            writer.Close();
-            outFile.Close();
 
+            string path = System.IO.Path.Combine(this.Path!, logLevel + ".txt");
+            message = DateTime.Now + " " + this.ClassName+ " " + logLevel + ": " + message;
+            File.AppendAllText(path, message);
         }
 
         
