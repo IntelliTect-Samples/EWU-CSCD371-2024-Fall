@@ -16,12 +16,13 @@ public class LogFactory
         FilePath = Path.Combine(assemblyPath, "file.txt");
     }
 
-    public BaseLogger? CreateLogger(string className)
+    public BaseLogger? CreateLogger(string? className)
     {
         if (string.IsNullOrEmpty(FilePath))
         {
             return null;
         }
-        return new FileLogger(FilePath, className);
+
+        return new FileLogger(FilePath, className ?? string.Empty);
     }
 }

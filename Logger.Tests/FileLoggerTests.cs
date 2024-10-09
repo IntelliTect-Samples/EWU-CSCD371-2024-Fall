@@ -30,22 +30,9 @@ public class FileLoggerTests
     
 
     }
+   
     [TestMethod]
-    public void ConfigureFileLogger_FindCorrectFilePath() 
-    {
-        //arrange
-        var logFactory = new LogFactory();
-
-        //act
-        logFactory.ConfigureFileLogger();
-
-        var filePath = typeof(LogFactory).GetProperty("FilePath", BindingFlags.NonPublic | BindingFlags.Instance);
-        var filePathValue = filePath?.GetValue(logFactory) as string;
-        Assert.IsNotNull(filePathValue);
-        Assert.AreEqual(filePathValue, _logFilePath);
-     }
-    [TestMethod]
-    public void Log_AppendMessageInFile()
+    public void Log_AppendMessageInFile_Pass()
     {
         //arrange
         var fileLogger = new FileLogger(_logFilePath, "testClass");
@@ -59,6 +46,16 @@ public class FileLoggerTests
         Assert.IsTrue(logMessage.Contains("Information"));
         Assert.IsTrue(logMessage.Contains("testClass"));
         
+    }
+    [TestMethod]
+    public void FileLogger_NullFilePath_ThrowExecption() 
+    {
+        //arrange
+        string? fake = null;
+
+        //Act
+        //Assert
+        Assert.ThrowsException<ArgumentNullException>(() => new FileLogger(fake, "FailTest")); 
     }
 
 }

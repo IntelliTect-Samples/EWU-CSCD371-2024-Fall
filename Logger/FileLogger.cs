@@ -11,8 +11,9 @@ namespace Logger
         private readonly string _filePath;
        
 
-        public FileLogger(string filePath, string className)
+        public FileLogger(string? filePath, string className)
         {
+            _filePath = filePath ?? throw new ArgumentNullException(nameof(filePath), "FilePath cannot be Null.");
             _filePath = filePath;
             ClassName = className;
         }
