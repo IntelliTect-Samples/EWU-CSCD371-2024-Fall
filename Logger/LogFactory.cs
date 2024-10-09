@@ -10,7 +10,7 @@ public class LogFactory
     {
         _filepath = filePath ?? string.Empty;
     }
-    public BaseLogger? CreateLogger(string className)
+    public FileLogger? CreateLogger(string className)
     {
         if (string.IsNullOrEmpty(_filepath))
         {   

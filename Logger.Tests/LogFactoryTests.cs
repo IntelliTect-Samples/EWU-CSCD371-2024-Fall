@@ -66,11 +66,12 @@ public class LogFactoryTests
         factory.ConfigureFileLogger(testFilePath);
 
         //Act
-        BaseLogger? logger = factory.CreateLogger(testClass);
+        FileLogger? logger = factory.CreateLogger(testClass);
 
         //Assert
         Assert.IsNotNull (logger);
         Assert.IsInstanceOfType(logger, typeof(FileLogger));
-        Assert.AreEqual(testClass, ((FileLogger)logger!).ClassName);
+        Assert.AreEqual(testClass, logger!.ClassName);
+        // Used the ! only because we assert that the logger is not null
     }
 }
