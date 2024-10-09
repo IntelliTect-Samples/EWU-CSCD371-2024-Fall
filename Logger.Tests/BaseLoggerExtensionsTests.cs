@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Logger.Tests;
 
 [TestClass]
-public class BaseLoggerMixinsTests
+public class BaseLoggerExtensionsTests
 {
     [TestMethod]
     [ExpectedException(typeof(ArgumentNullException))]
