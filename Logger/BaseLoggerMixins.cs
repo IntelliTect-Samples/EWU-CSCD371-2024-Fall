@@ -21,10 +21,8 @@ public static class BaseLoggerMixins
         // Throw Exception if BaseLogger param is null
         ArgumentNullException.ThrowIfNull(logger);
 
-        string? newMessage = string.Format(CultureInfo.InvariantCulture, message, args);
-
         // Call to Log method passing in the Error LogLevel     
-        logger.Log(LogLevel.Error, newMessage);
+        logger.Log(LogLevel.Error, string.Format(CultureInfo.InvariantCulture, message, args));
     }
 
 
@@ -34,10 +32,8 @@ public static class BaseLoggerMixins
         // Throw Exception if BaseLogger param is null
         ArgumentNullException.ThrowIfNull(logger);
 
-        string? newMessage = string.Format(CultureInfo.InvariantCulture, message, args);
-
         // Call to Log method passing in the Warning LogLevel     
-        logger.Log(LogLevel.Warning, newMessage);
+        logger.Log(LogLevel.Warning, string.Format(CultureInfo.InvariantCulture, message, args));
     }
 
 
@@ -47,10 +43,8 @@ public static class BaseLoggerMixins
         // Throw Exception if BaseLogger param is null
         ArgumentNullException.ThrowIfNull(logger);
 
-        string? newMessage = string.Format(CultureInfo.InvariantCulture, message, args);
-
-        // Call to Log method passing in the Information LogLevel
-        logger.Log(LogLevel.Information, newMessage);
+        // Call to Log method passing in the Information LogLevel     
+        logger.Log(LogLevel.Information, string.Format(CultureInfo.InvariantCulture, message, args));
     }
 
 
@@ -60,9 +54,7 @@ public static class BaseLoggerMixins
         // Throw Exception if BaseLogger param is null
         ArgumentNullException.ThrowIfNull(logger);
 
-        string? newMessage = string.Format(CultureInfo.InvariantCulture, message, args);
-
-        // Call to Log method passing in the Debug LogLevel
-        logger.Log(LogLevel.Debug, newMessage);
+        // Call to Log method passing in the Debug LogLevel     
+        logger.Log(LogLevel.Debug, string.Format(CultureInfo.InvariantCulture, message, args));
     }
 }
