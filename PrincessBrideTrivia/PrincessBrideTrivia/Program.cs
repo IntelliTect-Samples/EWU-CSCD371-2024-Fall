@@ -7,6 +7,7 @@ public class Program
         string filePath = GetFilePath();
         Question[] questions = LoadQuestions(filePath);
 
+        int mode = GetGameMode();
         int numberCorrect = 0;
         for (int i = 0; i < questions.Length; i++)
         {
@@ -15,13 +16,22 @@ public class Program
             {
                 numberCorrect++;
             }
+            else if (!result && mode == 1)
+            {
+                while (!result)
+                {
+                    Console.WriteLine("Try again");
+                    result = AskQuestion(questions[i]);
+                }
+                numberCorrect++;
+            }
         }
         Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
     }
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        return (numberCorrectAnswers / numberOfQuestions * 100) + "%";
+        return ((double)numberCorrectAnswers / numberOfQuestions * 100) + "%";
     }
 
     public static bool AskQuestion(Question question)
@@ -86,7 +96,23 @@ public class Program
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
+
+            questions[i] = question;
         }
         return questions;
+    }
+
+    public static int GetGameMode()
+    {
+        Console.WriteLine("Select what mode you want to play:\n" +
+                          "1. Normal\n" +
+                          "2. Easy Mode"
+                          );
+        string input = Console.ReadLine();
+        if (input == "2")
+        {
+            return 1;
+        }
+        return 0;
     }
 }
