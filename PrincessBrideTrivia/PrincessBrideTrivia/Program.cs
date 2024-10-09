@@ -7,6 +7,7 @@ public class Program
         string filePath = GetFilePath();
         Question[] questions = LoadQuestions(filePath);
 
+        int mode = GetGameMode();
         int numberCorrect = 0;
         for (int i = 0; i < questions.Length; i++)
         {
@@ -15,13 +16,22 @@ public class Program
             {
                 numberCorrect++;
             }
+            else if (!result && mode == 1)
+            {
+                while (!result)
+                {
+                    Console.WriteLine("Try again");
+                    result = AskQuestion(questions[i]);
+                }
+                numberCorrect++;
+            }
         }
         Console.WriteLine("You got " + GetPercentCorrect(numberCorrect, questions.Length) + " correct");
     }
 
     public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
     {
-        return ((double)numberCorrectAnswers / numberOfQuestions * 100) + "%"; // calculates properly
+        return ((double)numberCorrectAnswers / numberOfQuestions * 100) + "%";
     }
 
     public static bool AskQuestion(Question question)
@@ -65,10 +75,10 @@ public class Program
 
     public static Question[] LoadQuestions(string filePath)
     {
-        string[] lines = File.ReadAllLines(filePath);//creates array lines
+        string[] lines = File.ReadAllLines(filePath);
 
-        Question[] questions = new Question[lines.Length / 5];//creates array questions
-        for (int i = 0; i < questions.Length; i++)//for every item in array questions
+        Question[] questions = new Question[lines.Length / 5];
+        for (int i = 0; i < questions.Length; i++)
         {
             int lineIndex = i * 5;
             string questionText = lines[lineIndex];
@@ -79,15 +89,30 @@ public class Program
 
             string correctAnswerIndex = lines[lineIndex + 4];
 
-            Question question = new();//create question object
+            Question question = new();
             question.Text = questionText;
             question.Answers = new string[3];
             question.Answers[0] = answer1;
             question.Answers[1] = answer2;
             question.Answers[2] = answer3;
             question.CorrectAnswerIndex = correctAnswerIndex;
-            questions[i] = question;//load newly created question into the questions array
+
+            questions[i] = question;
         }
         return questions;
+    }
+
+    public static int GetGameMode()
+    {
+        Console.WriteLine("Select what mode you want to play:\n" +
+                          "1. Normal\n" +
+                          "2. Easy Mode"
+                          );
+        string input = Console.ReadLine();
+        if (input == "2")
+        {
+            return 1;
+        }
+        return 0;
     }
 }

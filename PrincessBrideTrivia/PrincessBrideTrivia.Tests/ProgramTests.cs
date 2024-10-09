@@ -71,6 +71,20 @@ public class ProgramTests
         Assert.AreEqual(expectedString, percentage);
     }
 
+    [TestMethod]
+    [DataRow("1\n", 0)]
+    [DataRow("\n", 0)]
+    [DataRow("f\n", 0)]
+    [DataRow("2\n", 1)]
+    public void GetGameMode_ReturnsCorrectMode(string input, int expectedResult)
+    {
+        // Arrange
+        Console.SetIn(new StringReader(input));
+        // Act
+        int result = Program.GetGameMode();
+        // Assert
+        Assert.AreEqual(expectedResult, result);
+    }
 
     private static void GenerateQuestionsFile(string filePath, int numberOfQuestions)
     {
