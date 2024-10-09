@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -41,6 +42,16 @@ public class FileLoggerTests
 
         //Assert
         Assert.IsNotNull(logger);
+    }
+
+    [TestMethod]
+    public void FileLogger_PassNullFilePath_ThrowsException()
+    {
+        //Arrange
+        string? filePath = null;
+
+        //Act & Assert
+        Assert.ThrowsException<ArgumentNullException>(() => new FileLogger(filePath!));
     }
 
     [TestMethod]
