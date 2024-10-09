@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Logger;
 
@@ -20,9 +21,10 @@ public static class BaseLoggerMixins
         // Throw Exception if BaseLogger param is null
         ArgumentNullException.ThrowIfNull(logger);
 
-        string? newMessage = string.Format(message, args);
+        string? newMessage = string.Format(CultureInfo.InvariantCulture, message, args);
+
         // Call to Log method passing in the Error LogLevel     
-        logger.Log(LogLevel.Error, message);
+        logger.Log(LogLevel.Error, newMessage);
     }
 
 
@@ -32,8 +34,10 @@ public static class BaseLoggerMixins
         // Throw Exception if BaseLogger param is null
         ArgumentNullException.ThrowIfNull(logger);
 
+        string? newMessage = string.Format(CultureInfo.InvariantCulture, message, args);
+
         // Call to Log method passing in the Warning LogLevel     
-        logger.Log(LogLevel.Warning, message);
+        logger.Log(LogLevel.Warning, newMessage);
     }
 
 
@@ -43,8 +47,10 @@ public static class BaseLoggerMixins
         // Throw Exception if BaseLogger param is null
         ArgumentNullException.ThrowIfNull(logger);
 
+        string? newMessage = string.Format(CultureInfo.InvariantCulture, message, args);
+
         // Call to Log method passing in the Information LogLevel
-        logger.Log(LogLevel.Information, message);
+        logger.Log(LogLevel.Information, newMessage);
     }
 
 
@@ -54,7 +60,9 @@ public static class BaseLoggerMixins
         // Throw Exception if BaseLogger param is null
         ArgumentNullException.ThrowIfNull(logger);
 
+        string? newMessage = string.Format(CultureInfo.InvariantCulture, message, args);
+
         // Call to Log method passing in the Debug LogLevel
-        logger.Log(LogLevel.Debug, message);
+        logger.Log(LogLevel.Debug, newMessage);
     }
 }

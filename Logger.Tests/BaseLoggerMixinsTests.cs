@@ -17,7 +17,7 @@ public class BaseLoggerMixinsTests
         BaseLoggerMixins.Error(null, "");
 
         // Assert
-        Assert.ThrowsException<ArgumentNullException>(() => BaseLoggerMixins.Error(null, "", string));
+        Assert.ThrowsException<ArgumentNullException>(() => BaseLoggerMixins.Error(null, ""));
     }
 
     [TestMethod]
