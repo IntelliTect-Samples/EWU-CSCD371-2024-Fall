@@ -8,7 +8,7 @@ public static class BaseLoggerMixins
     {
         if (logger is null)
         {
-            throw new ArgumentNullException();
+            throw new ArgumentNullException("Logger is null", nameof(logger));
         }
         logger.Log(LogLevel.Error, string.Format(message,args));
     }
@@ -16,7 +16,7 @@ public static class BaseLoggerMixins
     {
         if (logger is null)
         {
-            throw new ArgumentNullException();
+            throw new ArgumentNullException("Logger is null", nameof(logger));
         }
         logger.Log(LogLevel.Warning, string.Format(message, args));
     }
@@ -24,7 +24,7 @@ public static class BaseLoggerMixins
     {
         if (logger is null)
         {
-            throw new ArgumentNullException();
+            throw new ArgumentNullException("Logger is null", nameof(logger));
         }
         logger.Log(LogLevel.Information, string.Format(message, args));
     }
@@ -32,7 +32,7 @@ public static class BaseLoggerMixins
     {
         if (logger is null)
         {
-            throw new ArgumentNullException();
+            throw new ArgumentNullException("Logger is null", nameof(logger));
         }
         logger.Log(LogLevel.Debug, string.Format(message, args));
     }
