@@ -101,6 +101,20 @@ public class TraceLoggerTests : IDisposable
         Assert.AreEqual("Warning: Attempted to write a null message", _listener.Messages[0]);
     }
 
+    [TestMethod]
+    public void WriteLine_WhenMessageIsNull_AddsWarningToMessage()
+    {
+        //Arrange
+        string? message = null;
+
+        //Act
+        _listener!.WriteLine(message);
+
+        //Assert
+        Assert.AreEqual(1, _listener.Messages.Count);
+        Assert.AreEqual("Warning: Attempted to write a null message", _listener.Messages[0]);
+    }
+
     public void Dispose()
     {
         _listener?.Dispose();
