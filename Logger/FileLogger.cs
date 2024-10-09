@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.CompilerServices;
 using System.IO;
 using System.Collections.Generic;
@@ -27,6 +27,10 @@ public class FileLogger : BaseLogger
             //get caller name
             // get create output string
             //Missing the functionality to get calling class name.
+            if (!Directory.Exists(Path!))
+            {
+                Directory.CreateDirectory(Path!);
+            }
             string path = System.IO.Path.Combine(this.Path!, logLevel + ".txt");
             FileStream outFile = new(path,FileMode.Append);
             StreamWriter writer  = new StreamWriter(outFile);
