@@ -29,10 +29,8 @@ public class LogFactory
 
     private static string NormalizePath(string path)
     {
-        // Split the path by both possible directory separators
         char[] separators = new char[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar };
         var pathParts = path.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-        // Combine it back into a normalized path
         return Path.Combine(pathParts);
     }
 }
