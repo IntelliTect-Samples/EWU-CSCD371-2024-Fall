@@ -4,22 +4,18 @@ namespace Logger;
 
 public class LogFactory
 {
-    private string _filepath = string.Empty;
+    public string? FilePath { get; private set; }
 
     public void ConfigureFileLogger(string? filePath)
     {
-        _filepath = filePath ?? string.Empty;
+        FilePath = filePath ?? string.Empty;
     }
     public BaseLogger? CreateLogger(string className)
     {
-        if (string.IsNullOrEmpty(_filepath))
+        if (string.IsNullOrEmpty(FilePath))
         {   
             return null;
         }
-        return new FileLogger(_filepath) { ClassName = className };
-    }
-    public string GetFilePath()
-    {
-        return _filepath;
+        return new FileLogger(FilePath) { ClassName = className };
     }
 }

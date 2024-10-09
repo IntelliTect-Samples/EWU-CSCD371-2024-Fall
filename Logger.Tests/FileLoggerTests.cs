@@ -60,6 +60,7 @@ public class FileLoggerTests
         string expectedLogEntry = $"{className} {logLevel}: {message}";
         Assert.IsTrue(logContents.Contains(expectedLogEntry));
     }
+
     [TestCleanup]
     public void Cleanup()
     {
