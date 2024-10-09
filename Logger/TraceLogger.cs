@@ -2,7 +2,10 @@
 
 public class TraceLogger : BaseLogger
 {
-    public string ClassName { get; set; } = string.Empty;
+    public TraceLogger(string className)
+    {
+        ClassName = className;
+    }
 
     public void Log(LogLevel logLevel, string message)
     {
