@@ -13,16 +13,9 @@ namespace Logger
 
         public string? Path { get; private set; }
 
-        public ConsoleLogger()
-        {
-        }
-
         public override void Log(LogLevel logLevel, string message)
         {
-            //get caller name
-            // get create output string
-            //Missing the functionality to get calling class name.
-            Console.WriteLine(CreateOutputString(logLevel, message, DateTime.Now, this.ClassName));
+            Console.WriteLine(CreateOutputString(logLevel, message, DateTime.Now, ClassName));
         }
 
 

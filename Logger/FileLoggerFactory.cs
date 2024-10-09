@@ -9,14 +9,13 @@ public class FileLoggerFactory : LoggerFactory
 
     public void ConfigureFileLogger(string? path)
     {
-       this.FilePath = path;
+       FilePath = path;
     }
 
     public override FileLogger? CreateLogger(string callingClassName)
     {
-                if (this.FilePath is null) return null;
-                FileLogger fileLogger = new FileLogger(this.FilePath){ClassName = callingClassName };
+                if (FilePath is null) return null;
+                FileLogger fileLogger = new(FilePath){ClassName = callingClassName };
                 return fileLogger;
-        
     }
 }

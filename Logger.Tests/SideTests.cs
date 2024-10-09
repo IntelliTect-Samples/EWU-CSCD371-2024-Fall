@@ -13,10 +13,8 @@ namespace Logger.Tests
     public class SideTests
     {
         [TestMethod]
-        [DataRow("C:\\Users\\Nina\\logger", LogLevel.Error, "Hello!")]
-        [DataRow("C:\\Users\\Nina\\logger\\internalFolder", LogLevel.Error, "Hello!")]
-        //[DataRow("C:\\Users\\ericm\\repos\\EWU-CSCD371-2024-Fall\\Logger.Tests\\bin\\Debug\\net7.0\\testfile.txt")]
-        //[DataRow("C:\\Users\\ericm\\repos\\EWU-CSCD371-2024-Fall\\Logger.Tests\\bin\\Debug\\net7.0", LogLevel.Error, "Hello!")]
+        [DataRow("C:\\Users\\ValidUserHere\\logger", LogLevel.Error, "Hello!")]
+        [DataRow("C:\\Users\\ValidUserHere\\logger\\internalFolder", LogLevel.Error, "Hello!")]
         public void TestFileCanBeAppended(string path, LogLevel logLevel, string message)
         {
             if (!Directory.Exists(path))
