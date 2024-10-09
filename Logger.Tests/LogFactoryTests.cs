@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 using Microsoft.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -59,11 +60,10 @@ public class LogFactoryTests
     public void CreateLogger_WithNoConfiguration_Null()
     {
         //Arrange
-        string testClassName = "TestClass";
         LogFactory factory = new();
 
         //Act
-        FileLogger? logger = factory.CreateLogger(testClassName);
+        FileLogger? logger = factory.CreateLogger(nameof(LogFactoryTests));
 
         //Assert
         Assert.IsNull(logger);
@@ -86,5 +86,16 @@ public class LogFactoryTests
         Assert.IsInstanceOfType(logger, typeof(BaseLogger));
         Assert.AreEqual(testClass, logger!.ClassName);
         // Used the ! only because we assert that the logger is not null
+    }
+
+    [TestMethod]
+    public void FilePath_Normalization_Check()
+    {
+        string inputPath = "some\\path/to/log.txt"; // Intentionally mixed separators
+        LogFactory factory = new LogFactory();
+        factory.ConfigureFileLogger(inputPath);
+
+        string expected = Path.Combine("some", "path", "to", "log.txt");
+        Assert.AreEqual(expected, factory.FilePath);
     }
 }
