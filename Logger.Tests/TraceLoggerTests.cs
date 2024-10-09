@@ -8,7 +8,7 @@ namespace Logger.Tests;
 [TestClass]
 public class TraceLoggerTests
 {
-    private class TestTraceListener : TraceListener
+    private sealed class TestTraceListener : TraceListener
     {
         public List<string> Messages { get; } = new List<string>();
 
@@ -33,4 +33,16 @@ public class TraceLoggerTests
         }
     }
 
+    [TestMethod]
+    public void Constructor_SetsClassName_Correctly()
+    {
+        //Arrange
+        var expectedClassName = "TestLogger";
+
+        //Act
+        var logger = new TraceLogger(expectedClassName);
+
+        //Assert
+        Assert.AreEqual(expectedClassName, logger.ClassName);
+    }
 }

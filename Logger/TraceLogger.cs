@@ -7,7 +7,7 @@ public class TraceLogger : BaseLogger
         ClassName = className;
     }
 
-    public void Log(LogLevel logLevel, string message)
+    public override void Log(LogLevel logLevel, string message)
     {
 
     }
