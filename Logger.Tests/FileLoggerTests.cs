@@ -11,6 +11,7 @@ namespace Logger.Tests;
 [TestClass]
 public class FileLoggerTests
 {
+
     [TestMethod]
     [DataRow("")]
     [DataRow("C:\\")]
@@ -34,10 +35,10 @@ public class FileLoggerTests
     public void FileLogger_GivenNullPath_ThrowsArgumentNullException()
     {
         //Arrange
-        string? path = null;
 
         //Act
-        var logger = new FileLogger(path) { ClassName = nameof(FileLoggerTests) };
+        var logger = new FileLogger(null) { ClassName = nameof(FileLoggerTests) };
+
     }
 
 

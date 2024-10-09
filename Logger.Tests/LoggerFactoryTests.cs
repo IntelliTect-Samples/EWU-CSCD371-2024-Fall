@@ -8,6 +8,20 @@ namespace Logger.Tests;
 public class LoggerFactoryTests
 {
     [TestMethod]
+    public void CreateLogger_WhenFilePathIsNull_ReturnsNull()
+    {
+        // Arrange
+        FileLoggerFactory factory = new();
+        //we don't configure the logger, so FilePath remains null.
+
+        // Act
+        FileLogger? logger = factory.CreateLogger(nameof(LoggerFactoryTests));
+
+        // Assert
+        Assert.IsNull(logger);
+    }
+
+    [TestMethod]
     [DataRow("")]
     [DataRow("./")]
     [DataRow("/C:/Users/test/Documents")]
