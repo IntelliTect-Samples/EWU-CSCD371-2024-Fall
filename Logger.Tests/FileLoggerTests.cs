@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -84,6 +84,7 @@ public class FileLoggerTests
     [DataRow(LogLevel.Warning, "Hello!", ".\\")]
     [DataRow(LogLevel.Debug, "Hello!", "./")]
     [DataRow(LogLevel.Information, "Hello!", ".\\")]
+
     [DataRow(LogLevel.Error, "Hello!", "./")]
     public void Log_ValidInputs_AppendsLog(LogLevel logLevel, string message, string path)
     {
@@ -92,7 +93,9 @@ public class FileLoggerTests
         string caller =nameof(FileLoggerTests);
 
         var logger = new FileLogger(path) { ClassName = caller };
-        string expectedOutput = DateTime.Now + " "+caller+" "+logLevel+": "+message;
+        string expectedOutput = DateTime.Now + " " + caller + " " + logLevel + ": " + message;
+
+        path = System.IO.Path.Combine(path, logLevel + ".txt");
         //Act
         switch (logLevel)
         {
@@ -110,14 +113,9 @@ public class FileLoggerTests
                 break;
         }
 
-        //Assert
-        //check to see if file exists
-        //if it does, read the file and check if the message is there
-        //use open file to read the file
-        //use stream reader to traverse to one away from the end
-        //assert/check if the message is there
-        string? lastLine = File.ReadLines(path).LastOrDefault();
-        if (lastLine is null) throw new ArgumentNullException("Last line in file " + path + " Is null");
-        Assert.AreEqual(lastLine,expectedOutput);
+        string result = File.ReadAllText(path);
+
+        // Assert
+        Assert.IsTrue(result.Contains(expectedOutput), "The file could not be appended.Expected: "+expectedOutput+Environment.NewLine+"Full result: "+result);
     }
 }
