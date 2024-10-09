@@ -96,6 +96,6 @@ public class LogFactoryTests
         factory.ConfigureFileLogger(inputPath);
 
         string expected = Path.Combine("some", "path", "to", "log.txt");
-        Assert.AreEqual(expected, factory.FilePath);
+        Assert.AreEqual(Path.GetFullPath(expected), Path.GetFullPath(factory.FilePath!));
     }
 }
