@@ -15,42 +15,46 @@ public static class BaseLoggerMixins
     //private static BaseLogger Logger { get; } = new FileLogger();
     
     // Error extension method
-    public static void Error(this BaseLogger? logger, string message, params string[] args)
+    public static void Error(this BaseLogger? logger, string message, params object[] args)
     {
         // Throw Exception if BaseLogger param is null
         ArgumentNullException.ThrowIfNull(logger);
 
-        // Call BaseLogger.Log passing in the Error LogLevel
-        
-
+        string? newMessage = string.Format(message, args);
+        // Call to Log method passing in the Error LogLevel     
         logger.Log(LogLevel.Error, message);
     }
 
+
     // Warning extension method
-    public static void Warning(this BaseLogger? logger, string message, params string[] args)
+    public static void Warning(this BaseLogger? logger, string message, params object[] args)
     {
         // Throw Exception if BaseLogger param is null
         ArgumentNullException.ThrowIfNull(logger);
 
+        // Call to Log method passing in the Warning LogLevel     
         logger.Log(LogLevel.Warning, message);
     }
 
+
     // Information extension method
-    public static void Information(this BaseLogger? logger, string message, params string[] args)
+    public static void Information(this BaseLogger? logger, string message, params object[] args)
     {
         // Throw Exception if BaseLogger param is null
         ArgumentNullException.ThrowIfNull(logger);
 
+        // Call to Log method passing in the Information LogLevel
         logger.Log(LogLevel.Information, message);
     }
 
+
     // Debug extension method
-    public static void Debug(this BaseLogger? logger, string message, params string[] args)
+    public static void Debug(this BaseLogger? logger, string message, params object[] args)
     {
         // Throw Exception if BaseLogger param is null
         ArgumentNullException.ThrowIfNull(logger);
 
+        // Call to Log method passing in the Debug LogLevel
         logger.Log(LogLevel.Debug, message);
     }
-
 }
