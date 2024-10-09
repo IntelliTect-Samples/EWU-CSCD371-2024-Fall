@@ -8,14 +8,14 @@ namespace Logger.Tests;
 [TestClass]
 public class FileLoggerTests
 {
-    private readonly string filePath = "testLogFile.log";
+    private string FilePath {  get; } = "testLogFile.log";
 
     [TestInitialize]
     public void Setup()
     {
         // Ensures the file is clean before each test
-        if (File.Exists(filePath))
-            File.Delete(filePath);
+        if (File.Exists(FilePath))
+            File.Delete(FilePath);
     }
 
     [TestMethod]
@@ -25,7 +25,7 @@ public class FileLoggerTests
         string className = "TestClass";
 
         //Act
-        FileLogger logger = new(filePath);
+        FileLogger logger = new(FilePath);
         logger.ClassName = className;
 
         //Assert
@@ -38,7 +38,7 @@ public class FileLoggerTests
         //Arrange
 
         //Act
-        FileLogger logger = new(filePath);
+        FileLogger logger = new(FilePath);
 
         //Assert
         Assert.IsNotNull(logger);
@@ -59,7 +59,7 @@ public class FileLoggerTests
     {
         //Arrange
         string message = "Test message";
-        FileLogger logger = new(filePath);
+        FileLogger logger = new(FilePath);
         string className = logger.ClassName = "TestLogger";
         LogLevel logLevel = LogLevel.Error;
 
@@ -67,7 +67,7 @@ public class FileLoggerTests
         logger.Log(logLevel, message);
 
         //Assert
-        string logContents = File.ReadAllText(filePath);
+        string logContents = File.ReadAllText(FilePath);
         string expectedLogEntry = $"{className} {logLevel}: {message}";
         Assert.IsTrue(logContents.Contains(expectedLogEntry));
     }
@@ -76,7 +76,7 @@ public class FileLoggerTests
     public void Cleanup()
     {
         // Cleans up the file after tests
-        if (File.Exists(filePath))
-            File.Delete(filePath);
+        if (File.Exists(FilePath))
+            File.Delete(FilePath);
     }
 }
