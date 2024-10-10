@@ -25,9 +25,9 @@ public class LogFactoryTests
         LogFactory factory = new();
         factory.ConfigureFilePath("test.txt");
         // Act
-        var logger = factory.CreateLogger("Test");
+        var logger = factory.CreateLogger(nameof(LogFactoryTests));
         // Assert
-        Assert.AreEqual("Test", logger?.ClassName);
+        Assert.AreEqual(nameof(LogFactoryTests), logger?.ClassName);
     }
 
     [TestMethod]
@@ -47,7 +47,7 @@ public class LogFactoryTests
     {
         // Arrange
         LogFactory factory = new();
-        factory.CreateLogger("Test");
+        factory.CreateLogger(nameof(LogFactoryTests));
         // Act
         var logger = factory.CreateLogger(null!);
         // Assert

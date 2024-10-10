@@ -11,8 +11,9 @@ namespace Logger
 
         public override void Log(LogLevel logLevel, string message)
         {
+            Directory.CreateDirectory(FilePath);
             //Format ex: "10/7/2019 12:38:59 AM FileLoggerTests Warning: Test message"
-            string log = $"{DateTime.Now} {ClassName} {logLevel}: {message}{Environment.NewLine}";
+            string log = $"{DateTime.UtcNow} UTC {ClassName} {logLevel}: {message}{Environment.NewLine}";
             //Print log message to file
             File.AppendAllText(FilePath, log);
         }

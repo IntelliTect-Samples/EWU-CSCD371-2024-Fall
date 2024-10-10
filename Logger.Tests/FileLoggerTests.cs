@@ -20,12 +20,12 @@ public class FileLoggerTests
     }
 
     [TestMethod]
-    public void FileLogger_LogFileAppended_Success()
+    public void Log_LogFileAppended_Success()
     {
         // Arrange
         string message = "Testing123";
         FileLogger logger = new(_fileName);
-        logger.ClassName = "Test";
+        logger.ClassName = nameof(FileLoggerTests);
         // Act
         logger.Log(LogLevel.Debug, message);
         string results = File.ReadAllText(_fileName);
