@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Reflection;
 
@@ -13,8 +15,8 @@ public class LogFactoryTests
     public void Setup()
     {
         // Set up the expected log file path based on the hardcoded file name "file.txt"
-        string assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
-        _expectedFilePath = Path.Combine(assemblyLocation, "file.txt");
+        //string assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
+        _expectedFilePath = Path.Combine(LogFactory.GetSolutionDirectory() ?? "", "file.txt");
 
         // Ensure the log file is clean before each test
         if (File.Exists(_expectedFilePath))
@@ -29,9 +31,9 @@ public class LogFactoryTests
         // Arrange
         var logFactory = new LogFactory();
         var fileName = "file.txt"; // The file name provided
-        string? assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        var expectedFilePath = assemblyPath != null 
-            ? Path.Combine(assemblyPath, fileName) 
+        //string? assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        var expectedFilePath = LogFactory.GetSolutionDirectory() != null 
+            ? Path.Combine(LogFactory.GetSolutionDirectory() ?? String.Empty, fileName) 
             : fileName; // If assemblyPath is null, use the file name directly
 
         // Act

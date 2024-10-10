@@ -1,4 +1,6 @@
-﻿namespace Logger;
+﻿using System.Linq;
+
+namespace Logger;
 
 using System.IO;
 using System.Reflection;
@@ -9,16 +11,16 @@ public class LogFactory
 
     public void ConfigureFileLogger(string? filePath)
     {
-        string? assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        //string? assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         
         if (filePath == null)
         {
             return;
         }
         
-        if (assemblyPath != null)
+        if (GetSolutionDirectory() != null)
         {
-            FilePath = Path.Combine(assemblyPath, filePath);
+            FilePath = Path.Combine(GetSolutionDirectory() ?? string.Empty, filePath);
         }
         else
         {
@@ -38,4 +40,26 @@ public class LogFactory
             ClassName = className
         };
     }
+    
+    
+    public static string? GetSolutionDirectory()
+    {
+        // Start from the current working directory
+        string? currentDirectory = Directory.GetCurrentDirectory();
+
+        while (currentDirectory != null)
+        {
+            // Check if a .sln file exists in the current directory
+            if (Directory.GetFiles(currentDirectory, "*.sln").Any())
+            {
+                return currentDirectory;
+            }
+
+            // Move up to the parent directory
+            currentDirectory = Directory.GetParent(currentDirectory)?.FullName;
+        }
+
+        return null;
+    }
+
 }

@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Globalization;
 using System.IO;
@@ -15,8 +15,8 @@ namespace Logger.Tests
         public void Setup()
         {
             // Set up the log file path based on the assembly location
-            string assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
-            _logFilePath = Path.Combine(assemblyLocation, "testlog.txt");
+            //string assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
+            _logFilePath = Path.Combine(LogFactory.GetSolutionDirectory() ?? String.Empty, "testlog.txt");
 
             // Ensure the log file is clean before each test
             if (File.Exists(_logFilePath))
