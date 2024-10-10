@@ -7,7 +7,7 @@ namespace Logger.Tests;
 [TestClass]
 public class FileLoggerTests
 {
-    private readonly string _fileName = "test.txt";
+    private readonly string _fileName = "testLog";
 
     [TestMethod]
     public void FileLogger_CreateValidFile_Success()
