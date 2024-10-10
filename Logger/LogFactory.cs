@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 
 namespace Logger;
 
@@ -8,21 +9,11 @@ public class LogFactory
 
     public void ConfigureFileLogger(string? filePath)
     {
-        //string? assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        
         if (filePath == null)
         {
             return;
         }
-        
-        if (GetSolutionDirectory() != null)
-        {
-            FilePath = Path.Combine(GetSolutionDirectory() ?? string.Empty, filePath);
-        }
-        else
-        {
-            FilePath = filePath;
-        }
+        FilePath = filePath;
     }
 
     public BaseLogger? CreateLogger(string className)
@@ -57,7 +48,7 @@ public class LogFactory
             currentDirectory = Directory.GetParent(currentDirectory)?.FullName;
         }
 
-        return null;
+        return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
     }
 
 }

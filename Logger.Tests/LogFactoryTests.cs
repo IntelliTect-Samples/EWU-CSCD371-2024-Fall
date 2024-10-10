@@ -34,10 +34,10 @@ public class LogFactoryTests
         //string? assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         var expectedFilePath = LogFactory.GetSolutionDirectory() != null 
             ? Path.Combine(LogFactory.GetSolutionDirectory() ?? String.Empty, fileName) 
-            : fileName; // If assemblyPath is null, use the file name directly
+            : fileName; 
 
         // Act
-        logFactory.ConfigureFileLogger(fileName);
+        logFactory.ConfigureFileLogger(Path.Combine(LogFactory.GetSolutionDirectory() ?? String.Empty, fileName));
 
         // Try to access FilePath either as a field or a property
         var filePathField = typeof(LogFactory).GetField("FilePath", BindingFlags.NonPublic | BindingFlags.Instance);
