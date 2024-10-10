@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace Logger.Tests;
 
@@ -8,40 +8,98 @@ namespace Logger.Tests;
 public class BaseLoggerMixinsTests
 {
     [TestMethod]
+    [DataRow(LogLevel.Error)]
+    [DataRow(LogLevel.Warning)]
+    [DataRow(LogLevel.Information)]
+    [DataRow(LogLevel.Debug)]
     [ExpectedException(typeof(ArgumentNullException))]
-    public void Error_WithNullLogger_ThrowsException()
+    public void Log_WithNullLogger_ThrowsException(LogLevel level)
     {
         // Arrange
+        BaseLogger logger = null!;
 
         // Act
-        //BaseLoggerMixins.Error(null, "");
+        BaseLoggerMixins.Log(logger, level, "This should throw an exception.");
 
         // Assert
     }
 
     [TestMethod]
-    public void Error_WithData_LogsMessage()
+    [DataRow(LogLevel.Error)]
+    [DataRow(LogLevel.Warning)]
+    [DataRow(LogLevel.Information)]
+    [DataRow(LogLevel.Debug)]
+    public void Log_LogsCorrectly_WithDifferentLevels(LogLevel level)
+    {
+        // Arrange
+        TestLogger logger = new();
+        string message = "Message for {0}";
+        object arg = level.ToString();
+
+        // Act
+        logger.Log(level, message, arg);
+
+        // Assert
+        var logged = logger.LoggedMessages.Last();
+        Assert.AreEqual(level, logged.LogLevel);
+        Assert.AreEqual($"Message for {level}", logged.Message);
+    }
+
+    /*
+     * Each datarow specifies a method name as a string and a corresponding message.
+     * This effectively demonstrates invoing different logging methods based on the input from the DataRow.
+     * The switch statement is handling the conversion from string method name to the method call.
+     * After I invoke the logging method, the test will check whether the log methods are working as intended from the assertion.
+     */
+
+    [TestMethod]
+    [DataRow("Error", "Error message")]
+    [DataRow("Warning", "Warning message")]
+    [DataRow("Information", "Information message")]
+    [DataRow("Debug", "Debug message")]
+    public void Log_WithVariousMethods_LogsCorrectly(string logMethod, string message)
     {
         // Arrange
         var logger = new TestLogger();
 
         // Act
-        //logger.Error("Message {0}", 42);
+        switch (logMethod)
+        {
+            case "Error":
+                BaseLoggerMixins.Error(logger, message);
+                break;
+            case "Warning":
+                BaseLoggerMixins.Warning(logger, message);
+                break;
+            case "Information":
+                BaseLoggerMixins.Information(logger, message);
+                break;
+            case "Debug":
+                BaseLoggerMixins.Debug(logger, message);
+                break;
+            default:
+                throw new InvalidOperationException("Unsupported log method");
+        }
 
         // Assert
         Assert.AreEqual(1, logger.LoggedMessages.Count);
-        Assert.AreEqual(LogLevel.Error, logger.LoggedMessages[0].LogLevel);
-        Assert.AreEqual("Message 42", logger.LoggedMessages[0].Message);
+        var loggedMessage = logger.LoggedMessages[0];
+        Assert.AreEqual(message, loggedMessage.Message);
+        Assert.AreEqual(logMethod, loggedMessage.LogLevel.ToString());
     }
 
-}
 
-public class TestLogger : BaseLogger
-{
-    public List<(LogLevel LogLevel, string Message)> LoggedMessages { get; } = new List<(LogLevel, string)>();
-
-    public override void Log(LogLevel logLevel, string message)
+    [TestMethod]
+    public void ClassName_ValidClassNameString_UpdatesSuccessfully()
     {
-        LoggedMessages.Add((logLevel, message));
+        //Arrange
+        string className = "TestClass";
+
+        //Act
+        TestLogger logger = new();
+        logger.ClassName = className;
+
+        //Assert
+        Assert.AreEqual(className, logger.ClassName);
     }
 }
