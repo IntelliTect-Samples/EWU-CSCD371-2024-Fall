@@ -13,19 +13,20 @@ namespace Logger.Tests;
 [TestClass]
 public class FileLoggerTests
 {
-    private string _logFilePath = string.Empty;
+    private string? LogFilePath { get; set; } = "testLogFile.log";
+
 
     [TestInitialize]
     public void Setup()
     {
         //set up logger file path
         string assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
-        _logFilePath = Path.Combine(assemblyPath, "file.txt");
+        LogFilePath = Path.Combine(assemblyPath, "file.txt");
 
         // clear file contents if it already exists 
-        if (File.Exists(_logFilePath))
+        if (File.Exists(LogFilePath))
         {
-            File.Delete(_logFilePath);
+            File.Delete(LogFilePath);
         }
     
 
@@ -35,12 +36,12 @@ public class FileLoggerTests
     public void Log_AppendMessageInFile_Pass()
     {
         //arrange
-        var fileLogger = new FileLogger(_logFilePath, "testClass");
+        var fileLogger = new FileLogger(LogFilePath, "testClass");
         string testMessage = "Test message";
 
         //act
         fileLogger.Log(LogLevel.Information, testMessage);
-        var logMessage = File.ReadAllText(_logFilePath);
+        var logMessage = File.ReadAllText(LogFilePath!);    // LogFilePath will not be null since it is initialized
         //
         Assert.IsTrue(logMessage.Contains(testMessage));
         Assert.IsTrue(logMessage.Contains("Information"));

@@ -7,11 +7,11 @@ namespace Logger;
 public class LogFactory
 {
 
-    private string? FilePath {get; set;}
+    public string? FilePath { get; private set; }
 
     public void ConfigureFileLogger()
     {
-        // Get assembaly Path and combine with txt file
+        // Get assembly Path and combine with txt file
         string assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
         FilePath = Path.Combine(assemblyPath, "file.txt");
     }

@@ -10,19 +10,19 @@ namespace Logger.Tests
     public class LogFactoryTests
     {
 
-        private string _logFilePath = string.Empty;
+        private string LogFilePath { get; set; } = string.Empty;
 
         [TestInitialize]
         public void Setup()
         {
             //set up logger file path
             string assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
-            _logFilePath = Path.Combine(assemblyPath, "file.txt");
+            LogFilePath = Path.Combine(assemblyPath, "file.txt");
 
             // clear file contents if it already exists 
-            if (File.Exists(_logFilePath))
+            if (File.Exists(LogFilePath))
             {
-                File.Delete(_logFilePath);
+                File.Delete(LogFilePath);
             }
         }
         [TestMethod]
@@ -55,7 +55,7 @@ namespace Logger.Tests
 
             //assert
             Assert.IsNotNull(filePathValue);
-            Assert.AreEqual(filePathValue, _logFilePath);
+            Assert.AreEqual(filePathValue, LogFilePath);
         }
 
         [TestMethod]
