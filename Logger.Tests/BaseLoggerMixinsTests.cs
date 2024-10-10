@@ -16,10 +16,42 @@ public class BaseLoggerMixinsTests
         // Act 
         // added ! to suppress null warning since they should be null
         BaseLoggerMixins.Error(null!, "");
-        BaseLoggerMixins.Warning(null!, "");
-        BaseLoggerMixins.Information(null!, ""); 
-        BaseLoggerMixins.Debug(null!, "");
+        // Assert
+    }
 
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Warning_WithNullLogger_ThrowsException()
+    {
+        // Arrange
+
+        // Act 
+        // added ! to suppress null warning since they should be null
+        BaseLoggerMixins.Warning(null!, "");
+        // Assert
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Information_WithNullLogger_ThrowsException()
+    {
+        // Arrange
+
+        // Act 
+        // added ! to suppress null warning since they should be null
+        BaseLoggerMixins.Information(null!, "");
+        // Assert
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Debug_WithNullLogger_ThrowsException()
+    {
+        // Arrange
+
+        // Act 
+        // added ! to suppress null warning since they should be null
+        BaseLoggerMixins.Debug(null!, "");
         // Assert
     }
 

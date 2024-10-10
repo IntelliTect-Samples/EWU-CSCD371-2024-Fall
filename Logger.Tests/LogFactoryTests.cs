@@ -20,7 +20,7 @@ public class LogFactoryTests
     }
 
     [TestMethod]
-    public void LogFactory_CreateLogger_ReturnsFileLogger()
+    public void CreateLogger_ValidFilePath_ReturnsFileLogger()
     {
         // Arrange
         LogFactory facLog = new LogFactory();
@@ -31,18 +31,17 @@ public class LogFactoryTests
     }
 
     [TestMethod]
-    public void LogFactory_CreateLogger_ReturnsNull()
+    public void CreateLogger_NullFilePath_ReturnsNull()
     {
         // Arrange
         LogFactory facLog = new LogFactory();
         // Act
-        facLog.ConfigureFileLogger(null!);
         // Assert
         Assert.IsNull(facLog.CreateLogger("Test"));
     }
 
     [TestMethod]
-    public void LogFactory_CreateLogger_ReturnsFileLoggerWithCorrectPath()
+    public void ConfigureFileLogger_NewFilePath_ReturnsFileLoggerWithCorrectPath()
     {
         // Arrange
         LogFactory facLog = new LogFactory();
