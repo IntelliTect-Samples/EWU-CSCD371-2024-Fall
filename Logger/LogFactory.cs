@@ -1,9 +1,6 @@
-﻿using System.Linq;
+﻿using System.IO;
 
 namespace Logger;
-
-using System.IO;
-using System.Reflection;
 
 public class LogFactory
 {
@@ -50,10 +47,11 @@ public class LogFactory
         while (currentDirectory != null)
         {
             // Check if a .sln file exists in the current directory
-            if (Directory.GetFiles(currentDirectory, "*.sln").Any())
+            if (Directory.GetFiles(currentDirectory, "*.sln").Length > 0)
             {
                 return currentDirectory;
             }
+
 
             // Move up to the parent directory
             currentDirectory = Directory.GetParent(currentDirectory)?.FullName;
