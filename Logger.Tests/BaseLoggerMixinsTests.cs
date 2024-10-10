@@ -90,7 +90,7 @@ public class BaseLoggerMixinsTests
 
 
     [TestMethod]
-    public void ClassName_TestClass_Success()
+    public void ClassName_ValidClassNameString_UpdatesSuccessfully()
     {
         //Arrange
         string className = "TestClass";
