@@ -28,19 +28,34 @@ public class LogFactoryTests
     {
         // Arrange
         var logFactory = new LogFactory();
-        var expectedFilePath = "file.txt"; // Provide the expected file path
+        var fileName = "file.txt"; // The file name provided
+        string? assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        var expectedFilePath = assemblyPath != null 
+            ? Path.Combine(assemblyPath, fileName) 
+            : fileName; // If assemblyPath is null, use the file name directly
 
         // Act
-        logFactory.ConfigureFileLogger(expectedFilePath);
+        logFactory.ConfigureFileLogger(fileName);
 
-        // Use reflection to check if the private FilePath field is set
+        // Try to access FilePath either as a field or a property
         var filePathField = typeof(LogFactory).GetField("FilePath", BindingFlags.NonPublic | BindingFlags.Instance);
-        var filePathValue = filePathField?.GetValue(logFactory) as string;
+        var filePathProperty = typeof(LogFactory).GetProperty("FilePath", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        // Assert
-        Assert.IsNotNull(filePathValue);
-        Assert.AreEqual(expectedFilePath, filePathValue);
+        // Check if we can find FilePath as either a field or a property
+        Assert.IsTrue(filePathField != null || filePathProperty != null, "Could not find the private 'FilePath' field or property via reflection.");
+
+        // Get the value from the field or property
+        string? filePathValue = filePathField != null 
+            ? filePathField.GetValue(logFactory) as string 
+            : filePathProperty?.GetValue(logFactory) as string;
+
+        // Assert that the FilePath is not null and matches the expected path
+        Assert.IsNotNull(filePathValue, "FilePath was not set by the ConfigureFileLogger method.");
+        Assert.AreEqual(expectedFilePath, filePathValue, $"FilePath does not match the expected value. Expected: {expectedFilePath}, Actual: {filePathValue}");
     }
+
+
+
 
 
     [TestMethod]
