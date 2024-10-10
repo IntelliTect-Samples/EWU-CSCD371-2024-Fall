@@ -1,10 +1,54 @@
-﻿namespace Logger;
+﻿using System.IO;
+using System.Reflection;
+
+namespace Logger;
 
 public class LogFactory
 {
-    public BaseLogger CreateLogger(string className)
-    {
+    private string? FilePath { get; set; }
 
-        return null;
+    public void ConfigureFileLogger(string? filePath)
+    {
+        if (filePath == null)
+        {
+            return;
+        }
+        FilePath = filePath;
     }
+
+    public BaseLogger? CreateLogger(string className)
+    {
+        if (string.IsNullOrEmpty(FilePath))
+        {
+            return null;  // Ensure that null is handled
+        }
+
+        return new FileLogger(FilePath)
+        {
+            ClassName = className
+        };
+    }
+    
+    
+    public static string? GetSolutionDirectory()
+    {
+        // Start from the current working directory
+        string? currentDirectory = Directory.GetCurrentDirectory();
+
+        while (currentDirectory != null)
+        {
+            // Check if a .sln file exists in the current directory
+            if (Directory.GetFiles(currentDirectory, "*.sln").Length > 0)
+            {
+                return currentDirectory;
+            }
+
+
+            // Move up to the parent directory
+            currentDirectory = Directory.GetParent(currentDirectory)?.FullName;
+        }
+
+        return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+    }
+
 }
