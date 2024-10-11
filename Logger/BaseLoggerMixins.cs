@@ -5,17 +5,18 @@ namespace Logger;
 
 public static class BaseLoggerMixins
 {
-    //This class is used to extend the functionality from BaseLogger,
-    //without modifiying the original class, using a concept called Extension Methods
+    /*
+    This class is used to extend the functionality from BaseLogger,
+    without modifiying the original class, using a concept called Extension Methods
 
-    //The functionality we are extending is to take in strings and format them for the BaseLogger class
+    The functionality we are extending is to take in strings and format them for the BaseLogger class
 
-    //We expect our Extension Methods to have paramaters of:
-    //MethodName(This BaseLogger logger, String v, param var[] stuffToInsert)
-    //"This BaseLogger logger" is indicating this method is actually really an extension of abstract BaseLogger,
-    //and thus these method can be used as a Baselogger method in the directory
-    //ex: BaseLoggerChild.Error()
-
+    We expect our Extension Methods to have paramaters of:
+    MethodName(This BaseLogger logger, String v, param var[] stuffToInsert)
+    "This BaseLogger logger" is indicating this method is actually really an extension of abstract BaseLogger,
+    and thus these method can be used as a Baselogger method in the directory
+    ex: BaseLoggerChild.Error()
+    */
 
 
     private static void CheckAndLog(BaseLogger? logger, string baseMessage, object[] objectsToInsert, LogLevel level)
