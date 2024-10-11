@@ -10,8 +10,8 @@ namespace Logger
     {
         public override TestLogger? CreateLogger(string callingClassName)
         {
-        TestLogger testLogger = new TestLogger() {ClassName = callingClassName };
-        return testLogger;
+            TestLogger testLogger = new TestLogger() {ClassName = callingClassName };
+            return testLogger;
         }
     }
 }
