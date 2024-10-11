@@ -1,9 +1,90 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Globalization;
+using System.IO;
 
-namespace Logger.Tests;
-
-[TestClass]
-public class FileLoggerTests
+namespace Logger.Tests
 {
+    [TestClass]
+    public class FileLoggerTests
+    {
+        private string _logFilePath = string.Empty;
 
+        [TestInitialize]
+        public void Setup()
+        {
+            // Set up the log file path based on the assembly location
+            //string assemblyLocation = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
+            _logFilePath = Path.Combine(LogFactory.GetSolutionDirectory() ?? String.Empty, "testlog.txt");
+
+            // Ensure the log file is clean before each test
+            if (File.Exists(_logFilePath))
+            {
+                File.Delete(_logFilePath);
+                //
+            }
+        }
+
+        [TestMethod]
+        public void Log_FilePathAndMessage_MessageLogged()
+        {
+            // Arrange
+            var logger = new FileLogger(_logFilePath)
+            {
+                ClassName = nameof(FileLoggerTests)
+            };
+
+            string expectedMessage = "Test message";
+
+            // Act
+            logger.Log(LogLevel.Information, expectedMessage);
+
+            // Assert
+            string logContent = File.ReadAllText(_logFilePath);
+            Assert.IsTrue(logContent.Contains(expectedMessage));
+            Assert.IsTrue(logContent.Contains(nameof(FileLoggerTests)));
+            Assert.IsTrue(logContent.Contains("Information"));
+        }
+
+        [TestMethod]
+        public void Log_MessageAndDateTimeStamp_MessageContainsDateTimeStamp()
+        {
+            // Arrange
+            var logger = new FileLogger(_logFilePath)
+            {
+                ClassName = nameof(FileLoggerTests)
+            };
+
+            string expectedMessage = "Another test message";
+
+            // Act
+            logger.Log(LogLevel.Warning, expectedMessage);
+
+            // Assert
+            string logContent = File.ReadAllText(_logFilePath);
+            string expectedDate = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);  // Compare only the date
+
+            // Check that the log file contains the correct date
+            Assert.IsTrue(logContent.Contains(expectedDate), $"Log content did not contain expected date: {expectedDate}");
+        }
+
+
+
+        [TestMethod]
+        public void Log_FilePathAndCheckExists_FileShouldCreateIfNotExists()
+        {
+            // Arrange
+            var logger = new FileLogger(_logFilePath)
+            {
+                ClassName = nameof(FileLoggerTests)
+            };
+
+            // Act
+            logger.Log(LogLevel.Error, "Error test message");
+
+            // Assert
+            Assert.IsTrue(File.Exists(_logFilePath));
+        }
+        
+    }
 }
