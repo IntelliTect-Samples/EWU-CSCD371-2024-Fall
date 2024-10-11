@@ -7,7 +7,7 @@ namespace Logger;
 public class LogFactory
 {
 
-    public string? FilePath { get; private set; }
+    private string? FilePath { get; set; }
 
     public void ConfigureFileLogger()
     {
@@ -15,7 +15,7 @@ public class LogFactory
         string assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? string.Empty;
         FilePath = Path.Combine(assemblyPath, "file.txt");
     }
-
+    // Creates Logger unless File Path is Null
     public BaseLogger? CreateLogger(string? className)
     {
         if (string.IsNullOrEmpty(FilePath))
