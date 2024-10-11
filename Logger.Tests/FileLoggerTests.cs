@@ -13,10 +13,7 @@ namespace Logger.Tests
         {
             // Arrange
             string testFilePath = "testlog.txt";
-            FileLogger logger = new FileLogger
-            {
-                FilePath = testFilePath,
-            };
+            FileLogger logger = new FileLogger(testFilePath);
 
             // Act
             logger.Log(LogLevel.Error, "Test log entry");
@@ -30,10 +27,7 @@ namespace Logger.Tests
         {
             // Arrange
             string testFilePath = "test.txt";
-            FileLogger logger = new FileLogger
-            {
-                FilePath = testFilePath,
-            };
+            FileLogger logger = new FileLogger(testFilePath);
 
             string message = "Test";
 
@@ -51,9 +45,8 @@ namespace Logger.Tests
         {
             // Arrange
             string testFilePath = "testlog.txt";
-            FileLogger logger = new FileLogger
+            FileLogger logger = new FileLogger(testFilePath)
             {
-                FilePath = testFilePath,
                 ClassName = "TestLogger" // class name for testing
             };
 
@@ -74,6 +67,27 @@ namespace Logger.Tests
 
             // Check the rest of log message
             Assert.IsTrue(logContent.Contains($"{logger.ClassName} {logLevel}: {message}"), "Log message does not match the expected format.");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void FilePath_PassedNull_ArgumentNullException()
+        {
+            FileLogger fl = new FileLogger(null!);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FilePath_PassedEmpty_ArgumentNullException()
+        {
+            FileLogger fl = new FileLogger("");
+        }
+
+        [TestMethod]
+        public void FilePath_PassedNotNull_NotNull()
+        {
+            FileLogger fl = new FileLogger("Non-Null-FilePath");
+            Assert.IsNotNull(fl.FilePath);
         }
 
     }

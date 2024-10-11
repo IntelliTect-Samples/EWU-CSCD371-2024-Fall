@@ -7,7 +7,24 @@ namespace Logger
     // derives from BaseLogger
     public class FileLogger : BaseLogger
     {
-        public string FilePath { get; set; } = "";
+        private string? _filePath;
+        public string FilePath {
+            get
+            {
+                return _filePath!;
+            } 
+            set
+            {
+                ArgumentNullException.ThrowIfNullOrWhiteSpace(value, nameof(value));
+                _filePath = value;
+            }
+        }
+
+        public FileLogger(string filePath)
+        {
+            FilePath = filePath;
+        }
+
 
         public override void Log(LogLevel logLevel, string message)
         {

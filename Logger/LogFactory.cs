@@ -11,9 +11,8 @@ public class LogFactory
             return null;
         }
 
-        FileLogger logger = new FileLogger
+        FileLogger logger = new FileLogger(FilePath)
         { 
-            FilePath = this.FilePath,
             ClassName = className
         };
 
