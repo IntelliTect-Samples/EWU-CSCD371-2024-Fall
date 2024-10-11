@@ -55,21 +55,22 @@ public class FileLoggerTests
     }
 
     [TestMethod]
-    public void FileLogger_Log_Success()
+    [DataRow("TestLogger", LogLevel.Error, "Test message")]
+    [DataRow("TestLogger", LogLevel.Warning, "Another test message")]
+    [DataRow("ProductionLogger", LogLevel.Information, "Information message")]
+    [DataRow("DebugLogger", LogLevel.Debug, "Debugging message")]
+    public void FileLogger_Log_Success(string className, LogLevel logLevel, string message)
     {
-        //Arrange
-        string message = "Test message";
-        FileLogger logger = new(FilePath);
-        string className = logger.ClassName = "TestLogger";
-        LogLevel logLevel = LogLevel.Error;
+        // Arrange
+        FileLogger logger = new(FilePath) { ClassName = className };
 
         //Act
         logger.Log(logLevel, message);
 
         //Assert
         string logContents = File.ReadAllText(FilePath);
-        string expectedLogEntry = $"{className} {logLevel}: {message}";
-        Assert.IsTrue(logContents.Contains(expectedLogEntry));
+        string expectedLogEntry = $"{DateTime.Now} {className} {logLevel}: {message}{Environment.NewLine}";
+        Assert.AreEqual(expectedLogEntry, logContents);
     }
 
     [TestCleanup]
