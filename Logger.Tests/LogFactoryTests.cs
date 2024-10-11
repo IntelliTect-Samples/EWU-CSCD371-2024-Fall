@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 
 using Microsoft.VisualBasic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -92,12 +93,21 @@ public class LogFactoryTests
     public void ConfigureFileLogger_Normalization_SuccessfullyNormalizes()
     {
         // Arrange
-        string inputPath = "some\\path/to/log.txt"; // Intentionally mixed separators
+        string inputPath = "C:\\some\\path/to/log.txt"; // Intentionally mixed separators
         LogFactory factory = new LogFactory();
         factory.ConfigureFileLogger(inputPath);
 
         // Act
-        string expected = Path.Combine("some", "path", "to", "log.txt");
+        string expected;
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            expected = Path.Combine("C:", "some", "path", "to", "log.txt");
+        }
+        else
+        {
+            // On Unix-like systems, we expect the Windows drive letter to be adjusted
+            expected = Path.Combine("/", "C", "some", "path", "to", "log.txt");
+        }
 
         // Assert
         Assert.AreEqual(expected, factory.FilePath);
