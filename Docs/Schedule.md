@@ -78,7 +78,7 @@
 - using statements
 - Dispose
 
-## Week 7
+## Week 7 - Assignment 6
 
 ### 11/5
 
@@ -87,16 +87,33 @@
 - Due: Assignment 6
 - Assign: Assignment 7-8 - LINQ and Collections
 
-## Week 8
+## Week 8 - Assignment 7&8
+
+### 11/12
+
+### 11/14
 
 ## Week 9
+
+### 11/19
+
+### 11/21
 
 - Due: Assignment 7-8
 - Assign: Assignment 9&10 - Multithreaded Programming with Task Parallel Library (TPL)
 
-## Week 10
+## Week 10 - Assignment 9&10
 
+### 11/26
+
+### 11/28
+
+## Week 11
 - Last Week of Class
+
+### 12/3
+
+### 12/5
 
 ## Finals Week
 
