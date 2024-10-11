@@ -19,7 +19,7 @@ public class FileLoggerTests
     }
 
     [TestMethod]
-    public void FileLogger_TestClassName_Success()
+    public void Constructor_TestClassName_Success()
     {
         //Arrange
         string className = "TestClass";
@@ -33,7 +33,7 @@ public class FileLoggerTests
     }
 
     [TestMethod]
-    public void FileLogger_Constructor_Success()
+    public void Constructor_IsNotNull_Success()
     {
         //Arrange
 
@@ -45,7 +45,7 @@ public class FileLoggerTests
     }
 
     [TestMethod]
-    public void FileLogger_PassNullFilePath_ThrowsException()
+    public void Constructor_PassNullFilePath_ThrowsException()
     {
         //Arrange
         string? filePath = null;
@@ -59,7 +59,7 @@ public class FileLoggerTests
     [DataRow("TestLogger", LogLevel.Warning, "Another test message")]
     [DataRow("ProductionLogger", LogLevel.Information, "Information message")]
     [DataRow("DebugLogger", LogLevel.Debug, "Debugging message")]
-    public void FileLogger_Log_Success(string className, LogLevel logLevel, string message)
+    public void Log_LogLevelAndMessages_ProducesExpectedOutput(string className, LogLevel logLevel, string message)
     {
         // Arrange
         FileLogger logger = new(FilePath) { ClassName = className };
