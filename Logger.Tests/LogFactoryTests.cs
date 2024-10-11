@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Logger.Tests;
 
@@ -6,7 +8,7 @@ namespace Logger.Tests;
 public class LogFactoryTests
 {
     [TestMethod]
-    public void LogFactory_CreateLogger_ReturnsNotNull()
+    public void FilePath_Configured_ReturnsNotNull()
     {
         // Arrange
         var factory = new LogFactory();
@@ -20,7 +22,7 @@ public class LogFactoryTests
     }
 
     [TestMethod]
-    public void LogFactory_CreateLogger_ReturnsNull()
+    public void FilePath_NotConfigured_ReturnsNull()
     {
         // Arrange
         var factory = new LogFactory();
@@ -31,6 +33,22 @@ public class LogFactoryTests
 
         // Assert
         Assert.IsNull(testLogger);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void FilePath_PassedNull_ArgumentNullException()
+    {
+        var factory = new LogFactory();
+        factory.ConfigureFileLogger(null!);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentException))]
+    public void FilePath_PassedEmpty_ArgumentException()
+    {
+        var factory = new LogFactory();
+        factory.ConfigureFileLogger("");
     }
 
     [TestMethod]

@@ -1,12 +1,14 @@
-﻿namespace Logger;
+﻿using System;
+
+namespace Logger;
 
 public class LogFactory
 {
 
-    private string FilePath { get; set; } = "";
+    private string? FilePath { get; set; }
     public BaseLogger? CreateLogger(string className)
     {
-        if (FilePath == "" || FilePath is null)
+        if (string.IsNullOrEmpty(FilePath)) 
         {
             return null;
         }
@@ -22,6 +24,7 @@ public class LogFactory
 
     public void ConfigureFileLogger(string filePath)
     {
+        ArgumentNullException.ThrowIfNullOrEmpty(filePath, nameof(filePath));
         FilePath = filePath;
     }
 }
