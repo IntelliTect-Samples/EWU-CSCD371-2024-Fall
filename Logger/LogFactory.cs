@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 
 namespace Logger;
@@ -11,7 +12,7 @@ public class LogFactory
     {
         if (string.IsNullOrEmpty(filePath))
         {
-            throw new ArgumentException("Please provide a file path.", nameof(filePath));
+            ArgumentNullException.ThrowIfNull(filePath);
         }
         FilePath = filePath;
     }
@@ -20,7 +21,7 @@ public class LogFactory
     {
         if (string.IsNullOrEmpty(FilePath))
         {
-            throw new ArgumentException("Please configure file logger.", nameof(FilePath));  // Ensure that null is handled
+            ArgumentNullException.ThrowIfNull(FilePath);  // Ensure that null is handled
         }
 
         return new FileLogger(FilePath)

@@ -26,7 +26,7 @@ public class LogFactoryTests
     }
 
     [TestMethod]
-    public void ConfigureFileLogger_ShouldSetFilePath()
+    public void ConfigureFileLogger_UserFilePath_StoresFilePath()
     {
         // Arrange
         var logFactory = new LogFactory();
@@ -61,7 +61,7 @@ public class LogFactoryTests
 
 
     [TestMethod]
-    public void CreateLogger_ShouldReturnFileLoggerWhenConfigured()
+    public void CreateLogger_FilePathAndClass_ReturnConfiguredFileLogger()
     {
         // Arrange
         var logFactory = new LogFactory();
@@ -77,7 +77,7 @@ public class LogFactoryTests
 
 
     [TestMethod]
-    public void CreateLogger_ShouldUseHardcodedFilePath()
+    public void CreateLogger_FilePathAndClass_UsesHardcodedFilePath()
     {
         // Arrange
         var logFactory = new LogFactory();
@@ -102,7 +102,7 @@ public class LogFactoryTests
 
 
     [TestCleanup]
-    public void Cleanup()
+    public void FileExists_ExpectedFilePath_DeleteExistingFile()
     {
         // Clean up the log file after each test
         if (File.Exists(_expectedFilePath))
