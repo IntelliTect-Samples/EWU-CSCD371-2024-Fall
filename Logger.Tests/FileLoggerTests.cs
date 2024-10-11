@@ -9,7 +9,7 @@ namespace Logger.Tests
     public class FileLoggerTests
     {
         [TestMethod]
-        public void FileLogger_CreatesLogFile_ChecksIfExists()
+        public void Log_CreatesLogFile_ReturnsTrue()
         {
             // Arrange
             string testFilePath = "testlog.txt";
@@ -23,7 +23,7 @@ namespace Logger.Tests
         }
 
         [TestMethod]
-        public void FileLogger_WritesCorrectMessageToFile()
+        public void Log_WritesMessageAndLogLevel_ReturnsTrue()
         {
             // Arrange
             string testFilePath = "test.txt";
@@ -41,7 +41,7 @@ namespace Logger.Tests
         }
 
         [TestMethod]
-        public void FileLogger_LogsFormattedMessageCorrectly()
+        public void Log_FormatsMessageCorrectly_ReturnsTrue()
         {
             // Arrange
             string testFilePath = "testlog.txt";
