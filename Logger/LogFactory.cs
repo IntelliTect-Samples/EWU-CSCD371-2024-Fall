@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace Logger;
 
@@ -30,6 +31,14 @@ public class LogFactory
     {
         char[] separators = { '/', '\\' };
         var pathParts = path.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            if (pathParts.Length > 0 && pathParts[0].Length == 2 && pathParts[0][1] == ':')
+            {
+                pathParts[0] = "/" + pathParts[0][0];
+            }
+        }
         return Path.Combine(pathParts);
     }
 }
