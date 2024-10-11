@@ -9,9 +9,9 @@ public class LogFactory
 
     public void ConfigureFileLogger(string? filePath)
     {
-        if (filePath == null)
+        if (string.IsNullOrEmpty(filePath))
         {
-            return;
+            throw new ArgumentException("Please provide a file path.", nameof(filePath));
         }
         FilePath = filePath;
     }
