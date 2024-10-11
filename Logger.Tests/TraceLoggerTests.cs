@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -88,6 +89,25 @@ public class TraceLoggerTests : IDisposable
     }
 
     [TestMethod]
+    [DataRow(LogLevel.Debug, "Debug log test")]
+    [DataRow(LogLevel.Information, "Information log test")]
+    [DataRow(LogLevel.Warning, "Warning log test")]
+    [DataRow(LogLevel.Error, "Error log test")]
+    public void Log_WritesMessageToFile(LogLevel level, string message)
+    {
+        //Arrange
+        FileLogger fileLogger = new FileLogger(FilePath);
+        var logger = new TraceLogger("TestLogger", fileLogger);
+
+        //Act
+        logger.Log(level, message);
+
+        //Assert
+        string content = File.ReadAllText(FilePath);
+        Assert.IsTrue (content.Contains(message), $"The file should include the logged message for level {level}");
+    }
+
+    [TestMethod]
     public void Dispose_WhenListenerIsNotNull_DisposesListener()
     {
         // Arrange
@@ -149,5 +169,8 @@ public class TraceLoggerTests : IDisposable
     public void Cleanup()
     {
         Trace.Listeners.Remove(Listener);
+        // Clean up the file after tests
+        if (File.Exists(FilePath))
+            File.Delete(FilePath);
     }
 }
