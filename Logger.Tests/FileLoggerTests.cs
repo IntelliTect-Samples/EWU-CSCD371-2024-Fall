@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -53,6 +54,8 @@ namespace Logger.Tests
             string message = "Test log message";
             LogLevel logLevel = LogLevel.Warning;
 
+            DateTime logTime = DateTime.Now;
+
             // Act
             logger.Log(logLevel, message);
 
@@ -60,9 +63,9 @@ namespace Logger.Tests
             string logContent = File.ReadAllText(testFilePath); // Read the log file
 
             // Had to seperate the date and rest of the log message. Couldnt get it to work right.  Should work the same though.
-            
+
             // Check date format in MM/dd/yyyy
-            string expectedDate = DateTime.Now.ToString("MM/dd/yyyy");
+            string expectedDate = logTime.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture);
             Assert.IsTrue(logContent.Contains(expectedDate));
 
             // Check the rest of log message
