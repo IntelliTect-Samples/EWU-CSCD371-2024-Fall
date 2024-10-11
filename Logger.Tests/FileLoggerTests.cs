@@ -26,7 +26,7 @@ namespace Logger.Tests
         }
 
         [TestMethod]
-        public void Log_ShouldWriteMessageToFile()
+        public void Log_FilePathAndMessage_MessageLogged()
         {
             // Arrange
             var logger = new FileLogger(_logFilePath)
@@ -47,7 +47,7 @@ namespace Logger.Tests
         }
 
         [TestMethod]
-        public void Log_ShouldIncludeTimestamp()
+        public void Log_MessageAndDateTimeStamp_MessageContainsDateTimeStamp()
         {
             // Arrange
             var logger = new FileLogger(_logFilePath)
@@ -71,7 +71,7 @@ namespace Logger.Tests
 
 
         [TestMethod]
-        public void Log_FileShouldCreateIfNotExists()
+        public void Log_FilePathAndCheckExists_FileShouldCreateIfNotExists()
         {
             // Arrange
             var logger = new FileLogger(_logFilePath)

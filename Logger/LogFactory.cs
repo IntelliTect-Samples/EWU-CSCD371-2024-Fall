@@ -20,7 +20,7 @@ public class LogFactory
     {
         if (string.IsNullOrEmpty(FilePath))
         {
-            return null;  // Ensure that null is handled
+            throw new ArgumentException("Please configure file logger.", nameof(FilePath));  // Ensure that null is handled
         }
 
         return new FileLogger(FilePath)
