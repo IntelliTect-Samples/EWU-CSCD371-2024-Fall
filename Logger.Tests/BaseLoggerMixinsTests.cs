@@ -11,7 +11,7 @@ public class BaseLoggerMixinsTests
     [TestMethod]
     //figure out how to do data rows
     [ExpectedException(typeof(ArgumentNullException))]
-    public void Error_WithNullLogger_ThrowsException(LogLevel logLevel)
+    public void Error_WithNullLogger_ThrowsException()
     {
         // Arrange
         // Act
