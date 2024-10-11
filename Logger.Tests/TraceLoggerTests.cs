@@ -36,6 +36,7 @@ public class TraceLoggerTests : IDisposable
     }
 
     private TestTraceListener? Listener { get; set; }
+    private string FilePath { get; } = "testLogFile.log";
 
     [TestInitialize]
     public void Setup()
@@ -49,12 +50,15 @@ public class TraceLoggerTests : IDisposable
     {
         //Arrange
         var expectedClassName = "TraceLoggerTests";
+        FileLogger testFile = new("testPath.log");
 
         //Act
-        var logger = new TraceLogger(nameof(TraceLoggerTests));
+        var logger = new TraceLogger(nameof(TraceLoggerTests), testFile);
 
         //Assert
         Assert.AreEqual(expectedClassName, logger.ClassName);
+        Assert.IsNotNull(logger.FileLogger);
+        Assert.AreSame(testFile, logger.FileLogger, "FileLogger should be the same as the passed instance.");
     }
 
     [TestMethod]
@@ -65,7 +69,8 @@ public class TraceLoggerTests : IDisposable
     public void Log_LogsDifferentMessages_Correctly(LogLevel level, string message, string expectedOutput)
     {
         // Arrange
-        var logger = new TraceLogger("TestLogger");
+        FileLogger fileLogger = new(FilePath);
+        var logger = new TraceLogger("TestLogger", fileLogger);
 
         // Act
         logger.Log(level, message);
@@ -73,6 +78,13 @@ public class TraceLoggerTests : IDisposable
 
         // Assert
         Assert.IsTrue(isMessageLogged, $"Failed to log '{expectedOutput}' for level {level}");
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(ArgumentNullException))]
+    public void Constructor_ThrowsException_WhenFileLoggerIsNull()
+    {
+        TraceLogger logger = new TraceLogger(nameof(TraceLoggerTests), null!);
     }
 
     [TestMethod]
