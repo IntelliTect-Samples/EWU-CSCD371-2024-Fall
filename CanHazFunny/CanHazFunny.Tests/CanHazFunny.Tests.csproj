@@ -3,6 +3,8 @@
   <PropertyGroup>
 	  <LangVersion>latest</LangVersion>
 	  <TargetFramework>net8.0</TargetFramework>
+	  <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+	  <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
