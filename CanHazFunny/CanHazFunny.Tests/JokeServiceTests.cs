@@ -14,7 +14,7 @@ public class JokeServiceTests
     public void GetJoke_NoArgs_ReturnsJoke()
     {
         // Arrange
-        JokeService service = new();
+        JsonJokeService service = new();
         string joke;
 
         // Act
@@ -32,7 +32,7 @@ public class JokeServiceTests
     public void ParseJsonJoke_ValidJson_ReturnsString(string jsonString, string expected)
     {
         // Arrange
-        JokeService service = new();
+        JsonJokeService service = new();
         string? response;
 
         // Act
