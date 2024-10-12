@@ -23,5 +23,6 @@ public class JokeServiceTests
         // Assert
         Assert.NotNull(joke);
         Assert.NotEqual("", joke);
+        Assert.NotEmpty(joke);
     }
 }
