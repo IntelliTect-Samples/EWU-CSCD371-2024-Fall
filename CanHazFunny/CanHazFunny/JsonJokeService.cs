@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace CanHazFunny;
 
-public class JsonJokeService
+public class JsonJokeService : IJokeService
 {
     private HttpClient HttpClient { get; } = new();
 
