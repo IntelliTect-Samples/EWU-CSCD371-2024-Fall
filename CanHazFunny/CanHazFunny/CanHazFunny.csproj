@@ -4,8 +4,11 @@
     <OutputType>Exe</OutputType>
 	<LangVersion>latest</LangVersion>
     <TargetFramework>net8.0</TargetFramework>
+	<Nullable>enable</Nullable>
 	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 	<EnableNETAnalyzers>true</EnableNETAnalyzers>
+
   </PropertyGroup>
 
   <ItemGroup>
