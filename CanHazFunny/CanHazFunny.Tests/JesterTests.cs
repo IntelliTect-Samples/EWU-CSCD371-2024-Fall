@@ -6,19 +6,18 @@ namespace CanHazFunny.Tests;
 
 public class JesterTests
 {
-    [Theory]
-    public void TellJoke_JokeService_PrintsJoke(IJokeService jokeServiceConcreteInstance,IDisplayJokes displayJokesConcreteInstance)
+    [Fact]
+    public void TellJoke_JokeService_PrintsJoke()
     {
         //Arrange
         
-        Jester shaco = new(new JokeService(), new DisplayService());
+        Jester shaco = new( new DisplayService(), new JokeService());
         StringWriter consoleOut = new();
         string outString = consoleOut.ToString();
         //Act
 
         Console.SetOut(consoleOut);
         shaco.TellJoke();
-
 
         //Assert
         Assert.NotNull(outString);
