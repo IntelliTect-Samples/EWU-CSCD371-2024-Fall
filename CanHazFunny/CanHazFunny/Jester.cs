@@ -13,4 +13,13 @@ public class Jester
         _displayService = dispalyService ?? throw new ArgumentNullException(nameof(dispalyService));
         _jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
     }
+
+    public void TellJoke()
+    {
+        var joke = _jokeService.GetJoke();
+        if (!joke.Contains("Chuck Norris"))
+        {
+            _displayService.DisplayJoke(joke);
+        }
+    }
 }
