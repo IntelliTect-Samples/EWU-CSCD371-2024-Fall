@@ -16,9 +16,7 @@ namespace CanHazFunny.Tests;
     public void DisplayJokeInterface_CreateMokConcreteClass_Success()
     {
         // Arrange
-        string joke = "This is a joke";
         var displayJokes = new Moq.Mock<IDisplayJokes>();
-        //displayJokes.Setup(x => x.OutputJoke(joke));
 
         // Act
 
