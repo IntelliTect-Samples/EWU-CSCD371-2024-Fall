@@ -8,7 +8,7 @@ public class JesterTests
 {
 
     [Fact]
-    public void TellJoke_ShouldReturnJoke()
+    public void JokeService_CallGetJoke_ReturnsJokeNotNullOrEmpty()
     {
         // Arrange
         JokeService jokeService = new JokeService();
@@ -21,6 +21,19 @@ public class JesterTests
         Assert.True(isJoke, "Joke is there");
     }
 
+    [Fact]
+    public void JokeServiceIJokeService_InterfaceApplied_ReturnsTrue()
+    {
+        // Arrange
+        var jokeService = typeof(JokeService);
+
+        // Act
+        var appliedInterface = jokeService.GetInterfaces();
+        string interfaceName = appliedInterface[0].Name;
+
+        // Assert
+        Assert.Equal("IJokeService", interfaceName);
+    }
 
 
 
