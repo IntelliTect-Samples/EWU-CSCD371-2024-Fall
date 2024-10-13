@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CanHazFunny.Tests", "CanHazFunny.Tests\CanHazFunny.Tests.csproj", "{713AEBB1-BEE0-451E-8744-17EDC1282165}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "Interface\Interface.csproj", "{2F58C7C3-1416-4795-992F-813837F0A8ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{F945D9C7-551C-48FE-8365-4E539F5963ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +28,10 @@ Global
 		{713AEBB1-BEE0-451E-8744-17EDC1282165}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{713AEBB1-BEE0-451E-8744-17EDC1282165}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{713AEBB1-BEE0-451E-8744-17EDC1282165}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F58C7C3-1416-4795-992F-813837F0A8ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F58C7C3-1416-4795-992F-813837F0A8ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F58C7C3-1416-4795-992F-813837F0A8ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F58C7C3-1416-4795-992F-813837F0A8ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F945D9C7-551C-48FE-8365-4E539F5963ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F945D9C7-551C-48FE-8365-4E539F5963ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F945D9C7-551C-48FE-8365-4E539F5963ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F945D9C7-551C-48FE-8365-4E539F5963ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

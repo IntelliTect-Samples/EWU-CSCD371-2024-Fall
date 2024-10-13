@@ -33,7 +33,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CanHazFunny\CanHazFunny.csproj" />
-    <ProjectReference Include="..\Interface\Interface.csproj" />
+    <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

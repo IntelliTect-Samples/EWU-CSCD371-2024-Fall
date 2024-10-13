@@ -23,7 +23,7 @@ public class JesterTests
     }
 
     [Fact]
-    public void JokeServiceIJokeService_InterfaceApplied_ReturnsTrue()
+    public void JokeServiceInterface_IJokeServic_ReturnsTrue()
     {
         // Arrange
         var jokeService = typeof(JokeService);
@@ -54,7 +54,7 @@ public class JesterTests
     }
 
     [Fact]
-    public void JesterIJokeServiceIJokeOutput_InterfacesApplied_LengthTwo()
+    public void JesterInterfaces_IJokeServiceAndIJokeOutput_LengthTwo()
     {
         // Arrange
         var jester = typeof(Jester);
