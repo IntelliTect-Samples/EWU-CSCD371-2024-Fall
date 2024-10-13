@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CanHazFunny.Tests
-{
+namespace CanHazFunny.Tests;
+
     [TestClass]
     public class DisplayJokesTests
     {
     }
-}

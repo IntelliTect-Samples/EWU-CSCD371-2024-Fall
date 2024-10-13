@@ -1,16 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CanHazFunny.Tests
-{
-    [TestClass]
+namespace CanHazFunny.Tests;
     public class JokeServiceTests
     {
-        [TestMethod]
+        [Fact]
         public void JokeServiceInterface_UseMoq_Success()
         {
             // Arrange
@@ -21,7 +19,6 @@ namespace CanHazFunny.Tests
             var joke = jokeService.Object.GetJoke();
 
             // Assert
-            Assert.AreEqual("Why did the chicken cross the road? To get to the other side.", joke);
+            Assert.Equal("Why did the chicken cross the road? To get to the other side.", joke);
         }
     }
-}
