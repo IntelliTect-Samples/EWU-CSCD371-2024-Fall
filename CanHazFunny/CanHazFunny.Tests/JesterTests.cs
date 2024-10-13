@@ -35,6 +35,20 @@ public class JesterTests
         Assert.Equal("IJokeService", interfaceName);
     }
 
+    [Fact]
+    public void JesterClass_TellJoke_ReturnsJoke()
+    {
+        // Arrange
+        Jester jester = new Jester();
+
+        // Act
+       
+
+
+        // Assert
+        Assert.Equal("IJokeService", interfaceName);
+    }
+
 
 
 }
