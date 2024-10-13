@@ -1,10 +1,12 @@
-﻿namespace CanHazFunny
+﻿using System;
+
+namespace CanHazFunny
 {
     public class DisplayJokes : IDisplayJokes
     {
-        public string OutputJoke()
+        public void OutputJoke(string joke)
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine(joke);
         }
     }
 }
