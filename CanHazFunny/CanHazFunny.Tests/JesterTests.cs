@@ -14,11 +14,26 @@ public class JesterTests
     public void ClassCreation_CreateNewInstance_Success()
     {
         // Arrange
-        Jester jester = new();
 
         // Act
+        Jester jester = new();
 
         // Assert
         Assert.NotNull(jester);
+    }
+
+    [Fact]
+    public void ClassCreation_PassedNullToDisplayJokesAndJokeService_ThrowsException()
+    {
+        // Arrange
+        //IDisplayJokes displayJokes = new DisplayJokes();
+
+
+        // Act
+
+
+        // Assert
+        Assert.Throws<ArgumentNullException>(() => new Jester(null, null));
+
     }
 }
