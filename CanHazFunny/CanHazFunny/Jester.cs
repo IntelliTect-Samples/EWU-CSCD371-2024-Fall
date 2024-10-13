@@ -24,18 +24,5 @@ namespace CanHazFunny
             _jokeOutput.OutputJoke(joke);
             return joke;
         }
-
-        ////Added IJokeOutput method to output joke to console.
-        //public void OutputJoke(string joke)
-        //{
-        //    _jokeOutput.OutputJoke(string joke);
-        //}
-
-        ////Added IJokeService method to employ _jokeService to call GetJoke.
-        //public string GetJoke()
-        //{
-        //    string joke = _jokeService.GetJoke();
-        //    return joke;
-        //}
     }
 }
