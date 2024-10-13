@@ -42,11 +42,12 @@ public class JesterTests
         Jester jester = new Jester();
 
         // Act
-       
 
+        string joke = jester.TellJoke();
+        bool isJoke = !string.IsNullOrEmpty(joke);
 
         // Assert
-        Assert.Equal("IJokeService", interfaceName);
+        Assert.True(isJoke, "This returns a string");
     }
 
 

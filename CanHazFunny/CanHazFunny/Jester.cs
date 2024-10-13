@@ -1,3 +1,5 @@
+using Interfaces;
+
 namespace CanHazFunny
 {
     public class Jester : IJokeService, IJokeOutput
