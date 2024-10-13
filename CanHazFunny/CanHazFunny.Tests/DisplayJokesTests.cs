@@ -40,26 +40,29 @@ namespace CanHazFunny.Tests;
     }
 
 
-    //[Theory]
-    //[InlineData("Why did the chicken cross the road? To get to the other side.")]
-    //public void DisplayJoke_GivenString_ProduceOutput(string joke)
-    //{
-    //    //Arrange
+    [Theory]
+    [InlineData("Why did the chicken cross the road? To get to the other side.")]
+    public void OutputJoke_GivenString_ProduceOutput(string joke)
+    {
+        //Arrange
+        DisplayJokes displayJokes = new();
 
 
-    //    StringWriter? consoleOutput;
-    //    using (consoleOutput = new StringWriter())
-    //    {
-    //        Console.SetOut(consoleOutput);
+        StringWriter consoleOutput;
+        using (consoleOutput = new StringWriter())
+        {
 
-    //        //Act
+            Console.SetOut(consoleOutput);
 
-    //        Console.Out.Flush();
-    //    }
+            //Act
+            displayJokes.OutputJoke("Why did the chicken cross the road? To get to the other side.");
 
-    //    //Assert
-    //    string output = consoleOutput.ToString().Trim();
-    //    Assert.Equal(joke, output);
+            Console.Out.Flush();
+        }
 
-    //}
+        //Assert
+        string output = consoleOutput.ToString().Trim();
+        Assert.Equal(joke, output);
+
+    }
 }
