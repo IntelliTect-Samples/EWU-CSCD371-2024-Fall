@@ -5,7 +5,7 @@ namespace CanHazFunny
 {
     public class Jester
     {
-        //Private field to hold the IJokeService
+        //Private field to hold the IJokeService - do these need to be readonly or Get/Set?
         private IJokeService _jokeService;
         private IJokeOutput _jokeOutput;
 
