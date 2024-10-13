@@ -56,4 +56,23 @@ public class JesterTests
         // Assert
         Assert.True(isJoke, "This returns a string");
     }
+
+    [Fact]
+    public void JesterTellJoke_NoChuckNorris_ReturnsTrue()
+    {
+        // Arrange
+        JokeService jokeServ = new JokeService();
+        IJokeService jokeService = jokeServ;
+        ConsoleJokeOutput jokeOutput = new ConsoleJokeOutput();
+        IJokeOutput jokeOutputLog = jokeOutput;
+
+        Jester jester = new Jester(jokeService, jokeOutputLog);
+
+        // Act
+        string joke = jester.TellJoke().ToLower(); //Reduce to lower to prevent API errors.
+        bool NoChuckNorris = !(joke.Contains("chuck") || joke.Contains("chuck")); // Will return TRUE if it does NOT contain chuck or norris.
+
+        // Assert
+        Assert.True(NoChuckNorris, "Joke contains Chuck Norris");
+    }
 }

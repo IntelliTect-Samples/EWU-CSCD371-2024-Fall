@@ -21,9 +21,10 @@ namespace CanHazFunny
         public string TellJoke()
         {
             string joke = _jokeService.GetJoke();
-            if(joke.ToLower().Contains("chuck norris"))
+            // No if statement beacuse it can create a recursive call without an exit. Use a while statement.
+            while (joke.ToLower().Contains("chuck") || joke.ToLower().Contains("norris"))
             {
-                return TellJoke();
+                joke = _jokeService.GetJoke();
             }
             //_jokeOutput.OutputJoke(joke);  //When this is active, test times out.
             return joke;
