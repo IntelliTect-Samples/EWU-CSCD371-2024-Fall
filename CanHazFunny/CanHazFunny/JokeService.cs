@@ -9,7 +9,7 @@ public class JokeService : IJokeService
 
     public string GetJoke()
     {
-        string jsonjoke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
+        string jsonjoke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api?format=json").Result;
         var joke = JsonSerializer.Deserialize<JokeMessage>(jsonjoke);
         if(joke != null && joke.Joke != null)
         {
