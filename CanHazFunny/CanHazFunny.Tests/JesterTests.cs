@@ -10,4 +10,15 @@ namespace CanHazFunny.Tests;
 
 public class JesterTests
 {
+    [Fact]
+    public void ClassCreation_CreateNewInstance_Success()
+    {
+        // Arrange
+        Jester jester = new();
+
+        // Act
+
+        // Assert
+        Assert.NotNull(jester);
+    }
 }
