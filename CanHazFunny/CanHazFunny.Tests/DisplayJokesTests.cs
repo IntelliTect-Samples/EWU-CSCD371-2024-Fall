@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CanHazFunny.Tests
 {
-    internal class DisplayJokesClass
+    public class DisplayJokesTests
     {
     }
 }
