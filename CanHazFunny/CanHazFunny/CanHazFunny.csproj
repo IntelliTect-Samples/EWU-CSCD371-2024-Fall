@@ -11,4 +11,8 @@
 	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild> <!-- Turn on EnforceCodeStyleInBuild -->
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Interface\Interface.csproj" />
+  </ItemGroup>
+
 </Project>

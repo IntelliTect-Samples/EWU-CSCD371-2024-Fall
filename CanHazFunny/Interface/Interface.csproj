@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<TargetFramework>net8.0</TargetFramework>
+	<Nullable>enable</Nullable>
+	<!-- Enable Nullable in Project -->
+	<LangVersion>latest</LangVersion>
+	<!-- Setting LangVersion to latest -->
+	<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	<!-- Turn on Code Analysis -->
+	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	<!-- Treat Warnings As Errors -->
+	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+	<!-- Turn on CATWAE -->
+	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	<!-- Turn on EnforceCodeStyleInBuild -->
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>

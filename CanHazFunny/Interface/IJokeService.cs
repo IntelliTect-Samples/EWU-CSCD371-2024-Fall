@@ -1,6 +1,6 @@
 namespace Interfaces
 {
-    public interface IJesterService
+    public interface IJokeService
     {
         string GetJoke(); //Applying this interface to JokeService to return a string
     }
