@@ -17,13 +17,26 @@ namespace CanHazFunny.Tests;
     {
         // Arrange
         var displayJokes = new Moq.Mock<IDisplayJokes>();
-        displayJokes.Setup(x => x.DisplayJoke()).Returns("Why did the chicken cross the road? To get to the other side.");
+        displayJokes.Setup(x => x.OutputJoke()).Returns("Why did the chicken cross the road? To get to the other side.");
 
         // Act
-        var joke = displayJokes.Object.GetJoke();
+        var joke = displayJokes.Object.OutputJoke();
 
         // Assert
         Assert.Equal("Why did the chicken cross the road? To get to the other side.", joke);
+    }
+
+    [Fact]
+    public void DisplayJokeClass_ClassCreation_Success()
+    {
+        // Arrange
+        DisplayJokes displayJokes = new();
+
+        // Act
+
+
+        // Assert
+        Assert.NotNull(displayJokes);
     }
 
 
