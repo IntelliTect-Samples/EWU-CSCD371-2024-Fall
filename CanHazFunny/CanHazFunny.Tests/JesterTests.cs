@@ -24,4 +24,14 @@ public class JesterTests
         Assert.NotEmpty(outString);
     }
 
+    [Fact]
+    public void Constructor_ThrowsArgument_IfServiceIsNull()
+    {
+        //Arrange
+        IJokeService jokeService = new JokeService();
+
+        //Act and Assert
+        var exception = Assert.Throws<ArgumentNullException>(() => new Jester(null!, jokeService));
+        Assert.Equal("dispalyService", exception.ParamName);
+    }
 }
