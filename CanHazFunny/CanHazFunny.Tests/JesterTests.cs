@@ -53,6 +53,20 @@ public class JesterTests
         Assert.True(isJoke, "This returns a string");
     }
 
+    [Fact]
+    public void JesterIJokeServiceIJokeOutput_InterfacesApplied_LengthTwo()
+    {
+        // Arrange
+        var jester = typeof(Jester);
+
+        // Act
+        var appliedInterfaces = jester.GetInterfaces();
+        int numOfInterfaces = appliedInterfaces.Length;
+
+        // Assert
+        Assert.Equal(2, numOfInterfaces);
+    }
+
 
 
 }
