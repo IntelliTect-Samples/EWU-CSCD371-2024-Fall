@@ -9,7 +9,7 @@ namespace CanHazFunny.Tests;
     public class JokeServiceTests
     {
         [Fact]
-        public void JokeServiceInterface_UseMoq_Success()
+        public void JokeServiceInterface_CreateMokConcreteClass_Success()
         {
             // Arrange
             var jokeService = new Moq.Mock<IJokeService>();

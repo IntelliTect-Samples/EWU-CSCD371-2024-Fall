@@ -13,7 +13,7 @@ namespace CanHazFunny.Tests;
     {
 
     [Fact]
-    public void DisplayJokeInterface_UseMoq_Success()
+    public void DisplayJokeInterface_CreateMokConcreteClass_Success()
     {
         // Arrange
         var displayJokes = new Moq.Mock<IDisplayJokes>();
@@ -27,7 +27,7 @@ namespace CanHazFunny.Tests;
     }
 
     [Fact]
-    public void DisplayJokeClass_ClassCreation_Success()
+    public void ClassCreation_CreateNewInstance_Success()
     {
         // Arrange
         DisplayJokes displayJokes = new();
