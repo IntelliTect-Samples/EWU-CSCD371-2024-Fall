@@ -13,8 +13,8 @@ namespace CanHazFunny
         //Contructor needs to take in IJokeService, not JokeService. Allows flexibility in how joke is provided.
         public Jester(IJokeService jokeService, IJokeOutput jokeOutput)
         {
-            _jokeService = jokeService;
-            _jokeOutput = jokeOutput;
+            _jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
+            _jokeOutput = jokeOutput ?? throw new ArgumentNullException(nameof(jokeService));
         }
 
         //Establish TellJoke for Jester, which will call GetJoke. Need to add assessing for Chuck Norris.
