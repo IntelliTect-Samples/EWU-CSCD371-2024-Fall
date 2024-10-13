@@ -39,7 +39,9 @@ public class JesterTests
     public void JesterClass_TellJoke_ReturnsJoke()
     {
         // Arrange
-        Jester jester = new Jester();
+        JokeService jokeServ = new JokeService();
+        IJokeService jokeService = jokeServ;
+        Jester jester = new Jester(jokeService);
 
         // Act
 
