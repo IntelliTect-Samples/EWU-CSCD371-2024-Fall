@@ -9,7 +9,7 @@ namespace CanHazFunny
         public void OutputJoke(string joke)
         {
             Console.WriteLine(joke);
-            Console.ReadLine();
+            //Console.ReadLine();
         }
     }
 }

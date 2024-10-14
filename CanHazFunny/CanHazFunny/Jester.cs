@@ -26,7 +26,7 @@ namespace CanHazFunny
             {
                 joke = _jokeService.GetJoke();
             }
-            //_jokeOutput.OutputJoke(joke);  //When this is active, test times out.
+            _jokeOutput.OutputJoke(joke);  //When this is active, test times output.
             return joke;
         }
     }
