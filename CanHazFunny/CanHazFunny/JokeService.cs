@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Text.Json;
 
 namespace CanHazFunny;
@@ -15,6 +16,6 @@ public class JokeService : IJokeService
         {
             return joke.Joke;
         }
-        throw new System.Exception("Failed to get joke - also a joke btw");
+        throw new ArgumentNullException("Failed to get joke - also a joke btw");
     }
 }
