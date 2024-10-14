@@ -5,7 +5,7 @@ using static CanHazFunny.JokeService;
 
 namespace CanHazFunny;
 
-public interface JokeServicer
+public interface IJokeServicer
 {
     string GetJoke();
     void TellJoke();
@@ -15,7 +15,7 @@ public interface JokeServicer
 }
 
 
-public class JokeService : JokeServicer
+public class JokeService : IJokeServicer
 {
     private HttpClient HttpClient { get; } = new();
    

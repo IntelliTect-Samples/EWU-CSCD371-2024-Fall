@@ -5,13 +5,13 @@ using static CanHazFunny.JokeService;
 namespace CanHazFunny;
 
 
-    public interface Joker
+    public interface IJoker
     {
         void TellJoke();
         void TellJokeJson();
     }
 
-    public class Jester : Joker
+    public class Jester : IJoker
     {
         private JokeService jokeService = new ();
         public void TellJoke()
