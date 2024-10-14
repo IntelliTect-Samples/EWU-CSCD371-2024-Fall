@@ -10,11 +10,13 @@ public class Jester
 {
     private IJokeService? _jokeService;
     private IDisplayJokes? _displayJokes;
+
     public IJokeService JokeService
     {
         get => _jokeService!;
         set => _jokeService = value ?? throw new ArgumentNullException(nameof(value));
     }
+
     public IDisplayJokes DisplayJokes
     {
         get => _displayJokes!;
