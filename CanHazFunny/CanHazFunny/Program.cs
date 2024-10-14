@@ -2,8 +2,9 @@
 
 using CanHazFunny;
 using System;
+using System.Globalization;
 
-class Program
+public class Program
 {
     private static string currentFormat = "Http";
 
@@ -18,7 +19,7 @@ class Program
             {
                 
                 System.Console.WriteLine("Would you like to hear a joke? (Y/N) or Change formats (F)  Current format:"+currentFormat);
-                string response = (Console.ReadLine()?? "N").ToUpper();
+                string response = (Console.ReadLine()?? "N").ToUpper(CultureInfo.InvariantCulture);
                 if (response == "N")
                 {
                     keepTellingJokes = false;

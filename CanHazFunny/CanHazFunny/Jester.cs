@@ -2,9 +2,9 @@
 using System.Runtime.InteropServices;
 using static CanHazFunny.JokeService;
 
-namespace CanHazFunny
+namespace CanHazFunny;
 
-{
+
     interface Joker
     {
         void TellJoke();
@@ -24,4 +24,3 @@ namespace CanHazFunny
             System.Console.WriteLine(jokeService.GetJokeJson());
         }
     }
-}

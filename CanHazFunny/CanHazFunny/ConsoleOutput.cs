@@ -1,9 +1,8 @@
-﻿namespace CanHazFunny
-{
+﻿namespace CanHazFunny;
+
     internal class ConsoleOutput
     {
         public ConsoleOutput()
         {
         }
     }
-}
