@@ -61,7 +61,8 @@ public class JesterTests
         //Arrange
         var displayService = new Mock<IDisplayJokes>();
         var jokeServiceMock = new Mock<IJokeService>();
-        jokeServiceMock.Setup(jokeService => jokeService.GetJoke()).Returns("Chuck Norris can delete the Recycling Bin.");
+        var joke = "Chuck Norris can delete the Recycling Bin.";
+        jokeServiceMock.Setup(jokeService => jokeService.GetJoke()).Returns(joke);
 
         var shaco = new Jester(displayService.Object, jokeServiceMock.Object);
 
@@ -69,6 +70,6 @@ public class JesterTests
         shaco.TellJoke();
 
         //Assert
-        displayService.Verify(display => display.DisplayJoke(It.IsAny<string>()), Times.Never);
+        displayService.Verify(display => display.DisplayJoke(joke), Times.Never);
     }
 }
