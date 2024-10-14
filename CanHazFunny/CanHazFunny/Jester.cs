@@ -7,21 +7,23 @@ namespace CanHazFunny
 {
     interface Joker
     {
-        void TellJoke();
-        void TellJokeJson();
+        string TellJoke();
+        string TellJokeJson();
     }
 
-    class Jester : Joker
+    public class Jester : Joker
     {
         JokeService jokeService = new JokeService();
-        public void TellJoke()
+        public string TellJoke()
         {
             System.Console.WriteLine(jokeService.GetJoke());
+            return jokeService.GetJoke();
         }
 
-        public void TellJokeJson()
+        public string TellJokeJson()
         {
             System.Console.WriteLine(jokeService.GetJokeJson());
+            return jokeService.GetJoke();
 
         }
     }
