@@ -5,7 +5,7 @@ using static CanHazFunny.JokeService;
 
 namespace CanHazFunny;
 
-interface JokeServicer
+public interface JokeServicer
 {
     string GetJoke();
     void TellJoke();

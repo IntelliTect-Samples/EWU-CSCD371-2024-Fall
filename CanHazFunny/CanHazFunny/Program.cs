@@ -8,7 +8,7 @@ public class Program
 {
     private static string currentFormat = "Http";
 
-    static void Main(string[] args)
+    static public void Main(string[] args)
     {
         Boolean keepTellingJokes = true;
         Boolean wantJson = false;

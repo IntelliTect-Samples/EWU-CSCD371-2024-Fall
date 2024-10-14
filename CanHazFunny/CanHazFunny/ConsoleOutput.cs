@@ -1,6 +1,6 @@
 ﻿namespace CanHazFunny;
 
-    internal class ConsoleOutput
+    internal sealed class ConsoleOutput
     {
         public ConsoleOutput()
         {
