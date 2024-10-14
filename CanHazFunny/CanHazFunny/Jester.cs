@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace CanHazFunny;
 public class Jester
 {
-    private readonly IJokeService _jokeService;
-    private readonly IDisplayJokes _displayJokes;
+    public IJokeService JokeService { get; }
+    public IDisplayJokes DisplayJokes { get; }
     public Jester(IJokeService jokeService, IDisplayJokes displayJokes)
     {
 
-        _jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
-        _displayJokes = displayJokes ?? throw new ArgumentNullException(nameof(displayJokes));
+        JokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
+        DisplayJokes = displayJokes ?? throw new ArgumentNullException(nameof(displayJokes));
 
     }
 }
