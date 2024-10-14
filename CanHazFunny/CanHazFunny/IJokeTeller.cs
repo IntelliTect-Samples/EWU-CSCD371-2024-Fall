@@ -1,7 +1,7 @@
 ﻿
 namespace CanHazFunny;
 
-internal interface IJokeTeller
+public interface IJokeTeller
 {
     void TellJoke(string joke);
 }
