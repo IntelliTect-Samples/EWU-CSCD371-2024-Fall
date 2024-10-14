@@ -75,8 +75,10 @@ public class JesterTests
         //Arrange
         IJokeService jokeService = new JokeService();
 
-        //Act and Assert
+        //Act
         var exception = Assert.Throws<ArgumentNullException>(() => new Jester(null!, jokeService));
+
+        //Assert
         Assert.Equal("dispalyService", exception.ParamName);
     }
 
@@ -86,8 +88,10 @@ public class JesterTests
         // Arrange
         IDisplayJokes displayJokes = new DisplayService();
 
-        // Act and Assert
+        // Act
         var exception = Assert.Throws<ArgumentNullException>(() => new Jester(displayJokes, null!));
+
+        // Assert
         Assert.Equal("jokeService", exception.ParamName);
     }
 }
