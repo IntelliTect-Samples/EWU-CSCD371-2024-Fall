@@ -18,7 +18,7 @@ class Program
             {
                 
                 System.Console.WriteLine("Would you like to hear a joke? (Y/N) or Change formats (F)  Current format:"+currentFormat);
-                string response = Console.ReadLine().ToUpper();
+                string response = Console.ReadLine().ToUpper() ?? "N";
                 if (response == "N")
                 {
                     keepTellingJokes = false;

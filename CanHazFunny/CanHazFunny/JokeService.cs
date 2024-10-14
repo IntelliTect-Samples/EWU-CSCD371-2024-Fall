@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Net.Http.Json;
 using static CanHazFunny.JokeService;
 
@@ -38,6 +39,10 @@ public class JokeService : JokeServicer
     public string GetJokeJson()
     {
         JokeResponse jokeResponse = HttpClient.GetFromJsonAsync<JokeResponse>("https://geek-jokes.sameerkumar.website/api?format=json").Result;
+        if (jokeResponse == null)
+        {
+            throw new ArgumentNullException();
+        }
         return jokeResponse.Joke;
     }
     public void TellJokeJson()
@@ -45,9 +50,4 @@ public class JokeService : JokeServicer
         System.Console.WriteLine(GetJokeJson());
      
     }
-
-   
-
-   
-
 }

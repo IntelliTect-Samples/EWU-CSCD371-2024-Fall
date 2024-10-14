@@ -13,7 +13,7 @@ namespace CanHazFunny
 
     public class Jester : Joker
     {
-        JokeService jokeService = new JokeService();
+        JokeService jokeService = new ();
         public string TellJoke()
         {
             System.Console.WriteLine(jokeService.GetJoke());
