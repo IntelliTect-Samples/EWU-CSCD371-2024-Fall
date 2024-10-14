@@ -78,7 +78,7 @@ public class JesterTests
         var exception = Assert.Throws<ArgumentNullException>(() => new Jester(null!, jokeService));
 
         // Assert
-        Assert.Equal("dispalyService", exception.ParamName);
+        Assert.Equal("displayService", exception.ParamName);
     }
 
     [Fact]
