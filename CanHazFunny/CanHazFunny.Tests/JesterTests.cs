@@ -12,10 +12,10 @@ public class JesterTests
         Jester jester = new();
 
         // Act
-        string joke = jester.TellJoke();
+        jester.TellJoke();
 
         // Assert
-        Assert.NotNull(joke);
+        Assert.NotNull(jester);
     }
     [Fact]
     public void TellJokeJson_ShouldReturnJoke()
@@ -23,9 +23,9 @@ public class JesterTests
         //Arrange
         Jester jester = new();
         //Act
-        string json = jester.TellJokeJson();
+        jester.TellJokeJson();
         //Assert
-        Assert.NotNull(json);
+        Assert.NotNull(jester);
     }
     
     [Fact]

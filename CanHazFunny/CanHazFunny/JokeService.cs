@@ -33,15 +33,15 @@ public class JokeService : JokeServicer
 
     public class JokeResponse
     {
-        public string Joke { get; set; }
+        public string Joke { get; set; } = "Chuck Noris Stinks";
     }
 
     public string GetJokeJson()
     {
-        JokeResponse jokeResponse = HttpClient.GetFromJsonAsync<JokeResponse>("https://geek-jokes.sameerkumar.website/api?format=json").Result;
+        JokeResponse? jokeResponse = HttpClient.GetFromJsonAsync<JokeResponse>("https://geek-jokes.sameerkumar.website/api?format=json").Result;
         if (jokeResponse == null)
         {
-            throw new ArgumentNullException();
+            throw new ArgumentNullException("GetJokeJson isNull");
         }
         return jokeResponse.Joke;
     }
