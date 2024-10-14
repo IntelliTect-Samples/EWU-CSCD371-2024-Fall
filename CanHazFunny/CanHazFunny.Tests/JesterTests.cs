@@ -11,27 +11,44 @@ public class JesterTests
     public void TellJoke_JokeService_PrintsJoke()
     {
         //Arrange
-        var originalConsoleOut = Console.Out;
-        try
-        {
-            Jester shaco = new(new DisplayService(), new JokeService());
-            StringWriter consoleOut = new();
-            Console.SetOut(consoleOut);
+        var displayServiceMock = new Mock<IDisplayJokes>();
+        var jokeServiceMock = new Mock<IJokeService>();
+        var joke = "Why did the programmer quit his job? Because he didn't get arrays.";
 
-            //Act
+        jokeServiceMock.Setup(jokeService => jokeService.GetJoke()).Returns(joke);
+        displayServiceMock.Setup(service => service.DisplayJoke(joke)).Callback<string>(Console.WriteLine);
 
-            shaco.TellJoke();
-            string outString = consoleOut.ToString();
+        var shaco = new Jester(displayServiceMock.Object, jokeServiceMock.Object);
 
-            //Assert
-            Assert.NotNull(outString);
-            Assert.NotEmpty(outString);
-        }
-        finally
-        {
-            Console.SetOut(originalConsoleOut);
-        }
+        StringWriter consoleOut = new();
+        Console.SetOut(consoleOut);
+
+        //Act
+
+        shaco.TellJoke();
+        string outString = consoleOut.ToString();
+
+        //Assert
+        Assert.NotNull(outString);
+        Assert.Contains(joke, outString);
+        Assert.NotEmpty(outString);
     }
+    [Fact]
+    public void DisplayJoke_WhenCalled_PrintsJokeToConsole()
+    {
+        // Arrange
+        var displayService = new DisplayService();
+        StringWriter consoleOut = new();
+        Console.SetOut(consoleOut);
+
+        // Act
+        displayService.DisplayJoke("Test joke");
+
+        // Assert
+        string outString = consoleOut.ToString();
+        Assert.Contains("Test joke", outString);
+    }
+
 
     [Fact]
     public void Constructor_ThrowsArgument_IfDisplayServiceIsNull()
@@ -59,17 +76,17 @@ public class JesterTests
     public void TellJoke_DoesNotPrint_IfJokeContainsChuckNorris()
     {
         //Arrange
-        var displayService = new Mock<IDisplayJokes>();
+        var displayServiceMock = new Mock<IDisplayJokes>();
         var jokeServiceMock = new Mock<IJokeService>();
         var joke = "Chuck Norris can delete the Recycling Bin.";
         jokeServiceMock.Setup(jokeService => jokeService.GetJoke()).Returns(joke);
 
-        var shaco = new Jester(displayService.Object, jokeServiceMock.Object);
+        var shaco = new Jester(displayServiceMock.Object, jokeServiceMock.Object);
 
         //Act
         shaco.TellJoke();
 
         //Assert
-        displayService.Verify(display => display.DisplayJoke(joke), Times.Never);
+        displayServiceMock.Verify(display => display.DisplayJoke(joke), Times.Never);
     }
 }
