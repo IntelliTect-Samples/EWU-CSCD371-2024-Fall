@@ -11,14 +11,15 @@ public class JesterTests
     public void TellJoke_JokeService_PrintsJoke()
     {
         //Arrange
-        
+
         Jester shaco = new( new DisplayService(), new JokeService());
         StringWriter consoleOut = new();
-        string outString = consoleOut.ToString();
+        Console.SetOut(consoleOut);
+
         //Act
 
-        Console.SetOut(consoleOut);
         shaco.TellJoke();
+        string outString = consoleOut.ToString();
 
         //Assert
         Assert.NotNull(outString);
@@ -26,7 +27,7 @@ public class JesterTests
     }
 
     [Fact]
-    public void Constructor_ThrowsArgument_IfServiceIsNull()
+    public void Constructor_ThrowsArgument_IfDisplayServiceIsNull()
     {
         //Arrange
         IJokeService jokeService = new JokeService();
@@ -34,6 +35,17 @@ public class JesterTests
         //Act and Assert
         var exception = Assert.Throws<ArgumentNullException>(() => new Jester(null!, jokeService));
         Assert.Equal("dispalyService", exception.ParamName);
+    }
+
+    [Fact]
+    public void Constructor_ThrowsArgument_IfJokeServiceIsNull()
+    {
+        // Arrange
+        IDisplayJokes displayJokes = new DisplayService();
+
+        // Act and Assert
+        var exception = Assert.Throws<ArgumentNullException>(() => new Jester(displayJokes, null!));
+        Assert.Equal("jokeService", exception.ParamName);
     }
 
     [Fact]

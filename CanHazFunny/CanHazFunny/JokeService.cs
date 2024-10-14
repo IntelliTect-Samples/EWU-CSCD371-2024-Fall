@@ -13,5 +13,4 @@ public class JokeService : IJokeService
         string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
         return joke;
     }
-
 }
