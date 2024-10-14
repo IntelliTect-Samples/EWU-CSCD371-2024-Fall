@@ -11,19 +11,26 @@ public class JesterTests
     public void TellJoke_JokeService_PrintsJoke()
     {
         //Arrange
+        var originalConsoleOut = Console.Out;
+        try
+        {
+            Jester shaco = new(new DisplayService(), new JokeService());
+            StringWriter consoleOut = new();
+            Console.SetOut(consoleOut);
 
-        Jester shaco = new( new DisplayService(), new JokeService());
-        StringWriter consoleOut = new();
-        Console.SetOut(consoleOut);
+            //Act
 
-        //Act
+            shaco.TellJoke();
+            string outString = consoleOut.ToString();
 
-        shaco.TellJoke();
-        string outString = consoleOut.ToString();
-
-        //Assert
-        Assert.NotNull(outString);
-        Assert.NotEmpty(outString);
+            //Assert
+            Assert.NotNull(outString);
+            Assert.NotEmpty(outString);
+        }
+        finally
+        {
+            Console.SetOut(originalConsoleOut);
+        }
     }
 
     [Fact]

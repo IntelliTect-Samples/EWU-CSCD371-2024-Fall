@@ -10,7 +10,14 @@ public class JokeService : IJokeService
 
     public string GetJoke()
     {
-        string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
-        return joke;
+        try
+        {
+            string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
+            return joke;
+        }
+        catch (Exception)
+        {
+            return "Failed to fetch a joke due to network issues.";
+        }
     }
 }
