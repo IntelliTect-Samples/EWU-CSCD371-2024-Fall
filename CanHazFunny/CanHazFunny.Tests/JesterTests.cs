@@ -33,6 +33,25 @@ public class JesterTests
         Assert.Contains(joke, outString);
         Assert.NotEmpty(outString);
     }
+
+    [Fact]
+    public void TellJoke_DoesNotPrint_IfJokeContainsChuckNorris()
+    {
+        //Arrange
+        var displayServiceMock = new Mock<IDisplayJokes>();
+        var jokeServiceMock = new Mock<IJokeService>();
+        var joke = "Chuck Norris can delete the Recycling Bin.";
+        jokeServiceMock.Setup(jokeService => jokeService.GetJoke()).Returns(joke);
+
+        var shaco = new Jester(displayServiceMock.Object, jokeServiceMock.Object);
+
+        //Act
+        shaco.TellJoke();
+
+        //Assert
+        displayServiceMock.Verify(display => display.DisplayJoke(joke), Times.Never);
+    }
+
     [Fact]
     public void DisplayJoke_WhenCalled_PrintsJokeToConsole()
     {
@@ -70,23 +89,5 @@ public class JesterTests
         // Act and Assert
         var exception = Assert.Throws<ArgumentNullException>(() => new Jester(displayJokes, null!));
         Assert.Equal("jokeService", exception.ParamName);
-    }
-
-    [Fact]
-    public void TellJoke_DoesNotPrint_IfJokeContainsChuckNorris()
-    {
-        //Arrange
-        var displayServiceMock = new Mock<IDisplayJokes>();
-        var jokeServiceMock = new Mock<IJokeService>();
-        var joke = "Chuck Norris can delete the Recycling Bin.";
-        jokeServiceMock.Setup(jokeService => jokeService.GetJoke()).Returns(joke);
-
-        var shaco = new Jester(displayServiceMock.Object, jokeServiceMock.Object);
-
-        //Act
-        shaco.TellJoke();
-
-        //Assert
-        displayServiceMock.Verify(display => display.DisplayJoke(joke), Times.Never);
     }
 }
