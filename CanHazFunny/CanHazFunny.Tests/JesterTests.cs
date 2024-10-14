@@ -38,4 +38,21 @@ public class JesterTests
         Assert.Throws<ArgumentNullException>(() => new Jester(null!, null!));
 
     }
+
+    [Fact]
+    public void ClassCreation_PassedValidClasses_HasValidClasses()
+    {
+        // Arrange
+        string expectedTypeOfJokeService = "CanHazFunny.JokeService";
+        string expectedTypeOfDisplayJokes = "CanHazFunny.DisplayJokes";
+        IJokeService jokeService = new JokeService();
+        IDisplayJokes displayJokes = new DisplayJokes();
+
+        // Act
+        Jester jester = new(jokeService, displayJokes);
+
+        // Assert
+        Assert.Equal(expectedTypeOfJokeService, jester.JokeService.GetType().ToString());
+        Assert.Equal(expectedTypeOfDisplayJokes, jester.DisplayJokes.GetType().ToString());
+    }
 }
