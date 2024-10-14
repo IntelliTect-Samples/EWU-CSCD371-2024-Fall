@@ -55,4 +55,8 @@ public class JesterTests
         Assert.Equal(expectedTypeOfJokeService, jester.JokeService.GetType().ToString());
         Assert.Equal(expectedTypeOfDisplayJokes, jester.DisplayJokes.GetType().ToString());
     }
+
+    // TODO: Test to see if we can use Jester.GetJoke() to get a joke
+
+    //TODO: Test to see if we can filter Chuck Norris jokes from Jester.GetJoke()
 }
