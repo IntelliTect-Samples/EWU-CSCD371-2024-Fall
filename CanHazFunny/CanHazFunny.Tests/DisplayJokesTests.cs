@@ -1,16 +1,12 @@
-﻿using Xunit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.IO;
+using Xunit;
 
 namespace CanHazFunny.Tests;
 
-    
-    public class DisplayJokesTests
-    {
+
+public class DisplayJokesTests
+{
 
     [Fact]
     public void DisplayJokeInterface_CreateMokConcreteClass_Success()
