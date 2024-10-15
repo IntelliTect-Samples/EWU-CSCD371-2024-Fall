@@ -1,8 +1,8 @@
 using Interfaces;
 using System;
 
-namespace CanHazFunny
-{
+namespace CanHazFunny;
+
 
     public class ConsoleJokeOutput : IJokeOutput
     {
@@ -12,4 +12,3 @@ namespace CanHazFunny
             //Console.ReadLine();
         }
     }
-}
