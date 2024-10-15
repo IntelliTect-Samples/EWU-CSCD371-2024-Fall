@@ -1,5 +1,4 @@
-namespace Interfaces
-{
+namespace Interfaces;
     public interface IJokeOutput
     {
         void OutputJoke(string joke)
@@ -7,4 +6,3 @@ namespace Interfaces
             //Applying this interface to Jester to output to the console. No return so Void.
         }
     }
-}
