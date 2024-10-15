@@ -35,10 +35,10 @@
 - Data Types
 - nullables
 - Analyzers
+- string interpolation
 
 ### 10/10
 
-- Inheritance
 - Properties
 - Methods
 
@@ -46,22 +46,23 @@
 
 ### 10/15
 
--  string interpolation
--  nullability/testing continuation
+- Inheritence cont.
+- nullability continuation
 
 ### 10/17
 
+- Explicit vs implicit interface implementation
 - Interfaces
+- Local Functions?
 
 ## Week 5 - Assignment 4
 
 ### 10/22
 
-- Interfaces
+- 
 
 ### 10/24
 
-- Explicit vs implicit interface implementation
 - Pattern matching
 - Mocking
 
@@ -69,7 +70,7 @@
 
 ### 10/29
 
-- ref vs value types
+- ref vs value types & structs
 - record classes
 
 ### 10/31
