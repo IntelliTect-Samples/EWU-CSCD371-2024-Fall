@@ -14,7 +14,7 @@ public class JsonJokeService : ITellJokes
         return joke;
     }
 
-    public string? ParseJokeFromJsonString(string jsonString)
+    public static string? ParseJokeFromJsonString(string jsonString)
     {
         JsonDocument doc = JsonDocument.Parse(jsonString);
 
