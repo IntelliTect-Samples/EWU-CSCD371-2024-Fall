@@ -1,8 +1,8 @@
 using Interfaces;
 using System;
 
-namespace CanHazFunny
-{
+namespace CanHazFunny;
+
     public class Jester
     {
         //Private field to hold the IJokeService - do these need to be readonly or Get/Set?
@@ -30,4 +30,4 @@ namespace CanHazFunny
             return joke;
         }
     }
-}
+
