@@ -16,4 +16,10 @@ public class Jester
         if (jokeTeller is null) jokeTeller = new JokeService();
         JokeTeller = jokeTeller;
     }
+
+    public void TellJoke()
+    {
+        string joke = JokeTeller.GetJoke();
+        JokeDisplayer.DisplayJoke(joke);
+    }
 }
