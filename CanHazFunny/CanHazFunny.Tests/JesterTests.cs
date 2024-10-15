@@ -68,7 +68,6 @@ public class JesterTests
         string joke = jester.JokeService.GetJoke();
 
         // Assert
-        Console.WriteLine(joke);
         Assert.NotNull(joke);
         Assert.NotEmpty(joke);
     }
