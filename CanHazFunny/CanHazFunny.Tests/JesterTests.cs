@@ -95,4 +95,33 @@ public class JesterTests
         string output = consoleOutput.ToString().Trim();
         Assert.NotEmpty(output);
     }
+
+    [Fact]
+    public void JesterTellJoke_ScreensForChuckNorris_NoChuckJokes()
+    {
+        for (int i = 0; i < 20; i++)
+        {
+            // Arrange
+            StringWriter consoleOutput;
+            using (consoleOutput = new StringWriter())
+            {
+                Console.SetOut(consoleOutput);
+
+                IJokeService jokeService = new JokeService();
+                IDisplayJokes displayJokes = new DisplayJokes();
+                Jester jester = new(jokeService, displayJokes);
+
+                // Act
+                jester.TellJoke();
+
+                Console.Out.Flush();
+            }
+
+            // Assert
+            string output = consoleOutput.ToString().Trim();
+            Assert.DoesNotContain("Chuck", output);
+            Assert.DoesNotContain("Norris", output);
+        }
+    }
+
 }
