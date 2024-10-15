@@ -13,6 +13,7 @@ public class Jester
         if (jokeDisplayer is null) jokeDisplayer = new DisplayService();
         JokeDisplayer = jokeDisplayer;
 
+        if (jokeTeller is null) jokeTeller = new JokeService();
         JokeTeller = jokeTeller;
     }
 }
