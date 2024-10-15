@@ -20,6 +20,12 @@ public class Jester
     public void TellJoke()
     {
         string joke = JokeTeller.GetJoke();
+
+        while (joke.Contains("Chuck Norris"))
+        {
+            joke = JokeTeller.GetJoke();
+        }
+
         JokeDisplayer.DisplayJoke(joke);
     }
 }
