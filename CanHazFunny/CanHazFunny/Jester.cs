@@ -10,7 +10,7 @@ public interface IJoker
     public void TellJoke()
     {
         string response = jokeService.GetJoke();
-        bool isntChuckNorris = response.Contains("Chuck Norris")||response.Contains("Norris")|| response.Contains("Chuck");
+        bool isntChuckNorris = response.Contains("Norris")|| response.Contains("Chuck");
 
         if (isntChuckNorris == false)
         {
@@ -25,7 +25,7 @@ public interface IJoker
         {
 
         string jsonResponse = jokeService.GetJoke();
-        bool isntChuckNorris = jsonResponse.Contains("Chuck Norris") || jsonResponse.Contains("Norris")||jsonResponse.Contains("Chuck");
+        bool isntChuckNorris = jsonResponse.Contains("Norris")||jsonResponse.Contains("Chuck");
         if (isntChuckNorris == false)
         {
             System.Console.WriteLine(jsonResponse);
