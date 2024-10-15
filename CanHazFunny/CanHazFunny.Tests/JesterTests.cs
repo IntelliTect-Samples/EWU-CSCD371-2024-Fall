@@ -12,7 +12,7 @@ public class JesterTests
     public void JokeService_CallGetJoke_ReturnsJokeNotNullOrEmpty()
     {
         // Arrange
-        JokeService jokeService = new JokeService();
+        JokeService jokeService = new ();
 
         // Act
         string joke = jokeService.GetJoke();
