@@ -36,4 +36,19 @@ public class JesterTests
         //Assert
         Assert.NotNull(jester);
     }
+
+    [Fact]
+    public void Constructor_DisplayServiceNull_CreatesValidJester()
+    {
+        //Arrange
+        JsonJokeService jsonJokeService = new();
+
+        //Act
+        Jester jester = new Jester(null!, jsonJokeService);
+
+        //Assert
+        Assert.NotNull(jester);
+        Assert.NotNull(jester.JokeDisplayer);
+        Assert.NotNull(jester.JokeTeller);
+    }
 }
