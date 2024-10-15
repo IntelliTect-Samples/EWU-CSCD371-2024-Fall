@@ -1,4 +1,4 @@
-using System;
+
 using Xunit;
 using Interfaces;
 
@@ -41,12 +41,12 @@ public class JesterTests
     {
         // Arrange
 
-        JokeService jokeServ = new JokeService();
+        JokeService jokeServ = new ();
         IJokeService jokeService = jokeServ;
-        ConsoleJokeOutput jokeOutput = new ConsoleJokeOutput();
+        ConsoleJokeOutput jokeOutput = new ();
         IJokeOutput jokeOutputLog = jokeOutput;
 
-        Jester jester = new Jester(jokeService, jokeOutputLog);
+        Jester jester = new (jokeService, jokeOutputLog);
 
         // Act
 
@@ -61,18 +61,18 @@ public class JesterTests
     public void JesterTellJoke_NoChuckNorris_ReturnsTrue()
     {
         // Arrange
-        JokeService jokeServ = new JokeService();
+        JokeService jokeServ = new ();
         IJokeService jokeService = jokeServ;
-        ConsoleJokeOutput jokeOutput = new ConsoleJokeOutput();
+        ConsoleJokeOutput jokeOutput = new ();
         IJokeOutput jokeOutputLog = jokeOutput;
 
-        Jester jester = new Jester(jokeService, jokeOutputLog);
+        Jester jester = new (jokeService, jokeOutputLog);
 
         // Act
         string joke = jester.TellJoke().ToLower(); //Reduce to lower to prevent API errors.
-        bool NoChuckNorris = !(joke.Contains("chuck") || joke.Contains("chuck")); // Will return TRUE if it does NOT contain chuck or norris.
+        bool noChuckNorris = !(joke.Contains("chuck") || joke.Contains("chuck")); // Will return TRUE if it does NOT contain chuck or norris.
 
         // Assert
-        Assert.True(NoChuckNorris, "Joke contains Chuck Norris");
+        Assert.True(noChuckNorris, "Joke contains Chuck Norris");
     }
 }
