@@ -1,6 +1,7 @@
 using Xunit;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,5 +73,26 @@ public class JesterTests
         Assert.NotEmpty(joke);
     }
 
-    //TODO: Test to see if we can filter Chuck Norris jokes from Jester.GetJoke()
+    [Fact]
+    public void JesterTellJoke_ReceivesJoke_PrintsJokeToConsole()
+    {
+        //arrange
+        StringWriter consoleOutput;
+        using (consoleOutput = new StringWriter())
+        {
+            Console.SetOut(consoleOutput);
+
+            IJokeService jokeService = new JokeService();
+            IDisplayJokes displayJokes = new DisplayJokes();
+            Jester jester = new(jokeService, displayJokes);
+
+            //act
+            jester.TellJoke();
+
+            Console.Out.Flush();
+        }
+        //assert
+        string output = consoleOutput.ToString().Trim();
+        Assert.NotEmpty(output);
+    }
 }
