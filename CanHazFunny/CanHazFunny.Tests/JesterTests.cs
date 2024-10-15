@@ -22,7 +22,7 @@ public class JesterTests
     public void ToLower_PassedValidString_ReturnsLowercaseString()
     {
         string uppercase = "THISISSOMEUPPERCASE";
-        Assert.Equal("thisissomeuppercase", uppercase.ToLower());
+        Assert.Equal("thisissomeuppercase", uppercase.ToLowerInvariant());
     }
 
 }
