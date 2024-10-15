@@ -4,14 +4,14 @@ namespace CanHazFunny
     public class Jester
     {
         private IJokeService _jokeService; // hold instance of joke service
-        private IOutputService _output; // hold instance of output service
+        private IOutputService _outputService; // hold instance of output service
 
         // Constructor
-        public Jester(IJokeService jokeService, IOutputService output)
+        public Jester(IOutputService outputService, IJokeService jokeService)
         {
             // Assign dependencies to private fields
-            _jokeService = jokeService;
-            _output = output;
+            _jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
+            _outputService = outputService ?? throw new ArgumentNullException(nameof(outputService));
         }
 
 
@@ -26,7 +26,7 @@ namespace CanHazFunny
             {
                 joke = _jokeService.GetJoke();
             }
-            _output.WriteJoke(joke);
+            _outputService.WriteJoke(joke);
         }
     }
 }
