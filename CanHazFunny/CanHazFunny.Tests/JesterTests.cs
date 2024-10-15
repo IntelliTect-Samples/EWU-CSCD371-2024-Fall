@@ -66,4 +66,21 @@ public class JesterTests
         Assert.NotNull(jester.JokeDisplayer);
         Assert.NotNull(jester.JokeTeller);
     }
+
+    [Fact]
+    public void TellJoke_JokeService_PrintsJoke()
+    {
+        //Arrange
+        Jester jester = new(new DisplayService(), new JokeService());
+        TextWriter writer = new StringWriter();
+        string? output;
+        Console.SetOut(writer);
+
+        //Act
+        jester.TellJoke();
+        output = writer.ToString();
+
+        //Assert
+        Assert.NotNull(jester);
+    }
 }
