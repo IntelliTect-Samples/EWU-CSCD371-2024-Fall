@@ -7,7 +7,7 @@ namespace CanHazFunny.Tests;
 public class JokeOutputTest
 {
     [Fact]
-    public void Jester_TellJoke_WritesJokeToOutput()
+    public void JesterTellJokeWritesJokeToOutput()
     {
         // Arrange
         var jokeServiceMock = new Mock<IJokeService>();
