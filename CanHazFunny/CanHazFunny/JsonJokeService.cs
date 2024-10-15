@@ -11,14 +11,15 @@ public class JsonJokeService : ITellJokes
     public string GetJoke()
     {
         string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api?format=json").Result;
-        return joke;
+        return ParseJokeFromJsonString(joke);
     }
 
-    public static string? ParseJokeFromJsonString(string jsonString)
+    public static string ParseJokeFromJsonString(string jsonString)
     {
         JsonDocument doc = JsonDocument.Parse(jsonString);
 
         string? response = doc.RootElement.GetProperty("joke").GetString();
-        return response;
+        ArgumentNullException.ThrowIfNullOrEmpty(response,"ParseJokeFromJson returned a null value");
+        return response!;
     }
 }
