@@ -1,4 +1,5 @@
 
+using System;
 using Xunit;
 using Interfaces;
 
@@ -70,7 +71,7 @@ public class JesterTests
 
         // Act
         string joke = jester.TellJoke().ToLower(); //Reduce to lower to prevent API errors.
-        bool noChuckNorris = !(joke.Contains("chuck") || joke.Contains("chuck")); // Will return TRUE if it does NOT contain chuck or norris.
+        bool noChuckNorris = !(joke.Contains("chuck norris", StringComparison.InvariantCultureIgnoreCase)); // Will return TRUE if it does NOT contain chuck or norris.
 
         // Assert
         Assert.True(noChuckNorris, "Joke contains Chuck Norris");
