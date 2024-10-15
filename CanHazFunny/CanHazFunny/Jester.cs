@@ -22,7 +22,7 @@ namespace CanHazFunny;
         {
             string joke = _jokeService.GetJoke();
             // No if statement beacuse it can create a recursive call without an exit. Use a while statement.
-            while (joke.ToLower().Contains("chuck") || joke.ToLower().Contains("norris"))
+            while (joke.Contains("chuck norris", StringComparison.InvariantCultureIgnoreCase))
             {
                 joke = _jokeService.GetJoke();
             }
