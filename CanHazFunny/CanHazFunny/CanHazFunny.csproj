@@ -2,8 +2,7 @@
 
   <PropertyGroup>
 	<AnalysisLevel>latest-recommended</AnalysisLevel>
-    <OutputType>Exe</OutputType>
-	<LangVersion>latest</LangVersion>
+   <LangVersion>latest</LangVersion>
     <TargetFramework>net8.0</TargetFramework>
 	<Nullable>enable</Nullable>
 	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
