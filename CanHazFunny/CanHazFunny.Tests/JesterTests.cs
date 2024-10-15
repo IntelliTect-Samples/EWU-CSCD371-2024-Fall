@@ -51,4 +51,19 @@ public class JesterTests
         Assert.NotNull(jester.JokeDisplayer);
         Assert.NotNull(jester.JokeTeller);
     }
+
+    [Fact]
+    public void Constructor_ITellJokesNull_CreatesValidJester()
+    {
+        //Arrange
+        var displayservice = new DisplayService();
+
+        //Act
+        Jester jester = new Jester(displayservice, null!);
+
+        //Assert
+        Assert.NotNull(jester);
+        Assert.NotNull(jester.JokeDisplayer);
+        Assert.NotNull(jester.JokeTeller);
+    }
 }
