@@ -1,9 +1,5 @@
-﻿
-using System.Runtime.InteropServices;
-using static CanHazFunny.JokeService;
-
-namespace CanHazFunny;
-    public interface IJoker
+﻿namespace CanHazFunny;
+public interface IJoker
     {
         void TellJoke();
         void TellJokeJson();
@@ -11,10 +7,11 @@ namespace CanHazFunny;
     public class Jester : IJoker
     {
         private JokeService jokeService = new ();
-        public void TellJoke()
-        {
-            string response = jokeService.GetJoke();
-            bool isntChuckNorris = response.Contains("Chuck Norris");
+    public void TellJoke()
+    {
+        string response = jokeService.GetJoke();
+        bool isntChuckNorris = response.Contains("Chuck Norris")||response.Contains("Norris");
+
         if (isntChuckNorris == false)
         {
             System.Console.WriteLine(response);
@@ -23,14 +20,12 @@ namespace CanHazFunny;
         {
             TellJoke();
         }
- 
-
-        }
+    }
         public void TellJokeJson()
         {
 
         string jsonResponse = jokeService.GetJoke();
-        bool isntChuckNorris = jsonResponse.Contains("Chuck Norris");
+        bool isntChuckNorris = jsonResponse.Contains("Chuck Norris") || jsonResponse.Contains("Norris");
         if (isntChuckNorris == false)
         {
             System.Console.WriteLine(jsonResponse);

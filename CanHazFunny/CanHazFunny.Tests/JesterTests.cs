@@ -1,8 +1,6 @@
 using System;
-using System.Globalization;
 using System.IO;
 using Xunit;
-using static CanHazFunny.JokeService;
 
 namespace CanHazFunny.Tests;
 
