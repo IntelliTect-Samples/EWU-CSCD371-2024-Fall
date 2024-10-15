@@ -1,45 +1,48 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System.IO;
-using System;
+using Xunit;
 
 namespace CanHazFunny.Tests;
 
-[TestClass]
 public class JesterTests
 {
-    // Moq Quickstart: https://github.com/devlooped/moq/wiki/Quickstart
-
-    [TestMethod]
-    public void TellJoke_TryJokes_Success()
+    [Fact]
+    public void TellJoke_ReturnsValidJoke_JokePrinted()
     {
         // Arrange
-        string configurableJoke = "Funny joke"; // Configurable
+        var mockJokeService = new Mock<IJokeService>();
+        var mockOutputService = new Mock<IOutputService>();
 
-        Console.WriteLine("Test");
-        // Mock joke service
-        var jokeServiceMock = new Mock<JokeService>();
-
-        Console.WriteLine("Test2");
-
-        jokeServiceMock.Setup(js => js.GetJoke()).Returns(configurableJoke);
-
-        Console.WriteLine("Test3");
-
-        // Mock console output service
-        var consoleOutputServiceMock = new Mock<ConsoleOutputService>();
-        consoleOutputServiceMock.Setup(x => x.WriteJoke(configurableJoke));
-
-        // Real Jester
-        Jester jester = new(consoleOutputServiceMock.Object, jokeServiceMock.Object);
+        string outputJoke = string.Empty;
+        mockJokeService.Setup(js => js.GetJoke()).Returns("Why did the chicken cross the road? To get to the other side!");
+        mockOutputService.Setup(os => os.WriteJoke(It.IsAny<string>())).Callback<string>(joke => outputJoke = joke);
+        Jester jester = new(mockOutputService.Object, mockJokeService.Object);
 
         // Act
-        jester.TellJoke();                      // Have the jester write a joke to console
-        var stringWriter = new StringWriter();  // Creating a stringWriter to capture output
-        Console.SetOut(stringWriter);           // Get the console output
+        jester.TellJoke();
 
         // Assert
-        var output = stringWriter.ToString();
-        Assert.AreEqual(configurableJoke, output);
+        Assert.Equal("Why did the chicken cross the road? To get to the other side!", outputJoke);
+    }
+
+    [Fact]
+    public void TellJoke_SkipsChuckNorrisJoke_ReturnsValidJoke()
+    {
+        // Arrange
+        var mockJokeService = new Mock<IJokeService>();
+        var mockOutputService = new Mock<IOutputService>();
+
+        string outputJoke = string.Empty;
+        mockJokeService.SetupSequence(js => js.GetJoke())
+            .Returns("Chuck Norris walks into a bar.")
+            .Returns("Why did the chicken cross the road? To get to the other side!");
+        mockOutputService.Setup(os => os.WriteJoke(It.IsAny<string>()))
+            .Callback<string>(joke => outputJoke = joke);
+        Jester jester = new(mockOutputService.Object, mockJokeService.Object);
+
+        // Act
+        jester.TellJoke();
+
+        // Assert
+        Assert.Equal("Why did the chicken cross the road? To get to the other side!", outputJoke);
     }
 }
