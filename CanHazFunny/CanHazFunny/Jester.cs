@@ -13,10 +13,31 @@ namespace CanHazFunny;
         private JokeService jokeService = new ();
         public void TellJoke()
         {
-            System.Console.WriteLine(jokeService.GetJoke());
+            string response = jokeService.GetJoke();
+            bool isntChuckNorris = response.Contains("Chuck Norris");
+        if (isntChuckNorris == false)
+        {
+            System.Console.WriteLine(response);
+        }
+        else
+        {
+            TellJoke();
+        }
+ 
+
         }
         public void TellJokeJson()
         {
-            System.Console.WriteLine(jokeService.GetJokeJson());
+
+        string jsonResponse = jokeService.GetJoke();
+        bool isntChuckNorris = jsonResponse.Contains("Chuck Norris");
+        if (isntChuckNorris == false)
+        {
+            System.Console.WriteLine(jsonResponse);
+        }
+        else
+        {
+            TellJokeJson();
+        }
         }
     }
