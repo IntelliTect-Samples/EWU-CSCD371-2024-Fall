@@ -1,6 +1,6 @@
 namespace CanHazFunny
 {
-    internal class Jester
+    public class Jester
     {
         private IJokeService jokeService;
         private IOutputService outputService;
