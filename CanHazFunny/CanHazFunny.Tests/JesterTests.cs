@@ -13,10 +13,8 @@ public class JesterTests
     {
         // Arrange
         Jester jester = new();
-
         // Act
         jester.TellJoke();
-
         // Assert
         Assert.NotNull(jester);
     }
@@ -35,10 +33,10 @@ public class JesterTests
     public void GetJoke_ShouldReturnJoke()
     {
         //Arrange
-       JokeService jokeService= new();
-       string joke;
+        JokeService jokeService= new();
+        string joke;
         //Act
-       joke = jokeService.GetJoke();
+        joke = jokeService.GetJoke();
         //Assert
         Assert.NotNull(joke);
     }
@@ -71,17 +69,13 @@ public class JesterTests
    [Fact]
    public void Main_SwitchToJson_SwitchToHttp()
    {
-            // Arrange
+        // Arrange
         var stringWriter = new StringWriter();
         Console.SetOut(stringWriter);
-
-        // Simulate invalid input
         var inputs = new[] { "F", "F" }; 
         Console.SetIn(new StringReader(string.Join(Environment.NewLine, inputs)));
-
         // Act
         Program.Main(Array.Empty<string>());
-
         // Assert
         var output = stringWriter.ToString();
         Assert.Contains("Format changed to: Json" + System.Environment.NewLine, output);
