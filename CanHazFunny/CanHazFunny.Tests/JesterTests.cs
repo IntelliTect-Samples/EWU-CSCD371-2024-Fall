@@ -62,7 +62,7 @@ public class JesterTests
         var inputs = new[] { "A", "Y" };
         Console.SetIn(new StringReader(string.Join(Environment.NewLine, inputs)));
         // Act
-        Program.Main(new string[0]);
+        Program.Main(Array.Empty<string>());
         // Assert
         var output = stringWriter.ToString();
         Assert.Contains("Invalid input. Please enter Y or N.", output);
@@ -80,7 +80,7 @@ public class JesterTests
         Console.SetIn(new StringReader(string.Join(Environment.NewLine, inputs)));
 
         // Act
-        Program.Main(new string[0]);
+        Program.Main(Array.Empty<string>());
 
         // Assert
         var output = stringWriter.ToString();
