@@ -3,8 +3,7 @@ using Xunit;
 using Interfaces;
 using Moq;
 
-namespace CanHazFunny.Tests
-{
+namespace CanHazFunny.Tests;
     public class JesterTests
     {
         [Fact]
@@ -120,7 +119,7 @@ namespace CanHazFunny.Tests
                 .Returns("Chuck Norris joke")  // First call returns a Chuck Norris joke
                 .Returns("This is a valid joke");  // Second call returns a valid joke
 
-            Jester jester = new Jester(mockJokeService.Object, mockJokeOutput.Object);
+            Jester jester = new (mockJokeService.Object, mockJokeOutput.Object);
 
             // Act
             string joke = jester.TellJoke();
@@ -141,7 +140,7 @@ namespace CanHazFunny.Tests
             // Simulate the joke service returning null
             mockJokeService.Setup(service => service.GetJoke()).Returns((string)null!);
 
-            Jester jester = new Jester(mockJokeService.Object, mockJokeOutput.Object);
+            Jester jester = new (mockJokeService.Object, mockJokeOutput.Object);
 
             // Act & Assert
             Assert.Throws<NullReferenceException>(() => jester.TellJoke());
@@ -157,7 +156,7 @@ namespace CanHazFunny.Tests
             // Simulate the joke service returning a valid joke
             mockJokeService.Setup(service => service.GetJoke()).Returns("This is a test joke");
 
-            Jester jester = new Jester(mockJokeService.Object, mockJokeOutput.Object);
+            Jester jester = new (mockJokeService.Object, mockJokeOutput.Object);
 
             // Act
             jester.TellJoke();
@@ -166,4 +165,5 @@ namespace CanHazFunny.Tests
             mockJokeOutput.Verify(output => output.OutputJoke("This is a test joke"), Times.Once);  // Ensure OutputJoke was called with the correct joke
         }
     }
-}
+
+
