@@ -35,22 +35,22 @@ public class Program
                     jester.TellJoke();
                 }
                 }
-            else if (response == "F")
+                else if (response == "F")
             {
-                if (currentFormat == "Http")
+                    if (currentFormat == "Http")
                 {
                     currentFormat = "Json";
                     wantJson = true;
                     System.Console.WriteLine("Format changed to: " + currentFormat + System.Environment.NewLine);
                 }
-                else
+                    else
                 {
                     currentFormat = "Http";
                     wantJson = false;
                     System.Console.WriteLine("Format changed to: " + currentFormat + System.Environment.NewLine);
                 }
             }
-            else
+                else
                 {
                     System.Console.WriteLine("Invalid input. Please enter Y or N.");
                 }
