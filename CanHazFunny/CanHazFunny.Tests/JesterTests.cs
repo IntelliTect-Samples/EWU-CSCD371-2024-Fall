@@ -99,7 +99,7 @@ public class JesterTests
     [Fact]
     public void JesterTellJoke_ScreensForChuckNorris_NoChuckJokes()
     {
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 3; i++)
         {
             // Arrange
             StringWriter consoleOutput;

@@ -33,15 +33,11 @@ public class Jester
     public void TellJoke()
     {
         string joke;
-        
-        /*
         do
         {
             joke = JokeService.GetJoke();
         } while (joke.Contains("Chuck") || joke.Contains("Norris"));
-        */
-        
-        joke = JokeService.GetJoke();
+
         DisplayJokes.OutputJoke(joke);
     }
 }
