@@ -15,7 +15,7 @@ public class JesterTests
         JsonJokeService jsonJokeService = new();
 
         //Act
-        Jester jester = new Jester(displayService, jsonJokeService);
+        Jester jester = new(displayService, jsonJokeService);
 
         //Assert
         Assert.NotNull(jester);
@@ -30,7 +30,7 @@ public class JesterTests
         JsonJokeService jsonJokeService = new();
 
         //Act
-        Jester jester = new Jester(displayService, jsonJokeService);
+        Jester jester = new (displayService, jsonJokeService);
 
         //Assert
         Assert.NotNull(jester);
@@ -43,7 +43,7 @@ public class JesterTests
         JsonJokeService jsonJokeService = new();
 
         //Act
-        Jester jester = new Jester(null!, jsonJokeService);
+        Jester jester = new (null!, jsonJokeService);
 
         //Assert
         Assert.NotNull(jester);
@@ -58,7 +58,7 @@ public class JesterTests
         var displayservice = new DisplayService();
 
         //Act
-        Jester jester = new Jester(displayservice, null!);
+        Jester jester = new (displayservice, null!);
 
         //Assert
         Assert.NotNull(jester);
