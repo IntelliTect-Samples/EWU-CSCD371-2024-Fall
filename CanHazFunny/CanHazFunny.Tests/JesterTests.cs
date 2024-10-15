@@ -41,7 +41,7 @@ public class JesterTests
 
         Jest.TellJoke();
         outputMock.Verify(foo => foo.WriteJoke("Valid Joke"), Times.AtLeastOnce());
-        outputMock.Verify(foo => foo.WriteJoke("norris joke"), Times.Never());
+        outputMock.Verify(foo => foo.WriteJoke("Norris joke"), Times.Never());
         outputMock.Verify(foo => foo.WriteJoke("ULTIMATE ChUck NorrIS"), Times.Never());
         outputMock.Verify(foo => foo.WriteJoke("ChUck joke"), Times.Never());
 

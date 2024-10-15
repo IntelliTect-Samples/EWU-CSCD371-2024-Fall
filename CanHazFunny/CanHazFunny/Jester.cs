@@ -39,14 +39,12 @@ public class Jester
 
     public Jester(IJokeOutput jokeOutput, IJokeService jokeService)
     {
-        //TODO: Null checks
         JokeOutput = jokeOutput;
         JokeService = jokeService;
     }
 
     public void TellJoke()
     {
-        //TODO: Filter out Chuck Norris jokes
         string joke = JokeService.GetJoke();
         while (joke.Contains("chuck norris", StringComparison.InvariantCultureIgnoreCase) || joke.Contains("chuck", StringComparison.InvariantCultureIgnoreCase) || joke.Contains("norris", StringComparison.InvariantCultureIgnoreCase))
         {
