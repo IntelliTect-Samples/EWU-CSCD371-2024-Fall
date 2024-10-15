@@ -81,6 +81,25 @@ public class JesterTests
         output = writer.ToString();
 
         //Assert
+        Assert.False(String.IsNullOrEmpty(output));
+        Assert.NotNull(jester);
+    }
+
+    [Fact]
+    public void TellJoke_JsonJokeService_PrintsJoke()
+    {
+        //Arrange
+        Jester jester = new(new DisplayService(), new JsonJokeService());
+        TextWriter writer = new StringWriter();
+        string? output;
+        Console.SetOut(writer);
+
+        //Act
+        jester.TellJoke();
+        output = writer.ToString();
+
+        //Assert
+        Assert.False(String.IsNullOrEmpty(output));
         Assert.NotNull(jester);
     }
 }
