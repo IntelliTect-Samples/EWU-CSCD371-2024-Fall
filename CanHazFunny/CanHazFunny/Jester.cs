@@ -4,10 +4,10 @@ namespace CanHazFunny
     public class Jester
     {
         private IJokeService _jokeService; // hold instance of joke service
-        private IOutput _output; // hold instance of output service
+        private IOutputService _output; // hold instance of output service
 
         // Constructor
-        public Jester(IJokeService jokeService, IOutput output)
+        public Jester(IJokeService jokeService, IOutputService output)
         {
             // Assign dependencies to private fields
             _jokeService = jokeService;
