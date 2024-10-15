@@ -1,7 +1,7 @@
 ﻿
 namespace CanHazFunny;
 
-public interface IJokeService
+public interface ITellJokes
 {
 
     public string GetJoke();
