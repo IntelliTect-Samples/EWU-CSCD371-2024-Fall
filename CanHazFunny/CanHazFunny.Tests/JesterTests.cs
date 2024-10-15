@@ -10,7 +10,6 @@ public class JesterTests
     [Fact]
     public void Constructor_JsonJokeService_CreatesValidJester()
     {
-
         //Arrange
         DisplayService displayService = new();
         JsonJokeService jsonJokeService = new();
