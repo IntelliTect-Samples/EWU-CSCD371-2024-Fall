@@ -1,14 +1,16 @@
+using System;
+
 namespace CanHazFunny
 {
-    internal class Jester
+    public class Jester
     {
-        private IJokeService jokeService;
-        private IOutputService outputService;
+        private IJokeService _jokeService;
+        private IOutputService _outputService;
 
-        public Jester(ConsoleOutputService outputService, JokeService jokeService)
+        public Jester(IOutputService outputService, IJokeService jokeService)
         {
-            this.outputService = outputService;
-            this.jokeService = jokeService;
+            _outputService = outputService ?? throw new ArgumentNullException(nameof(outputService));
+            _jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
         }
 
         public void TellJoke()
@@ -17,11 +19,11 @@ namespace CanHazFunny
 
             do
             {
-                joke = jokeService.GetJoke();
+                joke = _jokeService.GetJoke();
             }
             while (joke.Contains("Chuck Norris"));
 
-            outputService.WriteJoke(joke);
+            _outputService.WriteJoke(joke);
         }
     }
 }
