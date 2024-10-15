@@ -1,10 +1,18 @@
+using System.IO;
+using System;
+
 using Moq;
 using Xunit;
+//0b86380b7629a45753d5c0719de35fe66c4f91cc
 
 namespace CanHazFunny.Tests;
 
 public class JesterTests
 {
+    // Moq Quickstart: https://github.com/devlooped/moq/wiki/Quickstart
+
+
+
     [Fact]
     public void TellJoke_ReturnsValidJoke_JokePrinted()
     {

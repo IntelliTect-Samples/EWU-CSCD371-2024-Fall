@@ -1,15 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-
 	  <TargetFramework>net8.0</TargetFramework>
+
+	  <AnalysisLevel>latest-Recommended</AnalysisLevel>
       <IsPackable>false</IsPackable>
-	  
 	  <LangVersion>latest</LangVersion>
+	  
+	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	  <Nullable>enable</Nullable>
 
-	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	  <EnableNETAnalyzers>true</EnableNETAnalyzers>
 	  <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
 	  <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
