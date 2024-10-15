@@ -70,7 +70,7 @@ public class JesterTests
         Jester jester = new (jokeService, jokeOutputLog);
 
         // Act
-        string joke = jester.TellJoke().ToLower(); //Reduce to lower to prevent API errors.
+        string joke = jester.TellJoke(); //Reduce to lower to prevent API errors.
         bool noChuckNorris = !(joke.Contains("chuck norris", StringComparison.InvariantCultureIgnoreCase)); // Will return TRUE if it does NOT contain chuck or norris.
 
         // Assert
