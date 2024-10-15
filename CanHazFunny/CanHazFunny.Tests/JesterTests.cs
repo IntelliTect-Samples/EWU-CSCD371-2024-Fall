@@ -2,6 +2,7 @@
 using System;
 using Xunit;
 using Interfaces;
+using Moq;
 
 namespace CanHazFunny.Tests;
 
@@ -75,5 +76,38 @@ public class JesterTests
 
         // Assert
         Assert.True(noChuckNorris, "Joke contains Chuck Norris");
+    }
+    
+    [Fact]
+    public void JesterConstructor_NullJokeService_ThrowsArgumentNullException()
+    {
+        // Arrange
+        IJokeOutput jokeOutput = new ConsoleJokeOutput();
+
+        // Act & Assert
+        Assert.Throws<ArgumentNullException>(() => new Jester(null!, jokeOutput));
+    }
+
+    [Fact]
+    public void JesterConstructor_NullJokeOutput_ThrowsArgumentNullException()
+    {
+        // Arrange
+        IJokeService jokeService = new JokeService();
+
+        // Act & Assert
+        Assert.Throws<ArgumentNullException>(() => new Jester(jokeService, null!));
+    }
+
+    [Fact]
+    public void TellJoke_JokeServiceReturnsNull_ThrowsException()
+    {
+        // Arrange
+        var mockJokeService = new Mock<IJokeService>();
+        mockJokeService.Setup(js => js.GetJoke()).Returns((string)null!);
+        var mockJokeOutput = new Mock<IJokeOutput>();
+        var jester = new Jester(mockJokeService.Object, mockJokeOutput.Object);
+
+        // Act & Assert
+        Assert.Throws<NullReferenceException>(() => jester.TellJoke());
     }
 }
