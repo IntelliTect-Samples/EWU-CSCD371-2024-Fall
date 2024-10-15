@@ -10,6 +10,7 @@
 	  <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 	  <EnableNETAnalyzers>true</EnableNETAnalyzers>
 	  <IsTestProject>true</IsTestProject>
+	  <NoWarn>$(NoWarn);CA1707</NoWarn>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
