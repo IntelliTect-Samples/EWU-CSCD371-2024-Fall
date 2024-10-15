@@ -48,7 +48,7 @@ public class Jester
     {
         //TODO: Filter out Chuck Norris jokes
         string joke = JokeService.GetJoke();
-        while (joke.ToLower().Contains("chuck norris") || joke.ToLower().Contains("chuck") || joke.ToLower().Contains("norris"))
+        while (joke.Contains("chuck norris", StringComparison.InvariantCultureIgnoreCase) || joke.Contains("chuck", StringComparison.InvariantCultureIgnoreCase) || joke.Contains("norris", StringComparison.InvariantCultureIgnoreCase))
         {
             joke = JokeService.GetJoke();
         }
