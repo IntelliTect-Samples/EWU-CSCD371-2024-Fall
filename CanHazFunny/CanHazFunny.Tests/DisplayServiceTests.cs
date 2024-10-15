@@ -18,11 +18,12 @@ namespace CanHazFunny.Tests
             StringWriter consoleOut = new();
             Console.SetOut(consoleOut);
             DisplayService displayService = new();
+
             //Act
             displayService.DisplayJoke(joke);
+
             //Assert
             Assert.Equal(consoleOut.ToString().Trim(),joke.Trim());
-            
         }
     }
 }

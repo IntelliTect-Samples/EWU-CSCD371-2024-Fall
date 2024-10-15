@@ -26,7 +26,6 @@ public class JsonJokeServiceTests
         //Assert.AreEqual("hi", joke); //Uncomment line to see result
     }
 
-
     [Theory]
     [InlineData("{ \"joke\": \"A joke here!\" }", "A joke here!")]
     public void ParseJsonJoke_ValidJson_ReturnsString(string jsonString, string expected)
@@ -37,6 +36,7 @@ public class JsonJokeServiceTests
 
         // Act
         response =service.ParseJokeFromJsonString(jsonString);
+
         // Assert
         Assert.NotNull(response);
         Assert.Equal(expected, response);

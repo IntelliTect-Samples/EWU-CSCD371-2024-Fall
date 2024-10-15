@@ -13,6 +13,7 @@ public class JsonJokeService : ITellJokes
         string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api?format=json").Result;
         return joke;
     }
+
     public string? ParseJokeFromJsonString(string jsonString)
     {
         JsonDocument doc = JsonDocument.Parse(jsonString);
@@ -20,6 +21,4 @@ public class JsonJokeService : ITellJokes
         string? response = doc.RootElement.GetProperty("joke").GetString();
         return response;
     }
-
-
 }
