@@ -35,7 +35,7 @@ public class JsonJokeServiceTests
         string? response;
 
         // Act
-        response =service.ParseJokeFromJsonString(jsonString);
+        response = JsonJokeService.ParseJokeFromJsonString(jsonString);
 
         // Assert
         Assert.NotNull(response);
