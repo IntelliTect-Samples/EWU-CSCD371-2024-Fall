@@ -41,6 +41,4 @@ public class Jester
 
         DisplayJokes.OutputJoke(joke);
     }
-
-
 }

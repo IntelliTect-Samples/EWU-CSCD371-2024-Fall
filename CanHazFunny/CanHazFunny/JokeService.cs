@@ -16,15 +16,14 @@ public class JokeService : IJokeService
         return FormatJoke(jsonResponse);
     }
 
-    public static string FormatJoke(string jsonJoke)
+    public static string FormatJoke(string? jsonJoke)
     {
+        ArgumentNullException.ThrowIfNull(jsonJoke);
         JsonNode? jokeNode = JsonNode.Parse(jsonJoke);
 
         string? joke = jokeNode?["joke"]?.ToString();
 
-        ArgumentNullException.ThrowIfNullOrEmpty(joke, "No joke for you!");
-
-        return joke;
+        return joke!;
     }
 }
 
