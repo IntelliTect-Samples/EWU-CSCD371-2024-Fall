@@ -8,20 +8,51 @@ namespace CanHazFunny;
 
 public class Jester
 {
-    private readonly IJokeOutput _jokeOutput;
-    private readonly IJokeService _jokeService;
+    private IJokeOutput? _jokeOutput;
+    private IJokeService? _jokeService;
+    
+    private IJokeOutput JokeOutput { 
+        set
+        {
+            ArgumentNullException.ThrowIfNull(value, nameof(value));
+            _jokeOutput = value;
+        }
+        get
+        {
+            return _jokeOutput!;
+        }
+    }
+
+    private IJokeService JokeService
+    {
+        set
+        {
+            ArgumentNullException.ThrowIfNull(value, nameof(value));
+            _jokeService = value;
+        }
+        get
+        {
+            return _jokeService!;
+        }
+    }
+
 
     public Jester(IJokeOutput jokeOutput, IJokeService jokeService)
     {
         //TODO: Null checks
-        _jokeOutput = jokeOutput;
-        _jokeService = jokeService;
+        JokeOutput = jokeOutput;
+        JokeService = jokeService;
     }
 
     public void TellJoke()
     {
         //TODO: Filter out Chuck Norris jokes
-        string joke = _jokeService.GetJoke();
-        _jokeOutput.WriteJoke(joke);
+        string joke = JokeService.GetJoke();
+        while (joke.Contains("chuck norris", StringComparison.InvariantCultureIgnoreCase) || joke.Contains("chuck", StringComparison.InvariantCultureIgnoreCase) || joke.Contains("norris", StringComparison.InvariantCultureIgnoreCase))
+        {
+            joke = JokeService.GetJoke();
+        }
+
+        JokeOutput.WriteJoke(joke);
     }
 }
