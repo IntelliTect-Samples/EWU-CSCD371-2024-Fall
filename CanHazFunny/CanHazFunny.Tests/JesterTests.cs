@@ -47,14 +47,14 @@ public class JesterTests
     [Fact]
     public void Constructor_NullJokeService_ThrowsArgumentNullException()
     {
-        // Arrange & Act & Assert
+        //Assert
         Assert.Throws<ArgumentNullException>(() => new Jester(new Mock<IOutputService>().Object, null));
     }
 
     [Fact]
     public void Constructor_NullOutputService_ThrowsArgumentNullException()
     {
-        // Arrange & Act & Assert
+        //Assert
         Assert.Throws<ArgumentNullException>(() => new Jester(null, new Mock<IJokeService>().Object));
     }
 }
