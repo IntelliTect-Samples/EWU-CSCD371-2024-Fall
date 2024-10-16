@@ -57,4 +57,33 @@ public class JesterTests
         //Assert
         Assert.Throws<ArgumentNullException>(() => new Jester(null, new Mock<IJokeService>().Object));
     }
+    [Fact]
+    public void OutputService_Initialized_ReturnsSameInstance()
+    {
+        // Arrange
+        var mockJokeService = new Mock<IJokeService>();
+        var mockOutputService = new Mock<IOutputService>();
+        var jester = new Jester(mockOutputService.Object, mockJokeService.Object);
+
+        // Act
+        var result = jester.OutputService;
+
+        // Assert
+        Assert.Same(mockOutputService.Object, result);
+    }
+
+    [Fact]
+    public void JokeService_Initialized_ReturnsSameInstance()
+    {
+        // Arrange
+        var mockJokeService = new Mock<IJokeService>();
+        var mockOutputService = new Mock<IOutputService>();
+        var jester = new Jester(mockOutputService.Object, mockJokeService.Object);
+
+        // Act
+        var result = jester.JokeService;
+
+        // Assert
+        Assert.Same(mockJokeService.Object, result); 
+    }
 }
