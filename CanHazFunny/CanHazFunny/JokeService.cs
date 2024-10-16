@@ -16,13 +16,13 @@ public class JokeService : IJokeService
         return FormatJoke(jsonResponse);
     }
 
-    public string FormatJoke(string jsonJoke)
+    public static string FormatJoke(string jsonJoke)
     {
         JsonNode? jokeNode = JsonNode.Parse(jsonJoke);
 
         string? joke = jokeNode?["joke"]?.ToString();
 
-        ArgumentNullException.ThrowIfNullOrEmpty(joke, "Joke returned null or empty");
+        ArgumentNullException.ThrowIfNullOrEmpty(joke, "No joke for you!");
 
         return joke;
     }
