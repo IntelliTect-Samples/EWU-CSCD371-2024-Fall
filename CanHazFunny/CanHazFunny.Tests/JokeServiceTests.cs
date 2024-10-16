@@ -20,5 +20,20 @@ namespace CanHazFunny.Tests
             // Assert
             Assert.Equal(expectedJoke, actualJoke);
         }
+
+        [Fact]
+        public void GetJoke_Called_ReturnsNonEmptyString()
+        {
+            // Arrange
+            var service = new JokeService();
+
+            // Act
+            var result = service.GetJoke();
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.NotEmpty(result);
+            Assert.IsType<string>(result);
+        }
     }
 }
