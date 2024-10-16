@@ -1,7 +1,89 @@
+using System;
 using Xunit;
+using Moq;
 
 namespace CanHazFunny.Tests;
 
 public class JesterTests
 {
+    [Fact]
+    public void TellJoke_JokeRetrieved_SuccessfullyReceived()
+    {
+        //Arrange
+        var serviceMock = new Mock<IJokeService>();
+        var outputMock = new Mock<IOutputService>();
+
+        serviceMock.Setup(foo => foo.GetJoke()).Returns("Why is 6 afraid of 7? Because 7 ate 9!");
+        var jester = new Jester(outputMock.Object, serviceMock.Object);
+
+        //Act
+        jester.TellJoke();
+
+        //Assert
+        outputMock.Verify(foo => foo.WriteJoke("Why is 6 afraid of 7? Because 7 ate 9!"), Times.Once());
+    }
+
+    [Fact]
+    public void TellJoke_ChuckNorrisJokeRetrieved_NewJokeChosenAndOutputCorrectly()
+    {
+        //Arrange
+        var serviceMock = new Mock<IJokeService>();
+        var outputMock = new Mock<IOutputService>();
+
+        serviceMock.SetupSequence(foo => foo.GetJoke())
+            .Returns("Chuck Norris joke")
+            .Returns("Valid joke");        
+
+        var jester = new Jester(outputMock.Object, serviceMock.Object);
+
+        //Act
+        jester.TellJoke();
+
+        //Assert
+        outputMock.Verify(foo => foo.WriteJoke("Chuck Norris joke"), Times.Never());
+        outputMock.Verify(foo => foo.WriteJoke("Valid joke"), Times.Once());
+    }
+
+    [Fact]
+    public void Constructor_NullJokeService_ThrowsArgumentNullException()
+    {
+        //Assert
+        Assert.Throws<ArgumentNullException>(() => new Jester(new Mock<IOutputService>().Object, null));
+    }
+
+    [Fact]
+    public void Constructor_NullOutputService_ThrowsArgumentNullException()
+    {
+        //Assert
+        Assert.Throws<ArgumentNullException>(() => new Jester(null, new Mock<IJokeService>().Object));
+    }
+    [Fact]
+    public void OutputService_Initialized_ReturnsSameInstance()
+    {
+        // Arrange
+        var mockJokeService = new Mock<IJokeService>();
+        var mockOutputService = new Mock<IOutputService>();
+        var jester = new Jester(mockOutputService.Object, mockJokeService.Object);
+
+        // Act
+        var result = jester.OutputService;
+
+        // Assert
+        Assert.Same(mockOutputService.Object, result);
+    }
+
+    [Fact]
+    public void JokeService_Initialized_ReturnsSameInstance()
+    {
+        // Arrange
+        var mockJokeService = new Mock<IJokeService>();
+        var mockOutputService = new Mock<IOutputService>();
+        var jester = new Jester(mockOutputService.Object, mockJokeService.Object);
+
+        // Act
+        var result = jester.JokeService;
+
+        // Assert
+        Assert.Same(mockJokeService.Object, result); 
+    }
 }
