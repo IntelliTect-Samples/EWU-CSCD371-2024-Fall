@@ -11,20 +11,12 @@ public class JokeService : IJokeService
     public string GetJoke()
     {
         string jsonResponse = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api?format=json").Result;
-        
-        JsonNode? jokeNode = JsonNode.Parse(jsonResponse);
 
+        JsonNode? jokeNode = JsonNode.Parse(jsonResponse);
 
         string joke = jokeNode?["joke"]?.ToString() ?? "No joke for you!";
 
-        bool isnull = CheckJokeForNullOrWhiteSpace(joke);
-
         return joke;
-    }
-
-    public bool CheckJokeForNullOrWhiteSpace(string joke)
-    {
-        return string.IsNullOrWhiteSpace(joke);
     }
 }
 
