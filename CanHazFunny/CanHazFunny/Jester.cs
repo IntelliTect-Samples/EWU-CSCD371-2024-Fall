@@ -14,7 +14,7 @@ namespace CanHazFunny;
         public Jester(IJokeService jokeService, IJokeOutput jokeOutput)
         {
             _jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
-            _jokeOutput = jokeOutput ?? throw new ArgumentNullException(nameof(jokeService));
+            _jokeOutput = jokeOutput ?? throw new ArgumentNullException(nameof(jokeOutput));
         }
 
         //Establish TellJoke for Jester, which will call GetJoke. Need to add assessing for Chuck Norris.
