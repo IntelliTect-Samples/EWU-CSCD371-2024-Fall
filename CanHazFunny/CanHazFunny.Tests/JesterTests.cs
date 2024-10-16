@@ -2,6 +2,7 @@ using Xunit;
 using CanHazFunny;
 using System;
 using System.IO;
+using Moq;
 
 namespace CanHazFunny.Tests;
 
@@ -52,7 +53,7 @@ public class JesterTests
     }
 
     [Fact]
-    public void TellJoke_GetsJokeWithNoChuckNorris_PrintsJoke()
+    public void TellJoke_PrintsJoke_Success()
     {
         StringWriter writer = new();
         Console.SetOut(writer);
@@ -60,6 +61,32 @@ public class JesterTests
         Jester jester = new(new JokeService(), new ConsoleJoke());
         jester.TellJoke();
 
-        Assert.DoesNotContain("Chuck Norris", writer.ToString());
+        Assert.NotEqual(string.Empty, writer.ToString());
+    }
+
+    [Fact]
+    public void TellJoke_JokeServiceReturnsNull_NullReferenceException()
+    {
+        var mockJokeService = new Mock<IJokeService>();
+        mockJokeService.Setup(x => x.GetJoke()).Returns((string)null!);
+        var mockJokeTeller = new Mock<IJokeTeller>();
+        Jester jester = new(mockJokeService.Object, mockJokeTeller.Object);
+
+        Assert.Throws<NullReferenceException>(() => jester.TellJoke());
+    }
+
+    [Fact]
+    public void TellJoke_JokeServiceReturnsChuckNorris_Success()
+    {
+        var mockJokeService = new Mock<IJokeService>();
+        mockJokeService.SetupSequence(x => x.GetJoke())
+            .Returns("Chuck Norris joke")
+            .Returns("Another joke");
+        var mockJokeTeller = new Mock<IJokeTeller>();
+        Jester jester = new(mockJokeService.Object, mockJokeTeller.Object);
+
+        jester.TellJoke();
+
+        mockJokeTeller.Verify(x => x.TellJoke("Another joke"), Times.Once);
     }
 }
