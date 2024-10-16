@@ -26,17 +26,34 @@ public class JesterTests
     }
 
     [Fact]
-    public void ClassCreation_PassedNullToDisplayJokesAndJokeService_ThrowsException()
+    public void ClassCreation_PassedNullToJokeService_ThrowsException()
     {
         // Arrange
         //IDisplayJokes displayJokes = new DisplayJokes();
+        IJokeService jokeService = new JokeService();
 
 
         // Act
 
 
         // Assert
-        Assert.Throws<ArgumentNullException>(() => new Jester(null!, null!));
+        Assert.Throws<ArgumentNullException>(() => new Jester(jokeService, null!));
+
+    }
+
+    [Fact]
+    public void ClassCreation_PassedNullToDisplayJokes_ThrowsException()
+    {
+        // Arrange
+        IDisplayJokes displayJokes = new DisplayJokes();
+        //IJokeService jokeService = new JokeService();
+
+
+        // Act
+
+
+        // Assert
+        Assert.Throws<ArgumentNullException>(() => new Jester(null!, displayJokes));
 
     }
 
