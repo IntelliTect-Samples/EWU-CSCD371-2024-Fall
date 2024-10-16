@@ -2,5 +2,5 @@
 
 public interface IJokeService
 {
-    string GetJoke();
+    public string GetJoke();
 }
