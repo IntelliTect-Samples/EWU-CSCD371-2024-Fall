@@ -43,4 +43,18 @@ public class JesterTests
         outputMock.Verify(foo => foo.WriteJoke("Chuck Norris joke"), Times.Never());
         outputMock.Verify(foo => foo.WriteJoke("Valid joke"), Times.Once());
     }
+
+    [Fact]
+    public void Constructor_NullJokeService_ThrowsArgumentNullException()
+    {
+        // Arrange & Act & Assert
+        Assert.Throws<ArgumentNullException>(() => new Jester(new Mock<IOutputService>().Object, null));
+    }
+
+    [Fact]
+    public void Constructor_NullOutputService_ThrowsArgumentNullException()
+    {
+        // Arrange & Act & Assert
+        Assert.Throws<ArgumentNullException>(() => new Jester(null, new Mock<IJokeService>().Object));
+    }
 }
