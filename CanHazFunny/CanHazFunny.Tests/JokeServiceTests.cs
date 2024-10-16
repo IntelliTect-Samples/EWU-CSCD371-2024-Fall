@@ -6,19 +6,30 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CanHazFunny.Tests;
-    public class JokeServiceTests
+public class JokeServiceTests
+{
+    [Fact]
+    public void JokeServiceInterface_CreateMokConcreteClass_Success()
     {
-        [Fact]
-        public void JokeServiceInterface_CreateMokConcreteClass_Success()
-        {
-            // Arrange
-            var jokeService = new Moq.Mock<IJokeService>();
-            jokeService.Setup(x => x.GetJoke()).Returns("Why did the chicken cross the road? To get to the other side.");
+        // Arrange
+        var jokeService = new Moq.Mock<IJokeService>();
+        jokeService.Setup(x => x.GetJoke()).Returns("Why did the chicken cross the road? To get to the other side.");
 
-            // Act
-            var joke = jokeService.Object.GetJoke();
+        // Act
+        var joke = jokeService.Object.GetJoke();
 
-            // Assert
-            Assert.Equal("Why did the chicken cross the road? To get to the other side.", joke);
-        }
+        // Assert
+        Assert.Equal("Why did the chicken cross the road? To get to the other side.", joke);
     }
+
+    [Fact]
+    public void FormatJoke_NullInput_ThrowsException()
+    {
+        // Arrange
+        JokeService jokeService = new();
+
+        // Act
+        // Assert
+        Assert.Throws<ArgumentNullException>(() => jokeService.FormatJoke(null!));
+    }
+}
