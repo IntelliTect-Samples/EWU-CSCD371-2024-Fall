@@ -14,7 +14,7 @@ public class JokeService : IJokeService
         
         JsonNode? jokeNode = JsonNode.Parse(jsonResponse);
 
-        string joke = jokeNode?.ToString() ?? "No joke for you!";
+        string joke = jokeNode?["joke"]?.ToString() ?? "No joke for you!";
 
         return joke;
     }
