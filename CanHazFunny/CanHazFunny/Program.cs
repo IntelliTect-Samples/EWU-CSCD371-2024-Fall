@@ -9,5 +9,6 @@ public class Program
 
         //Jester jester = new(new JokeService(), new DisplayJokes());
         //jester.TellJoke();
+        new Jester(new JokeService(), new DisplayJokes()).TellJoke();
     }
 }

@@ -14,9 +14,17 @@ public class JokeService : IJokeService
         
         JsonNode? jokeNode = JsonNode.Parse(jsonResponse);
 
+
         string joke = jokeNode?["joke"]?.ToString() ?? "No joke for you!";
 
+        bool isnull = CheckJokeForNullOrWhiteSpace(joke);
+
         return joke;
+    }
+
+    public bool CheckJokeForNullOrWhiteSpace(string joke)
+    {
+        return string.IsNullOrWhiteSpace(joke);
     }
 }
 

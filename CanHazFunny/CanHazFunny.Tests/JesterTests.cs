@@ -41,6 +41,42 @@ public class JesterTests
     }
 
     [Fact]
+    public void Getters_DoGettersReturnCorrectValues_Success()
+    {
+        // Arrange
+        IJokeService jokeService = new JokeService();
+        IDisplayJokes displayJokes = new DisplayJokes();
+        Jester jester = new(jokeService, displayJokes);
+
+        // Act
+        IJokeService jokeServiceResult = jester.JokeService;
+        IDisplayJokes displayJokesResult = jester.DisplayJokes;
+
+        // Assert
+        Assert.Equal(jokeService, jokeServiceResult);
+        Assert.Equal(displayJokes, displayJokesResult);
+    }
+
+    [Fact]
+    public void Setters_DoSettersSetCorrectValues_Success()
+    {
+        // Arrange
+        IJokeService jokeService = new JokeService();
+        IDisplayJokes displayJokes = new DisplayJokes();
+        Jester jester = new(jokeService, displayJokes);
+
+        // Act
+        IJokeService newJokeService = new JokeService();
+        IDisplayJokes newDisplayJokes = new DisplayJokes();
+        jester.JokeService = newJokeService;
+        jester.DisplayJokes = newDisplayJokes;
+
+        // Assert
+        Assert.Equal(newJokeService, jester.JokeService);
+        Assert.Equal(newDisplayJokes, jester.DisplayJokes);
+    }
+
+    [Fact]
     public void ClassCreation_PassedValidClasses_HasValidClasses()
     {
         // Arrange
