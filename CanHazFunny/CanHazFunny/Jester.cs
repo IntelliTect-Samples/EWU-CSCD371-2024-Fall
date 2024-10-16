@@ -20,6 +20,9 @@ public class Jester
         do
         {
             joke = _jokeService.GetJoke();
+
+
+            if (joke == null) throw new ArgumentNullException(nameof(joke));
         }
         while (joke.Contains("Chuck Norris"));
 

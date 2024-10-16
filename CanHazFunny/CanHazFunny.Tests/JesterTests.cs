@@ -70,22 +70,20 @@ public class JesterTests
         Assert.NotNull(outputJoke);
     }
 
-    //[Fact]
-    //public void TellJoke_OutputNull_ThrowsException()
-    //{
-    //    // Arrange
-    //    var mockJokeService = new Mock<IJokeService>();
-    //    var mockOutputService = new Mock<IOutputService>();
+    [Fact]
+    public void TellJoke_OutputNull_ThrowsException()
+    {
+        // Arrange
+        var mockJokeService = new Mock<IJokeService>();
+        var mockOutputService = new Mock<IOutputService>();
 
-    //    string outputNullJoke = null!;
-    //    //mockJokeService.Setup(js => js.GetJoke()).Returns(null);
-    //    mockOutputService.Setup(os => os.WriteJoke(null)).Callback<string>(joke => outputNullJoke = joke);
-    //    Jester jester = new(mockOutputService.Object, mockJokeService.Object);
+        string nullJoke = null!;
+        mockJokeService.Setup(js => js.GetJoke()).Returns(nullJoke);
+        mockOutputService.Setup(os => os.WriteJoke(It.IsAny<string>())).Callback<string>(joke => nullJoke = joke);
 
-    //    // Act
-    //    jester.TellJoke();
+        Jester jester = new(mockOutputService.Object, mockJokeService.Object);
 
-    //    // Assert
-    //    Assert.Throws<ArgumentNullException>(() => outputNullJoke);
-    //}
+        // Assert
+        Assert.Throws<ArgumentNullException>(() => jester.TellJoke());
+    }
 }
