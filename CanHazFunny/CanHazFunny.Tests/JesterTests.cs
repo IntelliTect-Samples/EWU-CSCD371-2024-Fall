@@ -176,5 +176,4 @@ public class JesterTests
             Assert.DoesNotContain("Norris", output);
         }
     }
-
 }
