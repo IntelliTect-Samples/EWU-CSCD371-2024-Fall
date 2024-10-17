@@ -9,17 +9,9 @@ public class Jester
 
     public Jester(IDisplayJokes jokeDisplayer, ITellJokes jokeTeller)
     {
-        if (jokeDisplayer is null)
-        {
-            JokeDisplayer = jokeDisplayer ?? throw new ArgumentNullException($"{nameof(jokeDisplayer)} cannot be null");
-        }
-        JokeDisplayer = jokeDisplayer;
+        JokeDisplayer = jokeDisplayer ?? throw new ArgumentNullException($"{nameof(jokeDisplayer)} cannot be null");
 
-        if (jokeTeller is null)
-        {
-            JokeTeller = jokeTeller ?? throw new ArgumentNullException($"{nameof(jokeTeller)} cannot be null.");
-        }
-        JokeTeller = jokeTeller;
+        JokeTeller = jokeTeller ?? throw new ArgumentNullException($"{nameof(jokeTeller)} cannot be null.");
     }
 
     public void TellJoke()
