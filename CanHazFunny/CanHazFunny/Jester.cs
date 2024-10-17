@@ -1,6 +1,6 @@
 ﻿namespace CanHazFunny;
 
-public class Jester : Joker
+public class Jester : IJoker
 {
     private JokeService jokeService = new();
     public bool TellJoke()

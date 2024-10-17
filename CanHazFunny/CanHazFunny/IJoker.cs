@@ -1,6 +1,6 @@
 namespace CanHazFunny
 {
-    public interface Joker
+    public interface IJoker
     {
         bool TellJoke();
         bool TellJokeJson();
