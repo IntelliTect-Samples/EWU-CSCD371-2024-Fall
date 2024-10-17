@@ -1,6 +1,6 @@
 ﻿namespace CanHazFunny;
 
-using CanHazFunny;
+
 using System;
 using System.Globalization;
 

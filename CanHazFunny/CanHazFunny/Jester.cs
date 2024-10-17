@@ -1,10 +1,6 @@
 ﻿namespace CanHazFunny;
-public interface IJoker
-    {
-        bool TellJoke();
-        bool TellJokeJson();
-    }
-    public class Jester : IJoker 
+
+    public class Jester : Joker 
     {
         private JokeService jokeService = new ();
         public bool TellJoke()

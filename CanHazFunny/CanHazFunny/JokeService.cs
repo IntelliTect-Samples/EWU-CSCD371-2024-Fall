@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Security.AccessControl;
 
 namespace CanHazFunny;
-public interface IJokeServicer
-{
-    string GetJoke();
-    string GetJokeJson();
 
-}
-public class JokeService : IJokeServicer
+public class JokeService : JokerService
 {
     private HttpClient HttpClient { get; } = new();  
     public string GetJoke()
