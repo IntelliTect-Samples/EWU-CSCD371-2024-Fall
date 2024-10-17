@@ -42,7 +42,6 @@ For this assignment do the following:
 
 ## Additional links
 
-- [Moq](https://github.com/moq/moq4) for test doubles
 - [coverlet](https://github.com/coverlet-coverage/coverlet#Quick-Start) code coverage tool
 - [Geek jokes API](https://github.com/sameerkumar18/geek-joke-api)
 
