@@ -31,7 +31,6 @@ For this assignment do the following:
   - Ensure that you turn on treat warnings as errors for all projects ❌✔
   - Ensure that you turn on `CodeAnalysisTreatWarningsAsErrors` ❌✔
   - Ensure that you turn on `EnforceCodeStyleInBuild` ❌✔
-- For this assignment, always use `Assert.Equal<T>()` (the generic version)  ❌✔
 - **Ensure there are no errors or warnings (including code analysis warnings)** ❌✔
 - **All of the above should be unit tested** ❌✔
 - **Choose simplicity over complexity** ❌✔
