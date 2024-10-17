@@ -4,7 +4,8 @@ using Interfaces;
 using Moq;
 
 namespace CanHazFunny.Tests;
-    public class JesterTests
+
+public class JesterTests
     {
         [Fact]
         public void JokeService_CallGetJoke_ReturnsJokeNotNullOrEmpty()
