@@ -7,7 +7,7 @@ namespace CanHazFunny.Tests;
 public class ConsoleJokeTests
 {
     [Fact]
-    public void TellJoke_PrintJoke_BeAbleToReadJoke()
+    public void TellJoke_GivenString_Success()
     {
         // Arrange
         var writeString = new StringWriter();
