@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 using System.Security.AccessControl;
 
 namespace CanHazFunny;
-interface IJokeServicer
+public interface IJokeServicer
 {
     string GetJoke();
     string GetJokeJson();
