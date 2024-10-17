@@ -31,7 +31,6 @@ For this assignment do the following:
   - Ensure that you turn on treat warnings as errors for all projects ❌✔
   - Ensure that you turn on `CodeAnalysisTreatWarningsAsErrors` ❌✔
   - Ensure that you turn on `EnforceCodeStyleInBuild` ❌✔
-- For this assignment, always use `Assert.Equal<T>()` (the generic version)  ❌✔
 - **Ensure there are no errors or warnings (including code analysis warnings)** ❌✔
 - **All of the above should be unit tested** ❌✔
 - **Choose simplicity over complexity** ❌✔
@@ -43,7 +42,6 @@ For this assignment do the following:
 
 ## Additional links
 
-- [Moq](https://github.com/moq/moq4) for test doubles
 - [coverlet](https://github.com/coverlet-coverage/coverlet#Quick-Start) code coverage tool
 - [Geek jokes API](https://github.com/sameerkumar18/geek-joke-api)
 
