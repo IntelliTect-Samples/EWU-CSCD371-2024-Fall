@@ -49,20 +49,16 @@ public class JesterTests
         var outputMock = new Mock<IJokeOutput>();
 
         serviceMock.SetupSequence(foo => foo.GetJoke()).Returns("ULTIMATE ChUck NorrIS")
-            .Returns("Norris joke")
-            .Returns("ChUck joke")
             .Returns("Valid Joke");
 
-        var Jest = new Jester(outputMock.Object, serviceMock.Object);
+        var jest = new Jester(outputMock.Object, serviceMock.Object);
 
         //Act
-        Jest.TellJoke();
+        jest.TellJoke();
         
         //Assert
         outputMock.Verify(foo => foo.WriteJoke("Valid Joke"), Times.AtLeastOnce());
-        outputMock.Verify(foo => foo.WriteJoke("Norris joke"), Times.Never());
         outputMock.Verify(foo => foo.WriteJoke("ULTIMATE ChUck NorrIS"), Times.Never());
-        outputMock.Verify(foo => foo.WriteJoke("ChUck joke"), Times.Never());
 
     }
 

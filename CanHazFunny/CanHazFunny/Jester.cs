@@ -46,7 +46,7 @@ public class Jester
     public void TellJoke()
     {
         string joke = JokeService.GetJoke();
-        while (joke.Contains("chuck norris", StringComparison.InvariantCultureIgnoreCase) || joke.Contains("chuck", StringComparison.InvariantCultureIgnoreCase) || joke.Contains("norris", StringComparison.InvariantCultureIgnoreCase))
+        while (joke.Contains("chuck norris", StringComparison.InvariantCultureIgnoreCase))
         {
             joke = JokeService.GetJoke();
         }
