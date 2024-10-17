@@ -1,8 +1,8 @@
-namespace CanHazFunny
+namespace CanHazFunny;
+
+
+public interface IJoker
 {
-    public interface IJoker
-    {
-        bool TellJoke();
-        bool TellJokeJson();
-    }
+    bool TellJoke();
+    bool TellJokeJson();
 }
