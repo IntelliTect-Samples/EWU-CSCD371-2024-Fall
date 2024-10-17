@@ -5,7 +5,7 @@ namespace CanHazFunny.Tests;
 public class JokeServiceTests
 {
     [Fact]
-    public void GetJoke_ReturnJoke_WhenApiReturnIsValid()
+    public void GetJoke_APICall_ReturnValidJoke()
     {
         // Arrange
         JokeService jokeService = new();
@@ -13,5 +13,6 @@ public class JokeServiceTests
         string joke = jokeService.GetJoke();
         // Assert
         Assert.NotNull(joke);
-    }
+        Assert.NotEmpty(joke);
+    }   
 }
