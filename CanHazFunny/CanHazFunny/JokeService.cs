@@ -11,6 +11,7 @@ public class JokeService : IJokeService
     public string GetJoke()
     {
         string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
+        ArgumentNullException.ThrowIfNull(joke);
         return joke;
     }
 
@@ -29,5 +30,5 @@ public class JokeService : IJokeService
 
 public sealed class JokeResponse
 {
-    public string? Joke { get; set; }
+    public string? Joke { get; set; } = "Whats a mermaids favorite dessert? SpongeCake!";
 }
