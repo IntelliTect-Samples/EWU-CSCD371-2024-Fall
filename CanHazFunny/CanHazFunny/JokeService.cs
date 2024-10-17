@@ -6,7 +6,8 @@ namespace CanHazFunny;
 
 public class JokeService : JokerService
 {
-    private HttpClient HttpClient { get; } = new();  
+    private HttpClient HttpClient { get; } = new();
+
     public string GetJoke()
     {
         string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
@@ -24,7 +25,6 @@ public class JokeService : JokerService
 
         return jokeResponse.Joke ?? throw new InvalidOperationException("Joke is null");
     }
- 
 }
 
 public sealed class JokeResponse

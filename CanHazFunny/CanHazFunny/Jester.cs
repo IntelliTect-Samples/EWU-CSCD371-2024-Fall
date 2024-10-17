@@ -1,9 +1,9 @@
 ﻿namespace CanHazFunny;
 
-    public class Jester : Joker 
-    {
-        private JokeService jokeService = new ();
-        public bool TellJoke()
+public class Jester : Joker
+{
+    private JokeService jokeService = new();
+    public bool TellJoke()
     {
         string response = jokeService.GetJoke();
         bool isntChuckNorris = response.Contains("Norris") || response.Contains("Chuck");
@@ -15,13 +15,12 @@
         }
         else
         {
-           
             return TellJoke();
         }
     }
-        public bool TellJokeJson()
-        {
 
+    public bool TellJokeJson()
+    {
         string jsonResponse = jokeService.GetJokeJson();
         bool isntChuckNorris = jsonResponse.Contains("Norris") || jsonResponse.Contains("Chuck");
         if (!isntChuckNorris)
@@ -31,9 +30,7 @@
         }
         else
         {
-        
             return TellJokeJson();
-           
-        }
         }
     }
+}
