@@ -1,4 +1,6 @@
-﻿namespace CanHazFunny.Tests;
+﻿using System;
+
+namespace CanHazFunny.Tests;
 
 public class Jester
 {
@@ -7,11 +9,9 @@ public class Jester
 
     public Jester(IDisplayJokes jokeDisplayer, ITellJokes jokeTeller)
     {
-        if (jokeDisplayer is null) jokeDisplayer = new DisplayService();
-        JokeDisplayer = jokeDisplayer;
+        JokeDisplayer = jokeDisplayer ?? throw new ArgumentNullException($"{nameof(jokeDisplayer)} cannot be null");
 
-        if (jokeTeller is null) jokeTeller = new JokeService();
-        JokeTeller = jokeTeller;
+        JokeTeller = jokeTeller ?? throw new ArgumentNullException($"{nameof(jokeTeller)} cannot be null.");
     }
 
     public void TellJoke()
