@@ -36,33 +36,25 @@ public class JesterTests
     }
 
     [Fact]
-    public void Constructor_DisplayServiceNull_CreatesValidJester()
+    public void Constructor_DisplayServiceNull_ThrowsArgumentNullException()
     {
         //Arrange
-        JsonJokeService jsonJokeService = new();
 
         //Act
-        Jester jester = new (null!, jsonJokeService);
 
         //Assert
-        Assert.NotNull(jester);
-        Assert.NotNull(jester.JokeDisplayer);
-        Assert.NotNull(jester.JokeTeller);
+        Assert.Throws<ArgumentNullException>(() => (new Jester(null!, new JokeService())));
     }
 
     [Fact]
-    public void Constructor_ITellJokesNull_CreatesValidJester()
+    public void Constructor_JokeServiceNull_ThrowsArgumentNullException()
     {
         //Arrange
-        var displayservice = new DisplayService();
 
         //Act
-        Jester jester = new (displayservice, null!);
 
         //Assert
-        Assert.NotNull(jester);
-        Assert.NotNull(jester.JokeDisplayer);
-        Assert.NotNull(jester.JokeTeller);
+        Assert.Throws<ArgumentNullException>(() => (new Jester(new DisplayService(), null!)));
     }
 
     [Fact]
