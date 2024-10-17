@@ -16,6 +16,17 @@ public class JesterTests
         // Assert
         Assert.NotNull(jester);
     }
+
+    [Fact]
+    public void JokeService_ShouldNotBeNull()
+    {
+        // Arrange
+        JokeService jokeService = new();
+        // Act
+
+        // Assert
+        Assert.NotNull(jokeService);
+    }
     [Fact]
     public void TellJokeJson_ShouldReturnJoke()
     {
