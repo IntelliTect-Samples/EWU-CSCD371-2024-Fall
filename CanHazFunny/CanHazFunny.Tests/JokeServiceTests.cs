@@ -1,31 +1,82 @@
 ﻿using Xunit;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json.Nodes;
 
-namespace CanHazFunny.Tests;
-public class JokeServiceTests
+namespace CanHazFunny.Tests
 {
-    [Fact]
-    public void JokeServiceInterface_CreateMokConcreteClass_Success()
+    public class JokeServiceTests
     {
-        // Arrange
-        var jokeService = new Moq.Mock<IJokeService>();
-        jokeService.Setup(x => x.GetJoke()).Returns("Why did the chicken cross the road? To get to the other side.");
+        [Fact]
+        public void JokeServiceInterface_CreateMockConcreteClass_Success()
+        {
+            // Arrange
+            var jokeService = new Moq.Mock<IJokeService>();
+            jokeService.Setup(x => x.GetJoke()).Returns("Test Joke haha");
 
-        // Act
-        var joke = jokeService.Object.GetJoke();
+            // Act
+            var joke = jokeService.Object.GetJoke();
 
-        // Assert
-        Assert.Equal("Why did the chicken cross the road? To get to the other side.", joke);
-    }
+            // Assert
+            Assert.Equal("Test Joke haha", joke);
+        }
 
-    [Fact]
-    public void FormatJoke_NullInput_ThrowsException()
-    {
-        // Assert
-        Assert.Throws<ArgumentNullException>(() => JokeService.FormatJoke(null!));
+        [Fact]
+        public void FormatJoke_NullInput_ThrowsException()
+        {
+            // Assert
+            Assert.Throws<ArgumentNullException>(() => JokeService.FormatJoke(null!));
+        }
+
+        [Fact]
+        public void ExtractJoke_NullJokeNode_ReturnsDefaultMessage()
+        {
+            // Arrange
+            JsonNode? jokeNode = null;
+
+            // Act
+            string result = JokeService.ExtractJoke(jokeNode);
+
+            // Assert
+            Assert.Equal("No joke found!", result);
+        }
+
+        [Fact]
+        public void ExtractJoke_JokeNodeExistsButJokeKeyIsNull_ReturnsDefaultMessage()
+        {
+            // Arrange
+            var jokeNode = JsonNode.Parse("{ \"joke\": null }");
+
+            // Act
+            string result = JokeService.ExtractJoke(jokeNode);
+
+            // Assert
+            Assert.Equal("No joke found!", result);
+        }
+
+        [Fact]
+        public void ExtractJoke_JokeNodeMissingJokeKey_ReturnsDefaultMessage()
+        {
+            // Arrange
+            var jokeNode = JsonNode.Parse("{ }");
+
+            // Act
+            string result = JokeService.ExtractJoke(jokeNode);
+
+            // Assert
+            Assert.Equal("No joke found!", result);
+        }
+
+        [Fact]
+        public void ExtractJoke_JokeNodeHasValidJoke_ReturnsJoke()
+        {
+            // Arrange
+            var jokeNode = JsonNode.Parse("{ \"joke\": \"Test Joke haha\" }");
+
+            // Act
+            string result = JokeService.ExtractJoke(jokeNode);
+
+            // Assert
+            Assert.Equal("Test Joke haha", result);
+        }
     }
 }

@@ -3,28 +3,36 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
-namespace CanHazFunny;
-
-public class JokeService : IJokeService
+namespace CanHazFunny
 {
-    private HttpClient HttpClient { get; } = new();
-
-    public string GetJoke()
+    public class JokeService : IJokeService
     {
-        string jsonResponse = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api?format=json").Result;
+        private HttpClient HttpClient { get; } = new();
 
-        return FormatJoke(jsonResponse);
-    }
+        public string GetJoke()
+        {
+            string jsonResponse = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api?format=json").Result;
 
-    public static string FormatJoke(string? jsonJoke)
-    {
-        ArgumentNullException.ThrowIfNull(jsonJoke);
-        JsonNode? jokeNode = JsonNode.Parse(jsonJoke);
+            return FormatJoke(jsonResponse);
+        }
 
-        string? joke = jokeNode?["joke"]?.ToString();
+        public static string FormatJoke(string? jsonJoke)
+        {
+            ArgumentNullException.ThrowIfNull(jsonJoke);
 
-        return joke!;
+            JsonNode? jokeNode = JsonNode.Parse(jsonJoke);
+
+            return ExtractJoke(jokeNode);
+        }
+
+        public static string ExtractJoke(JsonNode? jokeNode)
+        {
+            if (jokeNode == null || jokeNode["joke"] == null)
+            {
+                return "No joke found!";
+            }
+
+            return jokeNode["joke"]!.ToString(); 
+        }
     }
 }
-
-//Testing to see if I can push
