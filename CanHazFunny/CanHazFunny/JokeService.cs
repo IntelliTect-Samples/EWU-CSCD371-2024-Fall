@@ -33,7 +33,7 @@ public class JokeService : IJokeServicer
  
 }
 
-internal class JokeResponse
+public sealed class JokeResponse
 {
-    public string ? Joke { get; set; }
+    public string? Joke { get; set; }
 }
