@@ -1,38 +1,43 @@
 ﻿namespace CanHazFunny;
-public interface IJoker
+interface IJoker
     {
-        void TellJoke();
-        void TellJokeJson();
+        bool TellJoke();
+        bool TellJokeJson();
     }
     public class Jester : IJoker 
     {
         private JokeService jokeService = new ();
-        public void TellJoke()
+        public bool TellJoke()
     {
         string response = jokeService.GetJoke();
-        bool isntChuckNorris = response.Contains("Norris")|| response.Contains("Chuck");
+        bool isntChuckNorris = response.Contains("Norris") || response.Contains("Chuck");
 
         if (!isntChuckNorris)
         {
             System.Console.WriteLine(response);
+            return true;
         }
         else
         {
             TellJoke();
+            return false;
         }
     }
-        public void TellJokeJson()
+        public bool TellJokeJson()
         {
 
-        string jsonResponse = jokeService.GetJoke();
-        bool isntChuckNorris = jsonResponse.Contains("Norris")||jsonResponse.Contains("Chuck");
+        string jsonResponse = jokeService.GetJokeJson();
+        bool isntChuckNorris = jsonResponse.Contains("Norris") || jsonResponse.Contains("Chuck");
         if (!isntChuckNorris)
         {
             System.Console.WriteLine(jsonResponse);
+            return true;
         }
         else
         {
-            TellJokeJson();
+        
+            return TellJokeJson();
+           
         }
         }
     }

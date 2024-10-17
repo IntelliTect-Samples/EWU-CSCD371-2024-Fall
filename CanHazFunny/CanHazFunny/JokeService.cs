@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Security.AccessControl;
 
 namespace CanHazFunny;
-public interface IJokeServicer
+interface IJokeServicer
 {
     string GetJoke();
-    void TellJoke();
     string GetJokeJson();
-    void TellJokeJson();
+
 }
 public class JokeService : IJokeServicer
 {
@@ -18,25 +18,22 @@ public class JokeService : IJokeServicer
         string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
         return joke;
     }
-    public void TellJoke()
-    {
-        System.Console.WriteLine(GetJoke());
-    }
-    public class JokeResponse
-    {
-        public string Joke { get; set; } = "Chuck Noris Stinks";
-    }
+
     public string GetJokeJson()
     {
         JokeResponse? jokeResponse = HttpClient.GetFromJsonAsync<JokeResponse>("https://geek-jokes.sameerkumar.website/api?format=json").Result;
-        if (jokeResponse == null)
+
+        if (jokeResponse is null)
         {
-            throw new ArgumentNullException("GetJokeJson isNull");
+            throw new InvalidOperationException("Joke response is null");
         }
-        return jokeResponse.Joke;
+
+        return jokeResponse.Joke ?? throw new InvalidOperationException("Joke is null");
     }
-    public void TellJokeJson()
-    {
-        System.Console.WriteLine(GetJokeJson());
-    }
+ 
+}
+
+internal class JokeResponse
+{
+    public string ? Joke { get; set; }
 }

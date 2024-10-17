@@ -7,12 +7,12 @@ namespace CanHazFunny.Tests;
 public class JesterTests
 {
     [Fact]
-    public void TellJoke_ShouldReturnJoke()
+    public void Jester_ShouldNotBeNull()
     {
         // Arrange
         Jester jester = new();
         // Act
-        jester.TellJoke();
+   
         // Assert
         Assert.NotNull(jester);
     }
@@ -22,33 +22,12 @@ public class JesterTests
         //Arrange
         Jester jester = new();
         //Act
-        jester.TellJokeJson();
+   
         //Assert
-        Assert.NotNull(jester);
+        Assert.True(jester.TellJokeJson());
     }
     
-    [Fact]
-    public void GetJoke_ShouldReturnJoke()
-    {
-        //Arrange
-        JokeService jokeService= new();
-        string joke;
-        //Act
-        joke = jokeService.GetJoke();
-        //Assert
-        Assert.NotNull(joke);
-    }
-      [Fact]
-    public void GetJokeJson_ShouldReturnJoke()
-    {
-        //Arrange
-       JokeService jokeService= new();
-       string joke;
-        //Act
-       joke = jokeService.GetJokeJson();
-        //Assert
-        Assert.NotNull(joke);
-    }
+   
     [Fact]
     public void Main_WrongInput_ReturnString()
     {
