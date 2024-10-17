@@ -16,23 +16,38 @@ public class JokeService : IJokeService
         return FormatJoke(jsonResponse);
     }
 
-    public static string FormatJoke(string? jsonJoke)
+    public static string FormatJoke(string jsonJoke)
     {
-        ArgumentNullException.ThrowIfNull(jsonJoke);
 
         JsonNode? jokeNode = JsonNode.Parse(jsonJoke);
 
         return ExtractJoke(jokeNode);
     }
-
     public static string ExtractJoke(JsonNode? jokeNode)
     {
-        if (jokeNode == null || jokeNode["joke"] == null)
+        if (jokeNode?["joke"] is JsonNode joke)
+        {
+            return joke.ToString();
+        }
+        else
         {
             return "No joke found!";
         }
-
-        return jokeNode["joke"]!.ToString();
     }
+
+    //public static string ExtractJoke(JsonNode? jokeNode)
+    //{
+    //    if (jokeNode == null || jokeNode["joke"] == null)
+    //    {
+    //        return "No joke found!";
+    //    }
+
+    //    return jokeNode["joke"].ToString();
+    //}
+    //JsonNode? joke = jokeNode?["joke"];
+    //    if (joke == null)
+    //    {
+    //        return "No joke found!";
+    //    }
 }
 
