@@ -1,5 +1,4 @@
-﻿
-namespace CanHazFunny;
+﻿namespace CanHazFunny;
 
 public interface ITellJokes
 {
