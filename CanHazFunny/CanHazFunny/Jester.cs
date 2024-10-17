@@ -23,7 +23,7 @@ public class Jester
         }
         set
         {
-            ArgumentNullException.ThrowIfNull(value, nameof(value));
+            ArgumentNullException.ThrowIfNull(value, "Value passed in for JokeService is null");
             _jokeService = value;
         }
     }
@@ -35,7 +35,7 @@ public class Jester
         }
         set
         {
-            ArgumentNullException.ThrowIfNull(value, nameof(value));
+            ArgumentNullException.ThrowIfNull(value, "Value passed in for JokeTeller is null");
             _jokeTeller = value;
         }
     }
