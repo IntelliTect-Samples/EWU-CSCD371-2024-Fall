@@ -19,8 +19,8 @@ public interface IJoker
         }
         else
         {
-            TellJoke();
-            return false;
+           
+            return TellJoke();
         }
     }
         public bool TellJokeJson()
