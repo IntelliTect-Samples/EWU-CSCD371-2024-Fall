@@ -2,7 +2,7 @@
 
 namespace CanHazFunny;
 
-    internal class Jester : IJester
+    internal sealed class Jester : IJester
     {
         private OutputJokes outputJokes;
         private JokeService jokeService;

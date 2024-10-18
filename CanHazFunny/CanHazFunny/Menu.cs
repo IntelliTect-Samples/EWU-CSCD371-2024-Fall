@@ -38,7 +38,7 @@ namespace CanHazFunny;
         private static int GetChoice()
         {
             Console.Write("Enter your choice: ");
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine() ?? throw new ArgumentException("Console given no input");
             int choice;
             if (int.TryParse(input, out choice))
             {
