@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace CanHazFunny;
 public class Jester
 {
-
     private IJokeService? _jokeService;
     public IJokeService JokeService
     {
@@ -35,7 +34,8 @@ public class Jester
         do
         {
             joke = JokeService.GetJoke();
-        } while (joke.Contains("Chuck", StringComparison.OrdinalIgnoreCase) ||
+        } 
+        while (joke.Contains("Chuck", StringComparison.OrdinalIgnoreCase) ||
                  joke.Contains("Norris", StringComparison.OrdinalIgnoreCase));
 
         DisplayJokes.OutputJoke(joke);
