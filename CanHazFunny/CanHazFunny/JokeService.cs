@@ -1,14 +1,36 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace CanHazFunny;
 
-public class JokeService
+public class JokeService : IJokeService
 {
     private HttpClient HttpClient { get; } = new();
 
     public string GetJoke()
     {
-        string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
-        return joke;
+        string jsonResponse = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api?format=json").Result;
+        return FormatJoke(jsonResponse);
+    }
+
+    public static string FormatJoke(string jsonJoke)
+    {
+        JsonNode? jokeNode = JsonNode.Parse(jsonJoke);
+        return ExtractJoke(jokeNode);
+    }
+
+    public static string ExtractJoke(JsonNode? jokeNode)
+    {
+        if (jokeNode?["joke"] is JsonNode joke)
+        {
+            return joke.ToString();
+        }
+        else
+        {
+            return "No joke found!";
+        }
     }
 }
+
