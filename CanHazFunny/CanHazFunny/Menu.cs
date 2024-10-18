@@ -6,10 +6,6 @@ namespace CanHazFunny;
     {
         public static void ShowMenu()
         {
-            bool shouldExit = false;
-
-            while (!shouldExit)
-            {
                 Console.WriteLine("Select the format:");
                 Console.WriteLine("1. JSON");
                 Console.WriteLine("2. HTTP");
@@ -26,19 +22,19 @@ namespace CanHazFunny;
                         new Jester(new OutputJokes(), new JokeService()).TellJoke();
                         break;
                     case 3:
-                        shouldExit = true;
                         break;
                     default:
                         Console.WriteLine(System.Environment.NewLine+"Invalid choice. Please try again."+System.Environment.NewLine);
+                        ShowMenu();
                         break;
                 }
-            }
+            
         }
 
         private static int GetChoice()
         {
             Console.Write("Enter your choice: ");
-            string? input = Console.ReadLine() ?? throw new ArgumentException("Console given no input");
+            string? input = Console.ReadLine() ?? throw new ArgumentException("Console received a null input");
             int choice;
             if (int.TryParse(input, out choice))
             {

@@ -3,7 +3,7 @@
 
 namespace CanHazFunny;
 
-    public sealed class OutputJokes : IOutputJokes
+    public class OutputJokes : IOutputJokes
     {
         public void Output(string joke)
         {
