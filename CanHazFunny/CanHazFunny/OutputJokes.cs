@@ -1,8 +1,8 @@
 ﻿using System;
 
 
-namespace CanHazFunny
-{
+namespace CanHazFunny;
+
     class OutputJokes : IOutputJokes
     {
         public void Output(string joke)
@@ -11,4 +11,4 @@ namespace CanHazFunny
             Console.WriteLine(joke);
         }
     }
-}
+

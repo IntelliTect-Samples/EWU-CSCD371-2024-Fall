@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace CanHazFunny
-{
+namespace CanHazFunny;
+
     internal class Jester : IJester
     {
         private OutputJokes outputJokes;
@@ -24,4 +24,3 @@ namespace CanHazFunny
             outputJokes.Output(joke);
         }
     }
-}

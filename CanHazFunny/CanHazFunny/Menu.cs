@@ -1,7 +1,7 @@
 using System;
 
-namespace CanHazFunny
-{
+namespace CanHazFunny;
+
     public class Menu
     {
         public static void ShowMenu()
@@ -51,4 +51,4 @@ namespace CanHazFunny
             }
         }
     }
-}
+
