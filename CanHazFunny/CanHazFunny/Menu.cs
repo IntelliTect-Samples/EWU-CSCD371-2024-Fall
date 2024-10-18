@@ -29,7 +29,7 @@ namespace CanHazFunny
                         shouldExit = true;
                         break;
                     default:
-                        Console.WriteLine("Invalid choice. Please try again.");
+                        Console.WriteLine(System.Environment.NewLine+"Invalid choice. Please try again."+System.Environment.NewLine);
                         break;
                 }
             }
