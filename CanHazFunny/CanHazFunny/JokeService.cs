@@ -16,7 +16,7 @@ public class JokeService : IJokeService
     public string GetJokeJson()
     {
         string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api?format=json").Result;
-        return ChuckCheck(joke);
+        return ChuckCheckJson(joke);
     }
 
     private string ChuckCheck(string joke)
