@@ -21,7 +21,7 @@ public class JokeService : IJokeService
 
     private string ChuckCheck(string joke)
     {
-        if (joke.Contains("Chuck",StringComparison.OrdinalIgnoreCase) || joke.Contains("Norris", StringComparison.OrdinalIgnoreCase))
+        if (joke.Contains("Chuck", StringComparison.OrdinalIgnoreCase) || joke.Contains("Norris", StringComparison.OrdinalIgnoreCase))
         {
             return GetJoke();
         }
@@ -38,6 +38,7 @@ public class JokeService : IJokeService
         }
         else
         {
+            joke = joke.Replace("{\"joke\": \"", "").Replace("\"}", "");
             return joke;
         }
     }
