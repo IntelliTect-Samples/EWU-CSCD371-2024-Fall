@@ -12,17 +12,15 @@ public class JokeService : IJokeService
     public string GetJoke()
     {
         string jsonResponse = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api?format=json").Result;
-
         return FormatJoke(jsonResponse);
     }
 
     public static string FormatJoke(string jsonJoke)
     {
-
         JsonNode? jokeNode = JsonNode.Parse(jsonJoke);
-
         return ExtractJoke(jokeNode);
     }
+
     public static string ExtractJoke(JsonNode? jokeNode)
     {
         if (jokeNode?["joke"] is JsonNode joke)
@@ -34,20 +32,5 @@ public class JokeService : IJokeService
             return "No joke found!";
         }
     }
-
-    //public static string ExtractJoke(JsonNode? jokeNode)
-    //{
-    //    if (jokeNode == null || jokeNode["joke"] == null)
-    //    {
-    //        return "No joke found!";
-    //    }
-
-    //    return jokeNode["joke"].ToString();
-    //}
-    //JsonNode? joke = jokeNode?["joke"];
-    //    if (joke == null)
-    //    {
-    //        return "No joke found!";
-    //    }
 }
 

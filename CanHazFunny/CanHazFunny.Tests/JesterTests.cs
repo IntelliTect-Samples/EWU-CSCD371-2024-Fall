@@ -32,13 +32,10 @@ public class JesterTests
         //IDisplayJokes displayJokes = new DisplayJokes();
         IJokeService jokeService = new JokeService();
 
-
         // Act
-
 
         // Assert
         Assert.Throws<ArgumentNullException>(() => new Jester(jokeService, null!));
-
     }
 
     [Fact]
@@ -46,15 +43,11 @@ public class JesterTests
     {
         // Arrange
         IDisplayJokes displayJokes = new DisplayJokes();
-        //IJokeService jokeService = new JokeService();
-
 
         // Act
 
-
         // Assert
         Assert.Throws<ArgumentNullException>(() => new Jester(null!, displayJokes));
-
     }
 
     [Fact]
@@ -134,14 +127,12 @@ public class JesterTests
         using (consoleOutput = new StringWriter())
         {
             Console.SetOut(consoleOutput);
-
             IJokeService jokeService = new JokeService();
             IDisplayJokes displayJokes = new DisplayJokes();
             Jester jester = new(jokeService, displayJokes);
 
             //act
             jester.TellJoke();
-
             Console.Out.Flush();
         }
         //assert
@@ -159,17 +150,14 @@ public class JesterTests
             using (consoleOutput = new StringWriter())
             {
                 Console.SetOut(consoleOutput);
-
                 IJokeService jokeService = new JokeService();
                 IDisplayJokes displayJokes = new DisplayJokes();
                 Jester jester = new(jokeService, displayJokes);
 
                 // Act
                 jester.TellJoke();
-
                 Console.Out.Flush();
             }
-
             // Assert
             string output = consoleOutput.ToString().Trim();
             Assert.DoesNotContain("Chuck", output);

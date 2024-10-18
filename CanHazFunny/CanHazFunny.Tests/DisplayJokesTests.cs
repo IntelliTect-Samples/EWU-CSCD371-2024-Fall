@@ -40,17 +40,14 @@ public class DisplayJokesTests
     {
         //Arrange
         DisplayJokes displayJokes = new();
-
-
         StringWriter consoleOutput;
+
         using (consoleOutput = new StringWriter())
         {
-
             Console.SetOut(consoleOutput);
 
             //Act
             displayJokes.OutputJoke("Why did the chicken cross the road? To get to the other side.");
-
             Console.Out.Flush();
         }
 
