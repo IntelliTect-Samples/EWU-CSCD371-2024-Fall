@@ -42,7 +42,7 @@ public class JesterTests
        var mockOutputJokes = new Mock<IOutputJokes>();
         string expectedJoke = "Do you know the muffin man?";
         mockJokeService.SetupSequence(joke => joke.GetJoke()).Returns(expectedJoke);
-        Jester jester= new Jester(mockOutputJokes.Object, mockJokeService.Object);
+        Jester jester= new (mockOutputJokes.Object, mockJokeService.Object);
         // Act
         jester.TellJoke();
         // Assert
@@ -58,7 +58,7 @@ public class JesterTests
        var mockOutputJokes = new Mock<IOutputJokes>();
         string expectedJokeJson = "{\"joke\":\"What is a mermaids favorite dessert? a spongecake.\"}";
         mockJokeService.Setup(jokeJson => jokeJson.GetJokeJson()).Returns(expectedJokeJson);
-        Jester jester= new Jester(mockOutputJokes.Object, mockJokeService.Object);
+        Jester jester= new (mockOutputJokes.Object, mockJokeService.Object);
         // Act
         jester.TellJokeJson();
 
