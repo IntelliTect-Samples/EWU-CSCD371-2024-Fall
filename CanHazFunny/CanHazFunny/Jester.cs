@@ -4,13 +4,13 @@ namespace CanHazFunny;
 
     public sealed class Jester : IJester
     {
-        private OutputJokes outputJokes;
-        private JokeService jokeService;
+        private IOutputJokes outputJokes;
+        private IJokeService jokeService;
 
-        public Jester(OutputJokes outputJokes, JokeService jokeService)
+        public Jester(IOutputJokes outputJokes, IJokeService jokeService)
         {
-            this.outputJokes = outputJokes;
-            this.jokeService = jokeService;
+            this.outputJokes = outputJokes ?? throw new ArgumentNullException(nameof(outputJokes));
+            this.jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
         }
         public void TellJoke()
         {

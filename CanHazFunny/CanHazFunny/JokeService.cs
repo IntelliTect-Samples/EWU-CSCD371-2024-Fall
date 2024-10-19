@@ -10,12 +10,14 @@ public class JokeService : IJokeService
     public string GetJoke()
     {
         string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api").Result;
+        ArgumentException.ThrowIfNullOrEmpty(joke,"Joke thrown at GetJoke");
         return ChuckCheck(joke);
     }
 
     public string GetJokeJson()
     {
         string joke = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api?format=json").Result;
+        ArgumentException.ThrowIfNullOrEmpty(joke, "Joke thrown at GetJokeJson");
         return ChuckCheckJson(joke);
     }
 

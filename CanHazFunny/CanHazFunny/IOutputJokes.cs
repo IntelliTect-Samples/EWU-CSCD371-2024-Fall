@@ -1,6 +1,6 @@
 ﻿namespace CanHazFunny;
 
-    internal interface IOutputJokes
+    public interface IOutputJokes
     {
         public void Output(string joke);
     }
