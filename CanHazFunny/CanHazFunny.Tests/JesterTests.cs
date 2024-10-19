@@ -35,6 +35,22 @@ public class JesterTests
     Assert.Contains("Invalid choice. Please try again.", output);
     }
     [Fact]
+    public void GetChoice_InvalidInput_ShouldPromptAgain()
+    {
+        // Arrange
+        var stringWriter = new StringWriter();
+        Console.SetOut(stringWriter);
+        var input = "invalid\n1\n";
+        Console.SetIn(new StringReader(input));
+        // Act
+        Menu.ShowMenu();
+        // Assert
+        var output = stringWriter.ToString();
+        Assert.Contains("Invalid input. Please enter a valid choice.", output);
+        Assert.Contains("Select the format:", output);
+        Assert.Contains("1. JSON", output);
+    }
+    [Fact]
     public void TellJoke_Verify()
     {
         // Arrange
@@ -65,5 +81,29 @@ public class JesterTests
         // Assert
         mockJokeService.Verify(jokeJson => jokeJson.GetJokeJson(), Times.Once);
         mockOutputJokes.Verify(outJokeJson => outJokeJson.Output(expectedJokeJson), Times.Once);
+    }
+        [Fact]
+    public void ChuckCheckJson_ReturnsJoke()
+    {
+        // Arrange
+        JokeService jokeService= new();
+        string inputJoke = "{\"joke\": \"Where does a mermaid sleep? In her seabed!\"}";
+        // Act
+        var result = jokeService.ChuckCheckJson(inputJoke);
+
+        // Assert
+        Assert.Equal("Where does a mermaid sleep? In her seabed!", result);
+    }
+        [Fact]
+    public void ChuckCheck_ReturnsJoke()
+    {
+        // Arrange
+        JokeService jokeService= new();
+        string inputJoke = "Why do mermaids sing? To practice their scales!";
+        // Act
+        var result = jokeService.ChuckCheck(inputJoke);
+
+        // Assert
+        Assert.Equal("Why do mermaids sing? To practice their scales!", result);
     }
 }

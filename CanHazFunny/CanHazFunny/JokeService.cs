@@ -21,7 +21,7 @@ public class JokeService : IJokeService
         return ChuckCheckJson(joke);
     }
 
-    private string ChuckCheck(string joke)
+    public string ChuckCheck(string joke)
     {
         if (joke.Contains("Chuck", StringComparison.OrdinalIgnoreCase) || joke.Contains("Norris", StringComparison.OrdinalIgnoreCase))
         {
@@ -32,7 +32,7 @@ public class JokeService : IJokeService
             return joke;
         }
     }
-    private string ChuckCheckJson(string joke)
+    public string ChuckCheckJson(string joke)
     {
         if (joke.Contains("Chuck", StringComparison.OrdinalIgnoreCase) || joke.Contains("Norris", StringComparison.OrdinalIgnoreCase))
         {
