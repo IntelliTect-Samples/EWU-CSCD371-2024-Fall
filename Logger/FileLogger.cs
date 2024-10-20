@@ -19,7 +19,7 @@ public class FileLogger : BaseLogger, ILogger
 
     public string FilePath { get => File.FullName; }
     /// <summary>
-    /// Calls sets logsource in base and sends file path to FileInfo
+    /// Sets logsource in base class and saves filePath to FilePath
     /// </summary>
 
     /// <exception cref="NullReferenceException"></exception>
