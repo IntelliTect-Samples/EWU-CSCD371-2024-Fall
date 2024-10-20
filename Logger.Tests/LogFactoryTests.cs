@@ -9,5 +9,8 @@ public class LogFactoryTests : FileLoggerTestsBase
     {
         LogFactory logFactory = new();
         logFactory.ConfigureFileLogger(FilePath);
+        //Assert
+        Assert.NotNull(Logger);
+        Assert.Equal(FilePath, Logger.FilePath);
     }
 }
