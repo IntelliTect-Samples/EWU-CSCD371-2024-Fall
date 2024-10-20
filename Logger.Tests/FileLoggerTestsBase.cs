@@ -6,7 +6,7 @@ public class FileLoggerTestsBase : IDisposable
 
     protected string FilePath { get; set; }
     protected FileLogger Logger { get; set; }
-    
+
     public FileLoggerTestsBase()
     {
         FilePath = Path.GetTempFileName();
@@ -19,6 +19,9 @@ public class FileLoggerTestsBase : IDisposable
         {
             if (disposing)
             {
+                //Reset Params to valid state
+                FilePath = Path.GetTempFileName();
+                Logger = new FileLogger(nameof(FileLoggerTests), FilePath);
                 // Dispose managed state (managed objects)
                 if (File.Exists(FilePath)) File.Delete(FilePath);
             }
