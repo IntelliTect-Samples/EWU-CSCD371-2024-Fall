@@ -5,7 +5,7 @@ namespace Logger.Tests;
 public class IEntityTests
 {
     [Fact]
-    public void Constructor_ValidInputs_IDK()
+    public void Constructor_ValidInputs_CreatesValidTestEntity()
     {
         //Arrange
         Guid guid = Guid.NewGuid();
@@ -18,5 +18,20 @@ public class IEntityTests
         Assert.Equal("My Full Name", entity.Name);
         Assert.Equal(guid, entity.Id);
 
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData(" \n")]
+
+    public void Constructor_InvalidName_ThrowsException(string? name)
+    {
+        //Arrange
+        Guid guid = new();
+        //Act
+
+        //Assert
+        Assert.Throws<ArgumentException>(() => new TestEntity() { Id =guid,Name = name! });
     }
 }
