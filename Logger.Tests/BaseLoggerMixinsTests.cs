@@ -28,4 +28,67 @@ public class BaseLoggerMixinsTests
         Assert.Equal("Message 42", logger.LoggedMessages[0].Message);
     }
 
+    [Fact]
+    public void Warning_WithNullLogger_ThrowsException()
+    {
+        Assert.Throws<ArgumentNullException>(() =>
+            BaseLoggerMixins.Warning(null!, ""));
+    }
+    [Fact]
+    public void Warning_WithData_LogsMessage()
+    {
+        // Arrange
+        var logger = new TestLogger(nameof(BaseLoggerMixinsTests));
+
+        // Act
+        logger.Warning("Message WithData");
+
+        // Assert
+        Assert.Single(logger.LoggedMessages);
+        Assert.Equal(LogLevel.Warning, logger.LoggedMessages[0].LogLevel);
+        Assert.Equal("Message WithData", logger.LoggedMessages[0].Message);
+
+    }
+    [Fact]
+    public void Information_WithNullLogger_ThrowsException()
+    {
+        Assert.Throws<ArgumentNullException>(() =>
+            BaseLoggerMixins.Information(null!, ""));
+    }
+    [Fact]
+    public void Information_WithData_LogsMessage()
+    {
+        // Arrange
+        var logger = new TestLogger(nameof(BaseLoggerMixinsTests));
+
+        // Act
+        logger.Information("Message WithData");
+
+        // Assert
+        Assert.Single(logger.LoggedMessages);
+        Assert.Equal(LogLevel.Information, logger.LoggedMessages[0].LogLevel);
+        Assert.Equal("Message WithData", logger.LoggedMessages[0].Message);
+
+    }
+    [Fact]
+    public void Debug_WithNullLogger_ThrowsException()
+    {
+        Assert.Throws<ArgumentNullException>(() =>
+            BaseLoggerMixins.Debug(null!, ""));
+    }
+    [Fact]
+    public void Debug_WithData_LogsMessage()
+    {
+        // Arrange
+        var logger = new TestLogger(nameof(BaseLoggerMixinsTests));
+
+        // Act
+        logger.Debug("Message WithData");
+
+        // Assert
+        Assert.Single(logger.LoggedMessages);
+        Assert.Equal(LogLevel.Debug, logger.LoggedMessages[0].LogLevel);
+        Assert.Equal("Message WithData", logger.LoggedMessages[0].Message);
+
+    }
 }
