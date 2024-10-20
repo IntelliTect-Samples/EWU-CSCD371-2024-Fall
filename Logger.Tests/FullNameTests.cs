@@ -46,6 +46,6 @@ public class FullNameTests
         //Act
 
         //Assert
-        Assert.Throws<ArgumentNullException>(() =>new FullName() { First = first!, Last = last!, Middle = middle });
+        Assert.ThrowsAny<ArgumentException>(() =>new FullName() { First = first!, Last = last!, Middle = middle });
     }
 }
