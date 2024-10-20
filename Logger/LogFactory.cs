@@ -1,9 +1,9 @@
 ﻿namespace Logger;
 /// <summary>
 /// Contains:<br/>
-///<seealso cref="FilePath"/>
-///<seealso cref="CreateLogger(string)"/>
-///<seealso cref="ConfigureFileLogger(string)"/>
+///<seealso cref="FilePath"/><br/>
+///<seealso cref="CreateLogger(string)"/><br/>
+///<seealso cref="ConfigureFileLogger(string)"/><br/>
 ///<br/>
 ///Expects ConfigureFileLogger to be run before CreateLogger();
 /// </summary>

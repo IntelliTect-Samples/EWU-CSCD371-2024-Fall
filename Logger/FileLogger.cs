@@ -28,15 +28,14 @@ public class FileLogger : BaseLogger, ILogger
     /// </remarks>
     public FileLogger(string logSource, string filePath) : base(logSource) => File = new FileInfo(filePath);
     /// <summary>
-    /// Calls other constructor and passes configurations LogSource and FilePath
+    /// Calls other constructor and passes configuration's LogSource and FilePath
     /// </summary>
     public FileLogger(FileLoggerConfiguration configuration) : this(configuration.LogSource, configuration.FilePath) {}
 
     /// <summary>
-    /// 
+    ///Creats a FileLogger from a FIle Logger Configuration.<br/>
+    ///Inherited from <seealso cref="ILogger"/>
     /// </summary>
-    /// <param name="logggerConfiguration"></param>
-    /// <returns></returns>
     /// <exception cref="ArgumentException">logggerConfiguration must be a IFileLoggerConfiguration</exception>
 
     static ILogger ILogger.CreateLogger(in ILoggerConfiguration logggerConfiguration) => 
