@@ -33,7 +33,7 @@ public class FileLogger : BaseLogger, ILogger
     public FileLogger(FileLoggerConfiguration configuration) : this(configuration.LogSource, configuration.FilePath) {}
 
     /// <summary>
-    ///Creats a FileLogger from a FIle Logger Configuration.<br/>
+    ///Creats a FileLogger from a File Logger Configuration.<br/>
     ///Inherited from <seealso cref="ILogger"/>
     /// </summary>
     /// <exception cref="ArgumentException">logggerConfiguration must be a IFileLoggerConfiguration</exception>
