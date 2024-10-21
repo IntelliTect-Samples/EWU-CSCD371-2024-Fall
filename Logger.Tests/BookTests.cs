@@ -30,6 +30,29 @@ public class BookTests
     }
 
     [Theory]
+    [InlineData("ISBN", 1998, "Title", "First", "Last")]
+    public void Constructor_AllParamatersExceptMiddle_MakesRecord(string isbn, int publicationYear, string title, string first, string last)
+    {
+        //Arrange
+        string expectedIsbn = "ISBN";
+        string expectedFirst = "First";
+        string expectedLast = "Last";
+        int expectedPublicationYear = 1998;
+        string expectedTitle = "Title";
+
+        //Act
+        Book book = new(isbn, publicationYear, title, first, last);
+
+        //Assert
+        Assert.NotNull(book);
+        Assert.Equal(book.ISBN, expectedIsbn);
+        Assert.Equal(book.Author.First, expectedFirst);
+        Assert.Equal(book.Author.Last, expectedLast);
+        Assert.Equal(book.PublicationYear, expectedPublicationYear);
+        Assert.Equal(book.Title, expectedTitle);
+    }
+
+    [Theory]
     [InlineData(null, 1998, "Title", "First", "Last", "Middle")]
     [InlineData("ISBN", 0, "Title", "First", "Last", "Middle")]
     [InlineData("ISBN", 1998, null, "First", "Last", "Middle")]
@@ -47,7 +70,7 @@ public class BookTests
 
     [Theory]
     [InlineData("0135972264", 2020, "Essential C#", "Mark", "Michaelis")]
-    public void Constructor_AllParamsExceptMiddle_ValidBookName(string isbn, int publicationYear, string title, string first, string last)
+    public void Constructor_AllParamatersExceptMiddle_ValidBookName(string isbn, int publicationYear, string title, string first, string last)
     {
         //Arrange
         Book book = new Book(isbn, publicationYear, title, first, last);
