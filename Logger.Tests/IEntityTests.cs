@@ -14,22 +14,27 @@ public class IEntityTests
     public void MockEntity_SetAndGetProperties_Success()
     {
         //Arrange
-        var mockEntity = new MockEntity();
+        var mockEntity = new MockEntity("TestName");
         var newGuid = Guid.NewGuid();
 
         //Act
         mockEntity.Id = newGuid;
-        mockEntity.Name = "Test Name";
 
         //Assert
         Assert.Equal(newGuid, mockEntity.Id);
-        Assert.Equal("Test Name", mockEntity.Name);
+        Assert.Equal("TestName", mockEntity.Name);
     }
 }
 
 public class MockEntity : IEntity
 {
+    public MockEntity(string name)
+    {
+        Id = Guid.NewGuid();
+        Name = name;
+    }
+
     public Guid Id { get; set; } = Guid.NewGuid();
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; init; } = string.Empty;
 }
 
