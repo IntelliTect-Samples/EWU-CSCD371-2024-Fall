@@ -31,7 +31,7 @@ public class FullNameTests
         string lastName = "Montoya";
 
         // Act
-        FullName fullName = new(firstName, middleName, lastName);
+        FullName fullName = new(firstName, lastName, middleName);
 
         // Assert
         Assert.NotNull(fullName);
