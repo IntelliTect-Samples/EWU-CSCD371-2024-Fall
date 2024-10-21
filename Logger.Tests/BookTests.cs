@@ -21,7 +21,7 @@ public class BookTests
 
         //Assert
         Assert.NotNull(book);
-        Assert.Equal(book.ISBN, expectedIsbn);
+        Assert.Equal(book.Isbn, expectedIsbn);
         Assert.Equal(book.Author.First, expectedFirst);
         Assert.Equal(book.Author.Middle, expectedMiddle);
         Assert.Equal(book.Author.Last, expectedLast);
@@ -45,7 +45,7 @@ public class BookTests
 
         //Assert
         Assert.NotNull(book);
-        Assert.Equal(book.ISBN, expectedIsbn);
+        Assert.Equal(book.Isbn, expectedIsbn);
         Assert.Equal(book.Author.First, expectedFirst);
         Assert.Equal(book.Author.Last, expectedLast);
         Assert.Equal(book.PublicationYear, expectedPublicationYear);

@@ -3,14 +3,14 @@
 public record class Book : Entity
 {
     public FullName Author { get; set; }
-    public string ISBN { get; init; }
+    public string Isbn { get; init; }
     public int PublicationYear { get; init; }
     public string Title { get; init; }
 
     public Book(string isbn, int publicationYear, string title, string first, string last, string? middle = null)
     {
         Author = new() { First = first, Last = last, Middle = middle };
-        ISBN = isbn ?? throw new ArgumentNullException(nameof(isbn), $"{nameof(isbn)} was null.");
+        Isbn = isbn ?? throw new ArgumentNullException(nameof(isbn), $"{nameof(isbn)} was null.");
         if (publicationYear <= 0)
             throw new ArgumentException(nameof(publicationYear), $"{nameof(publicationYear)} must be greater than zero.");
         PublicationYear = publicationYear;
@@ -19,6 +19,6 @@ public record class Book : Entity
 
     protected override string ParseName()
     {
-        return $"{Title} by {Author}, year: {PublicationYear}, ISBN: {ISBN}";
+        return $"{Title} by {Author}, year: {PublicationYear}, ISBN: {Isbn}";
     }
 }
