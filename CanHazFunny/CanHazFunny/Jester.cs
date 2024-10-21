@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 
 namespace CanHazFunny;
 
@@ -21,9 +22,9 @@ public class Jester
         do
         {
             joke = JokeService.GetJoke();
-            lowercaseJoke = joke.ToLower();
+            lowercaseJoke = joke.ToLower(CultureInfo.InvariantCulture);
         }
-        while(lowercaseJoke.Contains("chuck") && lowercaseJoke.Contains("norris"));
+        while (lowercaseJoke.Contains("chuck", StringComparison.OrdinalIgnoreCase) && lowercaseJoke.Contains("norris", StringComparison.OrdinalIgnoreCase));
 
         OutputService.WriteJoke(joke);
     }
