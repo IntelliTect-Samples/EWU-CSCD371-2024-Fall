@@ -1,6 +1,6 @@
 ﻿namespace Logger
 {
-    public record FullName
+    public record FullName()
     {
     }
 }
