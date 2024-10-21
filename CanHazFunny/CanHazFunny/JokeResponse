@@ -1,7 +1,6 @@
-namespace CanHazFunny
+namespace CanHazFunny;
+
+internal class JokeResponse
 {
-    internal class JokeResponse
-    {
-        public string joke { get; set; }
-    }
+    public string joke { get; set; }
 }
