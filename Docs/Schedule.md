@@ -58,7 +58,6 @@
 
 ### 10/22
 
-- Interfaces/virtual
 - Local Functions
 - ref vs value types & structs
 - reference vs value equality
@@ -67,14 +66,15 @@
 
 ### 10/24
 
+- Interfaces/virtual
 - Overriding object members
-- Pattern matching
-- Mocking - Test stubs
+- Mocking - Test double
 
 ## Week 6 - Assignment 5
 
 ### 10/29
 
+- Pattern matching
 - Well formed types
   - Operator Overloading
   - Referencing other assemblies
@@ -83,7 +83,7 @@
 ### 10/31
 
 - using statements
-- Dispose 
+- Dispose
 
 ## Week 7 - Assignment 6
 
