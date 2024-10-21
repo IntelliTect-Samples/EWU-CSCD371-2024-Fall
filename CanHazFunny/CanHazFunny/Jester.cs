@@ -4,28 +4,27 @@ namespace CanHazFunny;
 
 public class Jester
 {
-    private IJokeService _jokeService;
-    private IOutputService _outputService;
+    public IJokeService JokeService { get; set; }
+    public IOutputService OutputService { get; set; }
 
     public Jester(IOutputService outputService, IJokeService jokeService)
     {
-        _outputService = outputService ?? throw new ArgumentNullException(nameof(outputService));
-        _jokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
+        OutputService = outputService ?? throw new ArgumentNullException(nameof(outputService));
+        JokeService = jokeService ?? throw new ArgumentNullException(nameof(jokeService));
     }
 
     public void TellJoke()
     {
         string joke;
+        string lowercaseJoke;
 
         do
         {
-            joke = _jokeService.GetJoke();
-
-
-            if (joke == null) throw new ArgumentNullException(nameof(joke));
+            joke = JokeService.GetJoke();
+            lowercaseJoke = joke.ToLower();
         }
-        while (joke.Contains("Chuck Norris"));
+        while(lowercaseJoke.Contains("chuck") && lowercaseJoke.Contains("norris"));
 
-        _outputService.WriteJoke(joke);
-     }
+        OutputService.WriteJoke(joke);
+    }
 }
