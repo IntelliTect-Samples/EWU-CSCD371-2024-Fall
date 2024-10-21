@@ -8,26 +8,26 @@ public record FullName
 
     public FullName(string firstName, string lastName, string middleName = "")
     {
-        _firstName = firstName;
-        _lastName = lastName;
-        _middleName = middleName; 
+        FirstName = firstName;
+        LastName = lastName;
+        MiddleName = middleName;
     }
 
     public string FirstName
     {
         get => _firstName;
-        init => _firstName = value;
+        set => _firstName = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public string LastName
     {
         get => _lastName;
-        init => _lastName = value;
+        set => _lastName = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public string MiddleName
     {
         get => _middleName;
-        init => _middleName = value;
+        set => _middleName = value ?? throw new ArgumentNullException(nameof(value));
     }
 }

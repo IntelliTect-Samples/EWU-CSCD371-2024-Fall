@@ -61,19 +61,10 @@ public class FullNameTests
     [InlineData(null, "Montoya", "Elly")]
     [InlineData("Inigo", null, "Elly")]
     [InlineData("Inigo", "Montoya", null)]
-    public void RecordCreation_CheckNullThrowsException__ThrowsException(string firstName, string lastName, string middleName)
+    public void RecordCreation_CheckNullThrowsException__ThrowsException(string? firstName, string? lastName, string? middleName)
     {
-        if (firstName == null)
-        {
-            Assert.Throws<ArgumentException>(() => new FullName(firstName!, lastName, middleName));
-        }
-        else if (lastName == null)
-        {
-            Assert.Throws<ArgumentException>(() => new FullName(firstName, lastName!, middleName));
-        }
-        else if (middleName == null)
-        {
-            Assert.Throws<ArgumentException>(() => new FullName(firstName, lastName, middleName!));
-        }
+        
+        Assert.Throws<ArgumentNullException>(() => new FullName(firstName!, lastName!, middleName!));
+        
     }
 }
