@@ -15,9 +15,9 @@ public class JokeService : IJokeService
         string jokeResponse = HttpClient.GetStringAsync("https://geek-jokes.sameerkumar.website/api?format=json").Result;
         var jokeObject = JsonSerializer.Deserialize<JokeResponse>(jokeResponse);
 
-        if (jokeObject == null || string.IsNullOrEmpty(jokeObject.joke))
+        if (jokeObject == null || jokeObject.joke == null)
         {
-            return "Error deserializing json content in the JokeService class."; 
+            throw new ArgumentNullException("Joke cannot be null.");
         }
 
         return jokeObject.joke;
