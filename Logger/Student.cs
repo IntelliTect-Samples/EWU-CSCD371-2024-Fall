@@ -5,12 +5,9 @@ namespace Logger;
 
 public record class Student : Entity
 {
-    private FullName MyFullName { get; set; }
+    public FullName MyFullName { get; set; }
     public string SchoolName { get; set; }
     public string? GradeLevel { get; set; }
-    public List<string> Grades { get; set; } = new List<string>();
-    public List<string> CurrentClasses { get; set; } = new List<string>();
-
 
     public Student(string school, string first, string last, string? middle = null)
     {
@@ -24,18 +21,5 @@ public record class Student : Entity
        return MyFullName.First + " " + MyFullName.Middle + " " + MyFullName.Last;
     }
 
-    public void AddClasses(string? studentClass)
-    {
-        if (!string.IsNullOrEmpty(studentClass)) CurrentClasses.Add(studentClass);
-    }
-    public void AddClasses(List<string> studentClasses)
-    {
-        if (studentClasses == null) return;
-        foreach (string singleClass in studentClasses!) {
 
-            if (!string.IsNullOrEmpty(singleClass))CurrentClasses.Add(singleClass);
-            
-        }
-
-        }
 }
