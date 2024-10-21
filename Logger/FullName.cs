@@ -2,9 +2,9 @@
 
 public record FullName
 {
-    private string _firstName;
-    private string _lastName;
-    private string _middleName;
+    private string? _firstName;
+    private string? _lastName;
+    private string? _middleName;
 
     public FullName(string firstName, string lastName, string middleName = "")
     {
@@ -15,19 +15,23 @@ public record FullName
 
     public string FirstName
     {
-        get => _firstName;
-        set => _firstName = value ?? throw new ArgumentNullException(nameof(value));
+        get => _firstName!;
+        set => _firstName = string.IsNullOrWhiteSpace(value)
+            ? throw new ArgumentException($"'{nameof(value)}' cannot be null or whitespace.", nameof(value))
+            : value;
     }
 
     public string LastName
     {
-        get => _lastName;
-        set => _lastName = value ?? throw new ArgumentNullException(nameof(value));
+        get => _lastName!;
+        set => _lastName = string.IsNullOrWhiteSpace(value)
+            ? throw new ArgumentException($"'{nameof(value)}' cannot be null or whitespace.", nameof(value))
+            : value;
     }
 
     public string MiddleName
     {
-        get => _middleName;
+        get => _middleName!;
         set => _middleName = value ?? throw new ArgumentNullException(nameof(value));
     }
 }
