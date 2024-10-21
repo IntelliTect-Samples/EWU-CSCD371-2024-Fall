@@ -24,4 +24,19 @@ public class BookTests
         Assert.Equal(book.PublicationYear, expectedPublicationYear);
         Assert.Equal(book.Title, expectedTitle);
     }
+
+    [Theory]
+    [InlineData(null, "Author", 1998, "Title")]
+    [InlineData("ISBN", null, 1998, "Title")]
+    [InlineData("ISBN", "Author", 0, "Title")]
+    [InlineData("ISBN", "Author", 1998, null)]
+    public void Constructor_BadParamaters_ThrowsException(string? isbn, string? author, int publicationYear, string? title)
+    {
+        //Arrange
+
+        //Act
+
+        //Assert
+        Assert.ThrowsAny<ArgumentException>(() => new Book() { ISBN = isbn!, Author = author!, PublicationYear = publicationYear,Title = title! });
+    }
 }
