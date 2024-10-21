@@ -21,13 +21,16 @@ public record class FullName
     /// First is init only, and is never null.
     /// </summary>
     /// <exception cref="ArgumentException"></exception>
-    public required string First { 
+    
+    public required string First 
+    { 
         get => _first!;
         set{
-            if( string.IsNullOrWhiteSpace(value)) throw new ArgumentException(nameof(value),$"Tried to set a null or empty value for {nameof(First)}");
+            if(string.IsNullOrWhiteSpace(value)) throw new ArgumentException(nameof(value),$"Tried to set a null or empty value for {nameof(First)}");
             _first = value;
         } 
     }
+
     public required string Last
     {
         get => _last!;
@@ -37,20 +40,20 @@ public record class FullName
             _last = value;
         }
     }
-    public string? Middle {
-        get {
-            return _middle;
-        }
+
+    public string? Middle 
+    {
+        get { return _middle; }
         set
         {
             _middle = value;
         }
     }
+
     public override string ToString()
     {
-        if (Middle is null) return this.First +" "+ Last;
+        if (Middle is null) return First + " " + Last;
         return First + " " + Middle + " " + Last;
     }
-
 }
 

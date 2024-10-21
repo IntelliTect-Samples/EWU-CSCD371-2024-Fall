@@ -73,7 +73,7 @@ public class BookTests
     public void Constructor_AllParamatersExceptMiddle_ValidBookInformation(string isbn, int publicationYear, string title, string first, string last)
     {
         //Arrange
-        Book book = new Book(isbn, publicationYear, title, first, last);
+        Book book = new (isbn, publicationYear, title, first, last);
 
         //Act
         string expectedName = "Essential C# by Mark Michaelis, year: 2020, ISBN: 0135972264";
@@ -88,7 +88,7 @@ public class BookTests
     public void Constructor_AllParamaters_ValidBookInformation(string isbn, int publicationYear, string title, string first, string last, string middle)
     {
         //Arrange
-        Book book = new Book(isbn, publicationYear, title, first, last, middle);
+        Book book = new (isbn, publicationYear, title, first, last, middle);
 
         //Act
         string expectedName = "Project Hail Mary by Andy Taylor Weir, year: 2021, ISBN: 0593135229";
