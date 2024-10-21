@@ -1,4 +1,4 @@
-
+﻿
 using Xunit;
 
 namespace Logger.Tests;
@@ -39,5 +39,18 @@ public class StudentTests
         s.GradeLevel = "12th Grade";
         //Assert
         Assert.Equal("12th Grade",s.GradeLevel);
+    }
+    [Fact]
+    public void Equals_MatchingStudent_ReturnsTrue()
+    {
+        //Arrange
+        Student s = new Student("MySchoolName", "FirstName", "LastName");
+        Student s2 = new Student("MySchoolName", "FirstName", "LastName");
+        s.GradeLevel = "12th";
+        s2.GradeLevel = "12th";
+        //Act
+
+        //Assert
+        Assert.True(s.Equals(s2));
     }
 }
