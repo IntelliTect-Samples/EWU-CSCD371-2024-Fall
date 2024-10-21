@@ -39,13 +39,17 @@ public record class FullName
     }
     public string? Middle {
         get {
-            return _middle ?? "";
+            return _middle;
         }
-        init 
+        set
         {
-            if (string.IsNullOrWhiteSpace(value)) throw new ArgumentNullException(nameof(Middle),$"{nameof(Middle)} was null or white space");
             _middle = value;
         }
+    }
+    public override string ToString()
+    {
+        if (Middle is null) return this.First +" "+ Last;
+        return First + " " + Middle + " " + Last;
     }
 
 }

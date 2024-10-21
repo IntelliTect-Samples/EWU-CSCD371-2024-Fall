@@ -11,7 +11,7 @@ public class TestEntity : IEntity
     {
         get => _name!;
         set {
-            if(string.IsNullOrWhiteSpace(value)) throw new ArgumentException(nameof(value));
+            if(string.IsNullOrWhiteSpace(value)) throw new ArgumentNullException(nameof(value));
             _name = value;
         }
     }

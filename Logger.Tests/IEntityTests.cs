@@ -32,6 +32,6 @@ public class IEntityTests
         //Act
 
         //Assert
-        Assert.Throws<ArgumentException>(() => new TestEntity() { Id =guid,Name = name! });
+        Assert.ThrowsAny<ArgumentException>(() => new TestEntity() { Id = guid, Name = name! });
     }
 }
