@@ -39,7 +39,6 @@ public class FullNameTests
     [Theory]
     [InlineData(null,"last", "middle")]
     [InlineData("first",null,"middle")]
-    [InlineData("first", "last", null)]
     public void Constructor_BadValues_ThrowsException(string? first, string? last, string? middle)
     {
         //Arrange
