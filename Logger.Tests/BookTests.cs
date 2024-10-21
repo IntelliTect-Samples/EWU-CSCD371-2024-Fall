@@ -37,6 +37,21 @@ public class BookTests
         //Act
 
         //Assert
-        Assert.ThrowsAny<ArgumentException>(() => new Book() { ISBN = isbn!, Author = author!, PublicationYear = publicationYear,Title = title! });
+        Assert.ThrowsAny<ArgumentException>(() => new Book() { ISBN = isbn!, Author = author!, PublicationYear = publicationYear, Title = title! });
+    }
+
+    [Theory]
+    [InlineData("0593135229", "Andy Weir", 2021, "Project Hail Mary")]
+    public void Constructor_AllParamaters_ValidBookName(string isbn, string author, int publicationYear, string title)
+    {
+        //Arrange
+        Book book = new() { Author = author, ISBN = isbn, PublicationYear = publicationYear, Title = title };
+
+        //Act
+        string expectedName = "Project Hail Mary by Andy Weir, year: 2021, ISBN: 0593135229";
+        string actualName = book.Name;
+
+        //Assert
+        Assert.Equal(expectedName, actualName);
     }
 }
