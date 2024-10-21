@@ -15,8 +15,8 @@ namespace Logger;
 */
 
 /*
-    The FullName record is immutable because all its properties are read-only and can only be set during 
-    object initialization.This ensures that once a FullName object is created, its state cannot be modified.
+    The FullName record is immutable because all its properties are read-only and can only be set during
+    initialization.This ensures that once a FullName object is created, its state cannot be modified.
 */
 
 //credits: Programming C# 12: Build Cloud, Web, and Desktop Applications by Ian Griffiths
