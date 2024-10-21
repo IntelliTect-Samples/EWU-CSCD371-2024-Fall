@@ -17,8 +17,7 @@ public record class Student : Entity
     }
     protected override string ParseName()
     {
-       if(MyFullName.Middle is null) return MyFullName.First + " " + MyFullName.Last;
-       return MyFullName.First + " " + MyFullName.Middle + " " + MyFullName.Last;
+        return MyFullName.ToString();
     }
 
 
