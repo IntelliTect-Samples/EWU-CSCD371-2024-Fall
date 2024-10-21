@@ -1,49 +1,24 @@
 ﻿namespace Logger;
 
-public record class Book
+public record class Book : Entity
 {
-    private string? _isbn;
-    private string? _author;
-    private int? _publicationYear;
-    private string? _title;
+    public FullName Author { get; set; }
+    public string ISBN { get; init; }
+    public int PublicationYear { get; init; }
+    public string Title { get; init; }
 
-    public required string ISBN
+    public Book(string isbn, int publicationYear, string title, string first, string last, string? middle = null)
     {
-        get => _isbn!;
-        init
-        {
-            if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException(nameof(value), $"{nameof(ISBN)} cannot be null or empty.");
-            _isbn = value;
-        }
+        Author = new() { First = first, Last = last, Middle = middle };
+        ISBN = isbn ?? throw new ArgumentNullException(nameof(isbn), $"{nameof(isbn)} was null.");
+        if (publicationYear <= 0)
+            throw new ArgumentException(nameof(publicationYear), $"{nameof(publicationYear)} must be greater than zero.");
+        PublicationYear = publicationYear;
+        Title = title ?? throw new ArgumentNullException(nameof(title), $"{nameof(title)} was null.");
     }
 
-    public required string Author
+    protected override string ParseName()
     {
-        get => _author!;
-        init
-        {
-            if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException(nameof(value), $"{nameof(Author)} cannot be null or empty.");
-            _author = value;
-        }
-    }
-
-    public required int PublicationYear
-    {
-        get => _publicationYear ?? throw new InvalidOperationException($"{nameof(PublicationYear)} is not set.");
-        init
-        {
-            if (value <= 0) throw new ArgumentException(nameof(value), $"{nameof(PublicationYear)} must be greater than zero.");
-            _publicationYear = value;
-        }
-    }
-
-    public required string Title
-    {
-        get => _title!;
-        init
-        {
-            if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException(nameof(value), $"{nameof(Title)} cannot be null or empty.");
-            _title = value;
-        }
+        return $"{Title} by {Author}, year: {PublicationYear}, ISBN: {ISBN}";
     }
 }
