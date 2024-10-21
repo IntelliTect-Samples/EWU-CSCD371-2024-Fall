@@ -53,13 +53,13 @@
 
 - Explicit vs implicit interface implementation
 - Extension Methods
-- Interfaces/virtual
-- Local Functions
 
 ## Week 5 - Assignment 4
 
 ### 10/22
 
+- Interfaces/virtual
+- Local Functions
 - ref vs value types & structs
 - reference vs value equality
 - Structs
