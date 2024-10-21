@@ -1,6 +1,13 @@
 namespace Logger;
 
 /*
+ Instructions:
+    Define a full name record (first, last, middle) handling optional and null appropriately. ✔ 
+    Provide a comment on the full name record on why you selected to define a value or a reference type and ✔
+    Provide a comment on the full name record on why or why not the type is immutable. ✔
+ */
+
+/*
    I've created FullName as a reference type because it represents a person's identity, 
    which can be conceptually shared or passed around without the need to copy the entire object. 
    Using a reference type allows the object to be passed between methods or components efficiently, 
