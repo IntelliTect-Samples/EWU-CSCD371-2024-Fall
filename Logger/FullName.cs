@@ -6,7 +6,7 @@ public record FullName
     private string _lastName;
     private string _middleName;
 
-    public FullName(string firstName, string lastName, string middleName)
+    public FullName(string firstName, string lastName, string middleName = "")
     {
         _firstName = firstName;
         _lastName = lastName;
