@@ -47,7 +47,7 @@ public class BookTests
 
     [Theory]
     [InlineData("0135972264", 2020, "Essential C#", "Mark", "Michaelis")]
-    public void Constructor_NoMiddle_ValidBookName(string isbn, int publicationYear, string title, string first, string last)
+    public void Constructor_AllParamsExceptMiddle_ValidBookName(string isbn, int publicationYear, string title, string first, string last)
     {
         //Arrange
         Book book = new Book(isbn, publicationYear, title, first, last);
