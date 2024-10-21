@@ -1,6 +1,6 @@
 namespace CanHazFunny;
 
-internal class JokeResponse
+public sealed class JokeResponse
 {
-    public string joke { get; set; }
+    public required string? joke { get; set; }
 }
