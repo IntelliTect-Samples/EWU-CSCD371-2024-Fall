@@ -7,7 +7,7 @@ public class StorageTests
 {
 
     [Fact]
-    public void constructor_DVC_CreatesStorage()
+    public void Constructor_DVC_CreatesStorage()
     {
         //Arrange
         Storage storage = new();
@@ -25,7 +25,7 @@ public class StorageTests
     public void Add_Student_AddsToList()
     {
         //Arrange
-        Student student = new("School", "first", "last");
+        Student student = new("School", "first", "last") { GradeLevel = "12th" };
         Storage storage = new();
         //Act
         storage.Add(student);
@@ -38,7 +38,7 @@ public class StorageTests
     public void Remove_Student_RemovesFromList()
     {
         //Arrange
-        Student student = new("School", "first", "last");
+        Student student = new("School", "first", "last") {GradeLevel = "12th" };
         Storage storage = new();
         //Act
 
@@ -47,6 +47,38 @@ public class StorageTests
         //Assert
         Assert.False(storage.Contains(student));
     }
+    [Fact]
+    public void Contains_Student_ReturnsTrue()
+    {
+        //Arrange
+        Student student = new("School", "first", "last") { GradeLevel = "12th" };
+        Storage storage = new();
+        storage.Add(student);
+
+        //Act
+
+
+        //Assert
+        Assert.True(storage.Contains(student));
+
+    }
+    [Fact]
+    public void Get_Student_ReturnsStudent()
+    {
+        //Arrange
+        Student student = new("School", "first", "last") { GradeLevel = "12th" };
+        Storage storage = new();
+        storage.Add(student);
+        Guid studentId = student.Id;
+        //Act
+        IEntity? resultantStudent = storage.Get(studentId);
+        //Assert
+        Assert.NotNull(resultantStudent);
+        Assert.IsType<Student>(resultantStudent);
+        Assert.Equal(student,(Student)resultantStudent);
+
+    }
+
 
 
     #endregion

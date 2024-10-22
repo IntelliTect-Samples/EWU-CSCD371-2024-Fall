@@ -1,4 +1,5 @@
 ﻿
+using System.Diagnostics;
 using Xunit;
 
 namespace Logger.Tests;
@@ -11,7 +12,7 @@ public class StudentTests
         //Arrange
 
         //Act
-        Student s = new Student("MySchoolName", "FirstName", "LastName", "MiddleName");
+        Student s = new ("MySchoolName", "FirstName", "LastName", "MiddleName") { GradeLevel = "12th" };
         //Assert
         Assert.NotNull(s);
         Assert.Equal("FirstName MiddleName LastName", s.Name);
@@ -23,34 +24,26 @@ public class StudentTests
         //Arrange
 
         //Act
-        Student s = new Student("MySchoolName", "FirstName", "LastName");
+        Student s = new ("MySchoolName", "FirstName", "LastName") { GradeLevel = "12th" };
         //Assert
         Assert.NotNull(s);
         Assert.Equal("FirstName LastName", s.Name);
         Assert.Equal("MySchoolName", s.SchoolName);
+        Assert.Equal("12th",s.GradeLevel);
     }
 
-    [Fact]
-    public void GradeLevel_ValidString_StoresGradeLevel()
-    {
-        //Arrange
-        Student s = new Student("MySchoolName", "FirstName", "LastName");
-        //Act
-        s.GradeLevel = "12th Grade";
-        //Assert
-        Assert.Equal("12th Grade",s.GradeLevel);
-    }
+
+
     [Fact]
     public void Equals_MatchingStudent_ReturnsTrue()
     {
         //Arrange
-        Student s = new Student("MySchoolName", "FirstName", "LastName");
-        Student s2 = new Student("MySchoolName", "FirstName", "LastName");
-        s.GradeLevel = "12th";
-        s2.GradeLevel = "12th";
+        Student s = new("MySchoolName", "FirstName", "LastName") { GradeLevel = "12th" };
+        Student s2 = new ("MySchoolName", "FirstName", "LastName") { GradeLevel = "12th" };
         //Act
 
         //Assert
         Assert.True(s.Equals(s2));
+        Assert.True(s == s2);
     }
 }
