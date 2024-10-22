@@ -97,4 +97,17 @@ public class BookTests
         //Assert
         Assert.Equal(expectedName, actualName);
     }
+
+    [Fact]
+    public void Constructor_MatchingBook_ReturnsTrue()
+    {
+        //Arrange
+        Book book1 = new("isbn", 1998, "Title", "First", "Last", "Middle");
+        Book book2 = new("isbn", 1998, "Title", "First", "Last", "Middle");
+
+        //Act
+
+        //Assert
+        Assert.True(book1.Equals(book2));
+    }
 }
