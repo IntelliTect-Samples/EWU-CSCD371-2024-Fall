@@ -34,4 +34,10 @@ public record FullName
         get => _middleName!;
         set => _middleName = value ?? throw new ArgumentNullException(nameof(value));
     }
+
+    public override string ToString() => MiddleName switch
+    {
+        "" => $"{FirstName} {LastName}",
+        _ => $"{FirstName} {MiddleName} {LastName}"
+    };
 }
