@@ -1,3 +1,6 @@
 namespace Logger;
 
-public record Book();
+public record Book() : IEntity
+{
+    //starter Code
+}
