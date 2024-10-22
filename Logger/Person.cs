@@ -7,4 +7,5 @@ public record Person(Guid Id, FullName FullName, string Email, string PhoneNumbe
     {
         get => FullName.ToString();
     }
+    
 }
