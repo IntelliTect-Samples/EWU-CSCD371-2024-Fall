@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logger
+namespace Logger;
+
+public abstract class EntityBase : IEntity
 {
-    public abstract class EntityBase : IEntity
+    public Guid Id { get; private set; }
+
+    public EntityBase()
     {
-        public Guid Id { get; private set; }
-
-        public EntityBase() {
-            Id = Guid.NewGuid();
-        }
-
-        public abstract string Name { get; init; }
+        Id = Guid.NewGuid();
     }
+
+    public abstract string Name { get; init; }
 }
+
