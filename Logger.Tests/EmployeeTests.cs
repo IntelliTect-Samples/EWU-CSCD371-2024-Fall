@@ -53,4 +53,34 @@ public class EmployeeTests
         //Assert
         Assert.ThrowsAny<ArgumentException>(() => new Employee(employeeId!, position!, first!, last!, middle!));
     }
+
+    [Theory]
+    [InlineData("135092", "Boss", "Tyler", "Woody", "Middle")]
+    public void ParseName_AllParamaters_DisplaysName(string employeeID, string position, string first, string last, string middle)
+    {
+        //Arrange
+        Employee employee = new(employeeID, position, first, last, middle);
+
+        //Act
+        string expectedName = "Tyler Middle Woody";
+        string actualName = employee.Name;
+
+        //Assert
+        Assert.Equal(expectedName, actualName);
+    }
+
+    [Theory]
+    [InlineData("135092", "Boss", "Tyler", "Woody")]
+    public void ParseName_AllParamatersExceptMiddle_DisplaysName(string employeeID, string position, string first, string last)
+    {
+        //Arrange
+        Employee employee = new(employeeID, position, first, last);
+
+        //Act
+        string expectedName = "Tyler Woody";
+        string actualName = employee.Name;
+
+        //Assert
+        Assert.Equal(expectedName, actualName);
+    }
 }
