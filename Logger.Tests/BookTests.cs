@@ -70,7 +70,7 @@ public class BookTests
 
     [Theory]
     [InlineData("0135972264", 2020, "Essential C#", "Mark", "Michaelis")]
-    public void Constructor_AllParamatersExceptMiddle_ValidBookInformation(string isbn, int publicationYear, string title, string first, string last)
+    public void ParseName_AllParamatersExceptMiddle_ValidBookInformation(string isbn, int publicationYear, string title, string first, string last)
     {
         //Arrange
         Book book = new (isbn, publicationYear, title, first, last);
@@ -85,7 +85,7 @@ public class BookTests
 
     [Theory]
     [InlineData("0593135229", 2021, "Project Hail Mary", "Andy", "Weir", "Taylor")]
-    public void Constructor_AllParamaters_ValidBookInformation(string isbn, int publicationYear, string title, string first, string last, string middle)
+    public void ParseName_AllParamaters_ValidBookInformation(string isbn, int publicationYear, string title, string first, string last, string middle)
     {
         //Arrange
         Book book = new (isbn, publicationYear, title, first, last, middle);
