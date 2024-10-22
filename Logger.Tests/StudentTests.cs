@@ -52,5 +52,6 @@ public class StudentTests
 
         //Assert
         Assert.True(s.Equals(s2));
+        Assert.True(s == s2);
     }
 }
