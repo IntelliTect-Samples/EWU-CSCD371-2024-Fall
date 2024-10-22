@@ -75,11 +75,72 @@ public class StorageTests
         //Assert
         Assert.NotNull(resultantStudent);
         Assert.IsType<Student>(resultantStudent);
-        Assert.Equal(student,(Student)resultantStudent);
+        Assert.Equal(student,resultantStudent);
 
     }
 
 
 
+    #endregion
+
+    #region BookTests
+
+    [Fact]
+    public void Add_Book_AddsToList()
+    {
+        //Arrange
+        Book book = new("IsbnNumber", 1956, "SomeTitle", "AuthorsFirst", "AuthorsLast");
+        Storage storage = new();
+        //Act
+        storage.Add(book);
+        //Assert
+        Assert.NotNull(book);
+        Assert.Equal(storage.Get(book.Id),book);
+    }
+
+    [Fact]
+    public void Remove_Book_RemovesFromList()
+    {
+        //Arrange
+        Book book = new("IsbnNumber", 1956, "SomeTitle", "AuthorsFirst", "AuthorsLast");
+        Storage storage = new();
+        //Act
+
+        storage.Add(book);
+        storage.Remove(book);
+        //Assert
+        Assert.False(storage.Contains(book));
+    }
+    [Fact]
+    public void Contains_Book_ReturnsTrue()
+    {
+        //Arrange
+        Book book = new("IsbnNumber", 1956, "SomeTitle", "AuthorsFirst", "AuthorsLast");
+        Storage storage = new();
+        storage.Add(book);
+
+        //Act
+
+
+        //Assert
+        Assert.True(storage.Contains(book));
+
+    }
+    [Fact]
+    public void Get_Book_ReturnsBook()
+    {
+        //Arrange
+        Book book = new("IsbnNumber", 1956, "SomeTitle", "AuthorsFirst", "AuthorsLast");
+        Storage storage = new();
+        storage.Add(book);
+        Guid bookId = book.Id;
+        //Act
+        IEntity? resultantBook = storage.Get(bookId);
+        //Assert
+        Assert.NotNull(book);
+        Assert.IsType<Book>(book);
+        Assert.Equal(book, resultantBook);
+
+    }
     #endregion
 }
