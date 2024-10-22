@@ -62,6 +62,22 @@ public class StorageTests
         Assert.True(storage.Contains(student));
 
     }
+    [Fact]
+    public void Get_Student_ReturnsStudent()
+    {
+        //Arrange
+        Student student = new("School", "first", "last") { GradeLevel = "12th" };
+        Storage storage = new();
+        storage.Add(student);
+        Guid studentId = student.Id;
+        //Act
+        IEntity? resultantStudent = storage.Get(studentId);
+        //Assert
+        Assert.NotNull(resultantStudent);
+        Assert.IsType<Student>(resultantStudent);
+        Assert.Equal(student,(Student)resultantStudent);
+
+    }
 
 
 
