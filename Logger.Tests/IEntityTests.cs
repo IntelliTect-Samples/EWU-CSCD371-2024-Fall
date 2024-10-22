@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,13 +16,11 @@ public class IEntityTests
     {
         //Arrange
         var mockEntity = new MockEntity("TestName");
-        var newGuid = Guid.NewGuid();
 
         //Act
-        mockEntity.Id = newGuid;
 
         //Assert
-        Assert.Equal(newGuid, mockEntity.Id);
+        Assert.NotEqual(Guid.Empty, mockEntity.Id);
         Assert.Equal("TestName", mockEntity.Name);
     }
 }
@@ -34,7 +33,7 @@ public class MockEntity : IEntity
         Name = name;
     }
 
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; init; } = Guid.NewGuid();
     public string Name { get; set; } = string.Empty;
 }
 
