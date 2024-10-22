@@ -8,12 +8,12 @@ namespace Logger;
 
 public abstract class EntityBase : IEntity
 {
-    public Guid Id { get; init; }
+    public Guid Id { get; init; } = Guid.NewGuid();
 
-    public EntityBase()
-    {
-        Id = Guid.NewGuid();
-    }
+    //public EntityBase()
+    //{
+    //    Id = Guid.NewGuid();
+    //}
 
     public abstract string Name { get; set; }
 }
