@@ -5,6 +5,7 @@ public record class Employee : Entity
     public FullName EmployeeFullName { get; set; }
     public string EmployeeID { get; init; }
     public string Position { get; set; }
+
     public Employee(string employeeID, string position, string first, string last, string? middle = null)
     {
         EmployeeFullName = new() { First = first, Last = last, Middle = middle };
