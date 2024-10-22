@@ -1,7 +1,4 @@
-﻿
-namespace Logger;
-
-
+﻿namespace Logger;
 
 
 /// <summary>
@@ -56,4 +53,3 @@ public record class FullName
         return First + " " + Middle + " " + Last;
     }
 }
-

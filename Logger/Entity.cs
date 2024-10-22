@@ -6,7 +6,7 @@ public abstract record class Entity : IEntity
     public Guid Id 
     { 
         get => _guid!; 
-        init { _guid = Guid.NewGuid(); } 
+        init => _guid = Guid.NewGuid();
     }
 
     public string Name => ParseName();
