@@ -77,4 +77,32 @@ public class FullNameTests
         // Act
         Assert.Throws<ArgumentNullException>(() => new FullName(firstName, lastName, null!));
     }
+
+    [Theory]
+    [InlineData("Inigo", "Montoya", "Elly")]
+    public void ToString_ThreeNames_ReturnsExpected(string firstName, string lastName, string middleName)
+    {
+        // Arrange
+        FullName fullName = new(firstName, lastName, middleName);
+        string expected = $"{firstName} {middleName} {lastName}";
+        // Act
+        string actual = fullName.ToString();
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData("Inigo", "Montoya")]
+    public void ToString_TwoNames_ReturnsExpected(string firstName, string lastName)
+    {
+        // Arrange
+        FullName fullName = new(firstName, lastName);
+        string expected = $"{firstName} {lastName}";
+        // Act
+        string actual = fullName.ToString();
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
 }
+
