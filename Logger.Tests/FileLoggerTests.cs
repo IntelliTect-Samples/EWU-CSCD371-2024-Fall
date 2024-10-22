@@ -5,14 +5,14 @@ namespace Logger.Tests;
 public class FileLoggerTests : FileLoggerTestsBase
 {    
     [Fact]
-    public void CreateGivenClassAndValidFileNameSuccess()
+    public void Create_GivenClassAndValidFileName_Success()
     {
         Assert.Equal(nameof(FileLoggerTests), Logger.LogSource);
         Assert.Equal(FilePath, Logger.FilePath);
     }
 
     [Fact]
-    public async Task LogMessageFileAppended()
+    public async Task Log_Message_FileAppended()
     {
         Logger.Log(LogLevel.Error, "Message1");
         Logger.Log(LogLevel.Error, "Message2");

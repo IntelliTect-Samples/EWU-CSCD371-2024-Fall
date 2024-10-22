@@ -5,7 +5,7 @@ namespace Logger.Tests;
 public class StorageTest
 {
     [Fact]
-    public void StudentEntityAddEntitySuccessful()
+    public void StudentEntity_AddEntity_Successful()
     {
         // Arrange
         Storage storage = new();
@@ -21,12 +21,12 @@ public class StorageTest
     }
 
     [Fact]
-    public void StudentEntityRemoveEntitySuccessful()
+    public void StudentEntity_RemoveEntity_Successful()
     {
         // Arrange
         Storage storage = new();
-        IEntity student = new Student("Joaquín", "", "Guzmán",
-            "ElChapo@gmail.com", "8187996700", "Mexico City", "Junior", 
+        IEntity student = new Student("Kate", "", "Del Catillo",
+            "LaReynaDelSur@gmail.com", "8187996700", "Mexico City", "Junior", 
             "Journalism");
         storage.Add(student);
 
@@ -40,7 +40,7 @@ public class StorageTest
     
 
     [Fact]
-    public void GetNonExistingEntityReturnsNull()
+    public void Get_NonExistingEntity_ReturnsNull()
     {
         // Arrange
         Storage storage = new();
