@@ -6,7 +6,7 @@ namespace Logger;
     Do not implement the Name property in this abstract class. ❌✔
     Do force any derived classes to provide an implementation for Name. ❌✔
  */
-public abstract class Base : IEntity
+public abstract record EntityBase : IEntity
 {
     public Guid Id { get; init; }
     public abstract string Name { get; }

@@ -39,4 +39,5 @@ public record FullName(string FirstName, string? MiddleName, string LastName)
             return $"{FirstName} {MiddleName} {LastName}";
         }
     }
+    
 }
