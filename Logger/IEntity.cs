@@ -9,5 +9,5 @@
 public interface IEntity
 {
     public Guid Id { get; init; }
-    public string Name { get; set; }
+    public string Name { get; }
 }
