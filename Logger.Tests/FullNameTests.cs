@@ -1,7 +1,7 @@
 using Xunit;
 
-namespace Logger.Tests
-{
+namespace Logger.Tests;
+
     public class FullNameTests
     {
         [Fact]
@@ -30,4 +30,3 @@ namespace Logger.Tests
             Assert.Equal("John Michael Doe", result);
         }
     }
-}
