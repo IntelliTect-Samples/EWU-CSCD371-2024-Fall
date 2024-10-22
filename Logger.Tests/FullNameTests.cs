@@ -60,11 +60,12 @@ public class FullNameTests
     [Theory]
     [InlineData(null, "Montoya", "Elly")]
     [InlineData("Inigo", null, "Elly")]
-    public void RecordCreation_CheckNullThrowsException__ThrowsException(string? firstName, string? lastName, string? middleName)
+    public void RecordCreation_CheckNullThrowsException__ThrowsException(string? firstName, string? lastName,
+        string? middleName)
     {
-        
+
         Assert.Throws<ArgumentException>(() => new FullName(firstName!, lastName!, middleName!));
-        
+
     }
 
     [Fact]
@@ -102,6 +103,23 @@ public class FullNameTests
         string actual = fullName.ToString();
         // Assert
         Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void SetName_ChangeName_ReturnsExpected()
+    {
+        // Arrange
+        FullName fullName = new("Inigo", "Montoya", "Elly");
+        string oldName = "Inigo Elly Montoya";
+
+        // Act
+        fullName.FirstName = "James";
+        fullName.MiddleName = "Edward";
+        fullName.LastName = "McNugget";
+
+        // Assert
+        Assert.NotEqual(oldName, fullName.ToString());
+        Assert.Equal("James Edward McNugget", fullName.ToString());
     }
 
 }
