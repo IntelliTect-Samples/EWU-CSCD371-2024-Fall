@@ -1,6 +1,7 @@
 ﻿namespace Logger
 {
-    public record Student
+    public record Student : EntityBase
     {
+        public override string Name 
     }
 }

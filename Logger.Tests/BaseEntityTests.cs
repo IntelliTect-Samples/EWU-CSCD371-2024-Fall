@@ -50,7 +50,7 @@ public class BaseEntityTests
 
 }
 
-public class TestEntity(string name) : EntityBase
+public record class TestEntity(string name) : EntityBase
 {
     public override string Name { get; set; } = name;
 }

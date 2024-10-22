@@ -39,4 +39,19 @@ public class StudentTests
         Assert.NotEqual(Guid.Empty, student.Id);
 
     }
+
+    [Fact]
+    public void StudentCreation_ChecksName_NameExists()
+    {
+        //Arrange
+        FullName fullName = new("Inigo", "Ella", "Montoya");
+
+        //Act
+        Student student = new(fullName);
+        string name = student.Name;
+
+        //Assert
+        Assert.Equal("Inigo Ella Montoya", name);
+
+    }
 }
