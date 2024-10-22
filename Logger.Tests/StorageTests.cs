@@ -9,9 +9,9 @@ public class StorageTest
     {
         // Arrange
         Storage storage = new();
-        IEntity student = new Student(new FullName("Joaquín", "", "Guzmán"), 
-            "ElChapo@gmail.com", "1234567890", "Sinaloa", "Senior", 
-            "Criminal Justice");
+        IEntity student = new Student("Joaquín", "", "Guzmán",
+            "ElChapo@gmail.com", "8187996700", "Mexico City", "Junior", 
+            "Journalism");
 
         // Act
         storage.Add(student);
@@ -25,7 +25,7 @@ public class StorageTest
     {
         // Arrange
         Storage storage = new();
-        IEntity student = new Student(new FullName("Kate ", "", "del Castillo"), 
+        IEntity student = new Student("Joaquín", "", "Guzmán",
             "ElChapo@gmail.com", "8187996700", "Mexico City", "Junior", 
             "Journalism");
         storage.Add(student);
