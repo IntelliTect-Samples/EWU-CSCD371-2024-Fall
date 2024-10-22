@@ -83,4 +83,17 @@ public class EmployeeTests
         //Assert
         Assert.Equal(expectedName, actualName);
     }
+
+    [Fact]
+    public void Constructor_MatchingEmployee_ReturnsTrue()
+    {
+        //Arrange
+        Employee employee1 = new("EmployeeID", "Position", "First", "Last", "Middle");
+        Employee employee2 = new("EmployeeID", "Position", "First", "Last", "Middle");
+
+        //Act
+
+        //Assert
+        Assert.True(employee1.Equals(employee2));
+    }
 }
