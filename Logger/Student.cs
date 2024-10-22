@@ -1,6 +1,6 @@
 ﻿namespace Logger;
 
-public record Student(FullName nameDetails) : EntityBase
+public record class Student(FullName nameDetails) : EntityBase
 {
     // TODO: Figure out if these should be set or init or read only
     public override string Name

@@ -1,6 +1,6 @@
 ﻿namespace Logger;
 
-public record FullName
+public record class FullName
 {
     private string? _firstName;
     private string? _lastName;
