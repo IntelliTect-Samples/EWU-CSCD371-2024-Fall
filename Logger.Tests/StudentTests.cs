@@ -18,4 +18,25 @@ public class StudentTests
         //Assert
         Assert.NotNull(student);
     }
+
+    [Fact]
+    public void StudentCreation_IsType_ReturnsStudentType()
+    {
+        //Act
+        Student student = new();
+
+        //Assert
+        Assert.IsType<Student>(student);
+    }
+
+    [Fact]
+    public void StudentCreation_ChecksGuid_GuidExists()
+    {
+        //Act
+        Student student = new();
+
+        //Assert
+        Assert.NotEqual(Guid.Empty, student.Id);
+
+    }
 }
