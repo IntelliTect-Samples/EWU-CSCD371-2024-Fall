@@ -2,5 +2,5 @@
 public interface IEntity
 {
     string Name { get; }
-    Guid ID { get; init; }
+    Guid Id{ get; init; }
 }
