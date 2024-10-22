@@ -4,8 +4,9 @@ namespace Logger.Tests;
 
 public class EmployeeTests
 {
-    [Fact]
-    public void Constructor_AllParamaters_MakesEmployee()
+    [Theory]
+    [InlineData("EmployeeID", "Position", "First", "Last", "Middle")]
+    public void Constructor_AllParamaters_MakesEmployee(string employeeId, string position, string first, string last, string middle)
     {
         //Arrange
         Employee employee = new("EmployeeID", "Position", "First", "Last", "Middle");
@@ -14,5 +15,10 @@ public class EmployeeTests
 
         //Assert
         Assert.NotNull(employee);
+        Assert.Equal(employee.EmployeeID, employeeId);
+        Assert.Equal(employee.Position, position);
+        Assert.Equal(employee.EmployeeFullName.First, first);
+        Assert.Equal(employee.EmployeeFullName.Middle, middle);
+        Assert.Equal(employee.EmployeeFullName.Last, last);
     }
 }
