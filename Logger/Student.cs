@@ -1,7 +1,7 @@
-﻿namespace Logger
+﻿namespace Logger;
+
+public record Student(FullName nameDetails) : EntityBase
 {
-    public record Student : EntityBase
-    {
-        public override string Name 
-    }
+    public override string Name => nameDetails.ToString();
+
 }
