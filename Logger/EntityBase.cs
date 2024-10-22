@@ -15,6 +15,6 @@ public abstract record class EntityBase : IEntity
     //    Id = Guid.NewGuid();
     //}
 
-    public abstract string Name { get; set; }
+    public abstract string Name { get; }
 }
 

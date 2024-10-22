@@ -52,5 +52,5 @@ public class BaseEntityTests
 
 public record class TestEntity(string name) : EntityBase
 {
-    public override string Name { get; set; } = name;
+    public override string Name { get; } = name;
 }
