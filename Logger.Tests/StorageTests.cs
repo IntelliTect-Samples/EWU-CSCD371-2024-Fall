@@ -27,8 +27,10 @@ public class StorageTests
         //Arrange
         Student student = new("School", "first", "last") { GradeLevel = "12th" };
         Storage storage = new();
+
         //Act
         storage.Add(student);
+
         //Assert
         Assert.NotNull(student);
         Assert.Equal(storage.Get(student.Id),student);
@@ -40,10 +42,11 @@ public class StorageTests
         //Arrange
         Student student = new("School", "first", "last") {GradeLevel = "12th" };
         Storage storage = new();
-        //Act
 
+        //Act
         storage.Add(student);
         storage.Remove(student);
+
         //Assert
         Assert.False(storage.Contains(student));
     }
@@ -57,7 +60,6 @@ public class StorageTests
 
         //Act
 
-
         //Assert
         Assert.True(storage.Contains(student));
 
@@ -70,13 +72,14 @@ public class StorageTests
         Storage storage = new();
         storage.Add(student);
         Guid studentId = student.Id;
+
         //Act
         IEntity? resultantStudent = storage.Get(studentId);
+
         //Assert
         Assert.NotNull(resultantStudent);
         Assert.IsType<Student>(resultantStudent);
         Assert.Equal(student,resultantStudent);
-
     }
 
 
@@ -91,8 +94,10 @@ public class StorageTests
         //Arrange
         Book book = new("IsbnNumber", 1956, "SomeTitle", "AuthorsFirst", "AuthorsLast");
         Storage storage = new();
+
         //Act
         storage.Add(book);
+
         //Assert
         Assert.NotNull(book);
         Assert.Equal(storage.Get(book.Id),book);
@@ -104,10 +109,11 @@ public class StorageTests
         //Arrange
         Book book = new("IsbnNumber", 1956, "SomeTitle", "AuthorsFirst", "AuthorsLast");
         Storage storage = new();
-        //Act
 
+        //Act
         storage.Add(book);
         storage.Remove(book);
+
         //Assert
         Assert.False(storage.Contains(book));
     }
@@ -121,7 +127,6 @@ public class StorageTests
 
         //Act
 
-
         //Assert
         Assert.True(storage.Contains(book));
 
@@ -134,13 +139,83 @@ public class StorageTests
         Storage storage = new();
         storage.Add(book);
         Guid bookId = book.Id;
+
         //Act
         IEntity? resultantBook = storage.Get(bookId);
+
         //Assert
         Assert.NotNull(book);
         Assert.IsType<Book>(book);
         Assert.Equal(book, resultantBook);
+    }
+    #endregion
+
+    #region StudentTests
+
+
+    [Fact]
+    public void Add_Employee_AddsToList()
+    {
+        //Arrange
+        Employee employee = new("employeeID", "position", "first", "last");
+        Storage storage = new();
+
+        //Act
+        storage.Add(employee);
+
+        //Assert
+        Assert.NotNull(employee);
+        Assert.Equal(storage.Get(employee.Id), employee);
+    }
+
+    [Fact]
+    public void Remove_Employee_RemovesFromList()
+    {
+        //Arrange
+        Employee employee = new("employeeID", "position", "first", "last");
+        Storage storage = new();
+
+        //Act
+        storage.Add(employee);
+        storage.Remove(employee);
+
+        //Assert
+        Assert.False(storage.Contains(employee));
+    }
+    [Fact]
+    public void Contains_Employee_ReturnsTrue()
+    {
+        //Arrange
+        Employee employee = new("employeeID", "position", "first", "last");
+        Storage storage = new();
+        storage.Add(employee);
+
+        //Act
+
+        //Assert
+        Assert.True(storage.Contains(employee));
 
     }
+    [Fact]
+    public void Get_Employee_ReturnsStudent()
+    {
+        //Arrange
+        Employee employee = new("employeeID", "position", "first", "last");
+        Storage storage = new();
+        storage.Add(employee);
+        Guid studentId = employee.Id;
+
+        //Act
+        IEntity? resultantEmployee = storage.Get(studentId);
+
+        //Assert
+        Assert.NotNull(resultantEmployee);
+        Assert.IsType<Employee>(resultantEmployee);
+        Assert.Equal(employee, resultantEmployee);
+
+    }
+
+
+
     #endregion
 }
