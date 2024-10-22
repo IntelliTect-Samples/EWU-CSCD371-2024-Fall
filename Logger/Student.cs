@@ -1,7 +1,4 @@
-﻿
-using System.Globalization;
-
-namespace Logger;
+﻿namespace Logger;
 
 public record class Student : Entity
 {
