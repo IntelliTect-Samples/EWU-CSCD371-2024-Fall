@@ -15,7 +15,7 @@ public class EmployeeTests
 
         //Assert
         Assert.NotNull(expectedEmployee);
-        Assert.Equal(expectedEmployee.EmployeeID, employeeId);
+        Assert.Equal(expectedEmployee.ID, employeeId);
         Assert.Equal(expectedEmployee.Position, position);
         Assert.Equal(expectedEmployee.EmployeeFullName.First, first);
         Assert.Equal(expectedEmployee.EmployeeFullName.Middle, middle);
@@ -33,7 +33,7 @@ public class EmployeeTests
 
         //Assert
         Assert.NotNull(expectedEmployee);
-        Assert.Equal(expectedEmployee.EmployeeID, employeeId);
+        Assert.Equal(expectedEmployee.ID, employeeId);
         Assert.Equal(expectedEmployee.Position, position);
         Assert.Equal(expectedEmployee.EmployeeFullName.First, first);
         Assert.Equal(expectedEmployee.EmployeeFullName.Last, last);

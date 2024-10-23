@@ -25,7 +25,7 @@ public class StorageTests
     public void Add_Student_AddsToList()
     {
         //Arrange
-        Student student = new("School", "first", "last") { GradeLevel = "12th" };
+        Student student = new("StudentID-12345", "School", "first", "last") { GradeLevel = "12th" };
         Storage storage = new();
 
         //Act
@@ -40,7 +40,7 @@ public class StorageTests
     public void Remove_Student_RemovesFromList()
     {
         //Arrange
-        Student student = new("School", "first", "last") {GradeLevel = "12th" };
+        Student student = new("StudentID-12345", "School", "first", "last") {GradeLevel = "12th" };
         Storage storage = new();
 
         //Act
@@ -54,7 +54,7 @@ public class StorageTests
     public void Contains_Student_ReturnsTrue()
     {
         //Arrange
-        Student student = new("School", "first", "last") { GradeLevel = "12th" };
+        Student student = new("StudentID-12345", "School", "first", "last") { GradeLevel = "12th" };
         Storage storage = new();
         storage.Add(student);
 
@@ -68,7 +68,7 @@ public class StorageTests
     public void Get_Student_ReturnsStudent()
     {
         //Arrange
-        Student student = new("School", "first", "last") { GradeLevel = "12th" };
+        Student student = new("StudentID-12345", "School", "first", "last") { GradeLevel = "12th" };
         Storage storage = new();
         storage.Add(student);
         Guid studentId = ((IEntity)student).Id;
