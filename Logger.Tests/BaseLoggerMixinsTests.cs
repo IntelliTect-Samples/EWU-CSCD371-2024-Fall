@@ -32,6 +32,7 @@ public class BaseLoggerMixinsTests
         Assert.Throws<ArgumentNullException>(() =>
             BaseLoggerMixins.Warning(null!, ""));
     }
+
     [Fact]
     public void Warning_WithData_LogsMessage()
     {
@@ -47,12 +48,14 @@ public class BaseLoggerMixinsTests
         Assert.Equal("Message WithData", logger.LoggedMessages[0].Message);
 
     }
+
     [Fact]
     public void Information_WithNullLogger_ThrowsException()
     {
         Assert.Throws<ArgumentNullException>(() =>
             BaseLoggerMixins.Information(null!, ""));
     }
+
     [Fact]
     public void Information_WithData_LogsMessage()
     {
@@ -66,14 +69,15 @@ public class BaseLoggerMixinsTests
         Assert.Single(logger.LoggedMessages);
         Assert.Equal(LogLevel.Information, logger.LoggedMessages[0].LogLevel);
         Assert.Equal("Message WithData", logger.LoggedMessages[0].Message);
-
     }
+
     [Fact]
     public void Debug_WithNullLogger_ThrowsException()
     {
         Assert.Throws<ArgumentNullException>(() =>
             BaseLoggerMixins.Debug(null!, ""));
     }
+
     [Fact]
     public void Debug_WithData_LogsMessage()
     {
@@ -87,6 +91,5 @@ public class BaseLoggerMixinsTests
         Assert.Single(logger.LoggedMessages);
         Assert.Equal(LogLevel.Debug, logger.LoggedMessages[0].LogLevel);
         Assert.Equal("Message WithData", logger.LoggedMessages[0].Message);
-
     }
 }

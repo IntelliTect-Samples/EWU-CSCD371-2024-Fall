@@ -22,10 +22,11 @@ public class LogFactoryTests : FileLoggerTestsBase
     public void FilePath_ValidPath_CreatesFilePath()
     {
         //Arrange
-        LogFactory loggerFactory = new();
-
-        //Act
-        loggerFactory.FilePath = FilePath;
+        LogFactory loggerFactory = new()
+        {
+            //Act
+            FilePath = FilePath
+        };
 
         //Assert
         Assert.Equal(FilePath, loggerFactory.FilePath);

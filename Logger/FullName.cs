@@ -23,7 +23,7 @@ public record class FullName
         get => _first!;
         set
         {
-            if(string.IsNullOrWhiteSpace(value)) throw new ArgumentException(nameof(value),$"Tried to set a null or empty value for {nameof(First)}");
+            if(string.IsNullOrWhiteSpace(value)) throw new ArgumentException($"Tried to set a null or empty value for {nameof(First)}", nameof(value));
             _first = value;
         } 
     }
@@ -33,7 +33,7 @@ public record class FullName
         get => _last!;
         set
         {
-            if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException(nameof(value), $"Tried to set a null or empty value for {nameof(Last)}");
+            if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException($"Tried to set a null or empty value for {nameof(Last)}", nameof(value));
             _last = value;
         }
     }
