@@ -1,6 +1,6 @@
 ﻿namespace Logger;
 
-public record Book() : BaseEntity
+public record class Book() : BaseEntity
 {
     // Is it for internal or external use? implicit / explicit
     // Explicit
