@@ -1,4 +1,6 @@
-﻿namespace Logger;
+﻿using System.Globalization;
+
+namespace Logger;
 
 public record class Employee : BaseEntity
 {
@@ -15,7 +17,7 @@ public record class Employee : BaseEntity
 
             try
             {
-                EmployeeId = Int32.Parse(members[0]);
+                EmployeeId = Int32.Parse(members[0], CultureInfo.InvariantCulture);
             }
             catch (FormatException)
             {
