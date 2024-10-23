@@ -1,4 +1,4 @@
-﻿using Xunit;
+using Xunit;
 
 namespace Logger.Tests;
 
@@ -14,7 +14,7 @@ public class StudentTests
 
         //Assert
         Assert.NotNull(s);
-        Assert.Equal("StudentID-12345", s.ID);
+        Assert.Equal("StudentID-12345", s.Id);
         Assert.Equal("FirstName MiddleName LastName", s.Name);
         Assert.Equal("MySchoolName", s.SchoolName);
     }
@@ -29,7 +29,7 @@ public class StudentTests
 
         //Assert
         Assert.NotNull(s);
-        Assert.Equal("StudentID-12345", s.ID);
+        Assert.Equal("StudentID-12345", s.Id);
         Assert.Equal("FirstName LastName", s.Name);
         Assert.Equal("MySchoolName", s.SchoolName);
         Assert.Equal("12th", s.GradeLevel);
