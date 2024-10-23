@@ -1,4 +1,3 @@
-﻿
 namespace Logger;
 
 public abstract record class Entity : IEntity
@@ -13,5 +12,4 @@ public abstract record class Entity : IEntity
 
     public string Name => ParseName();
     protected abstract string ParseName();
-    
 }
