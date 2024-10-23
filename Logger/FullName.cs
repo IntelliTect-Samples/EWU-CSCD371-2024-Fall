@@ -14,9 +14,11 @@ namespace Logger
 
     public record class FullName(string FirstName, string LastName, string? MiddleName = null)
     {
+        public string? MiddleName { get; init; } = string.IsNullOrWhiteSpace(MiddleName) ? null : MiddleName;
+
         public override string ToString()
         {
-            if (string.IsNullOrEmpty(MiddleName))
+            if (MiddleName == null)
             {
                 return $"{FirstName} {LastName}";
             }
@@ -27,3 +29,4 @@ namespace Logger
         }
     }
 }
+
