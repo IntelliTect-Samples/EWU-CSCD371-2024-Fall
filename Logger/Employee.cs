@@ -14,7 +14,6 @@ public record class Employee : BaseEntity
         {
             ArgumentNullException.ThrowIfNullOrWhiteSpace(value);
             string[] members = value.Trim().Split(':');
-
             try
             {
                 EmployeeId = Int32.Parse(members[0], CultureInfo.InvariantCulture);
@@ -23,7 +22,6 @@ public record class Employee : BaseEntity
             {
                 throw new FormatException("Invalid Student Id");
             }
-
             string[] studentNames = members[1].Trim().Split(" ");
 
             if (studentNames.Length == 2)

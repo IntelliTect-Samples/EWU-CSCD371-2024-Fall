@@ -15,9 +15,9 @@ public record class Book() : BaseEntity
             ArgumentException.ThrowIfNullOrWhiteSpace(value, nameof(value));
 
             string[] names;
-            names = value.Split(new string[] { "by:" }, StringSplitOptions.None);
+            names = value.Split(":");
 
-            Title = names[0].Trim();
+            Title = names[0].Substring(0,names[0].Length - 2).Trim();
 
             string[] authorNames = names[1].Trim().Split(" ");
 
