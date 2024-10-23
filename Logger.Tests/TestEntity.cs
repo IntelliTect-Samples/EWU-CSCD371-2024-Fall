@@ -13,5 +13,6 @@ public class TestEntity : IEntity
             _name = value;
         }
     }
+
     public required Guid Id { get => _id!; init => _id = value; }
 }
