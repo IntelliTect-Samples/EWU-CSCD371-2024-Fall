@@ -14,18 +14,18 @@ public class EmployeeTests
     {
         //Act
         FullName fullName = new("Inigo", "Ella", "Montoya");
-        Employee employee = new();
+        Employee employee = new(fullName);
 
         //Assert
         Assert.NotNull(employee);
     }
 
     [Fact]
-    public void EmployeeCreation_IsType_ReturnsStudentType()
+    public void EmployeeCreation_IsType_ReturnsEmployeeType()
     {
         //Act
         FullName fullName = new("Inigo", "Ella", "Montoya");
-        Employee employee = new();
+        Employee employee = new(fullName);
 
         //Assert
         Assert.IsType<Employee>(employee);
@@ -36,10 +36,39 @@ public class EmployeeTests
     {
         //Act
         FullName fullName = new("Inigo", "Ella", "Montoya");
-        Employee employee = new();
+        Employee employee = new(fullName);
 
         //Assert
         Assert.NotEqual(Guid.Empty, employee.Id);
 
     }
+
+    [Fact]
+    public void EmployeeCreation_ChecksName_NamesExists()
+    {
+        //Arrange
+        FullName fullName = new("Inigo", "Ella", "Montoya");
+
+        //Act
+        Employee employee = new(fullName);
+        string name = employee.Name;
+
+        //Assert
+        Assert.NotNull(name);
+    }
+
+    [Fact]
+    public void EmployeeCreation_ChecksName_NamesEqual()
+    {
+        //Arrange
+        FullName fullName = new("Inigo", "Montoya", "Ella");
+
+        //Act
+        Employee employee = new(fullName);
+        string name = employee.Name;
+
+        //Assert
+        Assert.Equal("Inigo Ella Montoya", name);
+    }
+
 }

@@ -1,6 +1,6 @@
 ﻿namespace Logger
 {
-    public class Employee
+    public record class Employee(FullName NameDetails) : Person(NameDetails)
     {
     }
 }
