@@ -8,8 +8,10 @@ public class StudentTests
     public void StudentName_SetValid_Success()
     {
         // Arrange
-        Student student = new Student();
-        student.StudentName = new FullName("Billy", "Jean");
+        Student student = new()
+        {
+            StudentName = new FullName("Billy", "Jean")
+        };
 
         // Act
 
@@ -34,8 +36,10 @@ public class StudentTests
     public void StudentId_SetValid_Success()
     {
         // Arrange
-        Student student = new Student();
-        student.StudentId = 123456;
+        Student student = new()
+        {
+            StudentId = 123456
+        };
 
         // Act
 
@@ -60,8 +64,10 @@ public class StudentTests
     public void Name_SetValid_Success()
     {
         // Arrange
-        Student student = new Student();
-        student.Name = "123456: Billy Jean";
+        Student student = new()
+        {
+            Name = "123456: Billy Jean"
+        };
 
         // Act
 
@@ -73,7 +79,7 @@ public class StudentTests
     public void Name_SetInvalidId_FormatException()
     {
         // Arrange
-        Student student = new Student();
+        Student student = new();
 
         // Act
 
@@ -85,7 +91,7 @@ public class StudentTests
     public void Name_SetInvalidNameLength_FormatException()
     {
         // Arrange
-        Student student = new Student();
+        Student student = new();
 
         // Act
 
@@ -97,7 +103,7 @@ public class StudentTests
     public void Name_SetNull_ArgumentNullException()
     {
         // Arrange
-        Student student = new Student();
+        Student student = new();
 
         // Act
 
@@ -109,7 +115,7 @@ public class StudentTests
     public void Name_SetEmpty_ArgumentException()
     {
         // Arrange
-        Student student = new Student();
+        Student student = new();
 
         // Act
 

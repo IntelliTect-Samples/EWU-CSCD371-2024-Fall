@@ -7,8 +7,10 @@ public class EmployeeTests
     public void Name_SetValid_Success()
     {
         // Arrange
-        Employee employee = new Employee();
-        employee.Name = "123456: Billy Jean: Singer";
+        Employee employee = new()
+        {
+            Name = "123456: Billy Jean: Singer"
+        };
 
         // Act
 
@@ -20,7 +22,7 @@ public class EmployeeTests
     public void Name_SetInvalidId_FormatException()
     {
         // Arrange
-        Employee employee = new Employee();
+        Employee employee = new();
 
         // Act
 
@@ -32,7 +34,7 @@ public class EmployeeTests
     public void Name_SetInvalidNameLength_FormatException()
     {
         // Arrange
-        Employee employee = new Employee();
+        Employee employee = new();
 
         // Act
 
@@ -44,7 +46,7 @@ public class EmployeeTests
     public void Name_SetNull_ArgumentNullException()
     {
         // Arrange
-        Employee employee = new Employee();
+        Employee employee = new();
 
         // Act
 
@@ -56,7 +58,7 @@ public class EmployeeTests
     public void Name_SetEmpty_ArgumentException()
     {
         // Arrange
-        Employee employee = new Employee();
+        Employee employee = new();
 
         // Act
 
