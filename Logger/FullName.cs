@@ -21,7 +21,8 @@ public record class FullName
     public required string First 
     { 
         get => _first!;
-        set{
+        set
+        {
             if(string.IsNullOrWhiteSpace(value)) throw new ArgumentException(nameof(value),$"Tried to set a null or empty value for {nameof(First)}");
             _first = value;
         } 
