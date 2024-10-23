@@ -8,8 +8,8 @@ namespace CanHazFunny
 {
     public class Jester
     {
-        private IJokeService? _jokeService;
-        private IOutputService? _outputService;
+        private IJokeService _jokeService;
+        private IOutputService _outputService;
 
         public Jester(IJokeService? jokeService, IOutputService? outputService) 
         { 
