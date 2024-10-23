@@ -1,5 +1,9 @@
 ﻿namespace Logger;
-public record class Employee (string id, string position, string first, string last, string? middle = null) : Person(first, last, id, middle)
+public record class Employee : Person
 {
-    public string Position = position ?? throw new ArgumentNullException(nameof(position), $"{nameof(position)} was null");
+    public string Position { get; set; }
+    public Employee(string id, string position, string first, string last, string? middle = null) : base(first, last, id, middle)
+    {
+        Position = position ?? throw new ArgumentNullException(nameof(position), $"{nameof(position)} was null");
+    }
 }
