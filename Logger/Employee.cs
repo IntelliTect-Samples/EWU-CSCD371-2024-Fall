@@ -2,7 +2,6 @@
 
 public record class Employee : Entity
 {
-
     public FullName EmployeeFullName { get; set; }
     public string ID { get; init; }
     public string Position { get; set; }

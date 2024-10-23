@@ -24,7 +24,8 @@ public class FileLoggerConfiguration : ILoggerConfiguration
                 : logSource;
 
     }
-    public string FilePath { get;  }
+
+    public string FilePath { get; }
 
     /// <summary>
     /// <seealso cref="ILoggerConfiguration.LogSource"/>

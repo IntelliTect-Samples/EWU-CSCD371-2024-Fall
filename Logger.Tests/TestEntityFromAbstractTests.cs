@@ -1,5 +1,4 @@
-﻿
-using Xunit;
+﻿using Xunit;
 
 namespace Logger.Tests;
 
@@ -12,6 +11,7 @@ public class TestEntityFromAbstractTests
         
         //Act
         TestEntityFromAbstract testEntityFromAbstract = new("first","last");
+
         //Assert
         Assert.NotNull(testEntityFromAbstract);
         Assert.Equal("first last", testEntityFromAbstract.Name);
@@ -23,6 +23,7 @@ public class TestEntityFromAbstractTests
 
         //Act
         TestEntityFromAbstract testEntityFromAbstract = new("first", "last", "middle");
+
         //Assert
         Assert.Equal("first middle last", testEntityFromAbstract.Name);
     }

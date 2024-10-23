@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace Logger;
+﻿namespace Logger;
 public interface IEntity
 {
 

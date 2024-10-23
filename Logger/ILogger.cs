@@ -1,5 +1,4 @@
 ﻿namespace Logger;
-
 // TODO: Change ILogger variable Logsource and method signature for Log(..) to explicitly say public abstract
 // TODO: Implement an abstract factory instead of a creation interface
 /// <summary>
@@ -19,7 +18,4 @@ public interface ILogger
     // and you can't have covariant return types on interface members. :(
 
     static abstract T CreateLogger<T,U>(in U configuration);
-
-
-
 }

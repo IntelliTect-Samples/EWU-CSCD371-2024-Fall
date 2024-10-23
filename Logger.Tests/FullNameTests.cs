@@ -11,15 +11,15 @@ public class FullNameTests
     public void Constructor_AllParameters_MakesRecord(string first, string middle, string last, string expectedFirst,string expectedMiddle, string expectedLast)
     {
         //Arrange
-        //Act
 
+        //Act
         FullName f = new() { First = first,Last = last, Middle = middle };
+
         //Assert
         Assert.NotNull(f);
         Assert.Equal( expectedFirst, f.First);
         Assert.Equal(expectedMiddle, f.Middle);
         Assert.Equal(expectedLast, f.Last);
-        
     }
     [Theory]
     [InlineData("First","Last","First", "Last")]
@@ -42,6 +42,7 @@ public class FullNameTests
     public void Constructor_BadValues_ThrowsException(string? first, string? last, string? middle)
     {
         //Arrange
+
         //Act
 
         //Assert
