@@ -19,4 +19,27 @@ public class EmployeeTests
         //Assert
         Assert.NotNull(employee);
     }
+
+    [Fact]
+    public void EmployeeCreation_IsType_ReturnsStudentType()
+    {
+        //Act
+        FullName fullName = new("Inigo", "Ella", "Montoya");
+        Employee employee = new();
+
+        //Assert
+        Assert.IsType<Employee>(employee);
+    }
+
+    [Fact]
+    public void EmployeeCreation_ChecksGuid_GuidExists()
+    {
+        //Act
+        FullName fullName = new("Inigo", "Ella", "Montoya");
+        Employee employee = new();
+
+        //Assert
+        Assert.NotEqual(Guid.Empty, employee.Id);
+
+    }
 }
