@@ -10,6 +10,7 @@ public abstract record class EntityBase : IEntity
 {
     private readonly Guid _guid = Guid.NewGuid();
 
+    //TODO: Explanation of why the GUID is explicitly implemented
     Guid IEntity.Id
     {
         get => _guid;
