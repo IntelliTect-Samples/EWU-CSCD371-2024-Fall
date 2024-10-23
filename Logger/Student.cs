@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Logger;
 
-public record class Student(string school, string id, string first, string last, string middle = "") : Person(first, last, "123455", middle)
+public record class Student(string id, string school, string first, string last, string? middle = null) : Person(first, last, id, middle)
 {
 
     public string SchoolName = school ?? throw new ArgumentNullException(nameof(school), "School string was null");
