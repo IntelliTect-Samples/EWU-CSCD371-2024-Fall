@@ -84,7 +84,7 @@ public class StudentTests
         Student student2 = new(fullName);
 
         //Act
-        bool result = student1.Name.Equals(student2.Name);
+        bool result = student1.Name.Equals(student2.Name, StringComparison.Ordinal);
 
         //Assert
         Assert.True(result);
