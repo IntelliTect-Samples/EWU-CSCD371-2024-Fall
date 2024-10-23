@@ -8,13 +8,13 @@ public class FullNameTests
     public void Create_FullName_Success()
     {
         // Arrange
-        FullName testName = new FullName("Kevin", "Riain", "Flannery");
+        FullName testName = new("Kevin", "Riain", "Flannery");
         // Act
 
         // Assert
-        Assert.Equal("Kevin", testName.firstName);
-        Assert.Equal("Riain", testName.middleName);
-        Assert.Equal("Flannery", testName.lastName);
+        Assert.Equal("Kevin", testName.FirstName);
+        Assert.Equal("Riain", testName.MiddleName);
+        Assert.Equal("Flannery", testName.LastName);
     }
 
     [Fact]
@@ -25,9 +25,9 @@ public class FullNameTests
         // Act
 
         // Assert
-        Assert.Equal("Kevin", testName.firstName);
-        Assert.Null(testName.middleName);
-        Assert.Equal("Flannery", testName.lastName);
+        Assert.Equal("Kevin", testName.FirstName);
+        Assert.Null(testName.MiddleName);
+        Assert.Equal("Flannery", testName.LastName);
     }
 
     [Fact]
