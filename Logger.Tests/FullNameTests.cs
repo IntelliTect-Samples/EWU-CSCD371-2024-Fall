@@ -40,4 +40,15 @@ public class FullNameTests
         // Assert
         Assert.Equal("Kevin Riain Flannery", result);
     }
+
+    //[Fact]
+    //public void Create_FullNameWithNull_ArgumentNullException()
+    //{
+    //    // Arrange
+    //    FullName testName;
+    //    // Act
+
+    //    // Assert
+    //    Assert.Throws<ArgumentNullException>(() => testName = new FullName(null!, null!));
+    //}
 }
