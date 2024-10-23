@@ -163,7 +163,7 @@ public class StorageTests
 
         //Assert
         Assert.NotNull(employee);
-        Assert.Equal(storage.Get(employee.Id), employee);
+        Assert.Equal(storage.Get(((IEntity)employee).Id), employee);
     }
 
     [Fact]
@@ -201,7 +201,7 @@ public class StorageTests
         Employee employee = new("employeeID", "position", "first", "last");
         Storage storage = new();
         storage.Add(employee);
-        Guid studentId = employee.Id;
+        Guid studentId = ((IEntity)employee).Id;
 
         //Act
         IEntity? resultantEmployee = storage.Get(studentId);
