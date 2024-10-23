@@ -8,9 +8,9 @@ namespace CanHazFunny.Tests;
 public class JesterTests
 {
     [Fact]
-#pragma warning disable CA1707 // Identifiers should not contain underscores
+
     public void TellJoke_JokeAquired_Sucess()
-#pragma warning restore CA1707 // Identifiers should not contain underscores
+
     { 
         //Arrange
         var mockJokeService = new Mock<IJokeService>();
