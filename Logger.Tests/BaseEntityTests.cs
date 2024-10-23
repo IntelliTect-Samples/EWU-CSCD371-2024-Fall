@@ -56,7 +56,7 @@ public class BaseEntityTests
     }
 }
 
-public record class TestEntity(string name) : EntityBase
+public record class TestEntity(string testName) : EntityBase
 {
-    public override string Name { get; } = name;
+    public override string Name { get; } = testName;
 }
