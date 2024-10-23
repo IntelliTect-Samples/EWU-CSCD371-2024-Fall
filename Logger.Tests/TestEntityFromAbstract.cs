@@ -1,5 +1,4 @@
-﻿
-namespace Logger.Tests;
+﻿namespace Logger.Tests;
 
 public record class TestEntityFromAbstract : Entity
 {

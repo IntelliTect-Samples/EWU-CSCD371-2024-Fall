@@ -1,6 +1,4 @@
-﻿
-
-namespace Logger.Tests;
+﻿namespace Logger.Tests;
 
 public class TestEntity : IEntity
 {

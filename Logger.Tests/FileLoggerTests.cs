@@ -41,15 +41,13 @@ public class FileLoggerTests : FileLoggerTestsBase
         //Assert
         Assert.ThrowsAny<Exception>(() =>
         new FileLogger(logSource!,FilePath));
-
     }
-
 
     [Fact]
     public void Constructor_NullFileLoggerConfiguration_ThrowsNullReferenceException()
     {
-
         //Arrange
+
         //Act
 
         //Assert
@@ -63,15 +61,15 @@ public class FileLoggerTests : FileLoggerTestsBase
     {
         //Arrange
         FileLoggerConfiguration config = new(FilePath, nameof(FileLoggerTests));
+
         //Act
         FileLogger logger =new(config);
+
         //Assert
         Assert.NotNull(logger);
         Assert.Equal(FilePath, logger.FilePath);
         Assert.Equal(nameof(FileLoggerTests),logger.LogSource);
     }
-
-
 
     //TODO:  ILogger.CreateLogger test for FileLogger
 
@@ -91,7 +89,6 @@ public class FileLoggerTests : FileLoggerTestsBase
         Assert.Equal(logger.FilePath, FilePath);
     }
 
-
     //In the [classname][methodname] method, given [input], we expect [expection]
     [Fact]
     public void CreateLogger_NullFileLoggerConfiguration_ThrowsNullReferenceException ()
@@ -105,12 +102,6 @@ public class FileLoggerTests : FileLoggerTestsBase
         );
 
     }
-
-
-
-
-
-
 
     [Fact]
     public async Task Log_Message_FileAppended()

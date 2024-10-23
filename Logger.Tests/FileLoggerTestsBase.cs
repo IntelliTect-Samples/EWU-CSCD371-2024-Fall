@@ -3,7 +3,6 @@
 public class FileLoggerTestsBase : IDisposable
 {
     private bool disposedValue;
-
     protected string FilePath { get; set; }
     protected FileLogger Logger { get; set; }
 

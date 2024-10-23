@@ -72,6 +72,7 @@ public class StorageTests
         Storage storage = new();
         storage.Add(student);
         Guid studentId = ((IEntity)student).Id;
+
         //Act
         IEntity? resultantStudent = storage.Get(studentId);
 
@@ -80,8 +81,6 @@ public class StorageTests
         Assert.IsType<Student>(resultantStudent);
         Assert.Equal(student,resultantStudent);
     }
-
-
 
     #endregion
 

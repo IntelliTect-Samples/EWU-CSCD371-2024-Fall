@@ -15,6 +15,5 @@ public class LogFactory
     public BaseLogger? CreateLogger(string logSource) => 
         FilePath is null ? null : new FileLogger(logSource, FilePath);
 
-    public void ConfigureFileLogger(string filePath) => FilePath=filePath;
-
+    public void ConfigureFileLogger(string filePath) => FilePath = filePath;
 }
