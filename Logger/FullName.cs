@@ -1,4 +1,4 @@
-﻿namespace Logger;
+namespace Logger;
 
 /// <summary>
 /// We chose to make the FullName Record a Reference Type (a class over a struct), because names can change (mutable)
