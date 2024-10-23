@@ -45,7 +45,7 @@ public class StudentTests
 
         //Act
         s.GradeLevel = "12th";
-        s.MyFullName = new FullName() { First = "FirstName", Last = "LastName" };
+        s.PersonFullName = new FullName() { First = "FirstName", Last = "LastName" };
 
         //Assert
         Assert.True(s.Equals(s2));
