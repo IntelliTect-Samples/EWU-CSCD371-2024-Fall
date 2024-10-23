@@ -39,12 +39,19 @@ public class StudentTests
     public void Equals_MatchingStudent_ReturnsTrue()
     {
         //Arrange
-        Student s = new("MySchoolName", "FirstName", "LastName") { GradeLevel = "12th" };
+        Student s = new("MySchoolName", "FirstName", "LastName") { GradeLevel = "10th" };
         Student s2 = new ("MySchoolName", "FirstName", "LastName") { GradeLevel = "12th" };
+        Student s3 = new("MySchoolName", "FirstName", "LastName") { GradeLevel = "12th" };
         //Act
 
+        s.GradeLevel = "12th";
+        s.MyFullName = new FullName() { First = "FirstName",Last = "LastName"};
         //Assert
         Assert.True(s.Equals(s2));
+        Assert.True(s.Equals(s3));
+        Assert.True(s2.Equals(s3));
         Assert.True(s == s2);
+        Assert.True(s == s3);
+        Assert.True(s2 == s);
     }
 }
