@@ -1,38 +1,23 @@
 ﻿namespace Logger;
 
-public record class FullName
+public readonly record struct FullName
 {
-    private string? _firstName;
-    private string? _lastName;
-    private string? _middleName;
+
+    public string FirstName { get; }
+    public string LastName { get; }
+    public string MiddleName { get; }
 
     public FullName(string firstName, string lastName, string middleName = "")
     {
+        if (string.IsNullOrWhiteSpace(firstName))
+            throw new ArgumentException($"'{nameof(firstName)}' cannot be null or whitespace.", nameof(firstName));
+
+        if (string.IsNullOrWhiteSpace(lastName))
+            throw new ArgumentException($"'{nameof(lastName)}' cannot be null or whitespace.", nameof(lastName));
+
         FirstName = firstName;
         LastName = lastName;
-        MiddleName = middleName;
-    }
-
-    public string FirstName
-    {
-        get => _firstName!;
-        set => _firstName = string.IsNullOrWhiteSpace(value)
-            ? throw new ArgumentException($"'{nameof(value)}' cannot be null or whitespace.", nameof(value))
-            : value;
-    }
-
-    public string LastName
-    {
-        get => _lastName!;
-        set => _lastName = string.IsNullOrWhiteSpace(value)
-            ? throw new ArgumentException($"'{nameof(value)}' cannot be null or whitespace.", nameof(value))
-            : value;
-    }
-
-    public string MiddleName
-    {
-        get => _middleName!;
-        set => _middleName = value ?? throw new ArgumentNullException(nameof(value));
+        MiddleName = middleName ?? throw new ArgumentNullException(nameof(middleName));
     }
 
     public override string ToString() => MiddleName switch
