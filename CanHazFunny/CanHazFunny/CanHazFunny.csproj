@@ -4,12 +4,13 @@
     <IsPackable>false</IsPackable>
     <TargetFramework>net8.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <LangVersion>11.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
   </PropertyGroup>
 
 </Project>
