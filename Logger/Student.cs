@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 
 namespace Logger;
+// TODO: Comments on each member explaining implicit or explicit implementation
 
 public record class Student : BaseEntity
 {
@@ -56,6 +57,7 @@ public record class Student : BaseEntity
         }
     }
 
+    // TODO: Refactor Common Members between Student and Employee
     private FullName? _studentName;
 
     public FullName StudentName
