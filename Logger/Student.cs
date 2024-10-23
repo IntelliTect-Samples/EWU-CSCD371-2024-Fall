@@ -1,17 +1,18 @@
 ﻿namespace Logger;
 
-public record class Student(FullName nameDetails) : EntityBase
+public record class Student(FullName NameDetails) : Person(NameDetails)
 {
     // TODO: Figure out if these should be set or init or read only
-    public override string Name
-    {
-        get
-        {
-            if (!string.IsNullOrWhiteSpace(nameDetails.MiddleName))
-            {
-                return $"{nameDetails.FirstName} {nameDetails.MiddleName} {nameDetails.LastName}";
-            }
-            return $"{nameDetails.FirstName} {nameDetails.LastName}";
-        }
-    }
+    //public FullName NameDetails { get; set; } = NameDetails;
+    //public override string Name
+    //{
+    //    get
+    //    {
+    //        if (!string.IsNullOrWhiteSpace(NameDetails.MiddleName))
+    //        {
+    //            return $"{NameDetails.FirstName} {NameDetails.MiddleName} {NameDetails.LastName}";
+    //        }
+    //        return $"{NameDetails.FirstName} {NameDetails.LastName}";
+    //    }
+    //}
 }
