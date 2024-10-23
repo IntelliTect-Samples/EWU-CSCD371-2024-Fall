@@ -39,7 +39,10 @@ public record class FullName
 
     public string? Middle 
     {
-        get { return _middle; }
+        get 
+        { 
+            return _middle; 
+        }
         set
         {
             _middle = value;
