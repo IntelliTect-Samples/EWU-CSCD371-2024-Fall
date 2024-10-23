@@ -2,7 +2,7 @@ namespace Logger;
 
 public abstract record class Entity : IEntity
 {
-    private Guid _guid;
+    private Guid _guid = Guid.NewGuid();
     /// <summary>
     /// This is an Explicit declaration.
     /// Implementations may have their own Id value, and we want to seperate these.<br/>
@@ -10,8 +10,7 @@ public abstract record class Entity : IEntity
     /// </summary>
     Guid IEntity.Id 
     { 
-        get => _guid!; 
-        init { _guid = Guid.NewGuid(); }
+        get => _guid!;
     }
     /// <summary>
     /// This method is explicit, as we feel calling an implementation directly is fine. Doing explicit would not help here.
