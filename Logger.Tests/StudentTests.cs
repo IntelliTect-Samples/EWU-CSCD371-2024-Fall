@@ -121,4 +121,27 @@ public class StudentTests
         //Assert
         Assert.False(result);
     }
+
+    [Fact]
+    public void StudentCreation_WithGpa_SetsGpaCorrectly()
+    {
+        // Arrange
+        FullName fullName = new("Inigo", "Ella", "Montoya");
+
+        // Act
+        Student student = new(fullName, 3.5);
+
+        // Assert
+        Assert.Equal(3.5, student.Gpa);
+    }
+
+    [Fact]
+    public void StudentCreation_InvalidGpa_ThrowsArgumentException()
+    {
+        // Arrange
+        FullName fullName = new("Inigo", "Ella", "Montoya");
+
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => new Student(fullName, 4.5));
+    }
 }
