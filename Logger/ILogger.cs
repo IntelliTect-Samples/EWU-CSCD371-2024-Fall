@@ -18,7 +18,8 @@ public interface ILogger
     // because you can't have static abstract members on classes
     // and you can't have covariant return types on interface members. :(
 
-    static abstract ILogger CreateLogger(in ILoggerConfiguration configuration);
+    static abstract T CreateLogger<T,U>(in U configuration);
+
 
 
 }
