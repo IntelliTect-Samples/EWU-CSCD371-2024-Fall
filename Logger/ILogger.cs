@@ -8,6 +8,7 @@
 ///<seealso cref="LogSource"/>
 ///<seealso cref="Log(LogLevel, message)"/>
 /// </summary>
+
 public interface ILogger
 {
     string LogSource { get; } // Many of you refer to this as the ClassName.
@@ -18,4 +19,6 @@ public interface ILogger
     // and you can't have covariant return types on interface members. :(
 
     static abstract ILogger CreateLogger(in ILoggerConfiguration configuration);
+
+
 }

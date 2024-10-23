@@ -31,7 +31,7 @@ public class StorageTests
         storage.Add(student);
         //Assert
         Assert.NotNull(student);
-        Assert.Equal(storage.Get(student.Id),student);
+        Assert.Equal(storage.Get(((IEntity)student).Id),student);
     }
 
     [Fact]
@@ -69,7 +69,7 @@ public class StorageTests
         Student student = new("School", "first", "last") { GradeLevel = "12th" };
         Storage storage = new();
         storage.Add(student);
-        Guid studentId = student.Id;
+        Guid studentId = ((IEntity)student).Id;
         //Act
         IEntity? resultantStudent = storage.Get(studentId);
         //Assert
@@ -93,9 +93,10 @@ public class StorageTests
         Storage storage = new();
         //Act
         storage.Add(book);
+
         //Assert
         Assert.NotNull(book);
-        Assert.Equal(storage.Get(book.Id),book);
+        Assert.Equal(storage.Get(((IEntity)book).Id),book);
     }
 
     [Fact]
@@ -133,7 +134,7 @@ public class StorageTests
         Book book = new("IsbnNumber", 1956, "SomeTitle", "AuthorsFirst", "AuthorsLast");
         Storage storage = new();
         storage.Add(book);
-        Guid bookId = book.Id;
+        Guid bookId = ((IEntity)book).Id;
         //Act
         IEntity? resultantBook = storage.Get(bookId);
         //Assert

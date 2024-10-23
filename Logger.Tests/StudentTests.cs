@@ -13,6 +13,7 @@ public class StudentTests
 
         //Act
         Student s = new ("MySchoolName", "FirstName", "LastName", "MiddleName") { GradeLevel = "12th" };
+        
         //Assert
         Assert.NotNull(s);
         Assert.Equal("FirstName MiddleName LastName", s.Name);

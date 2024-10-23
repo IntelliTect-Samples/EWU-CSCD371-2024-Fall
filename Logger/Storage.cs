@@ -33,7 +33,7 @@ public class Storage
         return Entities.FirstOrDefault(entity => 
         {
             dynamic dynamicEntity = entity;
-            return dynamicEntity.Id == expectedGuid;
+            return ((IEntity)dynamicEntity).Id == expectedGuid;
         });
     }
 }
