@@ -25,10 +25,13 @@ public class BookTests
     {
         // Arrange
         var book = new Book("Test");
-        // Act
-        var result = book.Id;
+
+        // Act 
+        var bookEntity = (IEntity)book;
+        Guid bookGuid = bookEntity.Id; 
+
         // Assert
-        Assert.NotEqual(Guid.Empty, result);
+        Assert.NotEqual(Guid.Empty, bookGuid);
     }
 
     [Fact]

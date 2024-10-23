@@ -34,13 +34,16 @@ public class EmployeeTests
     [Fact]
     public void EmployeeCreation_ChecksGuid_GuidExists()
     {
-        //Act
+        // Arrange
         FullName fullName = new("Inigo", "Ella", "Montoya");
         Employee employee = new(fullName);
 
-        //Assert
-        Assert.NotEqual(Guid.Empty, employee.Id);
+        // Act 
+        var employeeEntity = (IEntity)employee;
+        Guid employeeGuid = employeeEntity.Id; 
 
+        // Assert
+        Assert.NotEqual(Guid.Empty, employeeGuid);
     }
 
     [Fact]

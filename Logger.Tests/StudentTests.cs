@@ -34,12 +34,16 @@ public class StudentTests
     [Fact]
     public void StudentCreation_ChecksGuid_GuidExists()
     {
-        //Act
+        // Arrange
         FullName fullName = new("Inigo", "Ella", "Montoya");
         Student student = new(fullName);
 
-        //Assert
-        Assert.NotEqual(Guid.Empty, student.Id);
+        // Act
+        var studentEntity = (IEntity)student;
+
+
+        // Assert
+        Assert.NotEqual(Guid.Empty, studentEntity.Id);
 
     }
 
@@ -69,5 +73,52 @@ public class StudentTests
 
         //Assert
         Assert.Equal("Inigo Ella Montoya", name);
+    }
+
+    [Fact]
+    public void Equality_NameEquality_ReturnsTrue()
+    {
+        //Arrange
+        FullName fullName = new("Inigo", "Ella", "Montoya");
+        Student student1 = new(fullName);
+        Student student2 = new(fullName);
+
+        //Act
+        bool result = student1.Name.Equals(student2.Name);
+
+        //Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void Equality_GuidNotEqual_ReturnsFalse()
+    {
+        //Arrange
+        FullName fullName = new("Inigo", "Ella", "Montoya");
+        Student student1 = new(fullName);
+        Student student2 = new(fullName);
+        IEntity studentEntity1 = (IEntity)student1;
+        IEntity studentEntity2 = (IEntity)student2;
+
+        //Act
+        bool result = studentEntity1.Id.Equals(studentEntity2.Id);
+
+        //Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void Equality_StudentNotEqual_ReturnsFalse()
+    {
+        //Arrange
+        FullName fullName = new("Inigo", "Ella", "Montoya");
+        Student student1 = new(fullName);
+        Student student2 = new(fullName);
+
+        //Act
+        bool result = student1.Equals(student2);
+
+        //Assert
+        Assert.False(result);
     }
 }
