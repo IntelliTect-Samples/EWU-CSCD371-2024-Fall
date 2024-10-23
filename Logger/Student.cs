@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logger
 {
     public record Student(FullName FullName) : BaseEntity
     {
-        // calculated property, no backing 
+        // The Name property is implemented implicitly because the interface defines it,
+        // and we dont need further customization. 
         public override string Name => FullName.ToString();
+
+        // The Id property is inherited from BaseEntity, which implements it according to the IEntity interface.
     }
 }
