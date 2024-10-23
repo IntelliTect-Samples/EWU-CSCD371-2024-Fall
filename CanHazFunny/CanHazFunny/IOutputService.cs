@@ -1,10 +1,9 @@
 ﻿using System;
 
 
-namespace CanHazFunny
+namespace CanHazFunny;
+
+public interface IOutputService
 {
-    public interface IOutputService
-    {
-        void WriteJoke(string joke);
-    }
+    void WriteJoke(string joke);
 }
