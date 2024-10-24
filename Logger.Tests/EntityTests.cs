@@ -20,15 +20,17 @@ public class EntityTests
     }
 
     [Fact]
-    public void Entity_Should_Implement_IEntity_Interface_With_Instance()
-    {
+    public void TestEntity_EntityBaseAndIEntityInterface_ReturnTrue()
+    { 
         // Arrange
         var entity = new TestEntity();
 
-        // Act & Assert
+        // Act & Assess
         Assert.IsAssignableFrom<IEntity>(entity);
     }
 
+
+    // This is a private record class that implements the abstract class EntityBase. Used to test for IEntity implementation.
     private record class TestEntity : EntityBase
     {
         public override string Name { get; set; }

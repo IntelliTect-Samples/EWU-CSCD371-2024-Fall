@@ -8,13 +8,13 @@ public class FullNameTests
     public void PrintName_AllArgumentsNullMiddle_ReturnsFirstLastName()
     {
 
-        // 1. Arrange
+        // Arrange
         FullName fullName = new("John", null,"Doe");
 
-        //2. Act
+        // Act
         var result = fullName.ToString();
 
-        //3. Assess
+        // Assess
         Assert.Equal("John Doe", result);
     }
 
@@ -22,13 +22,13 @@ public class FullNameTests
     public void PrintFullName_AllArgumentsNoNullMiddle_ReturnsFullName()
     {
 
-        // 1. Arrange
+        // Arrange
         FullName fullName = new("John", "Michael", "Doe");
 
-        //2. Act
+        // Act
         var result = fullName.ToString();
 
-        //3. Assess
+        // Assess
         Assert.Equal("John Michael Doe", result);
     }
 
