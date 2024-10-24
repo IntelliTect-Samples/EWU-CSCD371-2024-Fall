@@ -81,13 +81,13 @@ public class FullNameTests
 
     [Theory]
     [InlineData("Inigo", "Montoya", "Elly")]
-    public void ToString_ThreeNames_ReturnsExpected(string firstName, string lastName, string middleName)
+    public void OutputDetails_ThreeNames_ReturnsExpected(string firstName, string lastName, string middleName)
     {
         // Arrange
         FullName fullName = new(firstName, lastName, middleName);
         string expected = $"{firstName} {middleName} {lastName}";
         // Act
-        string actual = fullName.ToString();
+        string actual = fullName.OutputDetails();
         // Assert
         Assert.Equal(expected, actual);
     }
@@ -100,7 +100,7 @@ public class FullNameTests
         FullName fullName = new(firstName, lastName);
         string expected = $"{firstName} {lastName}";
         // Act
-        string actual = fullName.ToString();
+        string actual = fullName.OutputDetails();
         // Assert
         Assert.Equal(expected, actual);
     }
