@@ -104,10 +104,16 @@ public class BookTests
         //Arrange
         Book book1 = new("isbn", 1998, "Title", "First", "Last", "Middle");
         Book book2 = new("isbn", 1998, "Title", "First", "Last", "Middle");
+        Book book3 = book1;
 
         //Act
 
         //Assert
-        Assert.True(book1.Equals(book2));
+        Assert.False(book1.Equals(book2));
+        Assert.True(book1.Equals(book3));
+        Assert.False(book1 == book2);
+        Assert.True(book1 != book2);
+        Assert.Same(book1,book3);
+
     }
 }

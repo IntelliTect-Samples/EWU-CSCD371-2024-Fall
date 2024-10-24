@@ -90,10 +90,14 @@ public class EmployeeTests
         //Arrange
         Employee employee1 = new("EmployeeID", "Position", "First", "Last", "Middle");
         Employee employee2 = new("EmployeeID", "Position", "First", "Last", "Middle");
-
+        Employee employee3 = employee1;
         //Act
 
         //Assert
-        Assert.True(employee1.Equals(employee2));
+        Assert.False(employee1.Equals(employee2));
+        Assert.False(employee2 == employee3);
+        Assert.True(employee2 != employee3);
+        Assert.Same(employee1, employee3); 
+
     }
 }

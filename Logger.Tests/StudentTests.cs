@@ -42,17 +42,21 @@ public class StudentTests
         Student s = new("StudentID-12345", "MySchoolName", "FirstName", "LastName") { GradeLevel = "10th" };
         Student s2 = new("StudentID-12345", "MySchoolName", "FirstName", "LastName") { GradeLevel = "12th" };
         Student s3 = new("StudentID-12345", "MySchoolName", "FirstName", "LastName") { GradeLevel = "12th" };
+        Student s4 = s;
 
         //Act
         s.GradeLevel = "12th";
         s.PersonFullName = new FullName() { First = "FirstName", Last = "LastName" };
 
         //Assert
-        Assert.True(s.Equals(s2));
-        Assert.True(s.Equals(s3));
-        Assert.True(s2.Equals(s3));
-        Assert.True(s == s2);
-        Assert.True(s == s3);
-        Assert.True(s2 == s);
+
+        Assert.False(s.Equals((Person)s2));
+        Assert.False(((Person)s).Equals(s3));
+        Assert.False(s2.Equals(s3));
+        Assert.False(s == s2);
+        Assert.False(s == s3);
+        Assert.False(s2 == s);
+        Assert.NotEqual(s, s2);
+        Assert.Same(s, s4);
     }
 }
