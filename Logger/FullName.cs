@@ -27,6 +27,6 @@ public record FullName
 
     public override string ToString()
     {
-        return $"{FirstName} {LastName}";
+        return (MiddleName != null) ? $"{FirstName} {MiddleName} {LastName}" : $"{FirstName} {LastName}";
     }
 }
