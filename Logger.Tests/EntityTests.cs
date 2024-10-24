@@ -4,7 +4,6 @@ using Xunit;
 namespace Logger.Tests;
 public class EntityTests
 {
-
     [Fact]
     public void EntityClass_EntityClass_Exists()
     {
@@ -24,10 +23,21 @@ public class EntityTests
     public void Entity_Should_Implement_IEntity_Interface_With_Instance()
     {
         // Arrange
-        var entity = new EntityBase();
+        var entity = new TestEntity();
 
         // Act & Assert
         Assert.IsAssignableFrom<IEntity>(entity);
+    }
+
+    private record class TestEntity : EntityBase
+    {
+        public override string Name { get; set; }
+
+        public TestEntity()
+        {
+            Id = Guid.NewGuid();
+            Name = "TestEntity";
+        }
     }
 
 
