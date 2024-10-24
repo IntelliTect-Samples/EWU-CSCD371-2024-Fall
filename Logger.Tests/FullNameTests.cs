@@ -38,4 +38,11 @@ public class FullNameTests
         // Arrange, Act & Assess
         Assert.Throws<ArgumentNullException>(() => new FullName(null, "Michael", "Doe"));
     }
+
+    [Fact]
+    public void NullLastName_AllArgumentsNullLast_ThrowsNullException()
+    {
+        // Arrange, Act & Assess
+        Assert.Throws<ArgumentNullException>(() => new FullName("John", "Michael", null));
+    }
 }
