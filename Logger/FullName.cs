@@ -21,6 +21,8 @@ public record FullName
                 : lastName;
     }
 
+
+    // Properties are already read-only and immutable due to being a record.
     public string FirstName { get; }
     public string? MiddleName { get; }
     public string LastName { get; }
