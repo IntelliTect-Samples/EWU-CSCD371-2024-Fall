@@ -13,9 +13,9 @@ Read **Chapters 9 - Introducing Structs and Records & Chapter 10 - Well Formed T
 - Define a full name record (first, last, middle) handling optional and null appropriately. ❌✔
   - Provide a comment on the full name record on why you selected to define a value or a reference type and ❌✔
   - Provide a comment on the full name record on why or why not the type is immutable. ❌✔
-- Define an `IEntity` interface: ❌✔
-  - Add an Id property of type `Guid` that is an init-only setter. ❌✔
-  - Add a Name property that is `string`. ❌✔
+- Define an `IEntity` interface: ✔
+  - Add an Id property of type `Guid` that is an init-only setter. ✔
+  - Add a Name property that is `string`. ✔
 - Define an abstract base class that implements `IEntity` - appropriately choosing to implement the interface explicitly or implicitly. ❌✔
   - Do not implement the `Name` property in this abstract class. ❌✔
   - Do force any derived classes to provide an implementation for `Name`. ❌✔
