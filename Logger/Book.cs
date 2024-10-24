@@ -2,9 +2,6 @@ using System.Globalization;
 
 namespace Logger;
 
-#pragma warning disable CA1311
-#pragma warining disable CA1304
-
 public record Book (string Title, FullName Author, string? Genre, string Publisher, 
     int Year, string Isbn): EntityBase
 {
