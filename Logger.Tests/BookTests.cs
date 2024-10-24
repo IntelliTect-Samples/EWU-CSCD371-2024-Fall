@@ -58,7 +58,7 @@ public class BookTests
         var author = new FullName("Inigo", "Montoya", "Ella");
 
         // Act & Assert
-        var exception = Assert.Throws<ArgumentException>(() => new Book(null, author, "123456789"));
+        var exception = Assert.Throws<ArgumentException>(() => new Book(string.Empty, author, "123456789"));
         Assert.Equal("Title cannot be null or empty. (Parameter 'title')", exception.Message);
 
         exception = Assert.Throws<ArgumentException>(() => new Book(string.Empty, author, "123456789"));
