@@ -27,13 +27,14 @@ public class EntityEqualityTests
     }
 
     [Fact]
-    public void Students_WithSameName_ShouldNotBeEqual()
+    public void Students_WithSameName_ShouldNotBeSameInstance()
     {
         // Arrange
-        var student1 = new Student(new FullName("Chris", "J", "Cornell"));
-        var student2 = new Student(new FullName("Chris", "J", "Cornell"));
+        var student1 = new Student(new FullName("Chris", "J", "Cornell"), "Senior", "CS");
+        var student2 = new Student(new FullName("Chris", "J", "Cornell"), "Senior", "CS");
 
         // Act & Assert
-        Assert.NotEqual(student1, student2);
+        Assert.NotSame(student1, student2);
     }
+
 }

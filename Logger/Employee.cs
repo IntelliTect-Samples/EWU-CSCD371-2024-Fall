@@ -1,11 +1,11 @@
 ﻿namespace Logger;
 
-public record Employee(FullName FullName) : BaseEntity
+public record Employee(FullName FullName, string Position, string Department) : Person(FullName)
 {
-    // The Name property is implemented implicitly because the IEntity interface defines it,
-    // and we are overriding it with a calculated property (FullName.ToString()).
-    public override string Name => FullName.ToString();
+    public string Position { get; init; } = Position; 
+    public string Department { get; init; } = Department; 
 
-    // The Id property is inherited from BaseEntity, which implements with the IEntity interface.
-    // We do not need to explicitly define it here because BaseEntity handles it.
+    // The Name property is implemented in the Person class, no need to override it here.
+    // The Id property is inherited from BaseEntity, no need to define it.
 }
+

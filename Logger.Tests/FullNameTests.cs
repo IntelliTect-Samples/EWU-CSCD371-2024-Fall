@@ -18,6 +18,19 @@ public class FullNameTests
     }
 
     [Fact]
+    public void Create_FullName_Success()
+    {
+        // Arrange
+        FullName testName = new("Chris", "Cornell", "J");
+        // Act
+
+        // Assert
+        Assert.Equal("Chris", testName.FirstName);
+        Assert.Equal("J", testName.MiddleName);
+        Assert.Equal("Cornell", testName.LastName);
+    }
+
+    [Fact]
     public void FullName_WithoutMiddleName_ShouldReturnCorrectFormat()
     {
         // Arrange
@@ -30,8 +43,6 @@ public class FullNameTests
         Assert.Equal("Chris Cornell", result);
 
     }
-
-
 
     [Fact]
     public void FullName_WithBlankMiddleName_ShouldSetMiddleNameToNull()
