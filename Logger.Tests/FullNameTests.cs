@@ -9,7 +9,7 @@ public class FullNameTests
     {
 
         // 1. Arrange
-        FullName fullName = new("John",null,"Doe");
+        FullName fullName = new("John", null,"Doe");
 
         //2. Act
         var result = fullName.ToString();

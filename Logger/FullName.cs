@@ -24,4 +24,9 @@ public record FullName
     public string FirstName { get; }
     public string? MiddleName { get; }
     public string LastName { get; }
+
+    public override string ToString()
+    {
+        return $"{FirstName} {LastName}";
+    }
 }
