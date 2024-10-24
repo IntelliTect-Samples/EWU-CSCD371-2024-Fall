@@ -10,3 +10,14 @@ public interface ILogger
     // and you can't have covariant return types on interface members. :(
     static abstract ILogger CreateLogger(in ILoggerConfiguration configuration);
 }
+
+/* 
+ Setup :
+ Member - Type - Reason
+
+LogSource - explicit - "LogSource is only called by the backend frontend should not be sourcing their own logs."
+log - explicit - "Log is the main function of the logger."
+
+
+ 
+ */
