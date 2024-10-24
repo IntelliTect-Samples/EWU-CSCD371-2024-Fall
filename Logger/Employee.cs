@@ -5,6 +5,9 @@ namespace Logger;
 
 public record class Employee : BaseEntity
 {
+    // We used explicit implementation for the Name property becuase we need to be able to take Name and parse
+    // it into the EmployeeId, EmployeeFullName, and EmployeeJobTitle properties. We also need to be able to
+    // calculate the Name property from the EmployeeId, EmployeeFullName, and EmployeeJobTitle properties.
     override public string Name
     {
         get
