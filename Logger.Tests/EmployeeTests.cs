@@ -1,9 +1,10 @@
 using Xunit;
 
-namespace Logger.Tests
-{
+namespace Logger.Tests;
+
     public class EmployeeTests
     {
+    
         [Fact]
         public void Employee_CreationWithValidData_SuccessfullyCreatesInstance()
         {
@@ -111,4 +112,4 @@ namespace Logger.Tests
             
         }
     }
-}
+
