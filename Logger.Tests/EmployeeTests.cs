@@ -79,10 +79,11 @@ public class EmployeeTests
     {
         // Arrange
         FullName fullName = new("Inigo", "Ella", "Montoya");
-        Employee employee = new(fullName, "Junior Developer");
-
-        // Act
-        employee.Position = "Senior Developer";
+        Employee employee = new(fullName, "Junior Developer")
+        {
+            // Act
+            Position = "Senior Developer"
+        };
 
         // Assert
         Assert.Equal("Senior Developer", employee.Position);
