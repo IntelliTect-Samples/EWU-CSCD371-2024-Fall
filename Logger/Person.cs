@@ -1,5 +1,8 @@
 namespace Logger;
 
+#pragma warning disable CA1311
+#pragma warining disable CA1304
+
 public record Person(FullName PersonsName, String Ssn, int Age, string DateOfBirth) : EntityBase
 {
     public FullName PersonsName { get; } = PersonsName ?? throw new ArgumentNullException(nameof(PersonsName));
