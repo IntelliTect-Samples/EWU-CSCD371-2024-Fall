@@ -29,7 +29,7 @@ public class StorageTests
     {
         // Arrange
         Storage storage = new();
-        Employee employee = new(new FullName("Inigo", "Montoya", "Ella"));
+        Employee employee = new(new FullName("Inigo", "Montoya", "Ella"), "Test Position");
 
         // Act
         storage.Add(employee);

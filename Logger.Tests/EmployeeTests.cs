@@ -14,7 +14,7 @@ public class EmployeeTests
     {
         //Act
         FullName fullName = new("Inigo", "Ella", "Montoya");
-        Employee employee = new(fullName);
+        Employee employee = new(fullName, "Test Position");
 
         //Assert
         Assert.NotNull(employee);
@@ -25,7 +25,7 @@ public class EmployeeTests
     {
         //Act
         FullName fullName = new("Inigo", "Ella", "Montoya");
-        Employee employee = new(fullName);
+        Employee employee = new(fullName, "Test Position");
 
         //Assert
         Assert.IsType<Employee>(employee);
@@ -36,7 +36,7 @@ public class EmployeeTests
     {
         // Arrange
         FullName fullName = new("Inigo", "Ella", "Montoya");
-        Employee employee = new(fullName);
+        Employee employee = new(fullName, "Test Position");
 
         // Act 
         var employeeEntity = (IEntity)employee;
@@ -53,7 +53,7 @@ public class EmployeeTests
         FullName fullName = new("Inigo", "Ella", "Montoya");
 
         //Act
-        Employee employee = new(fullName);
+        Employee employee = new(fullName, "Test Position");
         string name = employee.Name;
 
         //Assert
@@ -67,11 +67,48 @@ public class EmployeeTests
         FullName fullName = new("Inigo", "Montoya", "Ella");
 
         //Act
-        Employee employee = new(fullName);
+        Employee employee = new(fullName, "Test Position");
         string name = employee.Name;
 
         //Assert
         Assert.Equal("Inigo Ella Montoya", name);
     }
 
+    [Fact]
+    public void Employee_UpdatePosition_UpdatesSuccessfully()
+    {
+        // Arrange
+        FullName fullName = new("Inigo", "Ella", "Montoya");
+        Employee employee = new(fullName, "Junior Developer");
+
+        // Act
+        employee.Position = "Senior Developer";
+
+        // Assert
+        Assert.Equal("Senior Developer", employee.Position);
+    }
+
+    [Fact]
+    public void EmployeeCreation_WithPosition_SetsPositionCorrectly()
+    {
+        // Arrange
+        FullName fullName = new("Inigo", "Ella", "Montoya");
+
+        // Act
+        Employee employee = new(fullName, "Software Engineer");
+
+        // Assert
+        Assert.Equal("Software Engineer", employee.Position);
+    }
+
+    [Fact]
+    public void Employee_SetInvalidPosition_ThrowsArgumentException()
+    {
+        // Arrange
+        FullName fullName = new("Inigo", "Ella", "Montoya");
+        Employee employee = new(fullName, "Junior Developer");
+
+        // Act & Assert
+        Assert.Throws<ArgumentException>(() => employee.Position = "");
+    }
 }
