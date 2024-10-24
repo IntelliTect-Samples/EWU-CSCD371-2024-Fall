@@ -10,7 +10,7 @@ public class EntityTests
     {
         // Arrange
         // Get the assembly where Entity is supposed to be defined
-        Assembly assembly = Assembly.GetAssembly(typeof(Entity)); // Assuming EntityBase is in the same assembly
+        Assembly assembly = Assembly.GetAssembly(typeof(EntityBase)); // Assuming EntityBase is in the same assembly
 
         // Act
         // Attempt to get the type of Entity
@@ -24,7 +24,7 @@ public class EntityTests
     public void Entity_Should_Implement_IEntity_Interface_With_Instance()
     {
         // Arrange
-        var entity = new Entity();
+        var entity = new EntityBase();
 
         // Act & Assert
         Assert.IsAssignableFrom<IEntity>(entity);
