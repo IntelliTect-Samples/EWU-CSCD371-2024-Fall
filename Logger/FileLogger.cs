@@ -6,6 +6,7 @@ public class FileLogger : BaseLogger, ILogger
 
     public string FilePath { get => File.FullName; }
 
+    // TODO: Consider using primary constructor
     public FileLogger(string logSource, string filePath) : base(logSource) => File = new FileInfo(filePath);
 
     public FileLogger(FileLoggerConfiguration configuration) : this(configuration.LogSource, configuration.FilePath) {}

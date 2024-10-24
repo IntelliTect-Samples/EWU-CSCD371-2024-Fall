@@ -2,6 +2,7 @@
 
 public class FileLoggerConfiguration : ILoggerConfiguration
 {
+    //TODO: Consider using primary constructor
     public FileLoggerConfiguration(string filePath, string logSource)
     {
         FilePath = string.IsNullOrWhiteSpace(filePath)

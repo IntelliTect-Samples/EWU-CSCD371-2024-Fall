@@ -5,6 +5,7 @@
 public abstract class BaseLogger
 {
     public string LogSource { get; }
+    // TODO: Consider using primary constructor
     public BaseLogger(string logSource) => LogSource = string.IsNullOrWhiteSpace(logSource)
             ? throw new ArgumentException($"'{nameof(logSource)}' cannot be null or whitespace.", nameof(logSource))
             : logSource;
