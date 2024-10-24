@@ -24,7 +24,7 @@ public class EntityTests
     public void Entity_Should_Implement_IEntity_Interface_With_Instance()
     {
         // Arrange
-        var entity = new Entity { Id = Guid.NewGuid(), Name = "Test Entity" };
+        var entity = new Entity();
 
         // Act & Assert
         Assert.IsAssignableFrom<IEntity>(entity);
