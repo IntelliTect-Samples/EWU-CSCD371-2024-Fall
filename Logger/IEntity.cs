@@ -3,7 +3,7 @@ public interface IEntity
 {
     public Guid Id { get; init; }
 
-    public string Name { get; }
+    string Name { get; }
 
 
 }
