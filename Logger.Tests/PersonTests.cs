@@ -1,7 +1,6 @@
 using Xunit;
 
-namespace Logger.Tests
-{
+namespace Logger.Tests;
     public class PersonTests
     {
         [Fact]
@@ -103,4 +102,4 @@ namespace Logger.Tests
             
         }
     }
-}
+
