@@ -2,10 +2,8 @@
 
 public record class Student(FullName NameDetails) : Person(NameDetails)
 {
-    // GPA can be null, so we use double? (nullable double)
     private double? _gpa;
 
-    // Public property for GPA with validation and mutability
     public double? Gpa
     {
         get => _gpa;
@@ -18,10 +16,8 @@ public record class Student(FullName NameDetails) : Person(NameDetails)
             _gpa = value;
         }
     }
-
-    // Constructor to optionally allow GPA initialization
     public Student(FullName nameDetails, double? gpa = null) : this(nameDetails)
     {
-        Gpa = gpa; // Handle optional GPA during initialization
+        Gpa = gpa;
     }
 }
