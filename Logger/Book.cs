@@ -1,10 +1,12 @@
 ﻿namespace Logger;
-// TODO: Comments on each member explaining implicit or explicit implementation
+// TODO: Comments on each interface member explaining implicit or explicit implementation decision
 
 public record class Book() : BaseEntity
 {
     // Is it for internal or external use? implicit / explicit
-    // Explicit
+    // We used explicit implementation for the Name property becuase we need to be able to take Name and parse
+    // it into the Title and Author properties. We also need to be able to calculate the Name property from the
+    // Title and Author properties.
     override public string Name
     {
         get
