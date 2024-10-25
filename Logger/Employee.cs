@@ -1,6 +1,6 @@
 ﻿namespace Logger;
 
-public record Employee(FullName FullName, string Position, string Department) : Person(FullName)
+public record class Employee(FullName FullName, string Position, string Department) : Person(FullName)
 {
     public string Position { get; init; } = Position; 
     public string Department { get; init; } = Department; 
