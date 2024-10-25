@@ -144,4 +144,21 @@ public class StudentTests
         // Act & Assert
         Assert.Throws<ArgumentException>(() => new Student(fullName, 4.5));
     }
+
+    [Fact]
+    public void Equality_UsingWith_StudentEqual()
+    {
+        // Arrange
+        FullName fullName = new("Inigo", "Ella", "Montoya");
+        Student student1 = new(fullName);
+        Student student2 = student1 with { };
+
+        // Act
+        bool result = student1.Equals(student2);
+        bool referenceResult = ReferenceEquals(student1, student2);
+
+        // Assert
+        Assert.True(result);
+        Assert.False(referenceResult);
+    }
 }

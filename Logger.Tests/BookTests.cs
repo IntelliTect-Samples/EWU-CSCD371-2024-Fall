@@ -64,4 +64,21 @@ public class BookTests
         exception = Assert.Throws<ArgumentException>(() => new Book(string.Empty, author, "123456789"));
         Assert.Equal("Title cannot be null or empty. (Parameter 'title')", exception.Message);
     }
+
+    [Fact]
+    public void Equality_UsingWith_BookEqual()
+    {
+        // Arrange
+        FullName author = new("John", "Ronald", "Tolkien");
+        Book book1 = new("The Hobbit", author, "123456789");
+        Book book2 = book1 with { };
+
+        // Act
+        bool result = book1.Equals(book2);
+        bool referenceResult = ReferenceEquals(book1, book2);
+
+        // Assert
+        Assert.True(result);
+        Assert.False(referenceResult);
+    }
 }

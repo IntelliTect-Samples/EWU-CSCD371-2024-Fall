@@ -40,7 +40,7 @@ public class EmployeeTests
 
         // Act 
         var employeeEntity = (IEntity)employee;
-        Guid employeeGuid = employeeEntity.Id; 
+        Guid employeeGuid = employeeEntity.Id;
 
         // Assert
         Assert.NotEqual(Guid.Empty, employeeGuid);
@@ -111,5 +111,22 @@ public class EmployeeTests
 
         // Act & Assert
         Assert.Throws<ArgumentException>(() => employee.Position = "");
+    }
+
+    [Fact]
+    public void Equality_UsingWith_EmployeeEqual()
+    {
+        // Arrange
+        FullName fullName = new("Inigo", "Ella", "Montoya");
+        Employee employee1 = new(fullName, "Software Engineer");
+        Employee employee2 = employee1 with { };
+
+        // Act
+        bool result = employee1.Equals(employee2);
+        bool referenceResult = ReferenceEquals(employee1, employee2);
+
+        // Assert
+        Assert.True(result);
+        Assert.False(referenceResult);
     }
 }
