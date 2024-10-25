@@ -8,7 +8,7 @@ public class FullNameTests
     public void FullName_WithMiddleName_ShouldReturnCorrectFormat()
     {
         // Arrange
-        var fullName = new FullName("Chris", "Cornell", "J");
+        var fullName = new FullName("Chris", "J", "Cornell");
 
         // Act
         var result = fullName.ToString();
@@ -21,7 +21,7 @@ public class FullNameTests
     public void Create_FullName_Success()
     {
         // Arrange
-        FullName testName = new("Chris", "Cornell", "J");
+        FullName testName = new("Chris", "J", "Cornell");
         // Act
 
         // Assert
@@ -34,7 +34,7 @@ public class FullNameTests
     public void FullName_WithoutMiddleName_ShouldReturnCorrectFormat()
     {
         // Arrange
-        var fullName = new FullName("Chris", "Cornell", " ");
+        var fullName = new FullName("Chris", "", "Cornell");
 
         // Act
         var result = fullName.ToString();
@@ -48,7 +48,7 @@ public class FullNameTests
     public void FullName_WithBlankMiddleName_ShouldSetMiddleNameToNull()
     {
         // Arrange
-        var fullName = new FullName("Chris", "Cornell", " ");
+        var fullName = new FullName("Chris","", "Cornell");
 
         // Act & Assert
         Assert.Null(fullName.MiddleName); 

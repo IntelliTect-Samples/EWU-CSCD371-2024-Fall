@@ -35,7 +35,7 @@ namespace Logger.Tests
             var book2 = new Book("Into The Wind");
 
             // Act & Assert
-            Assert.NotEqual(book1.Id, book2.Id);  // Ensure that two books have different unique Ids
+            Assert.NotEqual(book1.Id, book2.Id);
         }
 
         [Fact]

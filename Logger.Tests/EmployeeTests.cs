@@ -8,7 +8,7 @@ namespace Logger.Tests
         public void Employee_SetProperties_Success()
         {
             // Arrange & Act
-            var employee = new Employee(new FullName("Chris", "Cornell", "J"), "CEO", "BOSS");
+            var employee = new Employee(new FullName("Chris", "J", "Cornell"), "CEO", "BOSS");
 
             // Assert
             Assert.Equal("Chris J Cornell", employee.FullName.ToString());
@@ -31,7 +31,7 @@ namespace Logger.Tests
         public void FullName_EmptyMiddleName_ShouldSetMiddleNameToNull()
         {
             // Arrange
-            var fullName = new FullName("Chris", "Cornell", "");
+            var fullName = new FullName("Chris", "", "Cornell");
 
             // Act & Assert
             Assert.Null(fullName.MiddleName);           

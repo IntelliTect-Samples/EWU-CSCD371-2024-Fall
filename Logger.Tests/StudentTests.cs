@@ -9,7 +9,7 @@ namespace Logger.Tests
         public void StudenName_SetProperties_Success()
         {
             // Arrange & Act
-            var student = new Student(new FullName("Chris", "Cornell", "J"), "Senior", "Computer Science");
+            var student = new Student(new FullName("Chris", "J", "Cornell"), "Senior", "Computer Science");
 
             // Assert
             Assert.Equal("Chris J Cornell", student.FullName.ToString());
@@ -21,7 +21,7 @@ namespace Logger.Tests
         public void StudentId_UniqueId_Success()
         {
             // Arrange
-            var student1 = new Student(new FullName("Chris", "Cornell", "J"), "Senior", "Computer Science");
+            var student1 = new Student(new FullName("Chris", "J", "Cornell"), "Senior", "Computer Science");
             var student2 = new Student(new FullName("Someone", "Else", "Blah"), "Sophomore", "Communications");
 
             // Assert
