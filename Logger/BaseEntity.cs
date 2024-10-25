@@ -8,6 +8,6 @@ public abstract record class BaseEntity : IEntity
 
     protected BaseEntity()
     {
-        Id = Guid.NewGuid(); // unique for each entity
+        Id = Guid.NewGuid();
     }
 }    

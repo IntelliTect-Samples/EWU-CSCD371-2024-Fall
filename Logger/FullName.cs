@@ -10,7 +10,7 @@
 // So,  FirstName, MiddleName, and LastName can only be set during object creation and cannot be changed afterward.
 // Immutability ensures that once created, the data remains unchanged, and is improtant when people have the same name.
 
-public record class FullName(string FirstName, string LastName, string? MiddleName = null)
+public record class FullName(string FirstName, string LastName, string? MiddleName)
 {
     public string? MiddleName { get; init; } = string.IsNullOrWhiteSpace(MiddleName) ? null : MiddleName;
 
