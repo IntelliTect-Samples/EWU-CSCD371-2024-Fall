@@ -8,5 +8,11 @@ namespace Logger;
 
 public record class Book : Entity
 {
-
+    public override string Name
+    {
+        get
+        {
+            return "";
+        }
+    }
 }

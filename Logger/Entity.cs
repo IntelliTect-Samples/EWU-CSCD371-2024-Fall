@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-public abstract class Entity : IEntity
+public abstract record class Entity : IEntity
 {
     // Explicit implementation
     Guid IEntity.Id { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }

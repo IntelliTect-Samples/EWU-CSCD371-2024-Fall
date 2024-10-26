@@ -8,5 +8,11 @@ namespace Logger;
 
 public record Student : Entity
 {
-    public override string Name => throw new NotImplementedException();
+    public override string Name
+    {
+        get
+        {
+            return "";
+        }
+    }
 }
