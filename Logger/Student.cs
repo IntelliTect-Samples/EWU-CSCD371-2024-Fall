@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 
 namespace Logger;
-// TODO: Comments on each member explaining implicit or explicit implementation
 
 public record class Student : BaseEntity
 {

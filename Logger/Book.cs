@@ -1,5 +1,4 @@
 ﻿namespace Logger;
-// TODO: Comments on each interface member explaining implicit or explicit implementation decision
 
 public record class Book() : BaseEntity
 {
