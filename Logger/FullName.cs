@@ -1,35 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Logger;
 
-record struct FullName
-{
-    // Why we chose struct/class
-    // Why we chose immutable/mutable
+// Using 'struct' for FullName enables the use of value types
+// When comparing this class with others, its not compared by memory, but instead the contents it contains
+// Using 'record' makes this value type immutable. Meaning properties in the class are readonly by default
+public record struct FullName
+{ 
+    private string? first;
+    private string? middle;
+    private string? last;
 
-    string first;
-    string? middle; // Optional
-    string? last;   // Optional
-
-    public string First { get => first; set => first = value; }
-    public string? Middle { get => middle;
-        set
-        {
-            // Handle optional/Null
-            // Watch out for infinite loop
-        }
+    public FullName(string? first, string? middle, string? last)
+    {
+        First = first;
+        Middle = middle;
+        Last = last;
     }
 
-    public string? Last { get => last;
-        set
-        {
-            // Handle optional/Null value 
-            // Watch out for infinite loop
-            // Set the value
-        }
+    public string? First
+    {
+        get => first;
+        set => first = value ?? "";
+    }
+
+    public string? Middle
+    {
+        get => middle;
+        set => middle = value ?? "";
+    }
+
+    public string? Last
+    {
+        get => last;
+        set => last = value ?? "";
     }
 }
