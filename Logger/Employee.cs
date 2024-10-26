@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-internal class EmployeeRecords : Entity
+public record class Employee : Entity
 {
+    public override string Name { 
+        get 
+        {
+            return "";
+        } 
+    }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-internal class Student : Entity
+public record Student : Entity
 {
+    public override string Name => throw new NotImplementedException();
 }

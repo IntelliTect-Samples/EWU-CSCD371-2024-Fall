@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-internal class Book : Entity
+public record class Book : Entity
 {
 
 }
