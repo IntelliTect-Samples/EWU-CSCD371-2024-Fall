@@ -11,6 +11,7 @@ public abstract record class Entity : IEntity
     Guid IEntity.Id 
     { 
         get => _guid!;
+        init { }
     }
     /// <summary>
     /// This method is explicit, as we feel calling an implementation directly is fine. Doing explicit would not help here.
