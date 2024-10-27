@@ -41,6 +41,4 @@ public class EntityTests
             Name = "TestEntity";
         }
     }
-
-
 }
