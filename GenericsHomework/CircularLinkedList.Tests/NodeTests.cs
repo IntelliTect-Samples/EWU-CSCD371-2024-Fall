@@ -37,7 +37,25 @@ public class NodeTests
         Assert.Equal(val?.ToString(), node.ToString());
     }
 
-  
+
+
+    [Theory]
+    [InlineData(1)]
+    [InlineData("SomeData")]
+    [InlineData(null)]
+    public void Next_NoSet_ReturnsBaseNode<T>(T? val)
+    {
+        //Arrange
+        Node<T> node = new(val);
+        //Act
+         
+        //Assert
+
+        Assert.NotNull(node);
+        Assert.NotNull(node.Next);
+        Assert.Equal(node, node.Next);
+        Assert.ReferenceEquals(node, node.Next);
+        
     }
 
 }
