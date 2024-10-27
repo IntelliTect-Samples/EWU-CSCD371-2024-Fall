@@ -96,4 +96,16 @@ public class NodeTests
         //Assert
         Assert.Equal(exists, expectedResult);
     }
+
+    [Theory]
+    [InlineData(1, 3, 1)]
+    public void Append_DuplicateValues_ThrowsException<T>(T? val, T? val2, T? val3)
+    {
+        //Arrange
+        Node<T> node = new(val);
+        node.Append(val2);
+
+        //Act & Assert
+        Assert.Throws<ArgumentException>(() => node.Append(val3));
+    }
 }
