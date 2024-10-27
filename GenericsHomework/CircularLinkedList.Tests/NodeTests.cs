@@ -54,7 +54,7 @@ public class NodeTests
         Assert.NotNull(node);
         Assert.NotNull(node.Next);
         Assert.Equal(node, node.Next);
-        Assert.ReferenceEquals(node, node.Next);
+        Assert.Same(node, node.Next);
         
     }
 
