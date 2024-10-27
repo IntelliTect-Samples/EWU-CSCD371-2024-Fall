@@ -35,7 +35,7 @@ public class Node<T>
 
         do
         {
-            if ((current.Value is null && expectedValue is null) || current.Value!.Equals(expectedValue) == true)
+            if ((current.Value is null && expectedValue is null) || current.Value?.Equals(expectedValue) == true)
             {
                 return true;
             }

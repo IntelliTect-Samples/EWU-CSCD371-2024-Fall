@@ -56,7 +56,7 @@ public class NodeTests
     [Theory]
     [InlineData(1, 2, 3)]
     [InlineData("SomeData", "21", "thirdValue")]
-    [InlineData(null, null, null)]
+    [InlineData(45.6, null, 43.5)]
     public void Append_ValidChange_ReturnsExpected<T>(T? val, T? val2, T? val3)
     {
         Node<T> node = new(val);
@@ -83,7 +83,7 @@ public class NodeTests
     [InlineData("SomeData", "21", "thirdValue", "21", true)]
     [InlineData("SomeData", "21", "thirdValue", "22", false)]
     [InlineData("SomeData", "21", "thirdValue", null, false)]
-    [InlineData(null, null, null, null, true)]
+    [InlineData(null, 32.5, 42.1, null, true)]
     public void Exists_ValidInput_ReturnsTrue<T>(T? val, T? val2, T? val3, T? expectedValue, bool expectedResult)
     {
         Node<T> node = new(val);
@@ -100,7 +100,8 @@ public class NodeTests
     [Theory]
     [InlineData(1, 3, 1)]
     [InlineData("SomeData", "21", "SomeData")]
-    [InlineData("data", null, null)]
+    [InlineData(null, "data", null)]
+    [InlineData(1.0, 2.8, 2.8)]
     public void Append_DuplicateValues_ThrowsException<T>(T? val, T? val2, T? val3)
     {
         //Arrange
