@@ -54,13 +54,12 @@ chicago-spokane-referee-blue-wrilgey-chocolate
 
 - Explicit vs implicit interface implementation
 - Extension Methods
-- Interfaces/virtual
-- Local Functions
 
 ## Week 5 - Assignment 4
 
 ### 10/22
 
+- Local Functions
 - ref vs value types & structs
 - reference vs value equality
 - Structs
@@ -68,14 +67,15 @@ chicago-spokane-referee-blue-wrilgey-chocolate
 
 ### 10/24
 
+- Interfaces/virtual
 - Overriding object members
-- Pattern matching
-- Mocking - Test stubs
+- Mocking - Test double
 
 ## Week 6 - Assignment 5
 
 ### 10/29
 
+- Pattern matching
 - Well formed types
   - Operator Overloading
   - Referencing other assemblies
@@ -84,7 +84,7 @@ chicago-spokane-referee-blue-wrilgey-chocolate
 ### 10/31
 
 - using statements
-- Dispose 
+- Dispose
 
 ## Week 7 - Assignment 6
 
