@@ -8,9 +8,9 @@ public record Person(FullName PersonsName, String Ssn, int Age, string DateOfBir
     public string Ssn { get; } = !string.IsNullOrWhiteSpace(Ssn)
         ? Ssn
         : throw new ArgumentException("SSN cannot be null or empty.", nameof(Ssn).ToLowerInvariant());
-    public string DateOfBirth { get; } = !string.IsNullOrWhiteSpace(DateOfBirth)
+    public string DateOfBirth { get; } = !string.IsNullOrWhiteSpace(DateOfBirth) || int.Parse(DateOfBirth) > 0
         ? DateOfBirth
-        : throw new ArgumentException("Date of Birth cannot be null or empty.", nameof(DateOfBirth));
+        : throw new ArgumentException("Date of Birth cannot be null/empty or negative.", nameof(DateOfBirth));
     
     public override string Name => string.IsNullOrWhiteSpace(PersonsName.MiddleName)
         ? $"{PersonsName.FirstName} {PersonsName.LastName}"
