@@ -5,18 +5,19 @@ namespace Logger.Tests;
 public class StorageTest
 {
     [Fact]
-    public void Storage_AddEntity_Successful()
+    public void Storage_AddNewStudent_Successful()
     {
-        // Arrange
+        // Arrange  
         Storage storage = new();
-        IEntity student = new Student("Lewis", "Tony", "Stakeman",
-            "LStakeman@gmail.com", "5123648362", "Seattle", "Junior",
-            "Computer Science");
+        IEntity student = new Student("John", "Doe", "Smith",
+            "john.doe@example.com","Eastern", 2024, "Computer Science", "1234567890", 20, "10-5-2004");
 
-        // Act
+
+
+        // Act  
         storage.Add(student);
 
-        // Assert
+        // Assert  
         Assert.True(storage.Contains(student));
     }
 
@@ -25,9 +26,8 @@ public class StorageTest
     {
         // Arrange
         Storage storage = new();
-        IEntity student = new Student("Alexander", "", "Dewalt",
-            "ADewalt@gmail.com", "63453453485", "Boise", "Freshman",
-            "Art");
+        IEntity student = new Student("Joe", "Deer", "Danson",
+            "Joedeer@ewu.edu", "Eastern", 2024, "Arts", "2345872390", 34, "10-5-1990");
         storage.Add(student);
 
         // Act
@@ -50,5 +50,7 @@ public class StorageTest
         var retrievedID = storage.Get(guid);
 
         // Assert
-        Assert.Null(retrievedEntity);
+        Assert.Null(retrievedID);
     }
+
+}
