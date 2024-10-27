@@ -57,5 +57,32 @@ public class NodeTests
         Assert.Same(node, node.Next);
         
     }
+    [Theory]
+    [InlineData(1,2,3)]
+    [InlineData("SomeData","21","thirdValue")]
+    [InlineData(null,null,null)]
+    public void Append_ValidChange_ReturnsExpected<T>(T? val, T? val2, T? val3)
+    {
+        
+
+        Node<T> node = new(val);
+        node.Append(val3);
+        
+        //Act
+        node.Append(val2);
+
+        //Assert
+        Assert.NotNull(node);
+        Assert.NotNull(node.Next);
+        Assert.NotNull(node.Next.Next);
+        
+        Assert.Equal(val, node.Value);
+        Assert.Equal(val2, node.Next.Value);
+        Assert.Equal(val3, node.Next.Next.Value);
+
+        Assert.Same(node, node.Next.Next.Next);
+
+
+    }
 
 }
