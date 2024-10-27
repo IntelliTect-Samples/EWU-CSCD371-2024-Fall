@@ -4,15 +4,20 @@ namespace CircularLinkedList.Tests;
 
 public class NodeTests
 {
-    [Fact]
-    public void Constructor_ValidInput_CreatesValidNode()
+    [Theory]
+    [InlineData(1)]
+    [InlineData(11231.2)]
+    [InlineData("MyDataValue")]
+    public void Constructor_ValidInput_CreatesValidNode<T>(T value)
     {
+       
+
         // Act
-        Node<int> node = new(12);
+        Node<T> node = new(value);
 
         //Assert
         Assert.NotNull(node);
-        Assert.IsType<Node<int>>(node);
-        Assert.Equal(12, node.Value);
+        Assert.IsType<Node<T>>(node);
+        Assert.Equal(value, node.Value);
     }
 }
