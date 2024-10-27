@@ -7,7 +7,6 @@ public class Node<T>
 
     public Node(T? value)
     {
-  
         Value = value;
         Next = this;
     }
@@ -17,14 +16,11 @@ public class Node<T>
         Node<T> newNode = new(val);
         Node<T> lastNode = Next;
         newNode.Next = lastNode;
-        Next = newNode; 
+        Next = newNode;
     }
-
-
 
     public override string? ToString()
     {
         return Value?.ToString();
     }
-
 }
