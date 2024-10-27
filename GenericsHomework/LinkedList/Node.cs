@@ -1,4 +1,4 @@
-﻿namespace LinkedList;
+﻿namespace CircularLinkedList;
 
 public class Node
 {

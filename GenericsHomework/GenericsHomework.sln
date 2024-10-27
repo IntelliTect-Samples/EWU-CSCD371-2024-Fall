@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkedList", "LinkedList\LinkedList.csproj", "{1BFF961F-D9D3-4B35-8871-CB3D450CD0BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularLinkedList", "LinkedList\CircularLinkedList.csproj", "{1BFF961F-D9D3-4B35-8871-CB3D450CD0BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkedList.Tests", "LinkedList.Tests\LinkedList.Tests.csproj", "{9C4ECF45-36A1-4217-A905-DBD9E5CC445C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularLinkedList.Tests", "LinkedList.Tests\CircularLinkedList.Tests.csproj", "{9C4ECF45-36A1-4217-A905-DBD9E5CC445C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C8A8701C-58E2-4184-85BC-3D93844EED2F}"
 	ProjectSection(SolutionItems) = preProject

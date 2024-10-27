@@ -1,4 +1,4 @@
-namespace LinkedList.Tests;
+namespace CircularLinkedList.Tests;
 
 public class NodeTests
 {
