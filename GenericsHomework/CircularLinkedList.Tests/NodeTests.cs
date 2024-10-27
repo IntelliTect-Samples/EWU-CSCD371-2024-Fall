@@ -5,13 +5,14 @@ namespace CircularLinkedList.Tests;
 public class NodeTests
 {
     [Fact]
-    public void Constructor_ValidInput_CreatesNode()
+    public void Constructor_ValidInput_CreatesValidNode()
     {
         // Act
-        Node node = new();
+        Node<int> node = new(12);
 
         //Assert
         Assert.NotNull(node);
-        Assert.IsType<Node>(node);
+        Assert.IsType<Node<int>>(node);
+        Assert.Equal(12, node.Value);
     }
 }
