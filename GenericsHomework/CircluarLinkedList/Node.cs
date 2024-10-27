@@ -12,6 +12,16 @@ public class Node<T>
         Next = this;
     }
 
+    public void Append(T? val)
+    {
+        Node<T> newNode = new(val);
+        Node<T> lastNode = Next;
+        newNode.Next = lastNode;
+        Next = newNode; 
+    }
+
+
+
     public override string? ToString()
     {
         return Value?.ToString();
