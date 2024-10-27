@@ -135,4 +135,44 @@ public class StorageTests
         // Assert
         Assert.Equal(student, result);
     }
+
+    [Fact]
+    public void GetEmployee_WithValidEmployee_Success()
+    {
+        // Arrange
+        var storage = new Storage();
+        var employee = new Employee
+        {
+            EmployeeId = 1,
+            EmployeeFullName = new FullName("Kevin", "Flannery"),
+            EmployeeJobTitle = "Software Engineer"
+        };
+        storage.Add(employee);
+
+        // Act
+        var result = storage.Get(employee.Id);
+
+        // Assert
+        Assert.Equal(employee, result);
+    }
+
+    [Fact]
+    public void GetBook_WithValidBook_Success()
+    {
+        // Arrange
+        var storage = new Storage();
+        var book = new Book
+        {
+            Title = "Harry Potter 1",
+            Author = new FullName("JK", "Rowling")
+        };
+        storage.Add(book);
+
+        // Act
+        var result = storage.Get(book.Id);
+
+        // Assert
+        Assert.Equal(book, result);
+    }
+
 }
