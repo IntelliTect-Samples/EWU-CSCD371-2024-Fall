@@ -99,6 +99,8 @@ public class NodeTests
 
     [Theory]
     [InlineData(1, 3, 1)]
+    [InlineData("SomeData", "21", "SomeData")]
+    [InlineData("data", null, null)]
     public void Append_DuplicateValues_ThrowsException<T>(T? val, T? val2, T? val3)
     {
         //Arrange

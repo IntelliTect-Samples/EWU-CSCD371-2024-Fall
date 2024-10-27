@@ -13,6 +13,11 @@ public class Node<T>
 
     public void Append(T? val)
     {
+        if (Exists(val))
+        {
+            throw new ArgumentException("Value already exists in the list");
+        }
+
         Node<T> newNode = new(val);
         Node<T> lastNode = Next;
         newNode.Next = lastNode;
@@ -30,7 +35,7 @@ public class Node<T>
 
         do
         {
-            if ( (current.Value is null && expectedValue is null) ||current.Value!.Equals(expectedValue) == true )
+            if ((current.Value is null && expectedValue is null) || current.Value!.Equals(expectedValue) == true)
             {
                 return true;
             }
