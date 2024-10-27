@@ -1,6 +1,11 @@
-﻿namespace CircluarLinkedList
+﻿namespace CircluarLinkedList;
+
+public class Node<T>
 {
-    public class Node
+    public T Value { get; set; }
+
+    public Node(T value)
     {
+        Value = value;
     }
 }
