@@ -23,4 +23,20 @@ public class Node<T>
     {
         return Value?.ToString();
     }
+
+    public bool Exists(T? expectedValue)
+    {
+        Node<T> current = this;
+
+        do
+        {
+            if (current.Value?.Equals(expectedValue) == true)
+            {
+                return true;
+            }
+            current = current.Next;
+        } while (current != this);
+
+        return false;
+    }
 }
