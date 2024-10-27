@@ -8,7 +8,7 @@ Chapters 11, 12
 
 ## Instructions
 
-- Create a *class library* project called "GenericsHomework.". ❌✔
+- Create a *class library* project called "GenericsHomework.". ✔
 - Create a node class that can contain a value of any type and points to the next node and traversing the next node points back to the first item.
   - Define the `Node` class
   - The values should be homogeneous.
@@ -40,11 +40,11 @@ Do one of the following two options (or both if you want extra, extra credit) :)
 
 ## Fundamentals
 
-- Place all shared project properties into a `Directory.Build.Props` file.
-- nullable reference types is enabled  ❌✔
-- Ensure that you turn on code analysis for all projects(EnableNETAnalyzers)  ❌✔
-- Set LangVersion and the TargetFramework to the latest released versions available (preview versions optional)   ❌✔
-- and enabled .NET analyzers for both projects ❌✔
+- Place all shared project properties into a `Directory.Build.Props` file.✔
+- nullable reference types is enabled  ✔
+- Ensure that you turn on code analysis for all projects(EnableNETAnalyzers)  ✔
+- Set LangVersion and the TargetFramework to the latest released versions available (preview versions optional)   ✔
+- and enabled .NET analyzers for both projects ✔
 - For this assignment, always use `Assert.AreEqual<T>()` (the generic version)  ❌✔
 - All of the above should be unit tested ❌✔
 - Choose simplicity over complexity ❌✔
