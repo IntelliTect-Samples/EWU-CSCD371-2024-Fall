@@ -105,7 +105,7 @@ public class NodeTests
 
         // Act
         node.Append(value2);
-        
+
         // Assert
         Assert.Equal(value, node.Value);
         Assert.Equal(value2, node.Next.Value);
