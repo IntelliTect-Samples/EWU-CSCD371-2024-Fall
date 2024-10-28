@@ -105,5 +105,56 @@ namespace Logger.Tests;
                 "School of the Wolf", 1260, string.Empty, "123-45-6789", 100, "11-15-1160"));
             Assert.Equal("Major cannot be null or empty. (Parameter 'major')", exceptionEmptyMajor.Message);
         }
+
+        [Fact]
+        public void Student_Equality_WhenInstancesHaveSameData_ReturnsTrue()
+        {
+            // Arrange
+            string firstName = "Vannessa";
+            string middleName = String.Empty;
+            string lastName = "Perez";
+            string email = "vannessa@jmh.edu";
+            string schoolName = "James Monroe High School";
+            string major = "Electrical Engineering";
+            string ssn = "123-45-6789"; // Fake SSN
+            string dob = "08-15-1999"; // Vannessa's fake Date of Birth in MM-DD-YYYY formating
+            int age = 25;
+            int schoolYear = 2017;
+            Student student1 = new Student(firstName, middleName, lastName, email, schoolName,
+                schoolYear, major, ssn, age, dob);
+            Student student2 = student1 with { };
+            
+            // Act
+            bool result = student1.Equals(student2);
+            
+            // Assert
+            Assert.True(result);
+
+        }
+
+        [Fact]
+        public void Student_ReferenceEquality_WhenInstancesHaveSameData_ReturnsFalse()
+        {
+            // Arrange
+            string firstName = "Vannessa";
+            string middleName = String.Empty;
+            string lastName = "Perez";
+            string email = "vannessa@jmh.edu";
+            string schoolName = "James Monroe High School";
+            string major = "Electrical Engineering";
+            string ssn = "123-45-6789"; // Fake SSN
+            string dob = "08-15-1999"; // Vannessa's fake Date of Birth in MM-DD-YYYY formating
+            int age = 25;
+            int schoolYear = 2017;
+            Student student1 = new Student(firstName, middleName, lastName, email, schoolName,
+                schoolYear, major, ssn, age, dob);
+
+            // Act
+            bool result = ReferenceEquals(student1, student1 with { });
+
+            // Assert
+            Assert.False(result);
+        }
+
     }
 

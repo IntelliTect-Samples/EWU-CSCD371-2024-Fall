@@ -106,6 +106,48 @@ namespace Logger.Tests;
             var exceptionEmptyPosition = Assert.Throws<ArgumentException>(() => new Employee(fullName, "scarlett.johansson@company.com", "Marvel Studios", string.Empty, "123-45-6789", 39, "11-22-1984"));
             Assert.Equal("Position cannot be null or empty. (Parameter 'position')", exceptionEmptyPosition.Message);
         }
+
+        [Fact]
+        public void Employee_Equality_AssertsTrue()
+        {
+            //Arrange
+            FullName employee = new FullName("Chloe", "Grace", "Moretz");
+            string email = "chloe.moretz@company.com";
+            string companyName = "Famous Productions";
+            string position = "Actor";
+            string ssn = "123-45-6789"; // Fake SSN
+            string dob = "02-10-1997"; // Chloe Grace Moretz's date of birth in MM-DD-YYYY format
+            int age = 26;
+            Employee employee1 = new Employee(employee, email, companyName, position, ssn, age, dob);
+            Employee employee2 = employee1 with { };
+            
+            // Act
+            bool result = employee1.Equals(employee2);
+            
+            // Assert
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void Employee_ReferenceEquality_AssertsFalse()
+        {
+            //Arrange
+            FullName employee = new FullName("Chloe", "Grace", "Moretz");
+            string email = "chloe.moretz@company.com";
+            string companyName = "Famous Productions";
+            string position = "Actor";
+            string ssn = "123-45-6789"; // Fake SSN
+            string dob = "02-10-1997"; // Chloe Grace Moretz's date of birth in MM-DD-YYYY format
+            int age = 26;
+            Employee employee1 = new Employee(employee, email, companyName, position, ssn, age, dob);
+
+            //Act
+            bool result = ReferenceEquals(employee1, employee1 with { });
+            
+            //Assert 
+            Assert.False(result);
+        }
+
     }
 
 
