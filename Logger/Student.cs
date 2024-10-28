@@ -6,13 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logger;
 
-public record Student : Entity
+public record Student (FullName FullName): Entity
 {
-    public override string Name
-    {
-        get
-        {
-            return "";
-        }
-    }
+    public override string Name => FullName.ToString();
 }
