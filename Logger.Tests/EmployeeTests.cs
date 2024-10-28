@@ -1,4 +1,6 @@
 using Xunit;
+
+#pragma warning disable IDE0090
 namespace Logger.Tests;
     public class EmployeeTests
     {
