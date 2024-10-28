@@ -13,7 +13,7 @@ public class Node<T>
 
     public override string ToString()
     {
-        return Value?.ToString() ?? "Value does not exist.";
+        return Value?.ToString() ?? $"{nameof(Value)} does not exist.";
     }
 
     public void Append(T value)
@@ -22,5 +22,4 @@ public class Node<T>
         node.Next = this.Next;
         this.Next = node;
     }
-
 }
