@@ -15,4 +15,12 @@ public class Node<T>
     {
         return Value?.ToString() ?? "Value does not exist.";
     }
+
+    public void Append(T value)
+    {
+        Node<T> node = new(value);
+        node.Next = this.Next;
+        this.Next = node;
+    }
+
 }
