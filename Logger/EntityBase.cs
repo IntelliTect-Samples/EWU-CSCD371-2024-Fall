@@ -8,10 +8,11 @@ namespace Logger;
  */
 public abstract record EntityBase : IEntity
 {
-   
-    /// Explicit implementation of IEntity.Id.
+    // Explicit implementation of IEntity.Id.
     Guid IEntity.Id { get; } = Guid.NewGuid();
-    public abstract string Name { get; }
-    
-}
 
+    // Public Id property to enable dynamic access
+    public Guid Id => ((IEntity)this).Id;
+    
+    public abstract string Name { get; }
+}

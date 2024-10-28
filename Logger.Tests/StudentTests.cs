@@ -1,7 +1,6 @@
 using Xunit;
 
 namespace Logger.Tests;
-
     public class StudentTests
     {
         [Fact]
@@ -15,7 +14,7 @@ namespace Logger.Tests;
             var schoolName = "School of the Wolf";
             var major = "Monster Hunting";
             var ssn = "123-45-6789"; // Fake SSN
-            var dob = "1160-11-15"; // Fake Date of Birth (from Witcher lore)
+            var dob = "11-15-1160"; // Geralt's fake Date of Birth in MM-DD-YYYY format
             var age = 100;
             var schoolYear = 1260;
 
@@ -41,7 +40,7 @@ namespace Logger.Tests;
         {
             // Arrange
             var student = new Student("Yennefer", null, "Vengerberg", "yennefer@magic.academy.com", 
-                "Aretuza", 1260, "Sorcery", "987-65-4321", 100, "1173-05-01");
+                "Aretuza", 1260, "Sorcery", "987-65-4321", 100, "05-01-1173");
 
             // Act
             var studentEntity = (IEntity)student;
@@ -56,7 +55,7 @@ namespace Logger.Tests;
         {
             // Arrange
             var student = new Student("Geralt", "Of", "Rivia", "geralt@witcher.school.com", 
-                "School of the Wolf", 1260, "Monster Hunting", "123-45-6789", 100, "1160-11-15");
+                "School of the Wolf", 1260, "Monster Hunting", "123-45-6789", 100, "11-15-1160");
 
             // Act
             var result = student.Name;
@@ -70,7 +69,7 @@ namespace Logger.Tests;
         {
             // Arrange
             var student = new Student("Yennefer", null, "Vengerberg", "yennefer@magic.academy.com", 
-                "Aretuza", 1260, "Sorcery", "987-65-4321", 100, "1173-05-01");
+                "Aretuza", 1260, "Sorcery", "987-65-4321", 100, "05-01-1173");
 
             // Act
             var result = student.Name;
@@ -82,39 +81,29 @@ namespace Logger.Tests;
         [Fact]
         public void Student_ThrowsArgumentException_WhenEmailIsNullOrEmpty()
         {
-            // Arrange
-
             // Act & Assert
             var exceptionEmptyEmail = Assert.Throws<ArgumentException>(() => new Student("Geralt", "Of", "Rivia", string.Empty, 
-                "School of the Wolf", 1260, "Monster Hunting", "123-45-6789", 100, "1160-11-15"));
+                "School of the Wolf", 1260, "Monster Hunting", "123-45-6789", 100, "11-15-1160"));
             Assert.Equal("Email cannot be null or empty. (Parameter 'email')", exceptionEmptyEmail.Message);
-            
         }
 
         [Fact]
         public void Student_ThrowsArgumentException_WhenSchoolNameIsNullOrEmpty()
         {
-            // Arrange
-
             // Act & Assert
             var exceptionEmptySchoolName = Assert.Throws<ArgumentException>(() => new Student("Geralt", "Of", "Rivia",
                 "geralt@witcher.school.com",
-                string.Empty, 1260, "Monster Hunting", "123-45-6789", 100, "1160-11-15"));
-            Assert.Equal("School name cannot be null or empty. (Parameter 'schoolName')",
-                exceptionEmptySchoolName.Message);
-
+                string.Empty, 1260, "Monster Hunting", "123-45-6789", 100, "11-15-1160"));
+            Assert.Equal("School name cannot be null or empty. (Parameter 'schoolName')", exceptionEmptySchoolName.Message);
         }
 
         [Fact]
         public void Student_ThrowsArgumentException_WhenMajorIsNullOrEmpty()
         {
-            // Arrange
-
             // Act & Assert
             var exceptionEmptyMajor = Assert.Throws<ArgumentException>(() => new Student("Geralt", "Of", "Rivia", "geralt@witcher.school.com", 
-                "School of the Wolf", 1260, string.Empty, "123-45-6789", 100, "1160-11-15"));
+                "School of the Wolf", 1260, string.Empty, "123-45-6789", 100, "11-15-1160"));
             Assert.Equal("Major cannot be null or empty. (Parameter 'major')", exceptionEmptyMajor.Message);
-            
         }
     }
 

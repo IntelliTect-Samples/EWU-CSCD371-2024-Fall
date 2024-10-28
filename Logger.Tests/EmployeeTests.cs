@@ -1,10 +1,7 @@
 using Xunit;
-
 namespace Logger.Tests;
-
     public class EmployeeTests
     {
-    
         [Fact]
         public void Employee_CreationWithValidData_SuccessfullyCreatesInstance()
         {
@@ -14,7 +11,7 @@ namespace Logger.Tests;
             var companyName = "Famous Productions";
             var position = "Actor";
             var ssn = "123-45-6789"; // Fake SSN
-            var dob = "1983-02-23"; // Emily Blunt's date of birth
+            var dob = "02-23-1983"; // Emily Blunt's date of birth in MM-DD-YYYY format
             var age = 41;
 
             // Act
@@ -36,7 +33,7 @@ namespace Logger.Tests;
         {
             // Arrange
             var fullName = new FullName("Chris", "Robert", "Evans");
-            var employee = new Employee(fullName, "chris.evans@company.com", "Marvel Studios", "Actor", "987-65-4321", 42, "1981-06-13");
+            var employee = new Employee(fullName, "chris.evans@company.com", "Marvel Studios", "Actor", "987-65-4321", 42, "06-13-1981");
 
             // Act
             var employeeEntity = (IEntity)employee;
@@ -51,7 +48,7 @@ namespace Logger.Tests;
         {
             // Arrange
             var fullName = new FullName("Chris", "Robert", "Evans");
-            var employee = new Employee(fullName, "chris.evans@company.com", "Marvel Studios", "Actor", "987-65-4321", 42, "1981-06-13");
+            var employee = new Employee(fullName, "chris.evans@company.com", "Marvel Studios", "Actor", "987-65-4321", 42, "06-13-1981");
 
             // Act
             var result = employee.Name;
@@ -65,7 +62,7 @@ namespace Logger.Tests;
         {
             // Arrange
             var fullName = new FullName("Scarlett", null, "Johansson");
-            var employee = new Employee(fullName, "scarlett.johansson@company.com", "Marvel Studios", "Actor", "123-45-6789", 39, "1984-11-22");
+            var employee = new Employee(fullName, "scarlett.johansson@company.com", "Marvel Studios", "Actor", "123-45-6789", 39, "11-22-1984");
 
             // Act
             var result = employee.Name;
@@ -81,10 +78,10 @@ namespace Logger.Tests;
             var fullName = new FullName("Robert", "John", "Downey");
 
             // Act & Assert
-            var exceptionEmptyEmail = Assert.Throws<ArgumentException>(() => new Employee(fullName, string.Empty, "Marvel Studios", "Actor", "111-22-3333", 58, "1965-04-04"));
+            var exceptionEmptyEmail = Assert.Throws<ArgumentException>(() => new Employee(fullName, string.Empty, "Marvel Studios", "Actor", "111-22-3333", 58, "04-04-1965"));
             Assert.Equal("Email cannot be null or empty. (Parameter 'email')", exceptionEmptyEmail.Message);
 
-            var exceptionNullEmail = Assert.Throws<ArgumentException>(() => new Employee(fullName, null!, "Marvel Studios", "Actor", "111-22-3333", 58, "1965-04-04"));
+            var exceptionNullEmail = Assert.Throws<ArgumentException>(() => new Employee(fullName, null!, "Marvel Studios", "Actor", "111-22-3333", 58, "04-04-1965"));
             Assert.Equal("Email cannot be null or empty. (Parameter 'email')", exceptionNullEmail.Message);
         }
 
@@ -95,9 +92,8 @@ namespace Logger.Tests;
             var fullName = new FullName("Chris", "Robert", "Evans");
 
             // Act & Assert
-            var exceptionEmptyCompanyName = Assert.Throws<ArgumentException>(() => new Employee(fullName, "chris.evans@company.com", string.Empty, "Actor", "987-65-4321", 42, "1981-06-13"));
+            var exceptionEmptyCompanyName = Assert.Throws<ArgumentException>(() => new Employee(fullName, "chris.evans@company.com", string.Empty, "Actor", "987-65-4321", 42, "06-13-1981"));
             Assert.Equal("Company name cannot be null or empty. (Parameter 'companyName')", exceptionEmptyCompanyName.Message);
-            
         }
 
         [Fact]
@@ -107,9 +103,9 @@ namespace Logger.Tests;
             var fullName = new FullName("Scarlett", "Ingrid", "Johansson");
 
             // Act & Assert
-            var exceptionEmptyPosition = Assert.Throws<ArgumentException>(() => new Employee(fullName, "scarlett.johansson@company.com", "Marvel Studios", string.Empty, "123-45-6789", 39, "1984-11-22"));
+            var exceptionEmptyPosition = Assert.Throws<ArgumentException>(() => new Employee(fullName, "scarlett.johansson@company.com", "Marvel Studios", string.Empty, "123-45-6789", 39, "11-22-1984"));
             Assert.Equal("Position cannot be null or empty. (Parameter 'position')", exceptionEmptyPosition.Message);
-            
         }
     }
+
 
