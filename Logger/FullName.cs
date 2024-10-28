@@ -5,6 +5,11 @@
 public readonly record struct FullName(string firstName, string lastName, string? middleName = null)
 {
     public string firstName { get; } = firstName ?? throw new ArgumentNullException(nameof(firstName));
-    public string lastName { get; } = lastName ?? throw new ArgumentNullException(nameof(lastName));
     public string? middleName { get; } = middleName;
+    public string lastName { get; } = lastName ?? throw new ArgumentNullException(nameof(lastName));
+
+    public override string ToString()
+    {
+        return string.IsNullOrWhiteSpace(middleName) ? $"{firstName} {lastName}":$"{firstName} {middleName} {lastName}";
+    }
 }
