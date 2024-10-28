@@ -19,7 +19,12 @@ public class Node<T>
     public void Append(T value)
     {
         Node<T> node = new(value);
-        node.Next = this.Next;
-        this.Next = node;
+        Node<T> current = this;
+        while (current.Next != this)
+        {
+            current = current.Next;
+        }
+        current.Next = node;
+        node.Next = this;
     }
 }
