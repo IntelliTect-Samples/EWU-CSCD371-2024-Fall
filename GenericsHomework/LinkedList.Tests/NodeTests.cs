@@ -117,4 +117,29 @@ public class NodeTests
     }
 
     //TODO: Add test to check for multiple appends
+    [Theory]
+    [InlineData(13, 42, 18)]
+    [InlineData(13.0, 12.0, 14.0)]
+    [InlineData("Hello!", "Goodbye", "Auf wiedersehen")]
+
+    public void Append_MoreGivenData_AppendsData<T>(T value, T value2, T value3)
+    {
+        // Arrange
+        Node<T> node = new(value);
+
+        // Act
+        node.Append(value2);
+        node.Append(value3);
+
+        // Assert
+        Assert.Equal(value, node.Value);
+        Assert.Equal(value2, node.Next.Value);
+        Assert.Equal(value3, node.Next.Next.Value);
+        Assert.Equal(value, node.Next.Next.Next.Value);
+        Assert.Equal(value2, node.Next.Next.Next.Next.Value);
+        Assert.Equal(value3, node.Next.Next.Next.Next.Next.Value);
+        Assert.NotEqual(value, node.Next.Value);
+        Assert.NotEqual(value2, node.Next.Next.Value);
+        Assert.NotEqual(value3, node.Next.Next.Next.Value);
+    }
 }
