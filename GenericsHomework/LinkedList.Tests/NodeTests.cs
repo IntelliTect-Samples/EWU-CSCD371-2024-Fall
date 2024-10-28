@@ -71,12 +71,13 @@ public class NodeTests
     {
         // Arrange
         Node<T> node = new(value);
+        string expectedOut = "Value does not exist.";
 
         // Act
         string nodeOut = node.ToString();
 
         // Assert
-        Assert.Equal("Value does not exist.", nodeOut);
+        Assert.Equal(expectedOut, nodeOut);
     }
 
     [Fact]
