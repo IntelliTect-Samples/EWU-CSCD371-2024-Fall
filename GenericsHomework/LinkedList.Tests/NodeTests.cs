@@ -33,4 +33,17 @@ public class NodeTests
         // Assert
         Assert.Equal(expectedType, node.Value.GetType());
     }
+
+    [Fact]
+    public void Next_NodeOnCreation_NextReferencesItself()
+    {
+        // Arrange
+        int value = 13;
+
+        // Act
+        Node<int> node = new(value);
+
+        // Assert
+        Assert.Same(node, node.Next);
+    }
 }
