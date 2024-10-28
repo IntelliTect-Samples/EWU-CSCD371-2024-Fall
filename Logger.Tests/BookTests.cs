@@ -114,4 +114,37 @@ namespace Logger.Tests;
             var exception = Assert.Throws<ArgumentNullException>(() => new Book("Dune", author, "Science Fiction", null!, 1965, "9780441172719"));
             Assert.Equal("Value cannot be null. (Parameter 'publisher')", exception.Message);
         }
+
+        [Fact]
+        public void Book_Equality_AssertsTrue()
+        {
+            //Arrange
+            FullName author = new FullName("Frank", "Patrick", "Herbert");
+            string isbn = "9780441172719"; // Dune ISBN
+            Book book1 = new Book("Dune", author, "Science Fiction", "Chilton Books", 1965, isbn);
+            Book book2 = book1 with {};
+            
+            //Act
+            bool result = book1.Equals(book2);
+            
+            //Assert
+            Assert.True(result);
+        }
+        
+        [Fact]
+        public void Book_ReferenceEquality_AssertsFalse()
+        {
+            //Arrange
+            FullName author = new FullName("Rick", null,"Yancey"); 
+            string isbn = "9780399162411"; // The 5th Wave ISBN
+            Book book1 = new Book("The 5th Wave", author, "Science Fiction", 
+                "G.P. Putnam's Sons", 2013, isbn);
+          
+            //Act
+            bool result = ReferenceEquals(book1, book1 with {});
+            //Assert
+            Assert.False(result);
+        }
+        
     }
+

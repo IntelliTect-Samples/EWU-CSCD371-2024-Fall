@@ -110,5 +110,42 @@ namespace Logger.Tests;
             var exceptionEmptyDob = Assert.Throws<ArgumentException>(() => new Person(fullName, "111-22-3333", 40, string.Empty));
             Assert.Equal("Date of Birth must be a valid date in MM-DD-YYYY format. (Parameter 'DateOfBirth')", exceptionEmptyDob.Message);
         }
+
+        [Fact]
+        public void Person_Equality_AssertsTrue()
+        {
+            // Arrange
+            FullName person = new FullName("Denzel", "Hayes", "Washington"); 
+            string ssn = "123-45-6789"; // Fake SSN
+            string dob = "12-28-1954"; // Denzel Washington's date of birth in MM-DD-YYYY
+            int age = 68;
+            Person person1 = new Person(person, ssn, age, dob);
+            Person person2 = person1 with { };
+            
+            //Act
+            bool result = person1.Equals(person2);
+            
+            //Assert
+            Assert.True(result);
+            
+        }
+        
+        [Fact]
+        public void Person_ReferenceEquality_AssertsFalse()
+        {
+            // Arrange
+            FullName person = new FullName("Denzel", "Hayes", "Washington"); 
+            string ssn = "123-45-6789"; // Fake SSN
+            string dob = "12-28-1954"; // Denzel Washington's date of birth in MM-DD-YYYY
+            int age = 68;
+            Person person1 = new Person(person, ssn, age, dob);
+            Person person2 = person1 with { };
+            
+            //Act
+            bool result = ReferenceEquals(person1, person2);
+            
+            //Assert
+            Assert.False(result);
+        }
     }
 
