@@ -115,4 +115,6 @@ public class NodeTests
         Assert.NotEqual(value, node.Next.Value);
         Assert.NotEqual(value2, node.Next.Next.Value);
     }
+
+    //TODO: Add test to check for multiple appends
 }
