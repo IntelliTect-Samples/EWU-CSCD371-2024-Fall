@@ -46,4 +46,36 @@ public class NodeTests
         // Assert
         Assert.Same(node, node.Next);
     }
+
+    // TODO: Check how to test complex objects such as an array with multiple values
+    [Theory]
+    [InlineData("Data!")]
+    [InlineData("")]
+    [InlineData(42)]
+    [InlineData([32])]
+    public void ToString_GivenData_ReturnsExpectedValue<T>(T value)
+    {
+        // Arrange
+        Node<T> node = new(value);
+
+        // Act
+        string nodeOut = node.ToString();
+
+        // Assert
+        Assert.Equal(nodeOut, $"{node.Value}");
+    }
+
+    [Theory]
+    [InlineData(null)]
+    public void ToString_Null_ReturnsExpectedValue<T>(T value)
+    {
+        // Arrange
+        Node<T> node = new(value);
+
+        // Act
+        string nodeOut = node.ToString();
+
+        // Assert
+        Assert.Equal("Value does not exist.", nodeOut);
+    }
 }

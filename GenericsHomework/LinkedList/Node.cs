@@ -13,6 +13,6 @@ public class Node<T>
 
     public override string ToString()
     {
-        return Value?.ToString() ?? string.Empty;
+        return Value?.ToString() ?? "Value does not exist.";
     }
 }
