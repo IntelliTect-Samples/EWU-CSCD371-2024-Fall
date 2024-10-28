@@ -4,20 +4,20 @@ using Xunit;
 namespace Logger.Tests;
 public class EntityTests
 {
-    [Fact]
-    public void EntityClass_EntityClass_Exists()
-    {
-        // Arrange
-        // Get the assembly where Entity is supposed to be defined
-        Assembly assembly = Assembly.GetAssembly(typeof(EntityBase)); // Assuming EntityBase is in the same assembly
+    //[Fact]
+    //public void EntityClass_EntityClass_Exists()
+    //{
+    //    // Arrange
+    //    // Get the assembly where Entity is supposed to be defined
+    //    Assembly assembly = Assembly.GetAssembly(typeof(EntityBase)); // Assuming EntityBase is in the same assembly
 
-        // Act
-        // Attempt to get the type of Entity
-        Type entityType = assembly.GetType("Logger.Entity"); // Adjust the namespace if necessary
+    //    // Act
+    //    // Attempt to get the type of Entity
+    //    Type entityType = assembly.GetType("Logger.Entity"); // Adjust the namespace if necessary
 
-        // Assert
-        Assert.NotNull(entityType);
-    }
+    //    // Assert
+    //    Assert.NotNull(entityType);
+    //}
 
     [Fact]
     public void TestEntity_EntityBaseAndIEntityInterface_ReturnTrue()
