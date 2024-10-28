@@ -78,4 +78,40 @@ public class NodeTests
         // Assert
         Assert.Equal("Value does not exist.", nodeOut);
     }
+
+    [Fact]
+    public void Append_GivenData_NextPointsAsExpected()
+    {
+        // Arrange
+        Node<int> node = new(13);
+
+        // Act
+        node.Append(42);
+
+        // Assert
+        Assert.Equal(node, node.Next.Next);
+        Assert.Equal(node.Next, node.Next.Next.Next);
+        Assert.NotEqual(node.Next, node);
+    }
+
+    [Theory]
+    [InlineData(13, 42)]
+    [InlineData(13.0, 12.0)]
+    [InlineData("Hello!", "Goodbye")]
+    public void Append_GivenData_AppendsData<T>(T value, T value2)
+    {
+        // Arrange
+        Node<T> node = new(value);
+
+        // Act
+        node.Append(value2);
+        
+        // Assert
+        Assert.Equal(value, node.Value);
+        Assert.Equal(value2, node.Next.Value);
+        Assert.Equal(value, node.Next.Next.Value);
+        Assert.Equal(value2, node.Next.Next.Next.Value);
+        Assert.NotEqual(value, node.Next.Value);
+        Assert.NotEqual(value2, node.Next.Next.Value);
+    }
 }
