@@ -9,7 +9,7 @@ namespace Logger.Tests;
             // Arrange
             var fullName = new FullName("Pedro", "Balmaceda", "Pascal");
             var ssn = "123-45-6789"; // Fake SSN
-            var dob = "1975-04-02"; // Pedro Pascal's date of birth
+            var dob = "04-02-1975"; // Pedro Pascal's date of birth in MM-DD-YYYY
             var age = 48;
 
             // Act
@@ -29,7 +29,7 @@ namespace Logger.Tests;
             // Arrange
             var fullName = new FullName("Paul", "William", "Walker");
             var ssn = "987-65-4321"; // Fake SSN
-            var person = new Person(fullName, ssn, 40, "1973-09-12");
+            var person = new Person(fullName, ssn, 40, "09-12-1973");
 
             // Act 
             var personEntity = (IEntity)person;
@@ -44,7 +44,7 @@ namespace Logger.Tests;
         {
             // Arrange
             var fullName = new FullName("Ashley", "Suzanne", "Johnson");
-            var person = new Person(fullName, "111-22-3333", 40, "1983-08-09");
+            var person = new Person(fullName, "111-22-3333", 40, "08-09-1983");
 
             // Act
             var result = person.Name;
@@ -58,7 +58,7 @@ namespace Logger.Tests;
         {
             // Arrange
             var fullName = new FullName("Emilia", null, "Clarke");
-            var person = new Person(fullName, "444-55-6666", 37, "1986-10-23");
+            var person = new Person(fullName, "444-55-6666", 37, "10-23-1986");
 
             // Act
             var result = person.Name;
@@ -74,9 +74,8 @@ namespace Logger.Tests;
             var fullName = new FullName("Pedro", "Balmaceda", "Pascal");
 
             // Act & Assert
-            var exceptionEmptySsn = Assert.Throws<ArgumentException>(() => new Person(fullName, string.Empty, 48, "1975-04-02"));
+            var exceptionEmptySsn = Assert.Throws<ArgumentException>(() => new Person(fullName, string.Empty, 48, "04-02-1975"));
             Assert.Equal("SSN cannot be null or empty. (Parameter 'ssn')", exceptionEmptySsn.Message);
-            
         }
 
         [Fact]
@@ -86,20 +85,30 @@ namespace Logger.Tests;
             FullName? fullName = null;
 
             // Act & Assert
-            var exception = Assert.Throws<ArgumentNullException>(() => new Person(fullName!, "123-45-6789", 48, "1975-04-02"));
+            var exception = Assert.Throws<ArgumentNullException>(() => new Person(fullName!, "123-45-6789", 48, "04-02-1975"));
             Assert.Equal("Value cannot be null. (Parameter 'PersonsName')", exception.Message);
         }
 
         [Fact]
-        public void Person_ThrowsArgumentException_WhenDateOfBirthIsNullOrEmpty()
+        public void Person_ThrowsArgumentException_WhenDateOfBirthIsInvalid()
+        {
+            // Arrange
+            var fullName = new FullName("Ashley", "Suzanne", "Johnson");
+
+            // Act & Assert
+            var exceptionInvalidDob = Assert.Throws<ArgumentException>(() => new Person(fullName, "111-22-3333", 40, "1983-08-09"));
+            Assert.Equal("Date of Birth must be a valid date in MM-DD-YYYY format. (Parameter 'DateOfBirth')", exceptionInvalidDob.Message);
+        }
+
+        [Fact]
+        public void Person_ThrowsArgumentException_WhenDateOfBirthIsEmpty()
         {
             // Arrange
             var fullName = new FullName("Ashley", "Suzanne", "Johnson");
 
             // Act & Assert
             var exceptionEmptyDob = Assert.Throws<ArgumentException>(() => new Person(fullName, "111-22-3333", 40, string.Empty));
-            Assert.Equal("Date of Birth cannot be null or empty. (Parameter 'DateOfBirth')", exceptionEmptyDob.Message);
-            
+            Assert.Equal("Date of Birth must be a valid date in MM-DD-YYYY format. (Parameter 'DateOfBirth')", exceptionEmptyDob.Message);
         }
     }
 
