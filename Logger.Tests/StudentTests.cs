@@ -21,6 +21,7 @@ namespace Logger.Tests;
         Assert.Equal("Middle", david.FullName.MiddleName);
         Assert.Equal("Doe", david.FullName.LastName);
         Assert.Equal(david.SchoolName, schoolName);
+        Assert.Equal(david.Name, name);
     }
 
     [Fact]

@@ -18,10 +18,10 @@ namespace Logger.Tests;
 
         // Act & Assess
         Assert.NotNull(david);
-        Assert.Equal(david.EmployeeID, employeeID);
-        Assert.Equal("David", david.EmployeeName.FirstName);
-        Assert.Equal("Middle", david.EmployeeName.MiddleName);
-        Assert.Equal("Moore", david.EmployeeName.LastName);
+        Assert.Equal(david.ID, employeeID);
+        Assert.Equal("David", david.FullName.FirstName);
+        Assert.Equal("Middle", david.FullName.MiddleName);
+        Assert.Equal("Moore", david.FullName.LastName);
         Assert.Equal(david.EmployeeRole, employeeRole);
         Assert.Equal(david.Employer, employer);
         Assert.Equal(david.Name, employeeName);
