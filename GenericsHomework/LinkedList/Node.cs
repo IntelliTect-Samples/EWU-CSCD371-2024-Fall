@@ -30,6 +30,13 @@ public class Node<T>
 
     public void Clear()
     {
+        Node<T> cur = this.Next;
+        while (cur != this)
+        {
+            Node<T> temp = cur;
+            cur = cur.Next;
+            temp.Next = null!;
+        }
         this.Next = this;
     }
 }
