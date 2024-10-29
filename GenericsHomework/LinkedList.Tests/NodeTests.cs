@@ -143,20 +143,21 @@ public class NodeTests
     }
 
     [Theory]
-    [InlineData(42, 43, 45)]
-    [InlineData(42.0, 43.0, 44.0)]
-    [InlineData("fortytwo", "fortythree", "fortyfour")]
-    public void Clear_Data_ClearsItemsExceptCurrentNode<T>(T value, T value2, T value3)
+    [InlineData(42, 43)]
+    [InlineData(42.0, 43.0)]
+    [InlineData("fortytwo", "fortythree")]
+    public void Clear_Data_ClearsItemsExceptCurrentNode<T>(T value, T value2)
     {
         // Arrange
         Node<T> node = new(value);
 
         // Act
         node.Append(value2);
-        node.Append(value3);
-        node.Clear(); //Only value3 should be in the list.
+        node.Clear();
 
         // Assert
         Assert.Equal(node, node.Next);
+        Assert.Equal(value, node.Next.Value);
+        Assert.NotEqual(value2, node.Value);
     }
 }
