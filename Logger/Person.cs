@@ -8,10 +8,10 @@ namespace Logger;
     public int ID { get; set; }
 
     // Constructor to initialize common properties
-    protected Person(string name, int? id)
+    protected Person(string name, int id)
     {
         FullName = ParseName(name);
-        ID = id ?? throw new ArgumentNullException(nameof(id), "ID cannot be null.");
+        ID = id;
     }
 
     // Method to parse the full name from a single string input

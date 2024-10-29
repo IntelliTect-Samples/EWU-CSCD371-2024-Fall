@@ -20,14 +20,13 @@ public int ISBN { get; init; }
     set => throw new InvalidOperationException("The Name property is calculated and cannot be set directly.");
 }
 
-public Book(string title, string authorName, int? yearPublished, int? isbn)
+public Book(string title, string authorName, int yearPublished, int isbn)
 {
 Title = title ?? throw new ArgumentNullException(nameof(title), $"{nameof(title)} was null.");
 
 Author = ParseAuthor(authorName);
-//Author = author; We need to parse this to a FullName object.
-YearPublished = yearPublished ?? throw new ArgumentNullException(nameof(yearPublished), $"{nameof(yearPublished)} was null.");
-ISBN = isbn ?? throw new ArgumentNullException(nameof(isbn), $"{nameof(isbn)} was null.");
+YearPublished = yearPublished;
+ISBN = isbn;
 }
 
 private static FullName ParseAuthor(string authorName)
