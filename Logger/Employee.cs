@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Logger;
 
-namespace Logger;
-
-public record class Employee (FullName FullName) : Entity
+public record Employee : Person
 {
-    public override string Name => FullName.ToString();
+    public string EmployeeId { get; init; }
+
+    public Employee(FullName fullName, string employeeId) : base(fullName)
+    {
+        EmployeeId = employeeId;
+    }
+
+    // Explicitly implementing GetId to return the EmployeeId
+    // The employee can have a unique id
+    protected override string GetId() => EmployeeId;
 }
