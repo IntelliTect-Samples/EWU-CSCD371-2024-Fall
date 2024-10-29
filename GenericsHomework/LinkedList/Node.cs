@@ -1,7 +1,9 @@
-﻿namespace CircularLinkedList;
+﻿
+namespace CircularLinkedList;
 
 public class Node<T>
 {
+    //TODO: make Value non-nullable
     public T? Value { get; set; }
     public Node<T> Next { get; private set; }
 
@@ -30,6 +32,11 @@ public class Node<T>
 
     public void Clear()
     {
+        /* We have decided to iterate through the list, clearing each node.
+         * This does not necessarily have to be done, as the garbage collector
+         * should be able to handle this. However, this is a good practice to
+         * ensure that the garbage collector can do its job efficiently.
+        */
         Node<T> current = this.Next;
         while (current != this)
         {
@@ -38,5 +45,24 @@ public class Node<T>
             temp.Next = null!;
         }
         this.Next = this;
+    }
+
+    public bool ValueExists(T? value)
+    {//TODO: null should be a valid value here so consider getting rid of null checks and
+        //investigating the errors
+        Node<T> current = this;
+        if (current.Value != null && current.Value.Equals(value))
+        {
+            return true;
+        }
+        while (current.Next != this)
+        {
+            current = current.Next;
+            if (current.Value != null && current.Value.Equals(value))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
