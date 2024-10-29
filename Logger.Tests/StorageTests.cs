@@ -1,73 +1,67 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 
-namespace Logger.Tests
+namespace Logger.Tests;
+
+public class StorageTests
 {
-    public class StorageTests
+    [Fact]
+    public void Constructor_InitializedStorage_Success()
     {
-        [Fact]
-        public void Constructor_InitializedStorage_Success()
-        {
-            Storage storage = new();
+        Storage storage = new();
 
-            Assert.NotNull(storage);
-        }
+        Assert.NotNull(storage);
+    }
 
-        [Fact]
-        public void Add_Entity_Success()
-        {
-            Storage storage = new();
-            FullName fullName = new("Inigo", "Montoya");
-            Student student = new(fullName, "imontoya1", 1, true, 4.0, "Revenge");
+    [Fact]
+    public void Add_Entity_Success()
+    {
+        Storage storage = new();
+        FullName fullName = new("Inigo", "Montoya");
+        Student student = new(fullName, "imontoya1", 1, true, 4.0, "Revenge");
 
-            storage.Add(student);
+        storage.Add(student);
 
-            Assert.True(storage.Contains(student));
-        }
+        Assert.True(storage.Contains(student));
+    }
 
-        [Fact]
-        public void Remove_Entity_Success()
-        {
-            Storage storage = new();
-            FullName fullName = new("Inigo", "Montoya");
-            Student student = new(fullName, "imontoya1", 1, true, 4.0, "Revenge");
+    [Fact]
+    public void Remove_Entity_Success()
+    {
+        Storage storage = new();
+        FullName fullName = new("Inigo", "Montoya");
+        Student student = new(fullName, "imontoya1", 1, true, 4.0, "Revenge");
 
-            storage.Add(student);
-            storage.Remove(student);
+        storage.Add(student);
+        storage.Remove(student);
 
-            Assert.False(storage.Contains(student));
-        }
+        Assert.False(storage.Contains(student));
+    }
 
-        [Fact]
-        public void Get_Entity_Success()
-        {
-            Storage storage = new();
-            FullName fullName = new("Inigo", "Montoya");
-            Student student = new(fullName, "imontoya1", 1, true, 4.0, "Revenge");
+    [Fact]
+    public void Get_Entity_Success()
+    {
+        Storage storage = new();
+        FullName fullName = new("Inigo", "Montoya");
+        Student student = new(fullName, "imontoya1", 1, true, 4.0, "Revenge");
 
-            storage.Add(student);
+        storage.Add(student);
 
-            Guid studentId = ((IEntity)student).Id;
+        Guid studentId = ((IEntity)student).Id;
 
-            IEntity? result = storage.Get(studentId);
+        IEntity? result = storage.Get(studentId);
 
-            Assert.NotNull(result);
-            Assert.IsType<Student>(result);
-            Assert.Equal(student, result);
-        }
+        Assert.NotNull(result);
+        Assert.IsType<Student>(result);
+        Assert.Equal(student, result);
+    }
 
-        [Fact]
-        public void Get_EntityNotInStorage_ReturnsNull()
-        {
-            Storage storage = new();
-            FullName fullName = new("Inigo", "Montoya");
-            Student student = new(fullName, "imontoya1", 1, true, 4.0, "Revenge");
+    [Fact]
+    public void Get_EntityNotInStorage_ReturnsNull()
+    {
+        Storage storage = new();
+        FullName fullName = new("Inigo", "Montoya");
+        Student student = new(fullName, "imontoya1", 1, true, 4.0, "Revenge");
 
-            Assert.Null(storage.Get(((IEntity)student).Id));
-        }
+        Assert.Null(storage.Get(((IEntity)student).Id));
     }
 }
