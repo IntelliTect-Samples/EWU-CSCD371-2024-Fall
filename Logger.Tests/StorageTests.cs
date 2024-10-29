@@ -46,7 +46,6 @@ namespace Logger.Tests;
         Assert.False(newStorage.Contains(david));
         Assert.False(newStorage.Contains(john));
         Assert.False(newStorage.Contains(book));
-
     }
 
 }
