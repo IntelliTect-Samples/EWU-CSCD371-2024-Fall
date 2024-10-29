@@ -1,4 +1,4 @@
-using Logger;
+namespace Logger;
 
 public record Employee : Person
 {
