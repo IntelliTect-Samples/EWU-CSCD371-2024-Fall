@@ -101,6 +101,7 @@ public class NodeTests
     [InlineData(1, 3, 1)]
     [InlineData("SomeData", "21", "SomeData")]
     [InlineData(null, "data", null)]
+    [InlineData("data",null, null)]
     [InlineData(1.0, 2.8, 2.8)]
     public void Append_DuplicateValues_ThrowsException<T>(T? val, T? val2, T? val3)
     {
@@ -110,5 +111,24 @@ public class NodeTests
 
         //Act & Assert
         Assert.Throws<ArgumentException>(() => node.Append(val3));
+    }
+
+    [Theory]
+    [InlineData(1, 3, 2)]
+    [InlineData("SomeData", "21", "SomeData2")]
+    [InlineData(null, "data2", "data")]
+    [InlineData("data", null, "t")]
+    [InlineData(1.0, 2.8, 2.9)]
+    public void Clear_ValidLoop_RemovesNodes<T>(T? val, T? val2, T? val3)
+    {
+        //Arrange
+        Node<T> node = new(val);
+        node.Append(val2);
+        node.Append(val3);
+        //Act
+        node.Clear();
+        //Assert
+        Assert.Equal(node,node.Next);
+        Assert.Same(node,node.Next);
     }
 }
