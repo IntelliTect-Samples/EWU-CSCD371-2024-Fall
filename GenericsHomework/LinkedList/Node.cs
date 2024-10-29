@@ -27,4 +27,9 @@ public class Node<T>
         current.Next = node;
         node.Next = this;
     }
+
+    public void Clear()
+    {
+        this.Next = this;
+    }
 }
