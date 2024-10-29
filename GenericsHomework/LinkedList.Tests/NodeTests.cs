@@ -160,4 +160,51 @@ public class NodeTests
         Assert.Equal(value, node.Next.Value);
         Assert.NotEqual(value2, node.Value);
     }
+
+    [Theory]
+    [InlineData(42, 43, 48)]
+    [InlineData(42.0, 43.0, 44.0)]
+    [InlineData("fortytwo", "fortythree", "fortyfour")]
+    public void Clear_GivenMoreData_ClearsItemsExceptCurrentNode<T>(T value, T value2, T value3)
+    {
+        // Arrange
+        Node<T> node = new(value);
+
+        // Act
+        node.Append(value2);
+        node.Append(value3);
+        node.Clear();
+
+        // Assert
+        Assert.Equal(node, node.Next);
+        Assert.Equal(value, node.Next.Value);
+        Assert.NotEqual(value2, node.Value);
+        Assert.NotEqual(value3, node.Value);
+    }
+
+    [Theory]
+    [InlineData(42, 43, 48, 49)]
+    [InlineData(42.0, 43.0, 44.0, 45.0)]
+    [InlineData("fortytwo", "fortythree", "fortyfour", "fortyfive")]
+    public void Exists_NodeList_ContainsValue<T>(T value, T value2, T value3, T value4)
+    {
+        // Arrange
+        Node<T> node = new(value);
+
+        // Act
+        node.Append(value2);
+        node.Append(value3);
+        node.Append(value4);
+        bool contains = node.ValueExists(value);
+        bool contains2 = node.ValueExists(value2);
+        bool contains3 = node.ValueExists(value3);
+        bool contains4 = node.ValueExists(value4);
+
+        // Assert
+        Assert.True(contains);
+        Assert.True(contains2);
+        Assert.True(contains3);
+        Assert.True(contains4);
+    }
+
 }
