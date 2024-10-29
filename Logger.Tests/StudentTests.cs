@@ -38,10 +38,10 @@ public class StudentTests
     [Fact]
     public void Constructor_SetInvalidGpa_ThrowsArgumentOutOfRangeException()
     {
-        FullName fullName = new("Inigo", "Montoya");
+        FullName fullName = new("Inigo", "Montoya");    
 
-        Assert.Throws<ArgumentOutOfRangeException>(() => new Student(fullName, "imontoya1", 1, true, -1.0, "Revenge"));
-        Assert.Throws<ArgumentOutOfRangeException>(() => new Student(fullName, "imontoya1", 1, true, 5.0, "Revenge"));
+        Assert.Throws<ArgumentException>(() => new Student(fullName, "imontoya1", 1, true, -1.0, "Revenge"));
+        Assert.Throws<ArgumentException>(() => new Student(fullName, "imontoya1", 1, true, 5.0, "Revenge"));
     }
 
     [Fact]
