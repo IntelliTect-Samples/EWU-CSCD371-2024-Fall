@@ -76,8 +76,19 @@ public class Node<T>
         
         return sb.ToString();
     }
-    
-    
 
+    public void Clear()
+    {
+        Node<T> current = Next;
+        Node<T> temp;
+        
+        while (current != this)
+        {
+            temp = current.Next;
+            current.Next = current;
+            current = temp;
+        }
 
+        Next = this;
+    }
 }
