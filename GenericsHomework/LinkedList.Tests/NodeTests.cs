@@ -121,7 +121,6 @@ public class NodeTests
     [InlineData(13, 42, 18)]
     [InlineData(13.0, 12.0, 14.0)]
     [InlineData("Hello!", "Goodbye", "Auf wiedersehen")]
-
     public void Append_MoreGivenData_AppendsData<T>(T value, T value2, T value3)
     {
         // Arrange
@@ -141,5 +140,23 @@ public class NodeTests
         Assert.NotEqual(value, node.Next.Value);
         Assert.NotEqual(value2, node.Next.Next.Value);
         Assert.NotEqual(value3, node.Next.Next.Next.Value);
+    }
+
+    [Theory]
+    [InlineData(42, 43, 45)]
+    [InlineData(42.0, 43.0, 44.0)]
+    [InlineData("fortytwo", "fortythree", "fortyfour")]
+    public void Clear_Data_ClearsItemsExceptCurrentNode<T>(T value, T value2, T value3)
+    {
+        // Arrange
+        Node<T> node = new(value);
+
+        // Act
+        node.Append(value2);
+        node.Append(value3);
+        node.Clear(); //Only value3 should be in the list.
+
+        // Assert
+        Assert.Equal(node.Value, node.Next);
     }
 }
