@@ -47,6 +47,6 @@ namespace Logger.Tests;
         Assert.False(newStorage.Contains(john));
         Assert.False(newStorage.Contains(book));
     }
-
+    //Add test for getMethod, double check Guid Id vs S/E.ID
 }
 
