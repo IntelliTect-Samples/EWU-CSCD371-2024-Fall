@@ -4,7 +4,7 @@ namespace Logger.Tests;
     public class StudentTests
     {
     [Fact]
-    public void BookRecord_ValidData_CreatesRecord()
+    public void Student_ValidData_CreatesRecord()
     {
         // Arrange
         var name = "John Middle Doe";
@@ -17,9 +17,9 @@ namespace Logger.Tests;
         // Act & Assess
         Assert.NotNull(david);
         Assert.Equal(david.StudentID, studentID);
-        Assert.Equal("John", david.Name.FirstName);
-        Assert.Equal("Middle", david.Name.MiddleName);
-        Assert.Equal("Doe", david.Name.LastName);
+        Assert.Equal("John", david.StudentName.FirstName);
+        Assert.Equal("Middle", david.StudentName.MiddleName);
+        Assert.Equal("Doe", david.StudentName.LastName);
         Assert.Equal(david.SchoolName, schoolName);
 
     }
