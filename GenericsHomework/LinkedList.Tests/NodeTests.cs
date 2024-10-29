@@ -157,6 +157,6 @@ public class NodeTests
         node.Clear(); //Only value3 should be in the list.
 
         // Assert
-        Assert.Equal(node.Value, node.Next);
+        Assert.Equal(node, node.Next);
     }
 }
