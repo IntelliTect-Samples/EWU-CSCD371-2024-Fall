@@ -6,10 +6,10 @@ public record class Book : BaseEntity
 public string Title { get; init;}
 public FullName Author { get; set;}
 public int YearPublished { get; init;}
-public int Isbn { get; init; }
+public int ISBN { get; init; }
 
     // Not sure if Name should be Title here, or Author's name. Will inquire.
-    public override string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+public override string Name => $"{Title} by {Author.ToString()} (ISBN: {ISBN})";
 
 public Book(string title, string authorName, int? yearPublished, int? isbn)
 {
@@ -18,7 +18,7 @@ Title = title ?? throw new ArgumentNullException(nameof(title), $"{nameof(title)
 Author = ParseAuthor(authorName);
 //Author = author; We need to parse this to a FullName object.
 YearPublished = yearPublished ?? throw new ArgumentNullException(nameof(yearPublished), $"{nameof(yearPublished)} was null.");
-Isbn = isbn ?? throw new ArgumentNullException(nameof(isbn), $"{nameof(isbn)} was null.");
+ISBN = isbn ?? throw new ArgumentNullException(nameof(isbn), $"{nameof(isbn)} was null.");
 }
 
 private static FullName ParseAuthor(string authorName)
