@@ -34,5 +34,6 @@ public record Book : BaseEntity
         }
     }
 
+    // This is an explicit implementation to allow for unique formatting of the name.
     public override string Name => $"{Title} written by {Author}. ISBN: {ISBN}";
 }
