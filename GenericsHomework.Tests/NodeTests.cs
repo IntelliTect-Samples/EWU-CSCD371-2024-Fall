@@ -35,7 +35,7 @@ public class NodeTests
     public void Append_WhenAddingNodesToLargeList_MaintainsCorrectCircularStructure()
     {
         // Arrange
-        Node<int> head = new Node<int>(0);
+        Node<int> head = new(0);
         int largeCount = 1000;
 
         for (int i = 1; i <= largeCount; i++)
@@ -62,7 +62,7 @@ public class NodeTests
     public void Append_WhenListContainsDuplicateValues_ThrowsException()
     {
         // Arrange
-        Node<int> head = new Node<int>(1);
+        Node<int> head = new (1);
         head.Append(2);
         head.Append(3);
 
@@ -75,7 +75,7 @@ public class NodeTests
     public void Clear_WithMultipleDataTypes_RemovesAllNodesExceptHead()
     {
         // Arrange
-        Node<object> head = new Node<object>("Head");
+        Node<object> head = new("Head");
         head.Append(1);
         head.Append(2.5);
         head.Append("Tail");
