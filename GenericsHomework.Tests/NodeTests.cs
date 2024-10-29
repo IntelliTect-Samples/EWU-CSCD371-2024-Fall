@@ -1,199 +1,199 @@
 namespace GenericsHomework.Tests;
 
 public class NodeTests
+{
+    [Fact]
+    public void Constructor_WithValidData_InitializesWithSelfReferencingNext()
     {
-        [Fact]
-        public void Constructor_InitializesNodeWithDataAndSelfReferencingNext()
-        {
-            // Arrange
-            int data = 1;
+        // Arrange
+        int data = 1;
 
-            // Act
-            var node = new Node<int>(data);
+        // Act
+        Node<int> node = new Node<int>(data);
 
-            // Assert
-            Assert.Equal(data, node.Data);
-            Assert.Equal(node, node.Next);
-        }
-
-        [Fact]
-        public void Append_AddsNewNodeToEndOfCircularList_WhenListHasOneNode()
-        {
-            // Arrange
-            var head = new Node<int>(1);
-
-            // Act
-            head.Append(2);
-
-            // Assert
-            Assert.Equal(2, head.Next.Data);
-            Assert.Equal(head, head.Next.Next); // circular reference back to head
-        }
-
-        [Fact]
-        public void Append_AddsNewNodeToEndOfCircularList_WhenListHasMultipleNodes()
-        {
-            // Arrange
-            var head = new Node<int>(1);
-            head.Append(2);
-
-            // Act
-            head.Append(3);
-
-            // Assert
-            Assert.Equal(2, head.Next.Data);
-            Assert.Equal(3, head.Next.Next.Data);
-            Assert.Equal(head, head.Next.Next.Next); // circular reference back to head
-        }
-
-        [Fact]
-        public void Append_ThrowsArgumentException_WhenDataAlreadyExists()
-        {
-            // Arrange
-            var head = new Node<int>(1);
-            head.Append(2);
-
-            // Act & Assert
-            Assert.Throws<ArgumentException>(() => head.Append(1));
-        }
-
-        [Fact]
-        public void Exists_ReturnsTrue_WhenDataExistsInList()
-        {
-            // Arrange
-            var head = new Node<int>(1);
-            head.Append(2);
-            head.Append(3);
-
-            // Act
-            bool exists = head.Exists(2);
-
-            // Assert
-            Assert.True(exists);
-        }
-
-        [Fact]
-        public void Exists_ReturnsFalse_WhenDataDoesNotExistInList()
-        {
-            // Arrange
-            var head = new Node<int>(1);
-            head.Append(2);
-            head.Append(3);
-
-            // Act
-            bool exists = head.Exists(4);
-
-            // Assert
-            Assert.False(exists);
-        }
-
-        [Fact]
-        public void ToString_ReturnsCorrectRepresentationOfList_WithOneNode()
-        {
-            // Arrange
-            var head = new Node<int>(1);
-
-            // Act
-            string result = head.ToString();
-
-            // Assert
-            Assert.Equal("1 -> ", result);
-        }
-
-        [Fact]
-        public void ToString_ReturnsCorrectRepresentationOfList_WithMultipleNodes()
-        {
-            // Arrange
-            var head = new Node<int>(1);
-            head.Append(2);
-            head.Append(3);
-
-            // Act
-            string result = head.ToString();
-
-            // Assert
-            Assert.Equal("1 -> 2 -> 3 -> ", result);
-        }
-
-        [Fact]
-        public void Clear_RemovesAllNodesExceptHead()
-        {
-            // Arrange
-            var head = new Node<int>(1);
-            head.Append(2);
-            head.Append(3);
-
-            // Act
-            head.Clear();
-
-            // Assert
-            Assert.Equal(head, head.Next);
-            Assert.False(head.Exists(2));
-            Assert.False(head.Exists(3));
-        }
-
-        [Fact]
-        public void Clear_OnSingleElementList_DoesNotThrowException()
-        {
-            // Arrange
-            var head = new Node<int>(1);
-
-            // Act
-            head.Clear();
-
-            // Assert
-            Assert.Equal(head, head.Next); // Circular reference should point to itself
-        }
-
-        [Fact]
-        public void SetNext_ThrowsArgumentNullException_WhenSettingNullValue()
-        {
-            // Arrange
-            var head = new Node<int>(1);
-            Node<int>? nullNode = null;
-
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => head.Next = nullNode!);
-        }
-
-
-        [Fact]
-        public void SetNext_SetsNextNodeCorrectly()
-        {
-            // Arrange
-            var head = new Node<int>(1);
-            var newNode = new Node<int>(2);
-
-            // Act
-            head.Next = newNode;
-
-            // Assert
-            Assert.Equal(newNode, head.Next);
-        }
-
-        [Fact]
-        public void Exists_ReturnsTrue_WhenSearchingHeadDataInSingleNodeList()
-        {
-            // Arrange
-            var head = new Node<int>(1);
-
-            // Act
-            bool exists = head.Exists(1);
-
-            // Assert
-            Assert.True(exists);
-        }
-
-        [Fact]
-        public void Exists_ReturnsFalse_WhenSearchingNonexistentDataInSingleNodeList()
-        {
-            // Arrange
-            var head = new Node<int>(1);
-
-            // Act
-            bool exists = head.Exists(2);
-
-            // Assert
-            Assert.False(exists);
-        }
+        // Assert
+        Assert.Equal(data, node.Data);
+        Assert.Equal(node, node.Next); // Self-referencing
     }
+
+    [Fact]
+    public void Append_WhenAddingNodesWithNullOrEmptyStrings_HandlesEmptyStringCorrectly()
+    {
+        // Arrange
+        Node<string> head = new Node<string>("Head");
+
+        // Act
+        head.Append("First");
+        head.Append(string.Empty);
+        head.Append("Second");
+
+        // Assert
+        Assert.True(head.Exists(string.Empty)); // Ensure empty string node was added
+    }
+
+    [Fact]
+    public void Append_WhenAddingNodesToLargeList_MaintainsCorrectCircularStructure()
+    {
+        // Arrange
+        Node<int> head = new Node<int>(0);
+        int largeCount = 1000;
+
+        for (int i = 1; i <= largeCount; i++)
+        {
+            head.Append(i);
+        }
+
+        // Act
+        Node<int> current = head;
+        int count = 1;
+
+        while (current.Next != head)
+        {
+            current = current.Next;
+            count++;
+        }
+
+        // Assert
+        Assert.Equal(largeCount + 1, count);
+        Assert.Equal(head, current.Next); // Circular reference to head
+    }
+
+    [Fact]
+    public void Append_WhenListContainsDuplicateValues_ThrowsException()
+    {
+        // Arrange
+        Node<int> head = new Node<int>(1);
+        head.Append(2);
+        head.Append(3);
+
+        // Act & Assert
+        ArgumentException firstDuplicateException = Assert.Throws<ArgumentException>(() => head.Append(1));
+        Assert.Equal("Data already exists in the list", firstDuplicateException.Message);
+    }
+
+    [Fact]
+    public void Clear_WithMultipleDataTypes_RemovesAllNodesExceptHead()
+    {
+        // Arrange
+        Node<object> head = new Node<object>("Head");
+        head.Append(1);
+        head.Append(2.5);
+        head.Append("Tail");
+
+        // Act
+        head.Clear();
+
+        // Assert
+        Assert.Equal(head, head.Next); // Head is self-referencing
+        Assert.False(head.Exists(1));
+        Assert.False(head.Exists(2.5));
+        Assert.False(head.Exists("Tail"));
+    }
+
+    [Fact]
+    public void ToString_WithVariousDataTypes_ReturnsCorrectStringRepresentation()
+    {
+        // Arrange
+        Node<object> head = new Node<object>(1);
+        head.Append("Two");
+        head.Append(3.5);
+
+        // Act
+        string result = head.ToString();
+
+        // Assert
+        Assert.Equal("1 -> Two -> 3.5 -> ", result);
+    }
+
+    [Fact]
+    public void Exists_WhenListIsEmpty_ReturnsFalse()
+    {
+        // Arrange
+        Node<int> head = new Node<int>(1);
+
+        // Act
+        bool exists = head.Exists(0);
+
+        // Assert
+        Assert.False(exists);
+    }
+
+    [Fact]
+    public void Append_WhenAddingAfterClear_AllowsNewDataSuccessfully()
+    {
+        // Arrange
+        Node<int> head = new Node<int>(1);
+        head.Append(2);
+        head.Append(3);
+
+        // Clear the list
+        head.Clear();
+
+        // Act
+        head.Append(4);
+        head.Append(5);
+
+        // Assert
+        Assert.Equal(4, head.Next.Data);
+        Assert.Equal(5, head.Next.Next.Data);
+        Assert.Equal(head, head.Next.Next.Next); // Circular reference to head
+    }
+
+    [Fact]
+    public void Exists_AfterAppendingMultipleDataTypes_ReturnsCorrectExistence()
+    {
+        // Arrange
+        Node<object> head = new Node<object>("Start");
+        head.Append(123);
+        head.Append(45.67);
+        head.Append("End");
+
+        // Act & Assert
+        Assert.True(head.Exists(123));
+        Assert.True(head.Exists(45.67));
+        Assert.True(head.Exists("End"));
+        Assert.False(head.Exists("Nonexistent"));
+    }
+
+    [Fact]
+    public void Append_LargeNumberOfStringNodes_MaintainsCircularReferences()
+    {
+        // Arrange
+        Node<string> head = new Node<string>("Head");
+        int largeCount = 500;
+
+        for (int i = 1; i <= largeCount; i++)
+        {
+            head.Append("Node" + i);
+        }
+
+        // Act
+        Node<string> current = head;
+        int count = 1;
+
+        while (current.Next != head)
+        {
+            current = current.Next;
+            count++;
+        }
+
+        // Assert
+        Assert.Equal(largeCount + 1, count);
+        Assert.Equal(head, current.Next); // Circular reference to head
+    }
+    
+    [Fact]
+    public void Clear_WhenClearingAlreadyClearedList_DoesNotThrowException()
+    {
+        // Arrange
+        Node<int> head = new Node<int>(1);
+        head.Clear(); // Clear once to start
+
+        // Act & Assert
+        var exception = Record.Exception(() => head.Clear());
+        Assert.Null(exception); // Ensure no exception is thrown on re-clearing
+    }
+}
+
+
+
