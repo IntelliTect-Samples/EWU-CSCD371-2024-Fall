@@ -16,10 +16,10 @@ namespace Logger.Tests;
 
         // Act & Assess
         Assert.NotNull(david);
-        Assert.Equal(david.StudentID, studentID);
-        Assert.Equal("John", david.StudentName.FirstName);
-        Assert.Equal("Middle", david.StudentName.MiddleName);
-        Assert.Equal("Doe", david.StudentName.LastName);
+        Assert.Equal(david.ID, studentID);
+        Assert.Equal("John", david.FullName.FirstName);
+        Assert.Equal("Middle", david.FullName.MiddleName);
+        Assert.Equal("Doe", david.FullName.LastName);
         Assert.Equal(david.SchoolName, schoolName);
     }
 
@@ -36,10 +36,10 @@ namespace Logger.Tests;
 
         // Act & Assess
         Assert.NotNull(david);
-        Assert.Equal(david.StudentID, studentID);
-        Assert.Equal("John", david.StudentName.FirstName);
-        Assert.Null(david.StudentName.MiddleName);
-        Assert.Equal("Doe", david.StudentName.LastName);
+        Assert.Equal(david.ID, studentID);
+        Assert.Equal("John", david.FullName.FirstName);
+        Assert.Null(david.FullName.MiddleName);
+        Assert.Equal("Doe", david.FullName.LastName);
         Assert.Equal(david.SchoolName, schoolName);
     }
 }
