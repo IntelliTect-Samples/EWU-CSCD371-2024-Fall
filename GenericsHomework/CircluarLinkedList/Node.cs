@@ -44,4 +44,13 @@ public class Node<T>
 
         return false;
     }
+
+
+
+    // Given there is a circular list of items, we would need to worry about GC, as all the items point to each other and, therefore, may never be garbage collected. 
+    // This can be solved by not fixing the loop, as we are not removing a node but instead clearing all but selected.
+    public void Clear()
+    {
+        Next = this;
+    }
 }
