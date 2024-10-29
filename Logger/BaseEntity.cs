@@ -1,5 +1,5 @@
 ﻿namespace Logger;
-public abstract record class EntityBase : IEntity
+public abstract record class BaseEntity : IEntity
 {
     // Applying the init setter here on the class, set during the initialization and immutable thereafter.
     public Guid Id { get; init; }

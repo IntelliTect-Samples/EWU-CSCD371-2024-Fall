@@ -2,7 +2,7 @@
 using Xunit;
 
 namespace Logger.Tests;
-public class EntityTests
+public class BaseEntityTests
 {
 
     [Fact]
@@ -17,7 +17,7 @@ public class EntityTests
 
 
     // This is a private record class that implements the abstract class EntityBase. Used to test for IEntity implementation.
-    private sealed record class TestEntity : EntityBase
+    private sealed record class TestEntity : BaseEntity
     {
         public override string Name { get; set; }
 
