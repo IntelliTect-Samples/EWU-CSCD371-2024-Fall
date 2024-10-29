@@ -1,82 +1,75 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Logger;
 
-namespace Logger
+public record Student : Person
 {
-    public record Student : Person
+    private string? _studentId;
+    private int _schoolYear;
+    private bool _isUndergrad;
+    private double _gpa;
+    private string? _major;
+
+    public Student(FullName fullName, string studentId, int schoolYear, bool isUndergrad, double gpa, string major) : base(fullName)
     {
-        private string? _studentId;
-        private int _schoolYear;
-        private bool _isUndergrad;
-        private double _gpa;
-        private string? _major;
+        LegalName = fullName;
+        Id = studentId;
+        SchoolYear = schoolYear;
+        IsUndergrad = isUndergrad;
+        Gpa = gpa;
+        Major = major;
+    }
 
-        public Student(FullName fullName, string studentId, int schoolYear, bool isUndergrad, double gpa, string major) : base(fullName)
+    public string Id
+    {
+        get => _studentId!;
+        set
         {
-            LegalName = fullName;
-            Id = studentId;
-            SchoolYear = schoolYear;
-            IsUndergrad = isUndergrad;
-            Gpa = gpa;
-            Major = major;
+            ArgumentNullException.ThrowIfNull(value, "ID cannot be null");
+            _studentId = value;
         }
+    }
 
-        public string Id
+    public int SchoolYear
+    {
+        get => _schoolYear;
+
+        set
         {
-            get => _studentId!;
-            set
-            {
-                ArgumentNullException.ThrowIfNull(value, "ID cannot be null");
-                _studentId = value;
-            }
+            // Can be above 4 in case of super seniors
+            ArgumentOutOfRangeException.ThrowIfLessThan(value, 1, "SchoolYear must be 1 or higher");
+            _schoolYear = value;
         }
+    }
 
-        public int SchoolYear
-        {
-            get => _schoolYear;
-
-            set
-            {
-                // Can be above 4 in case of super seniors
-                ArgumentOutOfRangeException.ThrowIfLessThan(value, 1, "SchoolYear must be 1 or higher");
-                _schoolYear = value;
-            }
-        }
-
-        public bool IsUndergrad 
+    public bool IsUndergrad 
+    { 
+        get => _isUndergrad; 
+        set 
         { 
-            get => _isUndergrad; 
-            set 
-            { 
-                _isUndergrad = value; 
-            } 
-        }
+            _isUndergrad = value; 
+        } 
+    }
 
-        public double Gpa
+    public double Gpa
+    {
+        get => _gpa;
+
+        set
         {
-            get => _gpa;
-
-            set
+            if(value < 0 || value > 4)
             {
-                if(value < 0 || value > 4)
-                {
-                    throw new ArgumentOutOfRangeException("GPA must be between 0 and 4");
-                }
-                _gpa = value;
+                throw new ArgumentOutOfRangeException("GPA must be between 0 and 4");
             }
+            _gpa = value;
         }
+    }
 
-        public string Major
+    public string Major
+    {
+        get => _major!;
+        set
         {
-            get => _major!;
-            set
-            {
-                ArgumentNullException.ThrowIfNullOrWhiteSpace(value, "Major cannot be null");
-                _major = value;
-            }
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(value, "Major cannot be null");
+            _major = value;
         }
     }
 }
