@@ -193,7 +193,63 @@ public class NodeTests
         var exception = Record.Exception(() => head.Clear());
         Assert.Null(exception); // Ensure no exception is thrown on re-clearing
     }
+    
+    [Fact]
+    public void Clear_WithMultipleNodes_RemovedNodesPointToThemselves()
+    {
+        // Arrange
+        var node1 = new Node<int>(1);
+        node1.Append(2);
+        node1.Append(3);
+    
+        // Act
+        node1.Clear();
+    
+        // Assert
+        Assert.Same(node1, node1.Next); // The Next property of the head node should point to itself
+
+        Node<int> current = node1.Next;
+        do
+        {
+            Assert.Same(current, current.Next); // Each node points to itself
+            current = current.Next;
+        } while (current != node1);  // Loop through the circular list
+    }
+
+    [Fact]
+    public void Clear_OnEmptyList_DoesNotThrowAndHeadRemainsSelfReferencing()
+    {
+        // Arrange
+        Node<object> head = new("Head");
+
+        // Act & Assert
+        var exception = Record.Exception(() => head.Clear());
+        Assert.Null(exception); // Ensures Clear does not throw an exception
+        Assert.Same(head, head.Next); // The head node should still point to itself
+    }
+
+    [Fact]
+    public void Clear_OnLongList_HeadSelfReferencingAndAllNodesRemoved()
+    {
+        // Arrange
+        Node<int> head = new(0);
+        for (int i = 1; i <= 100; i++)
+        {
+            head.Append(i);
+        }
+
+        // Act
+        head.Clear();
+
+        // Assert
+        Assert.Same(head, head.Next); // Head should be self-referencing
+        for (int i = 1; i <= 100; i++)
+        {
+            Assert.False(head.Exists(i)); // Each element should be removed
+        }
+    }
 }
+
 
 
 
