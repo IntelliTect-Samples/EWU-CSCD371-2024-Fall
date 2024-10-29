@@ -1,6 +1,6 @@
 ﻿namespace Logger;
 
-//FullName is a vaule type of record struct for efficiency and immutability.
+//FullName is a value type of record struct because we want it to be immutable.
 //record struct is immutable by design and cannot be change.
 public readonly record struct FullName(string firstName, string lastName, string? middleName = null)
 {
