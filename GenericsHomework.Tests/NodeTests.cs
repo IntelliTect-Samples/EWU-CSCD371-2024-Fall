@@ -9,7 +9,7 @@ public class NodeTests
         int data = 1;
 
         // Act
-        Node<int> node = new Node<int>(data);
+        Node<int> node = new(data);
 
         // Assert
         Assert.Equal(data, node.Data);
@@ -20,7 +20,7 @@ public class NodeTests
     public void Append_WhenAddingNodesWithNullOrEmptyStrings_HandlesEmptyStringCorrectly()
     {
         // Arrange
-        Node<string> head = new Node<string>("Head");
+        Node<string> head = new("Head");
 
         // Act
         head.Append("First");
@@ -94,7 +94,7 @@ public class NodeTests
     public void ToString_WithVariousDataTypes_ReturnsCorrectStringRepresentation()
     {
         // Arrange
-        Node<object> head = new Node<object>(1);
+        Node<object> head = new(1);
         head.Append("Two");
         head.Append(3.5);
 
@@ -109,7 +109,7 @@ public class NodeTests
     public void Exists_WhenListIsEmpty_ReturnsFalse()
     {
         // Arrange
-        Node<int> head = new Node<int>(1);
+        Node<int> head = new (1);
 
         // Act
         bool exists = head.Exists(0);
@@ -122,7 +122,7 @@ public class NodeTests
     public void Append_WhenAddingAfterClear_AllowsNewDataSuccessfully()
     {
         // Arrange
-        Node<int> head = new Node<int>(1);
+        Node<int> head = new (1);
         head.Append(2);
         head.Append(3);
 
@@ -143,7 +143,7 @@ public class NodeTests
     public void Exists_AfterAppendingMultipleDataTypes_ReturnsCorrectExistence()
     {
         // Arrange
-        Node<object> head = new Node<object>("Start");
+        Node<object> head = new("Start");
         head.Append(123);
         head.Append(45.67);
         head.Append("End");
@@ -159,7 +159,7 @@ public class NodeTests
     public void Append_LargeNumberOfStringNodes_MaintainsCircularReferences()
     {
         // Arrange
-        Node<string> head = new Node<string>("Head");
+        Node<string> head = new("Head");
         int largeCount = 500;
 
         for (int i = 1; i <= largeCount; i++)
@@ -186,7 +186,7 @@ public class NodeTests
     public void Clear_WhenClearingAlreadyClearedList_DoesNotThrowException()
     {
         // Arrange
-        Node<int> head = new Node<int>(1);
+        Node<int> head = new(1);
         head.Clear(); // Clear once to start
 
         // Act & Assert
