@@ -7,5 +7,4 @@
     {
         SchoolName = schoolName ?? throw new ArgumentNullException(nameof(schoolName), $"{nameof(schoolName)} was null.");
     }
-
 }
