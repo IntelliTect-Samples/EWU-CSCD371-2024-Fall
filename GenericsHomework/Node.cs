@@ -1,4 +1,6 @@
-﻿namespace GenericsHomework;
+﻿using System.Text;
+
+namespace GenericsHomework;
 
 public class Node<T>
 {
@@ -19,6 +21,11 @@ public class Node<T>
     
     public void Append(T data)
     {
+        if (Exists(data))
+        {
+            throw new ArgumentException("Data already exists in the list");
+        }
+        
         Node<T> newNode = new Node<T>(data);
         Node<T> current = this;
 
@@ -38,8 +45,37 @@ public class Node<T>
         }
         
     }
+
+    public bool Exists(T data)
+    {
+        Node<T> current = this;
+        
+        do
+        {
+            if (current.Data!.Equals(data))
+            {
+                return true;
+            }
+            current = current.Next;
+        } while (current != this);
+
+        return false;
+    }
     
-    
+    public override string ToString()
+    {
+        Node<T> current = this;
+        StringBuilder sb = new();
+        
+        do
+        {
+            sb.Append(current.Data);
+            sb.Append(" -> ");
+            current = current.Next;
+        } while (current != this);
+        
+        return sb.ToString();
+    }
     
     
 
