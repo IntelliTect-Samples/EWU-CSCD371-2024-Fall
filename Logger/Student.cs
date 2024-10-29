@@ -11,14 +11,14 @@ public record Student : Person
     public Student(FullName fullName, string studentId, int schoolYear, bool isUndergrad, double gpa, string major) : base(fullName)
     {
         LegalName = fullName;
-        Id = studentId;
+        StudentId = studentId;
         SchoolYear = schoolYear;
         IsUndergrad = isUndergrad;
         Gpa = gpa;
         Major = major;
     }
 
-    public string Id
+    public string StudentId
     {
         get => _studentId!;
         set

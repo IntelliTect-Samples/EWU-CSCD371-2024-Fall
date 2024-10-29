@@ -12,7 +12,7 @@ public class StudentTests
 
         Assert.NotNull(student);
         Assert.Equal("Inigo Montoya", student.Name);
-        Assert.Equal("imontoya1", student.Id);
+        Assert.Equal("imontoya1", student.StudentId);
         Assert.Equal(1, student.SchoolYear);
         Assert.True(student.IsUndergrad);
         Assert.Equal(4.0, student.Gpa);
