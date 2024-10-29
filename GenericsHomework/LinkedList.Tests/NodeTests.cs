@@ -146,7 +146,7 @@ public class NodeTests
     [InlineData(42, 43)]
     [InlineData(42.0, 43.0)]
     [InlineData("fortytwo", "fortythree")]
-    public void Clear_Data_ClearsItemsExceptCurrentNode<T>(T value, T value2)
+    public void Clear_GivenData_ClearsItemsExceptCurrentNode<T>(T value, T value2)
     {
         // Arrange
         Node<T> node = new(value);
