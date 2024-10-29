@@ -150,10 +150,12 @@ public class NodeTests
         {
             // Arrange
             var head = new Node<int>(1);
+            Node<int>? nullNode = null;
 
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => head.Next = null);
+            Assert.Throws<ArgumentNullException>(() => head.Next = nullNode!);
         }
+
 
         [Fact]
         public void SetNext_SetsNextNodeCorrectly()
