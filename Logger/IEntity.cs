@@ -1,7 +1,9 @@
-﻿namespace Logger;
+﻿
+namespace Logger;
 public interface IEntity
 {
-    Guid Id { get; init; }
-    string Name { get; }
 
+    // Place members here.
+    Guid Id { get; }
+    string Name { get; }
 }
