@@ -1,0 +1,21 @@
+<Project>
+    <PropertyGroup>
+        <!-- Enable nullable reference types -->
+        <Nullable>enable</Nullable>
+
+        <!-- Enable .NET analyzers -->
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+
+        <!-- Set the language version to the latest available -->
+        <LangVersion>latest</LangVersion>
+
+        <!-- Set the target framework to the latest released version -->
+        <TargetFramework>net7.0</TargetFramework> <!-- Replace with "net8.0" if preview versions are acceptable -->
+
+        <!-- Enable code analysis level to the latest -->
+        <AnalysisLevel>latest</AnalysisLevel>
+
+        <!-- Treat warnings as errors -->
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    </PropertyGroup>
+</Project>
