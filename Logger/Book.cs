@@ -8,8 +8,13 @@ public FullName Author { get; set;}
 public int YearPublished { get; init;}
 public int ISBN { get; init; }
 
-    // Not sure if Name should be Title here, or Author's name. Will inquire.
-public override string Name => $"{Title} by {Author.ToString()} (ISBN: {ISBN})";
+// Not sure if Name should be Title here, or Author's name. Will inquire.
+public override string Name
+{
+    get => $"{Title} by {Author.ToString()} (ISBN: {ISBN})";
+
+    set => throw new InvalidOperationException("The Name property is calculated and cannot be set directly.");
+}
 
 public Book(string title, string authorName, int? yearPublished, int? isbn)
 {
