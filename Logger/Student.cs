@@ -57,7 +57,7 @@ public record Student : Person
         {
             if(value < 0 || value > 4)
             {
-                throw new ArgumentOutOfRangeException("GPA must be between 0 and 4");
+                throw new ArgumentException("GPA must be between 0 and 4");
             }
             _gpa = value;
         }
