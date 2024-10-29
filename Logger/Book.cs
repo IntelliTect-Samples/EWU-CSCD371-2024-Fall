@@ -7,7 +7,9 @@ public string Title { get; init;}
 public FullName Author { get; set;}
 public int YearPublished { get; init;}
 public int Isbn { get; init; }
-public override string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+    // Not sure if Name should be Title here, or Author's name. Will inquire.
+    public override string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
 public Book(string title, string authorName, int? yearPublished, int? isbn)
 {
