@@ -18,7 +18,7 @@ public class BookTests
 
         // Act & Assess
         Assert.NotNull(newBook);
-        Assert.Equal(newBook.Isbn, isbn);
+        Assert.Equal(newBook.ISBN, isbn);
         Assert.Equal("John", newBook.Author.FirstName);
         Assert.Equal("Middle", newBook.Author.MiddleName);
         Assert.Equal("Doe", newBook.Author.LastName);
@@ -41,7 +41,7 @@ public class BookTests
 
         // Act & Assess
         Assert.NotNull(newBook);
-        Assert.Equal(newBook.Isbn, isbn);
+        Assert.Equal(newBook.ISBN, isbn);
         Assert.Equal("John", newBook.Author.FirstName);
         Assert.Null(newBook.Author.MiddleName);
         Assert.Equal("Doe", newBook.Author.LastName);
@@ -58,7 +58,7 @@ public class BookTests
 
         // Act & Assess
         Assert.NotNull(newBook);
-        Assert.Equal(expected: 33 - 0987654, actual: newBook.Isbn);
+        Assert.Equal(expected: 33 - 0987654, actual: newBook.ISBN);
         Assert.Equal("J.K.", newBook.Author.FirstName);
         Assert.Null(newBook.Author.MiddleName);
         Assert.Equal("Rowling", newBook.Author.LastName);
