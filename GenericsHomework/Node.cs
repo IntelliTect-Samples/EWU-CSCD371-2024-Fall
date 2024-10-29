@@ -26,7 +26,7 @@ public class Node<T>
             throw new ArgumentException("Data already exists in the list");
         }
         
-        Node<T> newNode = new Node<T>(data);
+        Node<T> newNode = new (data);
         Node<T> current = this;
 
         if (current.Next == this)
