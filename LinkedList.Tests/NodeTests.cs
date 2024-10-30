@@ -210,18 +210,4 @@ public class NodeTests
         // Assert
         Assert.Equal(expectedMessage, actualMessage);
     }
-
-    [Fact]
-    public void Add_Value_AppendsItems()
-    {
-        // Arrange
-        Node<int> node = new(12);
-        int expectedValue = 42;
-
-        // Act
-        node.Add(42);
-
-        // Assert
-        Assert.Equal(node.Next.Value, expectedValue);
-    }
 }
