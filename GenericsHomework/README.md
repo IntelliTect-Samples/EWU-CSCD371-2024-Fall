@@ -24,7 +24,7 @@ Chapters 11, 12
     - Given there is a circular list of items, provide a comment to indicate whether you need to worry about garbage collection because all the items point to each other and, therefore, may never be garbage collected. ✔
   - Create an Exists method to test whether a value exists in the list. ✔
   - Throw an error on an attempt to Append a duplicate value. (Make sure you test for this case) ✔
-- You should not rely on any BCL generic classes for your implementation. ❌✔
+- You should not rely on any BCL generic classes for your implementation. ✔
 
 ## Extra Credit
 
