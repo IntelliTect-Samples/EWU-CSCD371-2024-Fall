@@ -203,8 +203,10 @@ public class NodeTests
         node.Append(value2);
         InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => node.Append(value3));
         string expectedMessage = "Value already exists in this list.";
+
         // Act
         string actualMessage = ex.Message;
+
         // Assert
         Assert.Equal(expectedMessage, actualMessage);
     }
