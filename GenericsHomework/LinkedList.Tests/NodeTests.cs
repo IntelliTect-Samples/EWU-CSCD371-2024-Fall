@@ -212,7 +212,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void Add_GivenValues_AppendsItems()
+    public void Add_Value_AppendsItems()
     {
         // Arrange
         Node<int> node = new(12);
