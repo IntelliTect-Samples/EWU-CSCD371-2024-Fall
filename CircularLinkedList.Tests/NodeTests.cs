@@ -125,10 +125,19 @@ public class NodeTests
         Node<T> node = new(val);
         node.Append(val2);
         node.Append(val3);
+        Node<T> node2 = node.Next;
+        Node<T> node3 = node2.Next;
         //Act
         node.Clear();
         //Assert
         Assert.Equal(node,node.Next);
         Assert.Same(node,node.Next);
+        Assert.Same(node2.Next,node2);
+        Assert.Same(node3.Next,node3);
+        Assert.Equal(node2,node2.Next);
+        Assert.Equal(node3,node3.Next);
+
     }
+
+
 }
