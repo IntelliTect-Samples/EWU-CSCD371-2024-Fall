@@ -3,18 +3,18 @@ using System.Collections;
 
 namespace GenericsHomework;
 
-public class Node<T> : ICollection<T>
+public class NodeCollections<T> : ICollection<T>
 {
     public T Data { get; private set; }
-    private Node<T> _next;
+    private NodeCollections<T> _next;
 
-    public Node<T> Next
+    public NodeCollections<T> Next
     {
         get => _next;
         set => _next = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public Node(T data)
+    public NodeCollections(T data)
     {
         Data = data;
         _next = this;
@@ -27,8 +27,8 @@ public class Node<T> : ICollection<T>
             throw new ArgumentException("Data already exists in the list");
         }
 
-        Node<T> newNode = new(data);
-        Node<T> current = this;
+        NodeCollections<T> newNode = new(data);
+        NodeCollections<T> current = this;
 
         if (current.Next == this)
         {
@@ -49,7 +49,7 @@ public class Node<T> : ICollection<T>
 
     public bool Exists(T data)
     {
-        Node<T> current = this;
+        NodeCollections<T> current = this;
 
         do
         {
@@ -65,7 +65,7 @@ public class Node<T> : ICollection<T>
 
     public override string ToString()
     {
-        Node<T> current = this;
+        NodeCollections<T> current = this;
         StringBuilder sb = new();
 
         do
@@ -80,8 +80,8 @@ public class Node<T> : ICollection<T>
 
     public void Clear() // Given a circular linked list this will return only the first (head) node having it point at itself allowing all other nodes to be garbage collected
     {
-        Node<T> current = Next;
-        Node<T> temp;
+        NodeCollections<T> current = Next;
+        NodeCollections<T> temp;
 
         while (current != this)
         {
@@ -106,7 +106,7 @@ public class Node<T> : ICollection<T>
 
     public void CopyTo(T[] array, int arrayIndex)
     {
-        Node<T> current = this;
+        NodeCollections<T> current = this;
         int index = arrayIndex;
 
         do
@@ -118,9 +118,9 @@ public class Node<T> : ICollection<T>
 
     public bool Remove(T item) // Remove and clear are the similar
     {
-        Node<T>? previous = null;
+        NodeCollections<T>? previous = null;
 
-        Node<T> current = this;
+        NodeCollections<T> current = this;
         do
         {
             if (current.Data!.Equals(item))
@@ -140,7 +140,7 @@ public class Node<T> : ICollection<T>
                     else
                     {
                         // Find the last node
-                        Node<T> last = this;
+                        NodeCollections<T> last = this;
                         while (last.Next != this)
                         {
                             last = last.Next;
@@ -164,7 +164,7 @@ public class Node<T> : ICollection<T>
         get
         {
             int count = 0;
-            Node<T> current = this;
+            NodeCollections<T> current = this;
 
             do
             {
@@ -180,7 +180,7 @@ public class Node<T> : ICollection<T>
 
     public IEnumerator<T> GetEnumerator() // We can use the Exists method to iterate through the nodes
     {
-        Node<T> current = this;
+        NodeCollections<T> current = this;
         do
         {
             yield return current.Data;
