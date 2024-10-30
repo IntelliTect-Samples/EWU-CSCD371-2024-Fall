@@ -101,6 +101,22 @@ public class NodeTests
         Assert.NotEqual(value2, node.Next.Next.Value);
     }
 
+    [Theory]
+    [InlineData(42, 42)]
+    [InlineData(42.0, 42.0)]
+    [InlineData("42", "42")]
+    public void Append_DuplicateValues_ThrowsException<T>(T value1, T value2)
+    {
+        // Arrange
+        Node<T> node = new(value1);
+
+        // Act
+
+        // Assert
+        Assert.Throws<InvalidOperationException>(() => node.Append(value2));
+    }
+    
+
     //TODO: Add test to check for multiple appends
     [Theory]
     [InlineData(13, 42, 18)]
