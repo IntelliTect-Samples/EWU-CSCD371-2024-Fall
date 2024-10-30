@@ -4,6 +4,13 @@ namespace Logger;
 
 public record class Employee : BaseEntity
 {
+
+    public Employee(int employeeId, string firstName, string? middleName, string lastName, string jobTitle)
+    {
+        EmployeeId = employeeId;
+        EmployeeFullName = new FullName(firstName, middleName, lastName);
+        EmployeeJobTitle = jobTitle;
+    }
     // We used explicit implementation for the Name property becuase we need to be able to take Name and parse
     // it into the EmployeeId, EmployeeFullName, and EmployeeJobTitle properties. We also need to be able to
     // calculate the Name property from the EmployeeId, EmployeeFullName, and EmployeeJobTitle properties.

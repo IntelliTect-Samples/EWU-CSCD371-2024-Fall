@@ -4,6 +4,12 @@ namespace Logger;
 
 public record class Student : BaseEntity
 {
+    public Student(int  studentId, string firstName, string? middleName, string lastName)
+    {
+        StudentName = new FullName(firstName, middleName, lastName);
+        StudentId = studentId;
+    }
+
     // We used explicit implementation for the Name property becuase we need to be able to take Name and parse
     // it into the StudentId and StudentName properties. We also need to be able to calculate the Name property from the
     // StudentId and StudentName properties.

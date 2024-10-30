@@ -19,7 +19,7 @@ public class BookTests
     public void Author_SetValid_Success()
     {
         // Arrange
-        Book book = new()
+        Book book = new("Harry Potter", "JK", null, "Rowling")
         {
             Author = new FullName("JK", "Rowling")
         };
@@ -34,10 +34,8 @@ public class BookTests
     public void Title_SetValid_Success()
     {
         // Arrange
-        Book book = new()
-        {
-            Title = "Harry Potter 1"
-        };
+        Book book = new("Harry Potter 1", "JK", null, "Rowling");
+
         // Act
 
         // Assert
@@ -48,7 +46,7 @@ public class BookTests
     public void Title_SetNull_ArgumentNullException()
     {
         // Arrange
-        Book book = new();
+        Book book = new("Harry Potter", "JK", null, "Rowling");
         
         // Act
 
@@ -61,7 +59,7 @@ public class BookTests
     public void Title_SetEmpty_ArgumentNullException()
     {
         // Arrange
-        Book book = new();
+        Book book = new("Harry Potter", "JK", null, "Rowling");
 
         // Act
 
@@ -73,12 +71,8 @@ public class BookTests
     public void Name_SetValid_Success()
     {
         // Arrange
-        Book book = new()
-        {
-            //book.Title = "Harry Potter 1";
-            //book.Author = new FullName("JK", "Rowling");
-            Name = "Harry Potter 1 by: JK Rowling"
-        };
+        Book book = new("Harry Potter", "JK", null, "Rowling");
+        book.Name = "Harry Potter 1 by: JK Rowling";
         // Act
 
         // Assert
@@ -89,7 +83,7 @@ public class BookTests
     public void Name_SetNull_ArgumentNullException()
     {
         // Arrange
-        Book book = new();
+        Book book = new("Harry Potter", "JK", null, "Rowling");
 
         // Act
 
@@ -101,7 +95,7 @@ public class BookTests
     public void Name_SetEmpty_ArgumentException()
     {
         // Arrange
-        Book book = new();
+        Book book = new("Harry Potter", "JK", null, "Rowling");
 
         // Act
 
@@ -113,7 +107,7 @@ public class BookTests
     public void Name_SetInvalidAuthor_ArgumentException()
     {
         // Arrange
-        Book book = new();
+        Book book = new("Harry Potter", "JK", null, "Rowling");
         
         // Act
 
