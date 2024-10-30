@@ -40,12 +40,15 @@ public class Node<T>
 
     public void Clear()
     {
-        /* We have decided to iterate through the list, clearing each node.
+        /* 
+         * We have decided to iterate through the list, clearing each node.
          * This does not necessarily have to be done, as the garbage collector
          * should be able to handle this. However, this is a good practice to
          * ensure that the garbage collector can do its job efficiently.
         */
+
         Node<T> current = this.Next;
+
         while (current != this)
         {
             Node<T> temp = current;
@@ -58,10 +61,12 @@ public class Node<T>
     public bool Exists(T value)
     {
         Node<T> current = this;
+
         if (current.Value != null && current.Value.Equals(value))
         {
             return true;
         }
+
         while (current.Next != this)
         {
             current = current.Next;
