@@ -120,7 +120,7 @@ public class NodeTests
     [InlineData(42, 43, 42)]
     [InlineData(42.0, 43.0, 42.0)]
     [InlineData("fortytwo", "fortythree", "fortytwo")]
-    public void Append_DuplicateValues_MessagBeingDisplayedIsCOrrect<T>(T value, T value2, T value3)
+    public void Append_DuplicateValues_MessagBeingDisplayedIsCorrect<T>(T value, T value2, T value3)
     {
         // Arrange
         Node<T> node = new(value);
