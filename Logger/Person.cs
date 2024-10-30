@@ -2,7 +2,9 @@
 
 namespace Logger;
     public abstract record class Person : BaseEntity
-    {
+{
+
+
     // Common properties. ID and Name may change.
     public FullName FullName { get; set; }
     public int ID { get; set; }
