@@ -8,7 +8,6 @@ public class EmployeeTests
     {
         // Arrange
         Employee employee = new(123455, "Billy", null, "Jean", "Singer");
-        employee.Name = "123456: Billy Jean: Singer";
 
         // Act
 

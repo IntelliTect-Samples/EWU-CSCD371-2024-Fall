@@ -71,8 +71,8 @@ public class BookTests
     public void Name_SetValid_Success()
     {
         // Arrange
-        Book book = new("Harry Potter", "JK", null, "Rowling");
-        book.Name = "Harry Potter 1 by: JK Rowling";
+        Book book = new("Harry Potter 1", "JK", null, "Rowling");
+        
         // Act
 
         // Assert
