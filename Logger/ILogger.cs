@@ -8,6 +8,6 @@ public interface ILogger
     // While interesting, this is probably better implemented using a factory class.
     // because you can't have static abstract members on classes
     // and you can't have covariant return types on interface members. :(
-    static abstract T CreateLogger<T, Tconfig>(in Tconfig configuration);
+    static abstract T CreateLogger<T,Tconfig>(in Tconfig configuration);
   
 }

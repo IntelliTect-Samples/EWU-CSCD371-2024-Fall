@@ -1,5 +1,7 @@
 ﻿namespace Logger;
 public record class Employee : Person
+
+    //used ______ implmentation for The EmployeeRole and Employer90
 {
     public string EmployeeRole { get; set; }
     public string Employer { get; set; }
