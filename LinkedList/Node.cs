@@ -1,9 +1,5 @@
 ﻿using System.Collections;
 
-#pragma warning disable CA1710
-
-// Turned off warning to avoid rename for this assignment
-// TODO: Ask if class rename is okay or if warning suppression is okay
 namespace CircularLinkedList;
 
 public class Node<T>
