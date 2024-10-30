@@ -6,7 +6,7 @@
 	<Nullable>enable</Nullable>
 	<EnableNETAnalyzers>true</EnableNETAnalyzers>
 	<LangVersion>latest</LangVersion>
-	<TargetFramework>latest</TargetFramework>
+	<TargetFramework>net8.0</TargetFramework>
 
   </PropertyGroup>
 
