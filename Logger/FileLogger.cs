@@ -10,9 +10,9 @@ public class FileLogger : BaseLogger, ILogger
 
     public FileLogger(FileLoggerConfiguration configuration) : this(configuration.LogSource, configuration.FilePath) {}
 
-    static ILogger ILogger.CreateLogger(in ILoggerConfiguration logggerConfiguration) => 
+    static T ILogger.CreateLogger<T, U>(in U logggerConfiguration) => 
         logggerConfiguration is FileLoggerConfiguration configuration
-            ? CreateLogger(configuration)
+            ? (T)(object)CreateLogger(configuration)
             : throw new ArgumentException("Invalid configuration type", nameof(logggerConfiguration));
 
     public static FileLogger CreateLogger(FileLoggerConfiguration configuration) => new(configuration);
