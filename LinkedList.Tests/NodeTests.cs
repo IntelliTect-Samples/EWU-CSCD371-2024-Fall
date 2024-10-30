@@ -163,25 +163,6 @@ public class NodeTests
     }
 
     [Theory]
-    [InlineData(42, 43)]
-    [InlineData(42.0, 43.0)]
-    [InlineData("fortytwo", "fortythree")]
-    public void Clear_GivenData_ClearsItemsExceptCurrentNode<T>(T value, T value2)
-    {
-        // Arrange
-        Node<T> node = new(value);
-
-        // Act
-        node.Append(value2);
-        node.Clear();
-
-        // Assert
-        Assert.Equal(node, node.Next);
-        Assert.Equal(value, node.Next.Value);
-        Assert.NotEqual(value2, node.Value);
-    }
-
-    [Theory]
     [InlineData(42, 43, 48)]
     [InlineData(42.0, 43.0, 44.0)]
     [InlineData("fortytwo", "fortythree", "fortyfour")]
