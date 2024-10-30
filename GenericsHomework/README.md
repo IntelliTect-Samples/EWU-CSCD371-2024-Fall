@@ -45,7 +45,7 @@ Do one of the following two options (or both if you want extra, extra credit) :)
 - Ensure that you turn on code analysis for all projects(EnableNETAnalyzers)  ✔
 - Set LangVersion and the TargetFramework to the latest released versions available (preview versions optional)   ✔
 - and enabled .NET analyzers for both projects ✔
-- All of the above should be unit tested ❌✔
-- Choose simplicity over complexity ❌✔
+- All of the above should be unit tested ✔
+- Choose simplicity over complexity ✔
 
 ## See [Docs](https://github.com/IntelliTect-Samples/EWU-CSCD371-2024-Fall/tree/main/Docs)
