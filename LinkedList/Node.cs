@@ -25,12 +25,15 @@ public class Node<T>
         {
             throw new InvalidOperationException("Value already exists in this list.");
         }
+
         Node<T> node = new(value);
         Node<T> current = this;
+
         while (current.Next != this)
         {
             current = current.Next;
         }
+
         current.Next = node;
         node.Next = this;
     }
