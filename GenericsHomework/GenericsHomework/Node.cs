@@ -61,18 +61,20 @@ public class Node<T>
         return false;
     }
 
-    //Add a Clear method that effectively removes all items from a list except the current node.
-    //Pay attention as to whether you should be concerned with the following:
-    //Whether it is sufficient to only set Next to itself ❌✔
-    //Whether to set the removed items to circle back on themselves.In other words, whether
-    //to close the loop of the removed items. (Provide a test to show why this is required
-    //if it is required). ❌✔
-    //Given there is a circular list of items, provide a comment to indicate whether you need to worry
-    //about garbage collection because all the items point to each other and, therefore, may never be
-    //garbage collected. ❌✔
     public void Clear()
     {
-        throw new NotImplementedException();
+        var current = this;
+
+        // Cycling through the list to set each node's Next property to itself (except the current node),
+        // this way we don't need to worry about garbage collection
+        while (current.Next != this)
+        {
+            var temp = current.Next;
+            current.Next = current.Next.Next;
+            temp.Next = temp;
+        }
+
+        this.Next = this;
     }
 
     public override string ToString()

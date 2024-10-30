@@ -71,11 +71,15 @@ public class NodeTests
         var node = new Node<int>(42);
         node.Append(43);
         node.Append(44);
+        node.Append(45);
+        node.Append(46);
 
         // Act
         node.Clear();
 
         // Assert
         Assert.Equal(node, node.Next);
+        Assert.Equal(42, node.Data);
     }
+
 }
