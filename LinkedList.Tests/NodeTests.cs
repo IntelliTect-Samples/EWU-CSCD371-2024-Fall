@@ -180,10 +180,10 @@ public class NodeTests
         node.Append(value2);
         node.Append(value3);
         node.Append(value4);
-        bool contains = node.ValueExists(value);
-        bool contains2 = node.ValueExists(value2);
-        bool contains3 = node.ValueExists(value3);
-        bool contains4 = node.ValueExists(value4);
+        bool contains = node.Exists(value);
+        bool contains2 = node.Exists(value2);
+        bool contains3 = node.Exists(value3);
+        bool contains4 = node.Exists(value4);
 
         // Assert
         Assert.True(contains);

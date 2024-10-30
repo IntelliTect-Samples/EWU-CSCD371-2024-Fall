@@ -25,7 +25,7 @@ public class Node<T>
 
     public void Append(T value)
     {
-        if (ValueExists(value))
+        if (Exists(value))
         {
             throw new InvalidOperationException("Value already exists in this list.");
         }
@@ -56,7 +56,7 @@ public class Node<T>
         this.Next = this;
     }
 
-    public bool ValueExists(T value)
+    public bool Exists(T value)
     {
         Node<T> current = this;
         if (current.Value != null && current.Value.Equals(value))
