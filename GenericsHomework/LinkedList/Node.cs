@@ -3,8 +3,7 @@ namespace CircularLinkedList;
 
 public class Node<T>
 {
-    //TODO: make Value non-nullable
-    public T? Value { get; set; }
+    public T Value { get; set; }
     public Node<T> Next { get; private set; }
 
     public Node(T value)
@@ -51,9 +50,8 @@ public class Node<T>
         this.Next = this;
     }
 
-    public bool ValueExists(T? value)
-    {//TODO: null should be a valid value here so consider getting rid of null checks and
-        //investigating the errors
+    public bool ValueExists(T value)
+    {
         Node<T> current = this;
         if (current.Value != null && current.Value.Equals(value))
         {
