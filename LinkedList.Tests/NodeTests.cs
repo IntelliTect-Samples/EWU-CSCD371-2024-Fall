@@ -202,4 +202,17 @@ public class NodeTests
         Assert.True(node.Exists(value3));
         Assert.True(node.Exists(value4));
     }
+
+    [Theory]
+    [InlineData(null)]
+    public void Exists_Null_ReturnsFalse<T>(T value)
+    {
+        // Arrange
+        Node<T> node = new(value);
+
+        // Act
+
+        // Assert
+        Assert.False(node.Exists(value));
+    }
 }
