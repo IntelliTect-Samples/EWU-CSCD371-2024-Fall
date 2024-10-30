@@ -49,8 +49,7 @@ public class Node<T>
 
     // Given there is a circular list of items, we would need to worry about GC, as all the items point to each other and, therefore, may never be garbage collected. 
     // This can be solved by not fixing the loop, as we are not removing a node but instead clearing all but selected.
-
-    //HOWEVER, if we want to ensure each node has no connections to Next, we using Next = this; is not enough.
+    // HOWEVER, if we want to ensure each node has no connections to Next, we using Next = this; is not enough.
     public void Clear()
     {
         if (this.Next == null) return;
