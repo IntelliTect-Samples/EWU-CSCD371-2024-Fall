@@ -135,7 +135,6 @@ public class NodeTests
         Assert.Equal(expectedMessage, actualMessage);
     }
 
-
     //TODO: Add test to check for multiple appends
     [Theory]
     [InlineData(13, 42, 18)]
