@@ -207,4 +207,20 @@ public class NodeTests
         Assert.True(contains4);
     }
 
+    [Theory]
+    [InlineData(42, 43, 42)]
+    [InlineData(42.0, 43.0, 42.0)]
+    [InlineData("fortytwo", "fortythree", "fortytwo")]
+    public void Append_DuplicateValue_ThrowsInvalidOperationException<T>(T value, T value2, T value3)
+    {
+        // Arrange
+        Node<T> node = new(value);
+        node.Append(value2);
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => node.Append(value3));
+        string expectedMessage = "Value already exists in this list.";
+        // Act
+        string actualMessage = ex.Message;
+        // Assert
+        Assert.Equal(expectedMessage, actualMessage);
+    }
 }
