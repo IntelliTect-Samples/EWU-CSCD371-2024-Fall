@@ -20,6 +20,10 @@ public class Node<T>
 
     public void Append(T value)
     {
+        if(ValueExists(value))
+        {
+            throw new InvalidOperationException("Value already exists in this list.");
+        }
         Node<T> node = new(value);
         Node<T> current = this;
         while (current.Next != this)
