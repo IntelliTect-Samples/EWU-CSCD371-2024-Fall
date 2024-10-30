@@ -1,6 +1,7 @@
-﻿
-using System.Collections;
-#pragma warning disable CA1710 
+﻿using System.Collections;
+
+#pragma warning disable CA1710
+
 // Turned off warning to avoid rename for this assignment
 // TODO: Ask if class rename is okay or if warning suppression is okay
 namespace CircularLinkedList;
@@ -28,7 +29,7 @@ public class Node<T> : ICollection<T>
 
     public void Append(T value)
     {
-        if(ValueExists(value))
+        if (ValueExists(value))
         {
             throw new InvalidOperationException("Value already exists in this list.");
         }
@@ -79,7 +80,7 @@ public class Node<T> : ICollection<T>
 
     public void Add(T item)
     {
-        throw new NotImplementedException();
+        Append(item);
     }
 
     public bool Contains(T item)
