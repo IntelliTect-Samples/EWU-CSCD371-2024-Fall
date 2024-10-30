@@ -180,16 +180,12 @@ public class NodeTests
         node.Append(value2);
         node.Append(value3);
         node.Append(value4);
-        bool contains = node.Exists(value);
-        bool contains2 = node.Exists(value2);
-        bool contains3 = node.Exists(value3);
-        bool contains4 = node.Exists(value4);
 
         // Assert
-        Assert.True(contains);
-        Assert.True(contains2);
-        Assert.True(contains3);
-        Assert.True(contains4);
+        Assert.True(node.Exists(value));
+        Assert.True(node.Exists(value2));
+        Assert.True(node.Exists(value3));
+        Assert.True(node.Exists(value4));
     }
 
     [Theory]
