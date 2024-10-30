@@ -1,10 +1,18 @@
 ﻿
+using System.Collections;
+#pragma warning disable CA1710 
+// Turned off warning to avoid rename for this assignment
+// TODO: Ask if class rename is okay or if warning suppression is okay
 namespace CircularLinkedList;
 
-public class Node<T>
+public class Node<T> : ICollection<T>
 {
     public T Value { get; set; }
     public Node<T> Next { get; private set; }
+
+    public int Count => throw new NotImplementedException();
+
+    public bool IsReadOnly => throw new NotImplementedException();
 
     public Node(T value)
     {
@@ -14,6 +22,7 @@ public class Node<T>
 
     public override string ToString()
     {
+        // TODO: Ask if this is a appropriate for handling null values
         return Value?.ToString() ?? $"{nameof(Value)} does not exist.";
     }
 
@@ -66,5 +75,35 @@ public class Node<T>
             }
         }
         return false;
+    }
+
+    public void Add(T item)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Contains(T item)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void CopyTo(T[] array, int arrayIndex)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Remove(T item)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        throw new NotImplementedException();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        throw new NotImplementedException();
     }
 }
