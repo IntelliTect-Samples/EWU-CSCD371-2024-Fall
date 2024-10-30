@@ -22,7 +22,7 @@ Chapters 11, 12
     - Whether it is sufficient to only set Next to itself ✔
     - Whether to set the removed items to circle back on themselves. In other words, whether to close the loop of the removed items. (Provide a test to show why this is required if it is required). ✔
     - Given there is a circular list of items, provide a comment to indicate whether you need to worry about garbage collection because all the items point to each other and, therefore, may never be garbage collected. ✔
-  - Create an Exists method to test whether a value exists in the list. ❌✔
+  - Create an Exists method to test whether a value exists in the list. ✔
   - Throw an error on an attempt to Append a duplicate value. (Make sure you test for this case) ❌✔
 - You should not rely on any BCL generic classes for your implementation. ❌✔
 
