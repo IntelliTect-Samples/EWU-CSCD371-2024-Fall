@@ -7,14 +7,14 @@ namespace Logger.Tests;
 public class BaseLoggerMixinsTests
 {
     [Fact]
-    public void Error_WithNullLogger_ThrowsException()
+    public void ErrorWithNullLoggerThrowsException()
     {
         Assert.Throws<ArgumentNullException>(() =>
             BaseLoggerMixins.Error(null!, ""));
     }
 
     [Fact]
-    public void Error_WithData_LogsMessage()
+    public void ErrorWithDataLogsMessage()
     {
         // Arrange
         var logger = new TestLogger(nameof(BaseLoggerMixinsTests));

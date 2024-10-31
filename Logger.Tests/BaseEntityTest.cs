@@ -5,7 +5,7 @@ namespace Logger.Tests;
     public class BaseEntityTests
     {
         [Fact]
-        public void BaseEntity_Name_ReturnsParsedName()
+        public void BaseEntityNameReturnsParsedName()
         {
             // Arrange
             var entity = new MockBaseEntity();
