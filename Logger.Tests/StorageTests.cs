@@ -39,7 +39,7 @@ public class StorageTests
     {
         // Arrange
         var storage = new Storage();
-        var book = new Book("A Painted House");
+        var book = new Book("A Painted House", "John Grisham");
 
         // Act
         storage.Add(book);
@@ -70,7 +70,7 @@ public class StorageTests
     {
         // Arrange
         var storage = new Storage();
-        var book = new Book("To Kill a Mockingbird");
+        var book = new Book("To Kill a Mockingbird", "Harper Lee");
 
         // Act
         storage.Add(book);
