@@ -162,7 +162,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void AppendAndClear_Data_ShouldMakeNodesPointToThemselves()
+    public void AppendAndClear_Data_NodesShouldPointToThemselves()
     {
         // Arrange
         Node<int> node = new(42);
@@ -239,7 +239,7 @@ public class NodeTests
         // Assert
         Assert.False(node.Exists(value));
     }
-    
+
     [Theory]
     [InlineData("42", null)]
     public void Exists_ValueAndNull_ReturnsFalse<T>(T value, T value2)
