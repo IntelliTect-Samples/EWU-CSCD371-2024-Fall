@@ -1,15 +1,15 @@
-// Purpose: This file contains the Student class which is a subclass of the Person class. It contains the properties Year and Major.
-namespace Logger
-{
+namespace Logger;
+
     public record class Student : Person
     {
-        public string SchoolYear { get; }
-        public string Major { get; }
-
-        public Student( FullName fullName,string Ssn, string Email, string dateOfBirth, string schoolYear, string Major) : base(fullName, Ssn, Email, dateOfBirth)
+        public Student(string FirstName, string MiddleName, string LastName,string ssn, string email, string dateOfBirth, string schoolYear, string major) 
+        : base(FirstName, MiddleName, LastName, ssn, email, dateOfBirth)
         {
-            this.SchoolYear = schoolYear;
-            this.Major = Major;
+            SchoolYear = schoolYear;
+            Major = major;
         }
+        public string SchoolYear { get; set;}
+        public string Major { get; set; }
+
+ 
     }
-}

@@ -3,21 +3,15 @@ namespace Logger;
 public record class Book : BaseEntity
 {
     public string Title { get; init; }
-    public string Author { get; init; }
+    public FullName Author { get; init; }
     public int Year { get; init; }
     public string ISBN { get; init; }
-
-    public override string Name => Title;
-
-    public Book(string title, string author, int year, string isbn)
+    public Book(string title, FullName Author, int year, string isbn)
     {
+        this.Author = new FullName(){FirstName = Author.FirstName, MiddleName = Author.MiddleName, LastName = Author.LastName};
         this.Title = title;
-        this.Author = author;
         this.Year = year;
         this.ISBN = isbn;
     }
-    public override string ToString()
-    {
-        return $"{Title} by {Author}";
-    }
+     public override string ParseName() => $"{Title} by {Author}, Year: {Year}, ISBN: {ISBN}";
 }

@@ -1,12 +1,16 @@
+using System;
 namespace Logger;
 
     public abstract record class BaseEntity : IEntity
     {
-        public abstract string Name { get;}
-        public Guid id { get; init; }
+        
+        public Guid Id { get; init; }
         protected BaseEntity()
         {
             //this.GuId = new Random().Next();
-            Guid id = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
+        public string Name => ParseName();
+        public abstract string ParseName();
+
     }
