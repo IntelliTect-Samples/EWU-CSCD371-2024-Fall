@@ -1,5 +1,5 @@
-namespace Logger
-{
+namespace Logger;
+
     public record class FullName()
     {
         /*
@@ -33,4 +33,3 @@ namespace Logger
 
         public override string ToString() => $"{FirstName}, {MiddleName?.Trim()}, {LastName}";
     }
-}
