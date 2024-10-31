@@ -1,16 +1,27 @@
 ﻿namespace Logger;
 
-public record class Employee(FullName FullName, string Position, string Department) : Person(FullName)
+public record class Employee : Person
 {
-    public string Position { get; init; } = !string.IsNullOrWhiteSpace(Position)
-        ? Position
-        : throw new ArgumentException("Position cannot be null or whitespace.", nameof(Position));
+    public string Position { get; }
+    public string Department { get; }
 
-    public string Department { get; init; } = !string.IsNullOrWhiteSpace(Department)
-        ? Department
-        : throw new ArgumentException("Department cannot be null or whitespace.", nameof(Department));
+    public Employee(FullName fullName, string position, string department) : base(fullName)
+    {
+        if (string.IsNullOrWhiteSpace(position))
+        {
+            throw new ArgumentNullException(nameof(position), "Position cannot be null or empty.");
+        }
 
-    // The Name property is implemented in the Person class, no need to override it here.
+        if (string.IsNullOrWhiteSpace(department))
+        {
+            throw new ArgumentNullException(nameof(department), "Department cannot be null or empty.");
+        }
+
+        Position = position;
+        Department = department;
+    }
+
+    // The Name property is inherited from Person, no need to override it here.
     // The Id property is inherited from BaseEntity, no need to define it.
 }
 
