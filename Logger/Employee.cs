@@ -8,7 +8,6 @@ public record Employee : Person
 
     public Employee(FullName legalName, string position, string department, string company) : base(legalName)
     {
-        LegalName = legalName;
         Position = position;
         Department = department;
         Company = company;

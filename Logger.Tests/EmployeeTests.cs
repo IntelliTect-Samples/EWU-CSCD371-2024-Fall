@@ -40,17 +40,4 @@ public class EmployeeTests
 
         Assert.Throws<ArgumentNullException>(() => new Employee(fullName, "Swordsman", "Florin", null!));
     }
-
-    [Fact]
-    public void Constructor_ComparesEmployees_Success()
-    {
-        FullName fullName = new("Inigo", "Montoya", "A");
-        Employee employee1 = new(fullName, "Swordsman", "Florin", "Vizzini Group");
-        Employee employee2 = new(fullName, "Swordsman", "Florin", "Vizzini Group");
-        Employee employee3 = employee1;
-
-        Assert.NotEqual(employee1, employee2);
-        Assert.Equal(employee1, employee3);
-        Assert.Same(employee1, employee3);
-    }
 }

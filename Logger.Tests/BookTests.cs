@@ -18,7 +18,7 @@ public class BookTests
     }
 
     [Fact]
-    public void Constructor_SetInvalidTitle_ThrowsArgumentNullException()
+    public void Constructor_SetInvalidTitle_ThrowsArgumentException()
     {
         FullName fullName = new("William", "Goldman");
 
@@ -27,7 +27,7 @@ public class BookTests
     }
 
     [Fact]
-    public void Constructor_SetInvalidISBN_ThrowsArgumentNullException()
+    public void Constructor_SetInvalidISBN_ThrowsArgumentException()
     {
         FullName fullName = new("William", "Goldman");
 
@@ -40,20 +40,9 @@ public class BookTests
     {
         FullName fullName = new("William", "Goldman");
         Book book = new(fullName, "The Princess Bride", "0-345-41826-3");
+        Book book2 = new(fullName, "The Princess Bride", "0-345-41826-3");
 
         Assert.NotEqual(Guid.Empty, ((IEntity)book).Id);
+        Assert.NotEqual(((IEntity)book).Id, ((IEntity)book2).Id);
     }
-
-    [Fact]
-    public void Constructor_ComparesBooks_Success()
-    {
-        FullName fullName = new("William", "Goldman");
-        Book book1 = new(fullName, "The Princess Bride", "0-345-41826-3");
-        Book book2 = new(fullName, "The Princess Bride", "0-345-41826-3");
-        Book book3 = book1;
-
-        Assert.NotEqual(book1, book2);
-        Assert.Equal(book1, book3);
-        Assert.Same(book1, book3);
-    }   
 }

@@ -10,7 +10,6 @@ public record Student : Person
 
     public Student(FullName fullName, string studentId, int schoolYear, bool isUndergrad, double gpa, string major) : base(fullName)
     {
-        LegalName = fullName;
         StudentId = studentId;
         SchoolYear = schoolYear;
         IsUndergrad = isUndergrad;

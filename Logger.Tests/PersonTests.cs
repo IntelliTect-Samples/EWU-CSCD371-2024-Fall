@@ -20,8 +20,10 @@ public class PersonTests
     {
         FullName fullName = new("Inigo", "Montoya", "A");
         TestPerson person = new(fullName);
+        TestPerson person2 = new(fullName);
 
         Assert.NotEqual(Guid.Empty, ((IEntity)person).Id);
+        Assert.NotEqual(((IEntity)person).Id, ((IEntity)person2).Id);
     }
 }
 

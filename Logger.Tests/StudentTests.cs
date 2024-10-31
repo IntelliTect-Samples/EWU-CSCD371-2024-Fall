@@ -36,7 +36,7 @@ public class StudentTests
     }
 
     [Fact]
-    public void Constructor_SetInvalidGpa_ThrowsArgumentOutOfRangeException()
+    public void Constructor_SetInvalidGpa_ThrowsArgumentException()
     {
         FullName fullName = new("Inigo", "Montoya");    
 
@@ -51,18 +51,5 @@ public class StudentTests
 
         Assert.Throws<ArgumentNullException>(() => new Student(fullName, "imontoya1", 1, true, 4.0, null!));
         Assert.Throws<ArgumentException>(() => new Student(fullName, "imontoya1", 1, true, 4.0, ""));
-    }
-
-    [Fact]
-    public void Constructor_ComparesStudents_Success()
-    {
-        FullName fullName = new("Inigo", "Montoya");
-        Student student1 = new(fullName, "imontoya1", 1, true, 4.0, "Revenge");
-        Student student2 = new(fullName, "imontoya1", 1, true, 4.0, "Revenge");
-        Student student3 = student1;
-
-        Assert.NotEqual(student1, student2);
-        Assert.Equal(student1, student3);
-        Assert.Same(student1, student3);
     }
 }
