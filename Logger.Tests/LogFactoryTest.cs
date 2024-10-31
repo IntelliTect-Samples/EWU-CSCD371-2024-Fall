@@ -1,11 +1,11 @@
 using Xunit;
 
-namespace Logger.Tests
-{
+namespace Logger.Tests;
+
     public class LogFactoryTests
     {
         [Fact]
-        public void CreateLogger_WhenFileNameIsNull_ReturnsNull()
+        public void CreateLoggerWhenFileNameIsNullReturnsNull()
         {
             // Arrange
             var logFactory = new LogFactory();
@@ -19,7 +19,7 @@ namespace Logger.Tests
         }
 
         [Fact]
-        public void ConfigureFileLogger_SetsFileNameProperty()
+        public void ConfigureFileLoggerSetsFileNameProperty()
         {
             // Arrange
             var logFactory = new LogFactory();
@@ -32,4 +32,3 @@ namespace Logger.Tests
             Assert.Equal(fileName, logFactory.FileName);
         }
     }
-}

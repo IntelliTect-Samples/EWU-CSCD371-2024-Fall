@@ -1,11 +1,11 @@
 using Xunit;
 
-namespace Logger.Tests
-{
+namespace Logger.Tests;
+
     public class FileLoggerConfigurationTests
     {
         [Fact]
-        public void Constructor_ValidArguments_Success()
+        public void ConstructorValidArgumentsSuccess()
         {
             // Arrange
             string filePath = "/path/to/log/file.txt";
@@ -20,7 +20,7 @@ namespace Logger.Tests
         }
 
         [Fact]
-        public void Constructor_NullOrWhitespaceFilePath_ThrowsArgumentException()
+        public void ConstructorNullOrWhitespaceFilePathThrowsArgumentException()
         {
             // Arrange
             string filePath = null!;
@@ -31,7 +31,7 @@ namespace Logger.Tests
         }
 
         [Fact]
-        public void Constructor_NullOrWhitespaceLogSource_ThrowsArgumentException()
+        public void ConstructorNullOrWhitespaceLogSourceThrowsArgumentException()
         {
             // Arrange
             string filePath = "/path/to/log/file.txt";
@@ -42,7 +42,7 @@ namespace Logger.Tests
         }
 
         [Fact]
-        public void Constructor_EmptyFilePath_ThrowsArgumentException()
+        public void ConstructorEmptyFilePathThrowsArgumentException()
         {
             // Arrange
             string filePath = "";
@@ -53,7 +53,7 @@ namespace Logger.Tests
         }
 
         [Fact]
-        public void Constructor_EmptyLogSource_ThrowsArgumentException()
+        public void ConstructorEmptyLogSourceThrowsArgumentException()
         {
             // Arrange
             string filePath = "/path/to/log/file.txt";
@@ -64,7 +64,7 @@ namespace Logger.Tests
         }
 
         [Fact]
-        public void Constructor_WhitespaceFilePath_ThrowsArgumentException()
+        public void ConstructorWhitespaceFilePathThrowsArgumentException()
         {
             // Arrange
             string filePath = "   ";
@@ -75,7 +75,7 @@ namespace Logger.Tests
         }
 
         [Fact]
-        public void Constructor_WhitespaceLogSource_ThrowsArgumentException()
+        public void ConstructorWhitespaceLogSourceThrowsArgumentException()
         {
             // Arrange
             string filePath = "/path/to/log/file.txt";
@@ -85,4 +85,3 @@ namespace Logger.Tests
             Assert.Throws<ArgumentException>(() => new FileLoggerConfiguration(filePath, logSource));
         }
     }
-}
