@@ -14,9 +14,9 @@ public record class Book : BaseEntity
     public Book(string title, FullName Author, int year, string isbn)
     {
         this.Author = new FullName(){FirstName = Author.FirstName, MiddleName = Author.MiddleName, LastName = Author.LastName};
-        this.Title = title;
-        this.Year = year;
-        this.ISBN = isbn;
+        this.Title = title ?? throw new ArgumentNullException(nameof(title));
+        this.Year = year; 
+        this.ISBN = isbn ?? throw new ArgumentNullException(nameof(isbn));
     }
      public override string ParseName() => $"{Title} by {Author}, Year: {Year}, ISBN: {ISBN}";
 }
