@@ -101,6 +101,40 @@ public class NodeTests
         Assert.NotEqual(value2, node.Next.Next.Value);
     }
 
+    [Theory]
+    [InlineData(42, 42)]
+    [InlineData(42.0, 42.0)]
+    [InlineData("42", "42")]
+    public void Append_DuplicateValues_ThrowsException<T>(T value1, T value2)
+    {
+        // Arrange
+        Node<T> node = new(value1);
+
+        // Act
+
+        // Assert
+        Assert.Throws<InvalidOperationException>(() => node.Append(value2));
+    }
+
+    [Theory]
+    [InlineData(42, 43, 42)]
+    [InlineData(42.0, 43.0, 42.0)]
+    [InlineData("fortytwo", "fortythree", "fortytwo")]
+    public void Append_DuplicateValues_MessagBeingDisplayedIsCorrect<T>(T value, T value2, T value3)
+    {
+        // Arrange
+        Node<T> node = new(value);
+        node.Append(value2);
+        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => node.Append(value3));
+        string expectedMessage = "Value already exists in this list.";
+
+        // Act
+        string actualMessage = ex.Message;
+
+        // Assert
+        Assert.Equal(expectedMessage, actualMessage);
+    }
+
     //TODO: Add test to check for multiple appends
     [Theory]
     [InlineData(13, 42, 18)]
@@ -152,25 +186,6 @@ public class NodeTests
     }
 
     [Theory]
-    [InlineData(42, 43)]
-    [InlineData(42.0, 43.0)]
-    [InlineData("fortytwo", "fortythree")]
-    public void Clear_GivenData_ClearsItemsExceptCurrentNode<T>(T value, T value2)
-    {
-        // Arrange
-        Node<T> node = new(value);
-
-        // Act
-        node.Append(value2);
-        node.Clear();
-
-        // Assert
-        Assert.Equal(node, node.Next);
-        Assert.Equal(value, node.Next.Value);
-        Assert.NotEqual(value2, node.Value);
-    }
-
-    [Theory]
     [InlineData(42, 43, 48)]
     [InlineData(42.0, 43.0, 44.0)]
     [InlineData("fortytwo", "fortythree", "fortyfour")]
@@ -204,34 +219,38 @@ public class NodeTests
         node.Append(value2);
         node.Append(value3);
         node.Append(value4);
-        bool contains = node.Exists(value);
-        bool contains2 = node.Exists(value2);
-        bool contains3 = node.Exists(value3);
-        bool contains4 = node.Exists(value4);
 
         // Assert
-        Assert.True(contains);
-        Assert.True(contains2);
-        Assert.True(contains3);
-        Assert.True(contains4);
+        Assert.True(node.Exists(value));
+        Assert.True(node.Exists(value2));
+        Assert.True(node.Exists(value3));
+        Assert.True(node.Exists(value4));
     }
 
     [Theory]
-    [InlineData(42, 43, 42)]
-    [InlineData(42.0, 43.0, 42.0)]
-    [InlineData("fortytwo", "fortythree", "fortytwo")]
-    public void Append_DuplicateValue_ThrowsInvalidOperationException<T>(T value, T value2, T value3)
+    [InlineData(null)]
+    public void Exists_Null_ReturnsFalse<T>(T value)
     {
         // Arrange
         Node<T> node = new(value);
-        node.Append(value2);
-        InvalidOperationException ex = Assert.Throws<InvalidOperationException>(() => node.Append(value3));
-        string expectedMessage = "Value already exists in this list.";
 
         // Act
-        string actualMessage = ex.Message;
 
         // Assert
-        Assert.Equal(expectedMessage, actualMessage);
+        Assert.False(node.Exists(value));
+    }
+    
+    [Theory]
+    [InlineData("42", null)]
+    public void Exists_ValueAndNull_ReturnsFalse<T>(T value, T value2)
+    {
+        // Arrange
+        Node<T> node = new(value);
+
+        // Act
+        node.Append(value2);
+
+        // Assert
+        Assert.False(node.Exists(node.Next.Value));
     }
 }

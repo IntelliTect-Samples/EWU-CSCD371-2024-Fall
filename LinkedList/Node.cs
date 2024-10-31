@@ -25,12 +25,15 @@ public class Node<T>
         {
             throw new InvalidOperationException("Value already exists in this list.");
         }
+
         Node<T> node = new(value);
         Node<T> current = this;
+
         while (current.Next != this)
         {
             current = current.Next;
         }
+
         current.Next = node;
         node.Next = this;
     }
@@ -43,6 +46,7 @@ public class Node<T>
          * should be able to handle this. However, this is a good practice to
          * ensure that the garbage collector can do its job efficiently.
         */
+
         Node<T> current = this.Next;
 
         while (current != this)
@@ -58,10 +62,12 @@ public class Node<T>
     public bool Exists(T value)
     {
         Node<T> current = this;
+
         if (current.Value != null && current.Value.Equals(value))
         {
             return true;
         }
+
         while (current.Next != this)
         {
             current = current.Next;
