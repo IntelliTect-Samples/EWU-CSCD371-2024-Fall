@@ -1,7 +1,7 @@
 using Xunit;
 
-namespace Logger.Tests
-{
+namespace Logger.Tests;
+
     public class BaseEntityTests
     {
         [Fact]
@@ -26,4 +26,3 @@ namespace Logger.Tests
             }
         }
     }
-}

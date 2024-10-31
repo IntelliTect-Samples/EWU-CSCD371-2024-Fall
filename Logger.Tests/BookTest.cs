@@ -1,7 +1,7 @@
 using Xunit;
 
-namespace Logger.Tests
-{
+namespace Logger.Tests;
+
     public class BookTests
     {
         [Fact]
@@ -50,4 +50,3 @@ namespace Logger.Tests
             Assert.Equal($"{title} by {author}, Year: {year}, ISBN: {isbn}", parsedName);
         }
     }
-}

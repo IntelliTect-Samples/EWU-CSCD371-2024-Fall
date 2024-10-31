@@ -1,7 +1,7 @@
 using Xunit;
 
-namespace Logger.Tests
-{
+namespace Logger.Tests;
+
     public class PersonTests
     {
         public record class TestPerson : Person
@@ -80,4 +80,3 @@ namespace Logger.Tests
             Assert.Equal(fullName.ToString(), parsedName);
         }
     }
-}

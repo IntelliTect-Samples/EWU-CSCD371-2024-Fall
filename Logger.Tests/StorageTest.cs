@@ -1,7 +1,7 @@
 using Xunit;
 
-namespace Logger.Tests
-{
+namespace Logger.Tests;
+
     public class StorageTests
     {
         [Fact]
@@ -96,4 +96,3 @@ namespace Logger.Tests
             Assert.Equal(student1, result);
         }
     }
-}
