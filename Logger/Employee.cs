@@ -9,7 +9,7 @@ public record Employee : Person
         EmployeeId = employeeId;
     }
 
-    // Explicitly implementing GetId to return the EmployeeId
+    // Implicitly implementing GetId to return the EmployeeId
     // The employee can have a unique id
     protected override string GetId() => EmployeeId;
 }
