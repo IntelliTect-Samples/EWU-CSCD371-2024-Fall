@@ -44,12 +44,14 @@ public class Node<T>
          * ensure that the garbage collector can do its job efficiently.
         */
         Node<T> current = this.Next;
+
         while (current != this)
         {
             Node<T> temp = current;
             current = current.Next;
             temp.Next = temp;
         }
+
         this.Next = this;
     }
 
