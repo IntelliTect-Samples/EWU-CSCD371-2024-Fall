@@ -49,4 +49,16 @@ namespace Logger.Tests;
             // Assert
             Assert.Equal($"{title} by {author}, Year: {year}, ISBN: {isbn}", parsedName);
         }
+        [Fact]
+        public void CreateBookNullParametersThrowsArgumentNullException()
+        {
+            // Arrange
+            string title = null!;
+            FullName author = null!;
+            int year = 2;
+            string isbn = null!;
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => new Book(title, author, year, isbn));
+        }
     }

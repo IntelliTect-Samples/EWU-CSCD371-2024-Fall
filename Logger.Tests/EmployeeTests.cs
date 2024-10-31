@@ -44,4 +44,47 @@ public class EmployeeTests
             // Assert
             Assert.NotEqual(Guid.Empty, id);
         }
+    [Fact]
+    public void EmployeeConstructorThrowsArgumentNullExceptionWhenPositionIsNull()
+    {
+        // Arrange
+        var FullName = new FullName
+        {
+            FirstName = "John",
+            MiddleName = "Doe",
+            LastName = "Smith"
+        };
+
+        var email = "john.doe@example.com";
+
+        string position = null!; // Set position to null
+        var department = "IT";
+
+        // Act & Assert
+        Assert.Throws<ArgumentNullException>(() =>
+        {
+            var employee = new Employee(FullName.FirstName, FullName.MiddleName, FullName.LastName, "123-45-6789", email, "1990-01-01", position, department);
+        });
+    }
+
+    [Fact]
+    public void EmployeeConstructorThrowsArgumentNullExceptionWhenDepartmentIsNull()
+    {
+        // Arrange
+        var FullName = new FullName
+        {
+            FirstName = "John",
+            MiddleName = "Doe",
+            LastName = "Smith"
+        };
+        var email = "john.doe@example.com";
+        var position = "Software Developer";
+        string department = null!; // Set department to null
+
+        // Act & Assert
+        Assert.Throws<ArgumentNullException>(() =>
+        {
+            var employee = new Employee(FullName.FirstName, FullName.MiddleName, FullName.LastName, "123-45-6789", email, "1990-01-01", position, department);
+        });
+    }
 }
