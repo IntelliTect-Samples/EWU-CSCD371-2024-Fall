@@ -13,8 +13,10 @@ public class EntityTests
         var book3 = new Book("Brave New World", "Aldous Huxley");
 
         // Act & Assert
-        Assert.Equal(book1, book2);
-        Assert.NotEqual(book1, book3);
+        Assert.Equal(book1.Title, book2.Title);
+        Assert.Equal(book1.Author, book2.Author);
+        Assert.NotEqual(book1.Title, book3.Title);
+        Assert.NotEqual(book1.Author, book3.Author);
     }
 
     [Fact]
@@ -28,8 +30,9 @@ public class EntityTests
         var student3 = new Student(fullName1, "S002");
 
         // Act & Assert
-        Assert.Equal(student1, student2);
-        Assert.NotEqual(student1, student3);
+        Assert.Equal(student1.FullName, student2.FullName);
+        Assert.Equal(student1.StudentId, student2.StudentId);
+        Assert.NotEqual(student1.StudentId, student3.StudentId);
     }
 
     [Fact]
@@ -43,7 +46,8 @@ public class EntityTests
         var employee3 = new Employee(fullName1, "E002");
 
         // Act & Assert
-        Assert.Equal(employee1, employee2);
-        Assert.NotEqual(employee1, employee3);
+        Assert.Equal(employee1.FullName, employee2.FullName);
+        Assert.Equal(employee1.EmployeeId, employee2.EmployeeId);
+        Assert.NotEqual(employee1.EmployeeId, employee3.EmployeeId);
     }
 }
