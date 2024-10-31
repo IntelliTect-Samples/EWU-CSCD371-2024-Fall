@@ -18,7 +18,7 @@ namespace Logger.Tests;
             Assert.Equal("Mock Name", name);
         }
 
-        private record class MockBaseEntity : BaseEntity
+        private sealed record class MockBaseEntity : BaseEntity
         {
             public override string ParseName()
             {
