@@ -127,6 +127,30 @@ public class NodeTests
         Assert.NotEqual(value3, node.Next.Next.Next.Value);
     }
 
+    [Fact]
+    public void AppendAndClear_Data_ShouldMakeNodesPointToThemselves()
+    {
+        // Arrange
+        Node<int> node = new(42);
+        node.Append(14);
+        node.Append(32);
+
+        Node<int> secondNode = node.Next;
+        Node<int> thirdNode = node.Next.Next;
+
+        // Act
+        node.Clear();
+
+        // Assert
+        Assert.NotSame(node, secondNode);
+        Assert.Equal(node, node.Next);
+        Assert.Equal(42, node.Next.Value);
+        Assert.Equal(secondNode, secondNode.Next);
+        Assert.Equal(14, secondNode.Next.Value);
+        Assert.Equal(thirdNode, thirdNode.Next);
+        Assert.Equal(32, thirdNode.Value);
+    }
+
     [Theory]
     [InlineData(42, 43)]
     [InlineData(42.0, 43.0)]
