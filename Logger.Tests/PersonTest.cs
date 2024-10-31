@@ -13,7 +13,7 @@ namespace Logger.Tests;
             }
 
         [Fact]
-        public void CreatePerson_ValidParameters_ReturnsPersonObject()
+        public void CreatePersonValidParametersReturnsPersonObject()
         {
             // Arrange
             var fullName = new FullName
@@ -39,7 +39,7 @@ namespace Logger.Tests;
         }
 
         [Fact]
-        public void CreatePerson_NullEmail_ReturnsPersonObjectWithDefaultEmail()
+        public void CreatePersonNullEmailReturnsPersonObjectWithDefaultEmail()
         {
             // Arrange
             var fullName = new FullName
@@ -59,7 +59,7 @@ namespace Logger.Tests;
         }
 
         [Fact]
-        public void ParseName_ValidFullName_ReturnsFullNameAsString()
+        public void ParseNameValidFullNameReturnsFullNameAsString()
         {
             // Arrange
             var fullName = new FullName

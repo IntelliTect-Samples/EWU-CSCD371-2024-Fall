@@ -5,7 +5,7 @@ namespace Logger.Tests;
     public class StudentTests
     {
         [Fact]
-        public void CreateStudent_ValidParameters_ReturnsStudentObject()
+        public void CreateStudentValidParametersReturnsStudentObject()
         {
             // Arrange
             var FullName = new FullName
@@ -33,7 +33,7 @@ namespace Logger.Tests;
             Assert.Equal(major, student.Major);
         }
         [Fact]
-        public void BaseEntity_IdInitialized_ReturnsValidId()
+        public void BaseEntityIdInitializedReturnsValidId()
         {
             // Arrange
             var student = new Student("John", "Doe", "Smith", "123-45-6789","john.doe@example.com", "1990-01-01", "Senior", "Computer Science" );

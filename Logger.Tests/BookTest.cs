@@ -5,7 +5,7 @@ namespace Logger.Tests;
     public class BookTests
     {
         [Fact]
-        public void CreateBook_ValidParameters_ReturnsBookObject()
+        public void CreateBookValidParametersReturnsBookObject()
         {
             // Arrange
             var title = "Sample Book";
@@ -29,7 +29,7 @@ namespace Logger.Tests;
         }
 
         [Fact]
-        public void ParseName_ValidBook_ReturnsFormattedName()
+        public void ParseNameValidBookReturnsFormattedName()
         {
             // Arrange
             var title = "Sample Book";

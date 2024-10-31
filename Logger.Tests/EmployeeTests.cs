@@ -4,7 +4,7 @@ namespace Logger.Tests;
 public class EmployeeTests
 {
     [Fact]
-    public void Employee_Constructor_InitializesProperties()
+    public void EmployeeConstructorInitializesProperties()
     {
         // Arrange
         var FullName = new FullName
@@ -31,7 +31,7 @@ public class EmployeeTests
         Assert.Equal(department, employee.Department);
     }
         [Fact]
-        public void BaseEntity_IdInitialized_ReturnsValidId()
+        public void BaseEntityIdInitializedReturnsValidId()
         {
             // Arrange
             var employee = new Employee("John", "Doe", "Smith", "123-45-6789","john.doe@example.com", "1990-01-01", "Software Developer", "IT" );

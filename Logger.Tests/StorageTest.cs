@@ -5,7 +5,7 @@ namespace Logger.Tests;
     public class StorageTests
     {
         [Fact]
-        public void Add_AddEmployee_SuccessfullyAdded()
+        public void AddAddEmployeeSuccessfullyAdded()
         {
             // Arrange
             var storage = new Storage();
@@ -19,7 +19,7 @@ namespace Logger.Tests;
         }
 
         [Fact]
-        public void Add_AddStudent_SuccessfullyAdded()
+        public void AddAddStudentSuccessfullyAdded()
         {
             // Arrange
             var storage = new Storage();
@@ -33,7 +33,7 @@ namespace Logger.Tests;
         }
 
         [Fact]
-        public void Remove_RemoveEmployee_SuccessfullyRemoved()
+        public void RemoveRemoveEmployeeSuccessfullyRemoved()
         {
             // Arrange
             var storage = new Storage();
@@ -48,7 +48,7 @@ namespace Logger.Tests;
         }
 
         [Fact]
-        public void Remove_RemoveStudent_SuccessfullyRemoved()
+        public void RemoveRemoveStudentSuccessfullyRemoved()
         {
             // Arrange
             var storage = new Storage();
@@ -63,7 +63,7 @@ namespace Logger.Tests;
         }
 
         [Fact]
-        public void Get_GetEmployeeById_ReturnsCorrectEmployee()
+        public void GetGetEmployeeByIdReturnsCorrectEmployee()
         {
             // Arrange
             var storage = new Storage();
@@ -80,7 +80,7 @@ namespace Logger.Tests;
         }
 
         [Fact]
-        public void Get_GetStudentById_ReturnsCorrectStudent()
+        public void GetGetStudentByIdReturnsCorrectStudent()
         {
             // Arrange
             var storage = new Storage();
