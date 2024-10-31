@@ -9,7 +9,7 @@ public record Student : Person
         StudentId = studentId;
     }
 
-    // Explicitly implementing GetId to return the StudentId
+    // Implicitly implementing GetId to return the StudentId
     // This provides a way to get the unique id for a Student
     protected override string GetId() => StudentId;
 }
