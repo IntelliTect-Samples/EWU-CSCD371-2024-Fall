@@ -2,11 +2,6 @@
 
   <PropertyGroup>
 
-	<ImplicitUsings>enable</ImplicitUsings>
-	<Nullable>enable</Nullable>
-	<EnableNETAnalyzers>true</EnableNETAnalyzers>
-	<LangVersion>latest</LangVersion>
-	<TargetFramework>net8.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
 	  

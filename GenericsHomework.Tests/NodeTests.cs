@@ -49,7 +49,7 @@ public class NodeTests
         node.Append(44);
 
         // Assert
-        Assert.Equal(43, node.Next.Next.Data);
+        Assert.Equal(44, node.Next.Next.Data);
         Assert.Equal(node, node.Next.Next.Next);
     }
 

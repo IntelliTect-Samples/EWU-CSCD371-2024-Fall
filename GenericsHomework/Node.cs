@@ -22,7 +22,7 @@ public class Node<T>
 
     // Add an Append method that takes a value and appends a new Node instance after the current
     // node(by invoking the Next property). ❌✔
-    // The current node is the calling node
+    // The current node is the last node added
     public void Append(T newData)
     {
         // Throw an error on attempt to append a duplicate value
@@ -32,24 +32,21 @@ public class Node<T>
         }
 
         var addedNode = new Node<T>(newData);
-        // If calling node is the only node in the list
-        if (this.Next == this)
+        Node<T> cur = this;
+       
+        while(cur.Next != this)
         {
-            this.Next = addedNode;
-            addedNode.Next = this;
+            cur = cur.Next;
         }
-        // If there are more nodes in the list... I don't think I need this else statement
-        else
-        {
-            addedNode.Next = this.Next;
-            this.Next = addedNode;
-        }
+        cur.Next = addedNode;
+        addedNode.Next = this;
+        
     }
 
     private bool Exists(T newData)
     {
         // Cycle through the list to check if the value already exists
-        var current = this;
+        Node<T> current = this;
         do
         {
             if (current.Data!.Equals(newData))
