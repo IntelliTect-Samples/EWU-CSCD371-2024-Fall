@@ -2,22 +2,22 @@
 
 namespace Logger;
 
-public record class Student : BaseEntity
+public record class Student : Person
 {
     public Student(int  studentId, string firstName, string? middleName, string lastName)
+        : base(firstName, middleName, lastName)
     {
-        StudentName = new FullName(firstName, middleName, lastName);
         StudentId = studentId;
     }
 
     // We used explicit implementation for the Name property becuase we need to be able to take Name and parse
-    // it into the StudentId and StudentName properties. We also need to be able to calculate the Name property from the
-    // StudentId and StudentName properties.
+    // it into the StudentId and PersonName properties. We also need to be able to calculate the Name property from the
+    // StudentId and PersonName properties.
     override public string Name
     {
         get
         {
-            return $"{StudentId}: {StudentName}";
+            return $"{StudentId}: {PersonName}";
         }
         set
         {
@@ -37,11 +37,11 @@ public record class Student : BaseEntity
 
             if (studentNames.Length == 2)
             {
-                StudentName = new FullName(studentNames[0], studentNames[1]);
+                PersonName = new FullName(studentNames[0], studentNames[1]);
             }
             else if (studentNames.Length == 3)
             {
-                StudentName = new FullName(studentNames[0], studentNames[1], studentNames[2]);
+                PersonName = new FullName(studentNames[0], studentNames[1], studentNames[2]);
             }
             else
             {
@@ -61,22 +61,6 @@ public record class Student : BaseEntity
         {
             ArgumentNullException.ThrowIfNull(value, nameof(value));
             _studentId = value;
-        }
-    }
-
-    // TODO: Refactor Common Members between Student and Employee
-    private FullName? _studentName;
-
-    public FullName StudentName
-    {
-        get
-        {
-            return (FullName)_studentName!;
-        }
-        set
-        {
-            ArgumentNullException.ThrowIfNull(value, nameof(value));
-            _studentName = value;
         }
     }
 }

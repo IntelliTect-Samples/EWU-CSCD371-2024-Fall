@@ -13,7 +13,7 @@ public class StudentTests
         // Act
 
         // Assert
-        Assert.Equal(new FullName("Billy", "Jean"), student.StudentName);
+        Assert.Equal(new FullName("Billy", "Jean"), student.PersonName);
     }
 
     //[Fact]
