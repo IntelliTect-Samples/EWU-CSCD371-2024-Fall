@@ -1,7 +1,14 @@
 ﻿namespace Logger;
 
-public record class Book() : BaseEntity
+public record class Book : BaseEntity
 {
+
+    public Book(string title, string authorFirstName, string? authorMiddleName, string authorLastName)
+    {
+        Title = title;
+        Author = new FullName(authorFirstName, authorMiddleName, authorLastName);
+    }
+
     // Is it for internal or external use? implicit / explicit
     // We used explicit implementation for the Name property becuase we need to be able to take Name and parse
     // it into the Title and Author properties. We also need to be able to calculate the Name property from the

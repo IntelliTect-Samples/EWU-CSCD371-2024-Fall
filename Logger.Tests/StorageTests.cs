@@ -9,11 +9,7 @@ public class StorageTests
     {
         // Arrange
         var storage = new Storage();
-        var student = new Student
-        {
-            StudentId = 1,
-            StudentName = new FullName("Kevin", "Flannery")
-        };
+        var student = new Student(1, "Kevin", null, "Flannery");
 
         // Act
         storage.Add(student);
@@ -27,12 +23,7 @@ public class StorageTests
     {
         // Arrange
         var storage = new Storage();
-        var employee = new Employee
-        {
-            EmployeeId = 1,
-            EmployeeFullName = new FullName("Kevin", "Flannery"),
-            EmployeeJobTitle = "Software Engineer"
-        };
+        var employee = new Employee(1, "Kevin", null, "Flannery", "Software Engineer");
 
         // Act
         storage.Add(employee);
@@ -46,11 +37,7 @@ public class StorageTests
     {
         // Arrange
         var storage = new Storage();
-        var book = new Book
-        {
-            Title = "Harry Potter 1",
-            Author = new FullName("JK", "Rowling")
-        };
+        var book = new Book("Harry Potter 1", "JK", null, "Rowling");
 
         // Act
         storage.Add(book);
@@ -64,11 +51,7 @@ public class StorageTests
     {
         // Arrange
         var storage = new Storage();
-        var student = new Student
-        {
-            StudentId = 1,
-            StudentName = new FullName("Kevin", "Flannery")
-        };
+        var student = new Student(1, "Kevin", null, "Flannery");
         storage.Add(student);
 
         // Act
@@ -83,12 +66,7 @@ public class StorageTests
     {
         // Arrange
         var storage = new Storage();
-        var employee = new Employee
-        {
-            EmployeeId = 1,
-            EmployeeFullName = new FullName("Kevin", "Flannery"),
-            EmployeeJobTitle = "Software Engineer"
-        };
+        var employee = new Employee(1, "Kevin", null, "Flannery", "Software Engineer");
         storage.Add(employee);
 
         // Act
@@ -103,11 +81,7 @@ public class StorageTests
     {
         // Arrange
         var storage = new Storage();
-        var book = new Book
-        {
-            Title = "Harry Potter 1",
-            Author = new FullName("JK", "Rowling")
-        };
+        var book = new Book("Harry Potter 1", "JK", null, "Rowling");
         storage.Add(book);
 
         // Act
@@ -122,11 +96,7 @@ public class StorageTests
     {
         // Arrange
         var storage = new Storage();
-        var student = new Student
-        {
-            StudentId = 1,
-            StudentName = new FullName("Kevin", "Flannery")
-        };
+        var student = new Student(1, "Kevin", null, "Flannery");
         storage.Add(student);
 
         // Act
@@ -141,12 +111,7 @@ public class StorageTests
     {
         // Arrange
         var storage = new Storage();
-        var employee = new Employee
-        {
-            EmployeeId = 1,
-            EmployeeFullName = new FullName("Kevin", "Flannery"),
-            EmployeeJobTitle = "Software Engineer"
-        };
+        var employee = new Employee(1, "Kevin", null, "Flannery", "Software Engineer");
         storage.Add(employee);
 
         // Act
@@ -161,11 +126,7 @@ public class StorageTests
     {
         // Arrange
         var storage = new Storage();
-        var book = new Book
-        {
-            Title = "Harry Potter 1",
-            Author = new FullName("JK", "Rowling")
-        };
+        var book = new Book("Harry Potter 1", "JK", null, "Rowling");
         storage.Add(book);
 
         // Act
