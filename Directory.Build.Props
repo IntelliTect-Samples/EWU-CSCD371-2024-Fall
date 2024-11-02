@@ -7,4 +7,4 @@
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
 	    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
       </PropertyGroup>
-</Project>
+</Project> 
