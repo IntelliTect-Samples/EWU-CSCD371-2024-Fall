@@ -1,12 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-	  <TargetFramework>net8.0</TargetFramework>
-	  <Nullable>enable</Nullable>
-	  <LangVersion>latest</LangVersion>
-	  <ImplicitUsings>enable</ImplicitUsings>
-	  <EnableNETAnalyzers>true</EnableNETAnalyzers>
-	  <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
