@@ -1,4 +1,4 @@
-namespace Calculator.Tests;
+namespace Calculate.Tests;
 
 public class UnitTest1
 {
