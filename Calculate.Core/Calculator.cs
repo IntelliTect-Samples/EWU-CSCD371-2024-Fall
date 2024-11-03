@@ -2,37 +2,51 @@
 
 public class Calculator
 {
-    private readonly IReadOnlyDictionary<char, Func<int, int, double>> _mathmaticalOperations = new Dictionary<char, Func<int, int, double>>
-    {
-        ['+'] = Add,
-        ['-'] = Subtract,
-        ['*'] = Multiply,
-        ['/'] = Divide
-    };
+    private readonly Dictionary<char, Func<int, int, double>> _mathematicalOperations;
 
-    public IReadOnlyDictionary<char, Func<int, int, double>> MathmaticalOperations => _mathmaticalOperations;
+    public IReadOnlyDictionary<char, Func<int, int, double>> MathematicalOperations => _mathematicalOperations;
 
-    public static double TryCalculate(int a, int b, Func<int, int, double> operation)
+    public Calculator()
     {
-        return 0;
-    }
-    public static double Add(int a, int b)
-    {
-        return a + b;
+        _mathematicalOperations = new Dictionary<char, Func<int, int, double>>
+        {
+            ['+'] = Add,
+            ['-'] = Subtract,
+            ['*'] = Multiply,
+            ['/'] = Divide
+        };
     }
 
-    public static double Subtract(int a, int b)
+    public bool TryCalculate(string calculation, out double result)
     {
-        return a - b;
+        result = 0;
+
+        string[]? parts = calculation.Split(' ');
+        if (parts.Length != 3)
+        {
+            return false;
+        }
+
+        if (!int.TryParse(parts[0], out int operand1) || !int.TryParse(parts[2], out int operand2))
+        {
+            return false;
+        }
+
+        char operatorChar = parts[1][0];
+        if (!_mathematicalOperations.TryGetValue(operatorChar, out Func<int, int, double>? operation))
+        {
+            return false;
+        }
+
+        result = operation(operand1, operand2);
+        return true;
     }
 
-    public static double Multiply(int a, int b)
-    {
-        return a * b;
-    }
+    public static double Add(int a, int b) => a + b;
 
-    public static double Divide(int a, int b)
-    {
-        return a / b;
-    }
+    public static double Subtract(int a, int b) => a - b;
+
+    public static double Multiply(int a, int b) => a * b;
+
+    public static double Divide(int a, int b) => b != 0 ? a / (double)b : throw new DivideByZeroException();
 }
