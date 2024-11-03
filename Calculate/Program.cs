@@ -8,13 +8,13 @@ public class Program
     public Action<string> WriteLine
     {
         get => _writeLine;
-        init => _writeLine = value ?? throw new ArgumentNullException(nameof(value));
+        init => _writeLine = value ?? throw new ArgumentNullException(nameof(value), $"{nameof(WriteLine)} cannot be null.");
     }
 
     public Func<string> ReadLine
     {
         get => _readLine;
-        init => _readLine = value ?? throw new ArgumentNullException(nameof(value));
+        init => _readLine = value ?? throw new ArgumentNullException(nameof(value), $"{nameof(ReadLine)} cannot be null.");
     }
 
     public static void Main()
