@@ -39,4 +39,17 @@ public class NodeTests
         // Act & Assert
         Assert.Equal("Value: 10", intNode.ToString());
     }
+
+    [Fact]
+    public void Next_RefersNextNode_ReturnsNextNode()
+    {
+        // Arrange
+        Node<int> intNode = new Node<int>(10);
+
+        // Act
+        intNode.Next = new Node<int>(20);
+
+        // Assert
+        Assert.Equal(10, intNode.Next.Value);
+    }
 }
