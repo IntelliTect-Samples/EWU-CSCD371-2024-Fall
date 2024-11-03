@@ -2,8 +2,10 @@ namespace Calculate.Tests;
 
 public class ProgramTests
 {
-    [Fact]
-    public void Test1_test()
+    [Theory]
+    [InlineData("Test input")]
+    public void Test1_test(string input)
     {
+        Program program = new();
     }
 }
