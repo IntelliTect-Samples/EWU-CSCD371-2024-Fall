@@ -1,19 +1,32 @@
-namespace GenericsHomework.Tests
+using Xunit;
+
+namespace GenericsHomework.Tests;
+
+public class NodeTests
 {
-    public class NodeTests
+    [Fact]
+    public void Node_SetValue_newNodeEqualtoValue()
     {
-        [Fact]
-        public void Node_SetValue_ReturnTrue()
-        {
-            // Arrange
-            int value = 5;
+        // Arrange
+        int value = 5;
 
-            // Act
-            Node<int> newNode = new Node<int>(value);
+        // Act
+        Node<int> newNode = new Node<int>(value);
 
-            // Assert
-            Assert.Equal(value, newNode.Value);
+        // Assert
+        Assert.Equal(value, newNode.Value);
 
-        }
+    }
+
+    [Fact]
+    public void NodeConstructor_AllowsHomogenousTypes_ValuesEqual()
+    {
+        // Arrange & Act
+        Node<int> intNode = new Node<int>(10);
+        Node<string> stringNode = new Node<string>("Hello");
+
+        // Assert
+        Assert.Equal(typeof(Node<int>), intNode.GetType());
+        Assert.Equal(typeof(Node<string>), stringNode.GetType());
     }
 }
