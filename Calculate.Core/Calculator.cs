@@ -1,9 +1,16 @@
 ﻿namespace Calculate.Core;
 
-public static class Calculator
+public class Calculator
 {
+    public IReadOnlyDictionary<char, Func<int, int, double>> Operations = new Dictionary<char, Func<int, int, double>>
+    {
+        ['+'] = Add,
+        ['-'] = Subtract,
+        ['*'] = Multiply,
+        ['/'] = Divide
+    };
 
-    public static int TryCalculate(int a, int b, Func<int, int, double> operation)
+    public static double TryCalculate(int a, int b, Func<int, int, double> operation)
     {
         return 0;
     }
