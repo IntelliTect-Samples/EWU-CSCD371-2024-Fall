@@ -2,13 +2,13 @@
 
 public class Calculator
 {
-    private readonly Dictionary<char, Func<int, int, double>> _mathematicalOperations;
+    private readonly Dictionary<char, Operation> _mathematicalOperations;
 
-    public IReadOnlyDictionary<char, Func<int, int, double>> MathematicalOperations => _mathematicalOperations;
+    public IReadOnlyDictionary<char, Operation> MathematicalOperations => _mathematicalOperations;
 
     public Calculator()
     {
-        _mathematicalOperations = new Dictionary<char, Func<int, int, double>>
+        _mathematicalOperations = new Dictionary<char, Operation>
         {
             ['+'] = Add,
             ['-'] = Subtract,
@@ -33,20 +33,42 @@ public class Calculator
         }
 
         char operatorChar = parts[1][0];
-        if (!_mathematicalOperations.TryGetValue(operatorChar, out Func<int, int, double>? operation))
+        if (!_mathematicalOperations.TryGetValue(operatorChar, out Operation? operation))
         {
             return false;
         }
 
-        result = operation(operand1, operand2);
+        return operation(operand1, operand2, out result);
+    }
+
+    public delegate bool Operation(int a, int b, out double result);
+
+    public static bool Add(int a, int b, out double result)
+    {
+        result = a + b;
         return true;
     }
 
-    public static double Add(int a, int b) => a + b;
+    public static bool Subtract(int a, int b, out double result)
+    {
+        result = a - b;
+        return true;
+    }
 
-    public static double Subtract(int a, int b) => a - b;
+    public static bool Multiply(int a, int b, out double result)
+    {
+        result = a * b;
+        return true;
+    }
 
-    public static double Multiply(int a, int b) => a * b;
-
-    public static double Divide(int a, int b) => b != 0 ? a / (double)b : throw new DivideByZeroException();
+    public static bool Divide(int a, int b, out double result)
+    {
+        if (b == 0)
+        {
+            result = 0;
+            return false;
+        }
+        result = a / (double)b;
+        return true;
+    }
 }
