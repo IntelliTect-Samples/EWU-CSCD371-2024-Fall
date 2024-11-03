@@ -1,3 +1,0 @@
-﻿# Applies to all C# files within any .Tests folder
-[*.Tests/*.cs]
-dotnet_diagnostic.CA1707.severity = none

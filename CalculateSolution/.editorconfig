@@ -1,0 +1,4 @@
+﻿[*Tests.cs]
+
+# Default severity for analyzer diagnostics with category 'Naming'
+dotnet_diagnostic.CA1707.severity = none
