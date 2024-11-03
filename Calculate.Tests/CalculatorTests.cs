@@ -52,7 +52,7 @@ public class CalculatorTests
     public void Divide_WhenCalled_ReturnsQuotient(int a, int b)
     {
         // Arrange
-        double expected = a / b;
+        double expected = a / (double)b;
 
         // Act
         double actual = Calculator.Divide(a, b);
