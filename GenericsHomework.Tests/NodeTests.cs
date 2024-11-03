@@ -29,4 +29,14 @@ public class NodeTests
         Assert.Equal(typeof(Node<int>), intNode.GetType());
         Assert.Equal(typeof(Node<string>), stringNode.GetType());
     }
+
+    [Fact]
+    public void ToString_OverrideToString_ExistsIsEqual()
+    {
+        // Arrange
+        Node<int> intNode = new Node<int>(10);
+
+        // Act & Assert
+        Assert.Equal("Value: 10", intNode.ToString());
+    }
 }
