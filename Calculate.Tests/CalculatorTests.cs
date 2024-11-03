@@ -26,8 +26,10 @@ public class CalculatorTests
         int a = 10;
         int b = 5;
         double expected = 5;
+
         // Act
         double actual = Calculator.Subtract(a, b);
+
         // Assert
         Assert.Equal(expected, actual);
     }
@@ -39,8 +41,10 @@ public class CalculatorTests
         int a = 5;
         int b = 10;
         double expected = 50;
+
         // Act
         double actual = Calculator.Multiply(a, b);
+
         // Assert
         Assert.Equal(expected, actual);
     }
@@ -66,7 +70,9 @@ public class CalculatorTests
         // Arrange
         int a = 10;
         int b = 0;
+
         // Act
+
         // Assert
         Assert.Throws<DivideByZeroException>(() => Calculator.Divide(a, b));
     }
