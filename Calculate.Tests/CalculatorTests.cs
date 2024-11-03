@@ -13,10 +13,11 @@ public class CalculatorTests
         double expected = 15;
 
         // Act
-        double actual = Calculator.Add(a, b);
+        bool success = Calculator.Add(a, b, out double actual);
 
         // Assert
         Assert.Equal(expected, actual);
+        Assert.True(success);
     }
 
     [Fact]
@@ -28,10 +29,11 @@ public class CalculatorTests
         double expected = 5;
 
         // Act
-        double actual = Calculator.Subtract(a, b);
+        bool success = Calculator.Subtract(a, b, out double actual);
 
         // Assert
         Assert.Equal(expected, actual);
+        Assert.True(success);
     }
 
     [Fact]
@@ -43,10 +45,11 @@ public class CalculatorTests
         double expected = 50;
 
         // Act
-        double actual = Calculator.Multiply(a, b);
+        bool success = Calculator.Multiply(a, b, out double actual);
 
         // Assert
         Assert.Equal(expected, actual);
+        Assert.True(success);
     }
 
     [Theory]
@@ -59,22 +62,26 @@ public class CalculatorTests
         double expected = a / (double)b;
 
         // Act
-        double actual = Calculator.Divide(a, b);
+        bool success = Calculator.Divide(a, b, out double actual);
+
         // Assert
         Assert.Equal(expected, actual);
+        Assert.True(success);
     }
 
     [Fact]
-    public void Divide_ByZero_ThrowsException()
+    public void Divide_ByZero_Fails()
     {
         // Arrange
         int a = 10;
         int b = 0;
 
         // Act
+        bool success = Calculator.Divide(a, b, out double actual);
 
         // Assert
-        Assert.Throws<DivideByZeroException>(() => Calculator.Divide(a, b));
+        Assert.Equal(0, actual);
+        Assert.False(success);
     }
 
     [Fact]
