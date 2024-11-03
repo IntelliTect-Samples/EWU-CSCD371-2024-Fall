@@ -104,7 +104,7 @@ public class CalculatorTests
     [InlineData("10 - 5", 5)]
     [InlineData("6 * 7", 42)]
     [InlineData("10 / 2", 5)]
-    public void TryCalculate_WhenCalled_ReturnsExpectedResult(string input, double expected)
+    public void TryCalculate_ValidString_ReturnsExpectedResult(string input, double expected)
     {
         // Arrange
         Calculator calculator = new();
@@ -115,5 +115,70 @@ public class CalculatorTests
         // Assert
         Assert.Equal(expected, actual);
         Assert.True(success);
+    }
+
+    [Fact]
+    public void TryCalculate_NumberAndOperator_ReturnsFalse()
+    {
+        // Arrange
+        Calculator calculator = new();
+
+        // Act
+        bool success = calculator.TryCalculate("42 * ", out double actual);
+
+        // Assert
+        Assert.False(success);
+    }
+
+    [Fact]
+    public void TryCalculate_OnlyOperator_ReturnsFalse()
+    {
+        // Arrange
+        Calculator calculator = new();
+
+        // Act
+        bool success = calculator.TryCalculate(" * ", out double actual);
+
+        // Assert
+        Assert.False(success);
+    }
+
+    [Fact]
+    public void TryCalculate_InvalidOperator_ReturnsFalse()
+    {
+        // Arrange
+        Calculator calculator = new();
+
+        // Act
+        bool success = calculator.TryCalculate("42 % 42", out double actual);
+
+        // Assert
+        Assert.False(success);
+    }
+
+    [Fact]
+    public void TryCalculate_InvalidOperands_ReturnsFalse()
+    {
+        // Arrange
+        Calculator calculator = new();
+
+        // Act
+        bool success = calculator.TryCalculate("42 + forty-two", out double actual);
+
+        // Assert
+        Assert.False(success);
+    }
+
+    [Fact]
+    public void TryCalculate_InvalidString_ReturnsFalse()
+    {
+        // Arrange
+        Calculator calculator = new();
+
+        // Act
+        bool success = calculator.TryCalculate("42 + 42 + 42", out double actual);
+
+        // Assert
+        Assert.False(success);
     }
 }
