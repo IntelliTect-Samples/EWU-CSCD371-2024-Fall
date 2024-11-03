@@ -1,0 +1,80 @@
+﻿using Calculate.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace Calculate.Tests;
+
+public class CalculatorTests
+{
+    [Fact]
+    public void Add_WhenCalled_ReturnsSum()
+    {
+        // Arrange
+        int a = 5;
+        int b = 10;
+        double expected = 15;
+
+        // Act
+        double actual = Calculator.Add(a, b);
+
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void Subtract_WhenCalled_ReturnsDifference()
+    {
+        // Arrange
+        int a = 10;
+        int b = 5;
+        double expected = 5;
+        // Act
+        double actual = Calculator.Subtract(a, b);
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void Multiply_WhenCalled_ReturnsProduct()
+    {
+        // Arrange
+        int a = 5;
+        int b = 10;
+        double expected = 50;
+        // Act
+        double actual = Calculator.Multiply(a, b);
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(10, 5)]
+    [InlineData(20, 9)]
+    [InlineData(30, 7)]
+    public void Divide_WhenCalled_ReturnsQuotient(int a, int b)
+    {
+        // Arrange
+        double expected = a / b;
+
+        // Act
+        double actual = Calculator.Divide(a, b);
+        // Assert
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void Divide_ByZero_ThrowsException()
+    {
+        // Arrange
+        int a = 10;
+        int b = 0;
+        // Act
+        // Assert
+        Assert.Throws<DivideByZeroException>(() => Calculator.Divide(a, b));
+    }
+
+}
