@@ -2,7 +2,7 @@
 
 public class Calculator
 {
-    public static int TryCalculate(Func<int, int, int> operation)
+    public static int TryCalculate(int a, int b, Func<int, int, int> operation)
     {
         return 0;
     }
