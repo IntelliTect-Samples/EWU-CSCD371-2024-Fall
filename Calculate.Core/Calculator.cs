@@ -2,19 +2,18 @@
 
 public class Calculator
 {
-    private readonly Dictionary<char, Operation> _mathematicalOperations;
+    private readonly Dictionary<char, Operation> _mathematicalOperations = new()
+    {
+        ['+'] = Add,
+        ['-'] = Subtract,
+        ['*'] = Multiply,
+        ['/'] = Divide
+    };
 
     public IReadOnlyDictionary<char, Operation> MathematicalOperations => _mathematicalOperations;
 
     public Calculator()
     {
-        _mathematicalOperations = new Dictionary<char, Operation>
-        {
-            ['+'] = Add,
-            ['-'] = Subtract,
-            ['*'] = Multiply,
-            ['/'] = Divide
-        };
     }
 
     public bool TryCalculate(string calculation, out double result)
