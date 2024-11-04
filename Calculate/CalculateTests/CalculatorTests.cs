@@ -55,7 +55,7 @@ public class CalculatorTests
         int num2 = 5;
 
         // Act
-        Calculator.Divide(num1, num2, out int result);
+        Calculator.Divide(num1, num2, out double result);
 
         // Assert
         Assert.AreEqual(2, result);
@@ -69,6 +69,20 @@ public class CalculatorTests
         int num2 = 0;
 
         // Act and Assert
-        Assert.ThrowsException<DivideByZeroException>(() => Calculator.Divide(num1, num2, out int result));
+        Assert.ThrowsException<DivideByZeroException>(() => Calculator.Divide(num1, num2, out double result));
+    }
+
+    [TestMethod]
+    public void Divide_TwoNumbers_ReturnsDecimalQuotient()
+    {
+        // Arrange
+        int num1 = 10;
+        int num2 = 3;
+
+        // Act
+        Calculator.Divide(num1, num2, out double result);
+
+        // Assert
+        Assert.AreEqual(3.3333333333333335, result);
     }
 }
