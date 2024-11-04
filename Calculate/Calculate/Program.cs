@@ -1,6 +1,4 @@
-﻿//Write a test that sets these properties at construction time and then invokes the properties and verifies the
-//expected behavior occurs. ❌✔
-public class Program
+﻿public class Program
 {
     public Program(Action<string> writeLine, Func<string?> readLine)
     {
@@ -14,4 +12,8 @@ public class Program
 
     public Action<string> WriteLine { get; init; }
     public Func<string?> ReadLine { get; init; }
+
+    public static void Main(string[] args)
+    {
+    }
 }

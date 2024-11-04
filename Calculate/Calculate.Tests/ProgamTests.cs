@@ -12,18 +12,20 @@ public class ProgamTests
         void newWriteLine(string input)
         {
             Console.SetOut(writer);
-            Console.WriteLine(input.Trim());
+            Console.WriteLine(input.TrimEnd() + "?");
         }
         string? newReadLine()
         {
             return "whatever";
         }
+        // Consider passing in anonymous methods
         var program = new Program(newWriteLine, newReadLine);
 
         // Act
-        program.WriteLine("    whatever        ");
+        program.WriteLine("whatever        ");
+
         // Assert
         Assert.Equal("whatever", program.ReadLine());
-        Assert.Equal("whatever", writer.ToString());
+        Assert.Equal("whatever?", writer.ToString().Trim());
     }
 }
