@@ -13,9 +13,23 @@ public class CalculatorTests
         int number2 = 10;
 
         // Act
-        int sum = Calculator.Add(number1, number2);
+        Calculator.Add(number1, number2, out int result);
 
         // Assert
-        Assert.AreEqual(15, sum);
+        Assert.AreEqual(15, result);
+    }
+
+    [TestMethod]
+    public void Subtract_TwoNumbers_ReturnsDifference()
+    {
+        // Arrange
+        int num1 = 10;
+        int num2 = 5;
+
+        // Act
+        Calculator.Subtract(num1, num2, out int result);
+
+        // Assert
+        Assert.AreEqual(5, result);
     }
 }
