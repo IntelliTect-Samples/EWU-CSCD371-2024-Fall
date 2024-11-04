@@ -1,6 +1,10 @@
 namespace GenericsHomework.Tests;
 public class NodeTests
 {
+    private static readonly int[] ExpectedArray = { 1, 2, 3 };
+    private static readonly int[] ExpectedArrayWithOffset = { 0, 0, 1, 2, 3 };
+
+
     [Fact]
     public void Constructor_WithValidData_InitializesWithSelfReferencingNext()
     {
@@ -270,7 +274,7 @@ public class NodeTests
     public void CopyTo_CopiesElementsToTargetArray()
     {
         // Arrange
-        Node<int> head = new (1);
+        Node<int> head = new(1);
         head.Append(2);
         head.Append(3);
         int[] array = new int[3];
@@ -279,7 +283,7 @@ public class NodeTests
         head.CopyTo(array, 0);
 
         // Assert
-        Assert.Equal(new int[] { 1, 2, 3 }, array);
+        Assert.Equal(ExpectedArray, array);
     }
 
     [Fact]
@@ -295,7 +299,7 @@ public class NodeTests
         head.CopyTo(array, 2);
 
         // Assert
-        Assert.Equal(new int[] { 0, 0, 1, 2, 3 }, array);
+        Assert.Equal(ExpectedArrayWithOffset, array);
     }
     
      [Fact]
