@@ -1,5 +1,4 @@
 namespace GenericsHomework.Tests;
-
 public class NodeTests
 {
     [Fact]
@@ -9,7 +8,7 @@ public class NodeTests
         int data = 1;
 
         // Act
-        NodeCollection<int> node = new(data);
+        Node<int> node = new Node<int>(data);
 
         // Assert
         Assert.Equal(data, node.Data);
@@ -20,7 +19,7 @@ public class NodeTests
     public void Append_WhenAddingNodesWithNullOrEmptyStrings_HandlesEmptyStringCorrectly()
     {
         // Arrange
-        NodeCollection<string> head = new("Head");
+        Node<string> head = new Node<string>("Head");
 
         // Act
         head.Append("First");
@@ -35,7 +34,7 @@ public class NodeTests
     public void Append_WhenAddingNodesToLargeList_MaintainsCorrectCircularStructure()
     {
         // Arrange
-        NodeCollection<int> head = new(0);
+        Node<int> head = new Node<int>(0);
         int largeCount = 1000;
 
         for (int i = 1; i <= largeCount; i++)
@@ -44,7 +43,7 @@ public class NodeTests
         }
 
         // Act
-        NodeCollection<int> current = head;
+        Node<int> current = head;
         int count = 1;
 
         while (current.Next != head)
@@ -62,20 +61,20 @@ public class NodeTests
     public void Append_WhenListContainsDuplicateValues_ThrowsException()
     {
         // Arrange
-        NodeCollection<int> head = new(1);
+        Node<int> head = new Node<int>(1);
         head.Append(2);
         head.Append(3);
 
         // Act & Assert
-        ArgumentException firstDuplicateException = Assert.Throws<ArgumentException>(() => head.Append(1));
-        Assert.Equal("Data already exists in the list", firstDuplicateException.Message);
+        ArgumentException exception = Assert.Throws<ArgumentException>(() => head.Append(1));
+        Assert.Equal("Data already exists in the list", exception.Message);
     }
 
     [Fact]
     public void Clear_WithMultipleDataTypes_RemovesAllNodesExceptHead()
     {
         // Arrange
-        NodeCollection<object> head = new("Head");
+        Node<object> head = new Node<object>("Head");
         head.Append(1);
         head.Append(2.5);
         head.Append("Tail");
@@ -94,7 +93,7 @@ public class NodeTests
     public void ToString_WithVariousDataTypes_ReturnsCorrectStringRepresentation()
     {
         // Arrange
-        NodeCollection<object> head = new(1);
+        Node<object> head = new Node<object>(1);
         head.Append("Two");
         head.Append(3.5);
 
@@ -109,7 +108,7 @@ public class NodeTests
     public void Exists_WhenListIsEmpty_ReturnsFalse()
     {
         // Arrange
-        NodeCollection<int> head = new(1);
+        Node<int> head = new Node<int>(1);
 
         // Act
         bool exists = head.Exists(0);
@@ -122,7 +121,7 @@ public class NodeTests
     public void Append_WhenAddingAfterClear_AllowsNewDataSuccessfully()
     {
         // Arrange
-        NodeCollection<int> head = new(1);
+        Node<int> head = new Node<int>(1);
         head.Append(2);
         head.Append(3);
 
@@ -143,7 +142,7 @@ public class NodeTests
     public void Exists_AfterAppendingMultipleDataTypes_ReturnsCorrectExistence()
     {
         // Arrange
-        NodeCollection<object> head = new("Start");
+        Node<object> head = new Node<object>("Start");
         head.Append(123);
         head.Append(45.67);
         head.Append("End");
@@ -159,7 +158,7 @@ public class NodeTests
     public void Append_LargeNumberOfStringNodes_MaintainsCircularReferences()
     {
         // Arrange
-        NodeCollection<string> head = new("Head");
+        Node<string> head = new Node<string>("Head");
         int largeCount = 500;
 
         for (int i = 1; i <= largeCount; i++)
@@ -168,7 +167,7 @@ public class NodeTests
         }
 
         // Act
-        NodeCollection<string> current = head;
+        Node<string> current = head;
         int count = 1;
 
         while (current.Next != head)
@@ -186,11 +185,11 @@ public class NodeTests
     public void Clear_WhenClearingAlreadyClearedList_DoesNotThrowException()
     {
         // Arrange
-        NodeCollection<int> head = new(1);
+        Node<int> head = new Node<int>(1);
         head.Clear(); // Clear once to start
 
         // Act & Assert
-        var exception = Record.Exception(() => head.Clear());
+        Exception exception = Record.Exception(() => head.Clear());
         Assert.Null(exception); // Ensure no exception is thrown on re-clearing
     }
 
@@ -198,7 +197,7 @@ public class NodeTests
     public void Clear_WithMultipleNodes_RemovedNodesPointToThemselves()
     {
         // Arrange
-        var node1 = new NodeCollection<int>(1);
+        Node<int> node1 = new Node<int>(1);
         node1.Append(2);
         node1.Append(3);
 
@@ -208,7 +207,7 @@ public class NodeTests
         // Assert
         Assert.Same(node1, node1.Next); // The Next property of the head node should point to itself
 
-        NodeCollection<int> current = node1.Next;
+        Node<int> current = node1.Next;
         do
         {
             Assert.Same(current, current.Next); // Each node points to itself
@@ -220,10 +219,10 @@ public class NodeTests
     public void Clear_OnEmptyList_DoesNotThrowAndHeadRemainsSelfReferencing()
     {
         // Arrange
-        NodeCollection<object> head = new("Head");
+        Node<object> head = new Node<object>("Head");
 
         // Act & Assert
-        var exception = Record.Exception(() => head.Clear());
+        Exception exception = Record.Exception(() => head.Clear());
         Assert.Null(exception); // Ensures Clear does not throw an exception
         Assert.Same(head, head.Next); // The head node should still point to itself
     }
@@ -232,7 +231,7 @@ public class NodeTests
     public void Clear_OnLongList_HeadSelfReferencingAndAllNodesRemoved()
     {
         // Arrange
-        NodeCollection<int> head = new(0);
+        Node<int> head = new Node<int>(0);
         for (int i = 1; i <= 100; i++)
         {
             head.Append(i);
@@ -249,7 +248,3 @@ public class NodeTests
         }
     }
 }
-
-
-
-

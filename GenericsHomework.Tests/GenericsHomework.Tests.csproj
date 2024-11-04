@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\GenericsHomework\GenericsHomework.csproj" />
+        <ProjectReference Include="..\GenericsHomework\GenericsHomework.csproj" />
     </ItemGroup>
 
 </Project>
