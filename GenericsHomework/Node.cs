@@ -24,4 +24,24 @@ public class Node<T>
         this.Next = newNode; // current node now points to new node, using this. for clarity.
     }
 
+    public void Clear()
+    {
+        // Check to see if Next is equal to itself, if so, it is the only node in the list.
+        if (this.Next == this)
+            return;
+
+        Node<T> current = this.Next;
+
+        // Traverse the list until we reach the final node.
+        while (current != this)
+        {
+            Node<T> nextNode = current.Next;
+            current.Next = current;
+            current = nextNode;
+        }
+
+        // Set the original node to point to itself.
+        this.Next = this;
+    }
+
 }

@@ -67,5 +67,21 @@ public class NodeTests
         Assert.Equal(10, intNode.Next.Next.Next.Value);
     }
 
+    [Fact]
+    public void Clear_ResetsNext_NextValueThis()
+    {
+        // Arrange
+        Node<int> nodeOne = new Node<int>(10);
+        nodeOne.Append(20);
+        nodeOne.Next.Append(30);
+
+        // Act
+        nodeOne.Clear();
+
+        // Assert
+        Assert.Equal(10, nodeOne.Next.Value);
+    }
+
+
 
 }
