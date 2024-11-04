@@ -8,12 +8,14 @@ public record class Book : BaseEntity
     public int YearPublished { get; init;}
     public int ISBN { get; init; }
 
-    // Implementing the Name property from BaseEntity explicitly to provide a calculated property.
-    // This implementation is explicit to enforce that Name is derived from Title, Author, and ISBN 
-    // and is not stored in a separate field, maintaining the requirement for a calculated value.
-    public override string Name
+        // Implementing the Name property from BaseEntity explicitly to provide a calculated property.
+        // This implementation is explicit to enforce that Name is derived from Title, Author, and ISBN 
+        // and is not stored in a separate field, maintaining the requirement for a calculated value.
+        public override string Name
     {
         get => $"{Title} by {Author.ToString()} (ISBN: {ISBN})";
+
+        set => throw new InvalidOperationException("The Name property is calculated and cannot be set directly.");
     }
 
     public Book(string title, string authorName, int yearPublished, int isbn)
