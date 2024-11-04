@@ -57,7 +57,7 @@ public class NodeTests
     public void Append_NextPointsBackOriginal_ReturnsIntNodeValue()
     {
         // Arrange
-        Node<int> intNode = new Node<int>(10);
+        Node<int> intNode = new(10);
 
         // Act
         intNode.Append(20);
@@ -96,6 +96,19 @@ public class NodeTests
 
         // Assert
         Assert.True(exists);
+    }
+
+    [Fact]
+    public void Append_DuplicateValue_ThrowsInvalidOperationsError()
+    {
+        // Arrange
+        Node<int> intNode = new Node<int>(10);
+        intNode.Append(20);
+        intNode.Next.Append(30);
+        intNode.Next.Next.Append(40);
+
+        // Act & Assert
+        Assert.Throws<InvalidOperationException>(() => intNode.Append(30));
     }
 
 

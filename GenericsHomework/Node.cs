@@ -19,6 +19,10 @@ public class Node<T>
 
     public void Append(T? value)
     {
+        if (Exists(value))
+            throw new InvalidOperationException($"Duplicate value exists, not allowed: {value}");
+        
+
         Node<T> newNode = new(value);
         newNode.Next = this.Next; // New Node points back to original.
         this.Next = newNode; // current node now points to new node, using this. for clarity.
