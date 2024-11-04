@@ -31,18 +31,4 @@ public class FullNameTests
         // Assess
         Assert.Equal("John Michael Doe", result);
     }
-
-    //[Fact]
-    //public void NullFirstName_AllArgumentsNullFirst_ThrowsNullException()
-    //{
-    //    // Arrange, Act & Assess
-    //    Assert.Throws<ArgumentNullException>(() => new FullName(null!, "Michael", "Doe"));
-    //}
-
-    //[Fact]
-    //public void NullLastName_AllArgumentsNullLast_ThrowsNullException()
-    //{
-    //    // Arrange, Act & Assess
-    //    Assert.Throws<ArgumentNullException>(() => new FullName("John", "Michael", null!));
-    //}
 }
