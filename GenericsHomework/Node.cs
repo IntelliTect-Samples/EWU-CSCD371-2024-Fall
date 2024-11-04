@@ -3,8 +3,6 @@
 
  namespace GenericsHomework;
 
- [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", 
-     "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Benjamin is allowing us to suppress this warning.")]
  public class Node<T> : ICollection<T>
  {
      public T Data { get; private set; }
