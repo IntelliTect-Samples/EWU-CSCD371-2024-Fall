@@ -247,4 +247,164 @@ public class NodeTests
             Assert.False(head.Exists(i)); // Each element should be removed
         }
     }
+    
+    [Fact]
+    public void Clear_RemovesAllNodesExceptHead()
+    {
+        // Arrange
+        Node<int> head = new (1);
+        head.Append(2);
+        head.Append(3);
+
+        // Act
+        head.Clear();
+
+        // Assert
+        Assert.Equal(head, head.Next); // Ensure the head node points to itself
+        Assert.Single(head);           // Check that only one node (the head) remains
+        Assert.False(head.Exists(2));
+        Assert.False(head.Exists(3));
+    }
+    
+    [Fact]
+    public void CopyTo_CopiesElementsToTargetArray()
+    {
+        // Arrange
+        Node<int> head = new (1);
+        head.Append(2);
+        head.Append(3);
+        int[] array = new int[3];
+
+        // Act
+        head.CopyTo(array, 0);
+
+        // Assert
+        Assert.Equal(new int[] { 1, 2, 3 }, array);
+    }
+
+    [Fact]
+    public void CopyTo_WithNonZeroIndex_CopiesElementsToTargetArrayStartingAtIndex()
+    {
+        // Arrange
+        Node<int> head = new (1);
+        head.Append(2);
+        head.Append(3);
+        int[] array = new int[5];
+
+        // Act
+        head.CopyTo(array, 2);
+
+        // Assert
+        Assert.Equal(new int[] { 0, 0, 1, 2, 3 }, array);
+    }
+    
+     [Fact]
+    public void Remove_RemovesExistingNodeSuccessfully()
+    {
+        // Arrange
+        Node<int> head = new (1);
+        head.Append(2);
+        head.Append(3);
+
+        // Act
+        bool removed = head.Remove(2);
+
+        // Assert
+        Assert.True(removed);
+        Assert.False(head.Exists(2));
+        Assert.Equal(2, head.Count);
+    }
+
+    [Fact]
+    public void Remove_NonexistentNode_ReturnsFalse()
+    {
+        // Arrange
+        Node<int> head = new (1);
+        head.Append(2);
+
+        // Act
+        bool removed = head.Remove(3);
+
+        // Assert
+        Assert.False(removed);
+    }
+
+    [Fact]
+    public void Enumerator_IteratesThroughAllElements()
+    {
+        // Arrange
+        Node<int> head = new (1);
+        head.Append(2);
+        head.Append(3);
+        List<int> elements = new ();
+
+        // Act
+        foreach (int item in head)
+        {
+            elements.Add(item);
+        }
+
+        // Assert
+        Assert.Equal(new List<int> { 1, 2, 3 }, elements);
+    }
+
+    [Fact]
+    public void Count_ReturnsCorrectNumberOfElements()
+    {
+        // Arrange
+        Node<int> head = new (1);
+        head.Append(2);
+        head.Append(3);
+
+        // Act
+        int count = head.Count;
+
+        // Assert
+        Assert.Equal(3, count);
+    }
+
+    [Fact]
+    public void IsReadOnly_ReturnsFalse()
+    {
+        // Arrange
+        Node<int> head = new (1);
+
+        // Act
+        bool isReadOnly = head.IsReadOnly;
+
+        // Assert
+        Assert.False(isReadOnly);
+    }
+
+    [Fact]
+    public void Clear_OnAlreadyClearedList_DoesNotThrow()
+    {
+        // Arrange
+        Node<int> head = new (1);
+        head.Clear();
+
+        // Act & Assert
+        var exception = Record.Exception(() => head.Clear());
+        Assert.Null(exception);
+    }
+
+    [Fact]
+    public void Clear_SetsEachNodeToSelfReferencing()
+    {
+        // Arrange
+        Node<int> head = new (1);
+        head.Append(2);
+        head.Append(3);
+
+        // Act
+        head.Clear();
+
+        // Assert
+        Node<int> current = head;
+        do
+        {
+            Assert.Equal(current, current.Next);
+            current = current.Next;
+        } while (current != head);
+    }
 }
