@@ -1,8 +1,8 @@
 ﻿using Xunit;   
 
 namespace Logger.Tests;
-    public class EmployeeTests
-    {
+public class EmployeeTests
+{
 
     [Fact]
     public void Employee_ValidData_CreatesRecord()
