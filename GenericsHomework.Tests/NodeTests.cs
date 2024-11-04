@@ -8,7 +8,7 @@ public class NodeTests
         int data = 1;
 
         // Act
-        Node<int> node = new Node<int>(data);
+        Node<int> node = new (data);
 
         // Assert
         Assert.Equal(data, node.Data);
@@ -19,7 +19,7 @@ public class NodeTests
     public void Append_WhenAddingNodesWithNullOrEmptyStrings_HandlesEmptyStringCorrectly()
     {
         // Arrange
-        Node<string> head = new Node<string>("Head");
+        Node<string> head = new ("Head");
 
         // Act
         head.Append("First");
@@ -34,7 +34,7 @@ public class NodeTests
     public void Append_WhenAddingNodesToLargeList_MaintainsCorrectCircularStructure()
     {
         // Arrange
-        Node<int> head = new Node<int>(0);
+        Node<int> head = new (0);
         int largeCount = 1000;
 
         for (int i = 1; i <= largeCount; i++)
@@ -61,7 +61,7 @@ public class NodeTests
     public void Append_WhenListContainsDuplicateValues_ThrowsException()
     {
         // Arrange
-        Node<int> head = new Node<int>(1);
+        Node<int> head = new (1);
         head.Append(2);
         head.Append(3);
 
@@ -74,7 +74,7 @@ public class NodeTests
     public void Clear_WithMultipleDataTypes_RemovesAllNodesExceptHead()
     {
         // Arrange
-        Node<object> head = new Node<object>("Head");
+        Node<object> head = new ("Head");
         head.Append(1);
         head.Append(2.5);
         head.Append("Tail");
@@ -93,7 +93,7 @@ public class NodeTests
     public void ToString_WithVariousDataTypes_ReturnsCorrectStringRepresentation()
     {
         // Arrange
-        Node<object> head = new Node<object>(1);
+        Node<object> head = new (1);
         head.Append("Two");
         head.Append(3.5);
 
@@ -108,7 +108,7 @@ public class NodeTests
     public void Exists_WhenListIsEmpty_ReturnsFalse()
     {
         // Arrange
-        Node<int> head = new Node<int>(1);
+        Node<int> head = new (1);
 
         // Act
         bool exists = head.Exists(0);
@@ -121,7 +121,7 @@ public class NodeTests
     public void Append_WhenAddingAfterClear_AllowsNewDataSuccessfully()
     {
         // Arrange
-        Node<int> head = new Node<int>(1);
+        Node<int> head = new (1);
         head.Append(2);
         head.Append(3);
 
@@ -142,7 +142,7 @@ public class NodeTests
     public void Exists_AfterAppendingMultipleDataTypes_ReturnsCorrectExistence()
     {
         // Arrange
-        Node<object> head = new Node<object>("Start");
+        Node<object> head = new ("Start");
         head.Append(123);
         head.Append(45.67);
         head.Append("End");
@@ -158,7 +158,7 @@ public class NodeTests
     public void Append_LargeNumberOfStringNodes_MaintainsCircularReferences()
     {
         // Arrange
-        Node<string> head = new Node<string>("Head");
+        Node<string> head = new ("Head");
         int largeCount = 500;
 
         for (int i = 1; i <= largeCount; i++)
@@ -185,7 +185,7 @@ public class NodeTests
     public void Clear_WhenClearingAlreadyClearedList_DoesNotThrowException()
     {
         // Arrange
-        Node<int> head = new Node<int>(1);
+        Node<int> head = new (1);
         head.Clear(); // Clear once to start
 
         // Act & Assert
@@ -197,7 +197,7 @@ public class NodeTests
     public void Clear_WithMultipleNodes_RemovedNodesPointToThemselves()
     {
         // Arrange
-        Node<int> node1 = new Node<int>(1);
+        Node<int> node1 = new (1);
         node1.Append(2);
         node1.Append(3);
 
@@ -219,7 +219,7 @@ public class NodeTests
     public void Clear_OnEmptyList_DoesNotThrowAndHeadRemainsSelfReferencing()
     {
         // Arrange
-        Node<object> head = new Node<object>("Head");
+        Node<object> head = new ("Head");
 
         // Act & Assert
         Exception exception = Record.Exception(() => head.Clear());
@@ -231,7 +231,7 @@ public class NodeTests
     public void Clear_OnLongList_HeadSelfReferencingAndAllNodesRemoved()
     {
         // Arrange
-        Node<int> head = new Node<int>(0);
+        Node<int> head = new (0);
         for (int i = 1; i <= 100; i++)
         {
             head.Append(i);
