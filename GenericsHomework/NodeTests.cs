@@ -1,47 +1,58 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GenericsHomework;
 
+[TestClass]
 public class NodeTests
 {
-    // Test to string
-        // null(?) node
-        // list with 1 node
-        // list with a few nodes
 
     [TestMethod]
     public void ToString_NullNode_ReturnsNull()
     {
+        Console.WriteLine("Is working");
         Node<string> newNode = null;
-        //var value = newNode?.ToString();
         Assert.ThrowsException<NullReferenceException>(() => newNode?.ToString());
     }
 
-    [TestMethod]
-    public void ToString_EmptyNode_Passes()
+
+    // IEnumerable for testing different kinds of objects.  Used by test below
+    public static IEnumerable<object> AdditionData
     {
-        Node<string> newNode = new("HelloWorld");
-        var compareVal = "HelloWorld";
-        Assert.AreEqual(compareVal, newNode.ToString());
+        get
+        {
+            return new object[]
+            {
+                "",
+                "Hello World",
+                new Node<string>("DATA"),
+                new DateTime(year: 1603, month: 10, day: 12)
+            };
+        }
     }
 
+
+    [TestMethod]
+    [DynamicData(nameof(AdditionData))]
+    public void ToString_TestingVariousObjects_Passes(object value)
+    {
+        // Arrange
+        Type type = value.GetType().BaseType;
+        Node<object> newNode = new(value);
+        
+        // Assert
+        Assert.AreEqual(value, newNode.ToString());
+    }
+
+
     // Test Append
-    // null(?) node
-    // list with 1 node
-    // list with a few nodes
 
     // Test Clear
-    // null(?) node
+    // null node
     // list with 1 node
     // list with a few nodes
 
     // Test Exists
-    // null(?) node
+    // null node
     // list with 1 node
     // list with a few nodes
 
