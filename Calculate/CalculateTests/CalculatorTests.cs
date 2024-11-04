@@ -13,7 +13,7 @@ public class CalculatorTests
         int number2 = 10;
 
         // Act
-        Calculator.Add(number1, number2, out int result);
+        Calculator.Add(number1, number2, out double result);
 
         // Assert
         Assert.AreEqual(15, result);
@@ -27,7 +27,7 @@ public class CalculatorTests
         int num2 = 5;
 
         // Act
-        Calculator.Subtract(num1, num2, out int result);
+        Calculator.Subtract(num1, num2, out double result);
 
         // Assert
         Assert.AreEqual(5, result);
@@ -41,7 +41,7 @@ public class CalculatorTests
         int num2 = 10;
 
         // Act
-        Calculator.Multiply(num1, num2, out int result);
+        Calculator.Multiply(num1, num2, out double result);
 
         // Assert
         Assert.AreEqual(50, result);
