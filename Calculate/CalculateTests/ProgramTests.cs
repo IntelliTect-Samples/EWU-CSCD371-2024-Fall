@@ -32,7 +32,7 @@ public class ProgramTests
 
         // Act
         program.WriteLine("test");
-        string output = stringWriter.ToString();
+        string output = stringWriter.ToString().Trim();
 
         // Assert
         Assert.AreEqual(expectedOutput, output);
