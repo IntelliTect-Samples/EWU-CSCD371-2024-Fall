@@ -9,5 +9,6 @@
 		<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	 	<NoWarn>$(NoWarn);CA1710</NoWarn>
  </PropertyGroup>
 </Project>
