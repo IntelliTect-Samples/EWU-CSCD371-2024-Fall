@@ -11,7 +11,7 @@ public class TestLogger : BaseLogger, ILogger
 
     static T ILogger.CreateLogger<T, U>(in U configuration) =>
         configuration is TestLoggerConfiguration testLoggerConfiguration
-            ? (T)(object)CreateLogger(testLoggerConfiguration)
+            ? (T)CreateLogger(testLoggerConfiguration)
             : throw new ArgumentException("Invalid configuration type", nameof(configuration));
 
     public override void Log(LogLevel logLevel, string message) => LoggedMessages.Add((logLevel, message));
