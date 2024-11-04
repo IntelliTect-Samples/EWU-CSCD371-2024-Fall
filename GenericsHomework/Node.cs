@@ -40,8 +40,12 @@ public class Node<T>
             current = nextNode;
         }
 
-        // Set the original node to point to itself.
+        // Set the original node to point to itself. The list is now empty.
         this.Next = this;
+
+        // Garbage collection isn't a concern after setting this.Next to this because the other nodes are no longer reachable.
+        // However, if the list is still reachable, the garbage collector will not collect it. Reset each node to itself to ensure detachment.
     }
+
 
 }
