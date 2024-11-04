@@ -22,4 +22,15 @@ public class Node<T>
         Next = nextNode ?? throw new ArgumentNullException(nameof(nextNode));
     }
 
+    public void Append(T? value)
+    {
+        Node<T> newNode = new Node<T>(value);
+        Next = newNode;
+    }
+
+    public void Append(Node<T> newNode)
+    {
+        Next = newNode;
+    }
+
 }

@@ -52,4 +52,20 @@ public class NodeTests
         // Assert
         Assert.Equal(20, intNode.Next.Value);
     }
+
+    [Fact]
+    public void Append_ValueNewNode_NewNodeEqualValue()
+    {
+        // Arrange
+        Node<int> intNode = new Node<int>(10);
+        Node<int> newNode = new Node<int>(20);
+
+        // Act
+        intNode.Append(newNode);
+
+        // Assert
+        Assert.Equal(20, intNode.Next.Value);
+    }
+
+
 }
