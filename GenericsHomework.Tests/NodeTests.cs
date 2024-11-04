@@ -82,6 +82,23 @@ public class NodeTests
         Assert.Equal(10, nodeOne.Next.Value);
     }
 
+    [Fact]
+    public void Exists_SearchForValue_ReturnsValueIfExists()
+    {
+        // Arrange
+        Node<int> nodeOne = new Node<int>(10);
+        nodeOne.Append(20);
+        nodeOne.Next.Append(30);
+        nodeOne.Next.Next.Append(40);
+        int searchValue = 30;
+
+        // Act
+        bool exists = nodeOne.Exists(value);
+
+        // Assert
+        Assert.True(exists);
+    }
+
 
 
 }
