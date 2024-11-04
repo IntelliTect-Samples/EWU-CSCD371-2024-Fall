@@ -1,6 +1,6 @@
 ﻿public class Program
 {
-    public Func<string> ReadLine { get; init; }
+    public Func<string?> ReadLine { get; init; }
     public Action<string> WriteLine { get; init; }
 
     public Program()
