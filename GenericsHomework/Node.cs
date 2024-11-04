@@ -2,10 +2,7 @@
 
 public class Node<T>
 {
-    // Value that will be held by the node
     public T Value { get; }
-
-    // Reference to the next node
     public Node<T> Next { get; private set; }
 
     // initialize the node with a value
@@ -60,7 +57,23 @@ public class Node<T>
 
         return false;
     }
+    public void Clear()
+    {
+        // Start from the node after the current node
+        Node<T> current = this.Next;
+        Node<T> previous = this;
 
+        // Traverse and disconnect each node
+        while (current != this)
+        {
+            Node<T> nextNode = current.Next; // Save the next node
+            previous.Next = previous;        // Disconnect the current node
+            current = nextNode;              // Move to the next node
+        }
+
+        // Reset next to point back to itself
+        this.Next = this;
+    }
 }
 
 
