@@ -32,4 +32,18 @@ public class CalculatorTests
         // Assert
         Assert.AreEqual(5, result);
     }
+
+    [TestMethod]
+    public void Multiply_TwoNumbers_ReturnsProduct()
+    {
+        // Arrange
+        int num1 = 5;
+        int num2 = 10;
+
+        // Act
+        Calculator.Multiply(num1, num2, out int result);
+
+        // Assert
+        Assert.AreEqual(50, result);
+    }
 }
