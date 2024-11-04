@@ -17,20 +17,11 @@ public class Node<T>
         return $"{Value}";
     }
 
-    public void SetNext(Node<T> nextNode)
-    {
-        Next = nextNode ?? throw new ArgumentNullException(nameof(nextNode));
-    }
-
     public void Append(T? value)
     {
-        Node<T> newNode = new Node<T>(value);
-        Next = newNode;
-    }
-
-    public void Append(Node<T> newNode)
-    {
-        Next = newNode;
+        Node<T> newNode = new(value);
+        newNode.Next = this.Next; // New Node points back to original.
+        this.Next = newNode; // current node now points to new node, using this. for clarity.
     }
 
 }

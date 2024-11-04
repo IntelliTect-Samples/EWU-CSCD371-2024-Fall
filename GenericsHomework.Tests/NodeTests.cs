@@ -47,24 +47,24 @@ public class NodeTests
         Node<int> intNode = new Node<int>(10);
 
         // Act
-        intNode.SetNext(new Node<int>(20));
+        intNode.Append(20);
 
         // Assert
         Assert.Equal(20, intNode.Next.Value);
     }
 
     [Fact]
-    public void Append_ValueNewNode_NewNodeEqualValue()
+    public void Append_NextPointsBackOriginal_ReturnsIntNodeValue()
     {
         // Arrange
         Node<int> intNode = new Node<int>(10);
-        Node<int> newNode = new Node<int>(20);
 
         // Act
-        intNode.Append(newNode);
+        intNode.Append(20);
+        intNode.Next.Append(30);
 
         // Assert
-        Assert.Equal(20, intNode.Next.Value);
+        Assert.Equal(10, intNode.Next.Next.Next.Value);
     }
 
 
