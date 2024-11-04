@@ -11,7 +11,7 @@ public class NodeTests
         int value = 5;
 
         // Act
-        Node<int> newNode = new Node<int>(value);
+        Node<int> newNode = new(value);
 
         // Assert
         Assert.Equal(value, newNode.Value);
@@ -22,8 +22,8 @@ public class NodeTests
     public void NodeConstructor_AllowsHomogenousTypes_ValuesEqual()
     {
         // Arrange & Act
-        Node<int> intNode = new Node<int>(10);
-        Node<string> stringNode = new Node<string>("Hello");
+        Node<int> intNode = new(10);
+        Node<string> stringNode = new("Hello");
 
         // Assert
         Assert.Equal(typeof(Node<int>), intNode.GetType());
@@ -34,7 +34,7 @@ public class NodeTests
     public void ToString_OverrideToString_ExistsIsEqual()
     {
         // Arrange
-        Node<int> intNode = new Node<int>(10);
+        Node<int> intNode = new(10);
 
         // Act & Assert
         Assert.Equal("10", intNode.ToString());
@@ -44,7 +44,7 @@ public class NodeTests
     public void Next_RefersNextNode_ReturnsNextNodeValue()
     {
         // Arrange
-        Node<int> intNode = new Node<int>(10);
+        Node<int> intNode = new(10);
 
         // Act
         intNode.Append(20);
@@ -71,7 +71,7 @@ public class NodeTests
     public void Clear_ResetsNext_NextValueThis()
     {
         // Arrange
-        Node<int> nodeOne = new Node<int>(10);
+        Node<int> nodeOne = new(10);
         nodeOne.Append(20);
         nodeOne.Next.Append(30);
 
@@ -86,7 +86,7 @@ public class NodeTests
     public void Exists_SearchForValue_ReturnsValueIfExists()
     {
         // Arrange
-        Node<string> nodeOne = new Node<string>("one");
+        Node<string> nodeOne = new("one");
         nodeOne.Append("Two");
         nodeOne.Next.Append("Three");
         nodeOne.Next.Next.Append("Four");
@@ -102,7 +102,7 @@ public class NodeTests
     public void Append_DuplicateValue_ThrowsInvalidOperationsError()
     {
         // Arrange
-        Node<int> intNode = new Node<int>(10);
+        Node<int> intNode = new(10);
         intNode.Append(20);
         intNode.Next.Append(30);
         intNode.Next.Next.Append(40);
