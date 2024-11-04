@@ -86,14 +86,13 @@ public class NodeTests
     public void Exists_SearchForValue_ReturnsValueIfExists()
     {
         // Arrange
-        Node<int> nodeOne = new Node<int>(10);
-        nodeOne.Append(20);
-        nodeOne.Next.Append(30);
-        nodeOne.Next.Next.Append(40);
-        int searchValue = 30;
+        Node<string> nodeOne = new Node<string>("one");
+        nodeOne.Append("Two");
+        nodeOne.Next.Append("Three");
+        nodeOne.Next.Next.Append("Four");
 
         // Act
-        bool exists = nodeOne.Exists(value);
+        bool exists = nodeOne.Exists("Three");
 
         // Assert
         Assert.True(exists);

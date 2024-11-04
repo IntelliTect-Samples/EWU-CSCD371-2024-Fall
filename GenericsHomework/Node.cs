@@ -47,5 +47,21 @@ public class Node<T>
         // However, if the list is still reachable, the garbage collector will not collect it. Reset each node to itself to ensure detachment.
     }
 
+    public bool Exists(T? value)
+    {
+        Node<T> current = this;
+
+        // Traverse the list until we circle back to the starting node.
+        do
+        {
+            if (EqualityComparer<T>.Default.Equals(current.Value, value))
+            {
+                return true;
+            }
+            current = current.Next;
+        } while (current != this);
+
+        return false;
+    }
 
 }
