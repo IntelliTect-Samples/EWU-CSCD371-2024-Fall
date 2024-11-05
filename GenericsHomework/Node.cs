@@ -13,7 +13,7 @@ public class Node<T>
 
     public void Append(T data)
     {
-        Node<T> newNode = new Node<T>(data);
+        Node<T> newNode = new(data);
         if(Exists(data))
         {
             throw new InvalidOperationException("Data already exists in the list");
