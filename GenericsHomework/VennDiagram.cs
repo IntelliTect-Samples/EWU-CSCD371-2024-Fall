@@ -1,4 +1,4 @@
-﻿namespace GenericsHomework;
+namespace GenericsHomework;
 
 public class VennDiagram<T> where T : class
 {
@@ -8,8 +8,9 @@ public class VennDiagram<T> where T : class
     {
         if (numberOfCircles <= 0)
         {
-            throw new ArgumentException("Number of circles must be greater than zero.");
+            throw new ArgumentException("Circles must be > 0.");
         }
+
         _circles = new List<Circle<T>>(numberOfCircles);
 
         for (int i = 0; i < numberOfCircles; i++)
@@ -24,10 +25,11 @@ public class VennDiagram<T> where T : class
         {
             throw new ArgumentOutOfRangeException(nameof(index), "Invalid circle index.");
         }
+
         return _circles[index];
     }
 
-    public void AddItemToCircles(T item, params int[] circleIndexes)
+    public void AddItem(T item, params int[] circleIndexes)
     {
         foreach (var index in circleIndexes)
         {
@@ -40,50 +42,13 @@ public class VennDiagram<T> where T : class
         return _circles.SelectMany(circle => circle.Items).Distinct();
     }
 
-    public IEnumerable<T> GetIntersection(params int[] circleIndexes)
-    {
-        if (circleIndexes.Length == 0)
-        {
-            throw new ArgumentException("At least one circle index must be provided.");
-        }
-
-        var intersection = GetCircle(circleIndexes[0]).Items;
-        foreach (var index in circleIndexes.Skip(1))
-        {
-            intersection = intersection.Intersect(GetCircle(index).Items).ToList();
-        }
-
-        return intersection;
-    }
-
     public IEnumerable<T> GetUniqueToCircle(int circleIndex)
     {
         var targetCircle = GetCircle(circleIndex).Items;
         var otherItems = _circles.Where((_, idx) => idx != circleIndex)
                                   .SelectMany(circle => circle.Items)
                                   .ToHashSet();
+
         return targetCircle.Where(item => !otherItems.Contains(item));
-    }
-}
-
-public class Circle<T> where T : class
-{
-
-    private readonly HashSet<T> _items;
-
-    public IReadOnlyCollection<T> Items => _items;
-
-    public Circle()
-    {
-        _items = new HashSet<T>();
-    }
-
-    public void AddItem(T item)
-    {
-        if (item == null)
-        {
-            throw new ArgumentNullException(nameof(item), "Item cannot be null.");
-        }
-        _items.Add(item);
     }
 }
