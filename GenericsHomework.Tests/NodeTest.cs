@@ -1,3 +1,4 @@
+namespace GenericsHomework.Tests;
 using System;
 using Xunit;
 
@@ -10,7 +11,7 @@ public class NodeTests
         Node<string> node = new Node<string>("data");
 
         // Act & Assert
-        Assert.Throws<ArgumentNullException>(() => node.Append(null));
+        Assert.Throws<ArgumentNullException>(() => node.Append(null!));
     }
 
     [Fact]
