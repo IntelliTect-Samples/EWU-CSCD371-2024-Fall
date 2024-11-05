@@ -6,17 +6,19 @@ namespace Calculate.Tests;
 public class CalculatorTests
 {
     [TestMethod]
-    public void Add_TwoNumbers_ReturnsSum()
+    [DataRow(5, 10)]
+    [DataRow(5.0, 10)]
+    [DataRow(0,0.1)]
+    public void Add_TwoNumbers_ReturnsSum<T>(T a, T b) where T : IConvertible
     {
         // Arrange
-        int number1 = 5;
-        int number2 = 10;
-
+        double a1 = Convert.ToDouble(a);
+        double b1 = Convert.ToDouble(b);
         // Act
-        Calculator.Add(number1, number2, out double result);
+        Calculator.Add(a1, b1, out double result);
 
         // Assert
-        Assert.AreEqual(15, result);
+        Assert.AreEqual(a1+b1, result);
     }
 
     [TestMethod]
