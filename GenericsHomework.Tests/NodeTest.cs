@@ -5,20 +5,20 @@ using Xunit;
 public class NodeTests
 {
     [Fact]
-    public void Append_NullData_ThrowsArgumentNullException()
+    public void AppendNullDataThrowsArgumentNullException()
     {
         // Arrange
-        Node<string> node = new Node<string>("data");
+        Node<string> node = new("data");
 
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() => node.Append(null!));
     }
 
     [Fact]
-    public void Append_ExistingData_ThrowsInvalidOperationException()
+    public void AppendExistingDataThrowsInvalidOperationException()
     {
         // Arrange
-        Node<int> node = new Node<int>(1);
+        Node<int> node = new(1);
         node.Append(2);
         node.Append(3);
 
@@ -27,10 +27,10 @@ public class NodeTests
     }
 
     [Fact]
-    public void Exists_DataExists_ReturnsTrue()
+    public void ExistsDataExistsReturnsTrue()
     {
         // Arrange
-        Node<int> node = new Node<int>(1);
+        Node<int> node = new(1);
         node.Append(2);
         node.Append(3);
 
@@ -42,10 +42,10 @@ public class NodeTests
     }
 
     [Fact]
-    public void Exists_DataDoesNotExist_ReturnsFalse()
+    public void ExistsDataDoesNotExistReturnsFalse()
     {
         // Arrange
-        Node<int> node = new Node<int>(1);
+        Node<int> node = new(1);
         node.Append(2);
         node.Append(3);
 
@@ -57,10 +57,10 @@ public class NodeTests
     }
 
     [Fact]
-    public void Clear_RemovesAllNodes()
+    public void ClearRemovesAllNodes()
     {
         // Arrange
-        Node<int> node = new Node<int>(1);
+        Node<int> node = new(1);
         node.Append(2);
         node.Append(3);
 
@@ -71,10 +71,10 @@ public class NodeTests
         Assert.Null(node.Next);
     }
     [Fact]
-    public void ToString_ReturnsDataAsString()
+    public void ToStringReturnsDataAsString()
     {
         // Arrange
-        Node<int> node = new Node<int>(42);
+        Node<int> node = new(42);
 
         // Act
         string result = node.ToString();
