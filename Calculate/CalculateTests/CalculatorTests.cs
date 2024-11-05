@@ -85,4 +85,55 @@ public class CalculatorTests
         // Assert
         Assert.AreEqual(3.3333333333333335, result);
     }
+
+    [TestMethod]
+    public void Dictionary_Should_Contain_All_Operations()
+    {
+        var calculator = new Calculator();
+
+        Assert.IsTrue(calculator.MathematicalOperations.ContainsKey('+'));
+        Assert.IsTrue(calculator.MathematicalOperations.ContainsKey('-'));
+        Assert.IsTrue(calculator.MathematicalOperations.ContainsKey('*'));
+        Assert.IsTrue(calculator.MathematicalOperations.ContainsKey('/'));
+    }
+
+    [TestMethod]
+    public void Addition_Should_Return_Correct_Result()
+    {
+        var calculator = new Calculator();
+
+        calculator.MathematicalOperations['+'](5, 3, out double result);
+
+        Assert.AreEqual(8.0, result);
+    }
+
+    [TestMethod]
+    public void Subtraction_Should_Return_Correct_Result()
+    {
+        var calculator = new Calculator();
+
+        calculator.MathematicalOperations['-'](5, 3, out double result);
+
+        Assert.AreEqual(2.0, result);
+    }
+
+    [TestMethod]
+    public void Multiplication_Should_Return_Correct_Result()
+    {
+        var calculator = new Calculator();
+
+        calculator.MathematicalOperations['*'](5, 3, out double result);
+
+        Assert.AreEqual(15.0, result);
+    }
+
+    [TestMethod]
+    public void Division_Should_Return_Correct_Result()
+    {
+        var calculator = new Calculator();
+
+        calculator.MathematicalOperations['/'](6, 3, out double result);
+
+        Assert.AreEqual(2.0, result);
+    }
 }
