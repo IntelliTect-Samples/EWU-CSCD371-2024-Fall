@@ -1,6 +1,8 @@
+namespace GenericsHomework;
+
 public class Node<T>
 {
-    public T Data { get; set; }
+    public T Data { get; }
     public Node<T> Next { get; set; }
 
     public Node(T data)
@@ -37,7 +39,7 @@ public class Node<T>
         Node<T> current = this;
         do
         {
-            if (current.Data.Equals(data))
+            if (current.Data == null && data == null || current!.Data!.Equals(data))
             {
                return true;
             }
@@ -48,7 +50,14 @@ public class Node<T>
 
     public void Clear()
     {
-        Next = null;
+        Node<T> current = this.Next;
+        while (current != this)
+        {
+            Node<T> temp = current;
+            current = current.Next;
+            temp.Next = temp;
+        }
+        this.Next = this;
     }
 
     public override string ToString()

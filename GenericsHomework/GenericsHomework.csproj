@@ -1,18 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-        <!-- Add other NuGet package references here -->
-    </ItemGroup>
-
-    <ItemGroup>
-        <Compile Include="Program.cs" />
-        <!-- Add other source code files here -->
-    </ItemGroup>
 
 </Project>
