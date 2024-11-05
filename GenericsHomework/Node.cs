@@ -30,15 +30,15 @@ public class Node<T>
     public bool Exists(T value)
     { 
         Node<T> node = this;
-
-        while (node.Next != this)
+        //This method loop around all the nodes and check if the value exists in the list
+        do
         {
             if (EqualityComparer<T>.Default.Equals(node.Value, value))
             {
                 return true;
             }
             node = node.Next;
-        }
+        } while (node != this);
         return false;
 
     }
@@ -63,7 +63,7 @@ public class Node<T>
         //which effectively removes all the nodes from the list
 
         var node = Next;
-        while (node.Next != null)
+        while (node.Next != this)
         {
             node = node.Next;
         }
