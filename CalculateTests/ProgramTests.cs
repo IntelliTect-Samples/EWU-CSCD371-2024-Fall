@@ -1,3 +1,5 @@
+using Calculate;
+
 namespace CalculateTests;
 
 [TestClass]

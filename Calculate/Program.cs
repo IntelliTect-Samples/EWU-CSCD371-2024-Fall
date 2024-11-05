@@ -1,5 +1,7 @@
-using Calculate;
 
+using System.Globalization;
+
+namespace Calculate;
 public class Program
 {
     public Func<string?> ReadLine { get; init; }
@@ -29,11 +31,11 @@ public class Program
         {
             input =ReadLine() ?? "";
 
-            if (input.Equals("exit", StringComparison.OrdinalIgnoreCase) || input.Equals("")) break;
+            if (input.Equals("exit", StringComparison.OrdinalIgnoreCase) || input.Equals("", StringComparison.OrdinalIgnoreCase)) break;
             status = calculator.TryCalculate(input,out output);
             if (status)
             {
-                WriteLine(output.ToString());
+                WriteLine(output.ToString(new CultureInfo("en-US")));
             }
             else
             {
