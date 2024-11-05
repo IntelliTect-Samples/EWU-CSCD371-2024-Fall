@@ -23,30 +23,30 @@ Chapters 11, 12
     - Whether to set the removed items to circle back on themselves. In other words, whether to close the loop of the removed items. (Provide a test to show why this is required if it is required). ✔
     - Given there is a circular list of items, provide a comment to indicate whether you need to worry about garbage collection because all the items point to each other and, therefore, may never be garbage collected. ✔
   - Create an Exists method to test whether a value exists in the list. ✔
-  - Throw an error on an attempt to Append a duplicate value. (Make sure you test for this case) ❌✔
+  - Throw an error on an attempt to Append a duplicate value. (Make sure you test for this case) ✔
 - You should not rely on any BCL generic classes for your implementation. ✔
 
 ## Extra Credit
 
 Do one of the following two options (or both if you want extra, extra credit) :)
 
-1. Implement a `VennDiagram` structure that contains `n` `Circle`s that only contains homogenous **reference types** of any type. ❌✔
+1. Implement a `VennDiagram` structure that contains `n` `Circle`s that only contains homogenous **reference types** of any type. ✔
 
 - Each circle contains n items and each item can belong to one or more `Circle` instances.
 - You are not required to use a `Node` from earlier in the homework for your Venn diagram implementation.
 - You are welcome to use existing BCL generic classes for the extra credit.
 
-1. Implement `System.Collections.Generic.ICollection<T>` on the `Node` class ❌✔
+1. Implement `System.Collections.Generic.ICollection<T>` on the `Node` class ✔
 
 ## Fundamentals
 
 - Place all shared project properties into a `Directory.Build.Props` file.
-- nullable reference types is enabled  ❌✔
-- Ensure that you turn on code analysis for all projects(EnableNETAnalyzers)  ❌✔
-- Set LangVersion and the TargetFramework to the latest released versions available (preview versions optional)   ❌✔
-- and enabled .NET analyzers for both projects ❌✔
+- nullable reference types is enabled  ✔
+- Ensure that you turn on code analysis for all projects(EnableNETAnalyzers)  ✔
+- Set LangVersion and the TargetFramework to the latest released versions available (preview versions optional)   ✔
+- and enabled .NET analyzers for both projects ✔
 - For this assignment, always use `Assert.AreEqual<T>()` (the generic version)  ❌✔
 - All of the above should be unit tested ❌✔
-- Choose simplicity over complexity ❌✔
+- Choose simplicity over complexity ✔
 
 ## See [Docs](https://github.com/IntelliTect-Samples/EWU-CSCD371-2024-Fall/tree/main/Docs)
