@@ -9,9 +9,10 @@ public class NodeTests
     {
         // Arrange
         Node<string> node = new("data");
+        Node<string> node = new("data");
 
         // Act & Assert
-        Assert.Throws<ArgumentNullException>(() => node.Append(null!));
+        Assert.Throws<InvalidOperationException>(() => node.Append(null!), "Data already exists in the list");
     }
 
     [Fact]
@@ -57,7 +58,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void ClearRemovesAllNodes()
+    public void ClearNextValueAssignNextToThis()
     {
         // Arrange
         Node<int> node = new(1);
@@ -68,7 +69,7 @@ public class NodeTests
         node.Clear();
 
         // Assert
-        Assert.Null(node.Next);
+        Assert.Equal(1, node.Next);
     }
     [Fact]
     public void ToStringReturnsDataAsString()
