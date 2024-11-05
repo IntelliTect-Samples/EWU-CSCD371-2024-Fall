@@ -16,6 +16,9 @@ public class Node<T>
     // Appends a new node right in front of this node
     public void Append(T value)
     {
+        // Exception for duplicate values
+        if (Exists(value)) throw new ArgumentException(nameof(value));
+
         Node<T> newNode = new(value)
         {
             Next = this.Next

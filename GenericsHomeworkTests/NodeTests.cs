@@ -41,7 +41,7 @@ public class NodeTests
         Node<object> newNode = new(value);
 
         // Assert
-        Assert.AreEqual(value.ToString(), newNode.ToString());
+        Assert.AreEqual<object>(value.ToString(), newNode.ToString());
     }
 
     #endregion
@@ -57,7 +57,7 @@ public class NodeTests
         // Act
         newNode.Append("Second");
         // Assert
-        Assert.AreEqual("Second", newNode.Next.ToString());
+        Assert.AreEqual<object>("Second", newNode.Next.ToString());
     }
 
     [TestMethod]
@@ -72,7 +72,7 @@ public class NodeTests
         secondNode.Append("Third");
 
         // Assert
-        Assert.AreEqual("Third", secondNode.Next.ToString());
+        Assert.AreEqual<object>("Third", secondNode.Next.ToString());
     }
 
     [TestMethod]
@@ -87,7 +87,15 @@ public class NodeTests
         newNode.Append("Fourth to front");
 
         // Assert
-        Assert.AreEqual("Fourth to front", newNode.Next.ToString());
+        Assert.AreEqual<object>("Fourth to front", newNode.Next.ToString());
+    }
+
+    [TestMethod]
+    public void Append_AppendDuplicateValue_ThrowsError()
+    {
+        // Arrange
+        Node<object> newNode = new("First");
+        Assert.ThrowsException<ArgumentException>(() => newNode.Append("First"));
     }
 
     #endregion
@@ -108,7 +116,7 @@ public class NodeTests
         newNode.Clear();
 
         // Assert
-        Assert.AreEqual(expectedNode, newNode);
+        Assert.AreEqual<object>(expectedNode, newNode);
     }
 
     [TestMethod]
@@ -124,7 +132,7 @@ public class NodeTests
         newNode.Clear();
 
         // Assert
-        Assert.AreEqual(expectedNode, newNode);
+        Assert.AreEqual<object>(expectedNode, newNode);
     }
 
     #endregion
