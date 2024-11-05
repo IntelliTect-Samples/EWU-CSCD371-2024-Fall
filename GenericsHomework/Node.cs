@@ -2,7 +2,7 @@ namespace GenericsHomework;
 
 public class Node<T>
 {
-    public T Value { get; }
+    public T? Value { get; }
     public Node<T> Next { get; private set; }
 
     public Node(T value)
@@ -11,7 +11,7 @@ public class Node<T>
         Next = this;
     }
 
-    public override string ToString() => Value.ToString();
+    public override string? ToString() => Value?.ToString();
 
     public void Append(T value)
     {
@@ -40,7 +40,9 @@ public class Node<T>
         Node<T> current = this;
         do
         {
-            if (current.Value.Equals(value))
+            bool? b = current.Value?.Equals(value);
+            // b will not be null when it gets here, null checked above
+            if (b!.Value)
             {
                 return true;
             }
