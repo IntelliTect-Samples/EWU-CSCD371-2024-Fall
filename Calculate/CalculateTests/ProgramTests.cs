@@ -14,7 +14,7 @@ public class ProgramTests
         var stringReader = new StringReader(simulatedInput);
 
         Console.SetIn(stringReader);
-        string testInput = program.ReadLine();
+        string? testInput = program.ReadLine();
 
         // Assert
         Assert.IsNotNull(program);
