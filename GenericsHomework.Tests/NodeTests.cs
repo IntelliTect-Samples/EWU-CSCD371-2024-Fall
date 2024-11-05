@@ -12,6 +12,15 @@ public class NodeTests
     }
 
     [Fact]
+    public void Node_HaveNext_ReturnsNext()
+    {
+        Node<int> node = new(5);
+        Node<int> nextNode = new(10);
+        node.Next = nextNode;
+        Assert.Equal(nextNode, node.Next);
+    }
+
+    [Fact]
     public void ToString_ReturnCorrectString_Success()
     {
         Node<int> node = new(5);
@@ -25,15 +34,6 @@ public class NodeTests
     {
         Node<string?> node = new(null);
         Assert.Null(node.ToString());
-    }
-
-    [Fact]
-    public void Node_HaveNext_ReturnsNext()
-    {
-        Node<int> node = new(5);
-        Node<int> nextNode = new(10);
-        node.Next = nextNode;
-        Assert.Equal(nextNode, node.Next);
     }
 
     [Fact]
@@ -85,7 +85,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void Clear_RemoveAllNodesWithOneNode_Success()
+    public void Clear_RemoveSingleNode_Success()
     {
         Node<int> node = new(1);
         node.Clear();
