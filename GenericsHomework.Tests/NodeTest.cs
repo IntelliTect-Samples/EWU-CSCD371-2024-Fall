@@ -5,14 +5,12 @@ using Xunit;
 public class NodeTests
 {
     [Fact]
-    public void AppendNullDataThrowsArgumentNullException()
+    public void AppendDataThrowsArgumentInvalidOperationException()
     {
         // Arrange
         Node<string> node = new("data");
-        Node<string> node = new("data");
-
         // Act & Assert
-        Assert.Throws<InvalidOperationException>(() => node.Append(null!), "Data already exists in the list");
+        Assert.Throws<InvalidOperationException>(() => node.Append("data"));
     }
 
     [Fact]
@@ -69,7 +67,7 @@ public class NodeTests
         node.Clear();
 
         // Assert
-        Assert.Equal(1, node.Next);
+        Assert.Equal(1, node.Next.Data);
     }
     [Fact]
     public void ToStringReturnsDataAsString()
