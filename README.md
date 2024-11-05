@@ -15,16 +15,16 @@ Chapters 11, 12
   - Include a constructor that takes a value.  (No validation is necessary on the value). ✔
   - Add a `ToString()` override that writes out the value's `ToString()` result. ✔
   - Add a `Next` property that references the next node or else refers back to itself if there are no other nodes in the list. ✔
-    - The `Next` property should be non-nullable (careful to follow the non-nullable property guidelines) ❌✔
+    - The `Next` property should be non-nullable (careful to follow the non-nullable property guidelines) ✔
     - The `Next` property setter should be private. ✔
   - Add an `Append` method that takes a value and appends a new `Node` instance after the current node (by invoking the `Next` property). ✔
   - Add a `Clear` method that effectively removes all items from a list except the current node. Pay attention as to whether you should be concerned with the following:
-    - Whether it is sufficient to only set Next to itself ❌✔
-    - Whether to set the removed items to circle back on themselves. In other words, whether to close the loop of the removed items. (Provide a test to show why this is required if it is required). ❌✔
-    - Given there is a circular list of items, provide a comment to indicate whether you need to worry about garbage collection because all the items point to each other and, therefore, may never be garbage collected. ❌✔
-  - Create an Exists method to test whether a value exists in the list. ❌✔
+    - Whether it is sufficient to only set Next to itself ✔
+    - Whether to set the removed items to circle back on themselves. In other words, whether to close the loop of the removed items. (Provide a test to show why this is required if it is required). ✔
+    - Given there is a circular list of items, provide a comment to indicate whether you need to worry about garbage collection because all the items point to each other and, therefore, may never be garbage collected. ✔
+  - Create an Exists method to test whether a value exists in the list. ✔
   - Throw an error on an attempt to Append a duplicate value. (Make sure you test for this case) ❌✔
-- You should not rely on any BCL generic classes for your implementation. ❌✔
+- You should not rely on any BCL generic classes for your implementation. ✔
 
 ## Extra Credit
 
