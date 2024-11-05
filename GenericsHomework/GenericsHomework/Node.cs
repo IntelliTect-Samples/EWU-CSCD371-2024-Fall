@@ -17,4 +17,44 @@ public class Node<T>
     {
         return Value?.ToString() ?? string.Empty;
     }
+    public void Append(T value)
+    {
+        if (Exists(value))
+        {
+            throw new ArgumentException("No duplicates allowed!");
+        }
+
+        Node<T> newNode = new(value);
+        Node<T> current = this;
+
+        // Traverse to the last node
+        while (current.Next != this)
+        {
+            current = current.Next;
+        }
+
+        // Insert the new node at the end and point it back to the first node
+        current.Next = newNode;
+        newNode.Next = this;
+    }
+
+    public bool Exists(T value)
+    {
+        // Start at current node
+        Node<T> current = this;
+
+        // Traverse the list
+        do
+        {
+            // Check if the current node matches the value
+            if ((current.Value == null && value == null) ||
+                (current.Value != null && current.Value.Equals(value)))
+            {
+                return true;
+            }
+            current = current.Next;
+        } while (current != this); // Continue until back to start
+
+        return false;
+    }
 }
