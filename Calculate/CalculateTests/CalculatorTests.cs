@@ -9,6 +9,7 @@ public class CalculatorTests
     [DataRow(5, 10)]
     [DataRow(5.0, 10)]
     [DataRow(0,0.1)]
+    [DataRow(1200,2.5)]
     public void Add_TwoNumbers_ReturnsSum<T>(T a, T b) where T : IConvertible
     {
         // Arrange
@@ -22,17 +23,21 @@ public class CalculatorTests
     }
 
     [TestMethod]
-    public void Subtract_TwoNumbers_ReturnsDifference()
+    [DataRow(5, 10)]
+    [DataRow(5.0, 10)]
+    [DataRow(0, 0.1)]
+    [DataRow(1200, 2.5)]
+    public void Subtract_TwoNumbers_ReturnsDifference<T>(T genericNum1, T genericNum2) where T : IConvertible
     {
         // Arrange
-        int num1 = 10;
-        int num2 = 5;
+        double num1 = Convert.ToDouble(genericNum1);
+        double num2 = Convert.ToDouble(genericNum2); 
 
         // Act
         Calculator.Subtract(num1, num2, out double result);
 
         // Assert
-        Assert.AreEqual(5, result);
+        Assert.AreEqual(num1-num2, result);
     }
 
     [TestMethod]
