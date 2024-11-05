@@ -37,21 +37,10 @@ public class Node<T>
         if (this.Next == this)
             return;
 
-        Node<T> current = this.Next;
-
-        // Traverse the list until we reach the final node.
-        while (current != this)
-        {
-            Node<T> nextNode = current.Next;
-            current.Next = current;
-            current = nextNode;
-        }
-
         // Set the original node to point to itself. The list is now empty.
         this.Next = this;
 
         // Garbage collection isn't a concern after setting this.Next to this because the other nodes are no longer reachable.
-        // However, if the list is still reachable, the garbage collector will not collect it. Reset each node to itself to ensure detachment.
     }
 
     public bool Exists(T? value)
