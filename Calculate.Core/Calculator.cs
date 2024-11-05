@@ -12,10 +12,6 @@ public class Calculator
 
     public IReadOnlyDictionary<char, Operation> MathematicalOperations => _mathematicalOperations;
 
-    public Calculator()
-    {
-    }
-
     public bool TryCalculate(string calculation, out double result)
     {
         result = 0;
