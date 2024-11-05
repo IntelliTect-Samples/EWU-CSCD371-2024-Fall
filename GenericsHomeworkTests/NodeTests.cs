@@ -1,10 +1,13 @@
 ﻿using GenericsHomework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GenericsHomeworkTests;
 
 [TestClass]
 public class NodeTests
 {
+    // ToString Tests
+    #region ToStringTests
 
     [TestMethod]
     public void ToString_NullNode_ReturnsNull()
@@ -40,6 +43,8 @@ public class NodeTests
         // Assert
         Assert.AreEqual(value.ToString(), newNode.ToString());
     }
+
+    #endregion
 
     // Test Append
     #region AppendTests
@@ -88,14 +93,81 @@ public class NodeTests
     #endregion
 
     // Test Clear
-    // null node
-    // list with 1 node
-    // list with a few nodes
+    #region ClearTests
+
+    [TestMethod]
+    public void Clear_ClearsNonEmptyList_Passes()
+    {
+        // Arrange
+        Node<object> newNode = new("A");
+        Node<object> expectedNode = newNode.Next;
+
+        // Act
+        newNode.Append('B');
+        newNode.Next.Append('C');
+        newNode.Clear();
+
+        // Assert
+        Assert.AreEqual(expectedNode, newNode);
+    }
+
+    [TestMethod]
+    public void Clear_MultipleClearsInARow_Passes()
+    {
+        // Arrange
+        Node<object> newNode = new("A");
+        Node<object> expectedNode = newNode.Next;
+
+        // Act
+        newNode.Clear();
+        newNode.Clear();
+        newNode.Clear();
+
+        // Assert
+        Assert.AreEqual(expectedNode, newNode);
+    }
+
+    #endregion
 
     // Test Exists
-    // null node
-    // list with 1 node
-    // list with a few nodes
+    #region ExistsTests
 
-    // Test Value/Next properties?
+    [TestMethod]
+    public void Exists_TryFindingExistingData_Passes()
+    {
+        // Arrange
+        Node<object> newNode = new("");
+        // Assert
+        Assert.IsTrue(newNode.Exists(""));
+    }
+
+    [TestMethod]
+    public void Exists_TryFindingNonExistentData_Passes()
+    {
+        // Arrange
+        Node<object> newNode = new("Try This!");
+        // Assert
+        Assert.IsFalse(newNode.Exists("Other string"));
+    }
+
+    [TestMethod]
+    public void Exists_TryFindingDataWithManyNodes_Passes()
+    {
+        // Arrange
+        Node<object> newNode = new("H");
+        // Act
+        newNode.Append("D");
+        newNode.Append("L");
+        newNode.Append("R");
+        newNode.Append("O");
+        newNode.Append("W");
+        newNode.Append("ello");
+
+        // Assert
+        Assert.IsTrue(newNode.Exists("D"));
+        Assert.IsFalse(newNode.Exists("Not in it"));
+    }
+
+    #endregion
+
 }

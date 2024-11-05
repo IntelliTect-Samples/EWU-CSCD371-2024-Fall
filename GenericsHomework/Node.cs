@@ -13,6 +13,7 @@ public class Node<T>
 
     public override string? ToString() => Value?.ToString();
 
+    // Appends a new node right in front of this node
     public void Append(T value)
     {
         Node<T> newNode = new(value)
