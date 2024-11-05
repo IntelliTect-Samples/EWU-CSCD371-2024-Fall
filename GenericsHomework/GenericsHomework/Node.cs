@@ -17,6 +17,7 @@ public class Node<T>
     {
         return Value?.ToString() ?? string.Empty;
     }
+
     public void Append(T value)
     {
         if (Exists(value))
@@ -37,7 +38,6 @@ public class Node<T>
         current.Next = newNode;
         newNode.Next = this;
     }
-
     public bool Exists(T value)
     {
         // Start at current node
@@ -56,5 +56,22 @@ public class Node<T>
         } while (current != this); // Continue until back to start
 
         return false;
+    }
+    public void Clear()
+    {
+        // Start from the node after the current node
+        Node<T> current = this.Next;
+        Node<T> previous = this;
+
+        // Traverse and disconnect each node
+        while (current != this)
+        {
+            Node<T> nextNode = current.Next; // Save the next node
+            previous.Next = previous;        // Disconnect the current node
+            current = nextNode;              // Move to the next node
+        }
+
+        // Reset next to point back to itself
+        this.Next = this;
     }
 }
