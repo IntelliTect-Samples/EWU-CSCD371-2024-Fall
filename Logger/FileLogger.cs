@@ -12,7 +12,7 @@ public class FileLogger : BaseLogger, ILogger
 
     static T ILogger.CreateLogger<T, U>(in U logggerConfiguration) => 
         logggerConfiguration is FileLoggerConfiguration configuration
-            ? (T)(object)CreateLogger(configuration)
+            ? (T)(Object)CreateLogger(configuration)
             : throw new ArgumentException("Invalid configuration type", nameof(logggerConfiguration));
 
     public static FileLogger CreateLogger(FileLoggerConfiguration configuration) => new(configuration);

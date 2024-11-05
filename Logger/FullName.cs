@@ -20,9 +20,6 @@ public record FullName
                 ? throw new ArgumentNullException(nameof(lastName), $"'{nameof(lastName)}' cannot be null or whitespace.")
                 : lastName;
     }
-
-
-    // Properties are already read-only and immutable due to being a record.
     public string FirstName { get; }
     public string? MiddleName { get; }
     public string LastName { get; }
@@ -31,4 +28,6 @@ public record FullName
     {
         return (MiddleName != null) ? $"{FirstName} {MiddleName} {LastName}" : $"{FirstName} {LastName}";
     }
+
+
 }
