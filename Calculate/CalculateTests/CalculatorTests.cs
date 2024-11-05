@@ -63,43 +63,39 @@ public class CalculatorTests
     }
 
     [TestMethod]
-    public void Divide_TwoNumbers_ReturnsQuotient()
+    [DataRow(5, 10)]
+    [DataRow(5.0, 10)]
+    [DataRow(0, 0.1)]
+    [DataRow((float)1200, (float)2.5)]
+    public void Divide_TwoNumbers_ReturnsQuotient<T>(T genericNum1, T genericNum2) where T : IConvertible
     {
+        
         // Arrange
-        int num1 = 10;
-        int num2 = 5;
+        double num1 = Convert.ToDouble(genericNum1);
+        double num2 = Convert.ToDouble(genericNum2);
 
         // Act
-        Calculator.Divide(num1, num2, out double result);
+        Calculator.Divide(genericNum1, genericNum2, out double result);
 
         // Assert
-        Assert.AreEqual(2, result);
+        Assert.AreEqual(num1/num2, result);
     }
 
     [TestMethod]
-    public void Divide_ByZero_ThrowsException()
+    [DataRow(5, 0)]
+    [DataRow(5.0, 0.0)]
+    [DataRow(0, (float) 0.0)]
+    [DataRow((float)1200, 0)]
+    public void Divide_ByZero_ThrowsException<T>(T genericNum1, T genericNum2) where T : IConvertible
     {
         // Arrange
-        int num1 = 10;
-        int num2 = 0;
+        double num1 = Convert.ToDouble(genericNum1);
+        double num2 = Convert.ToDouble(genericNum2);
 
         // Act and Assert
-        Assert.ThrowsException<DivideByZeroException>(() => Calculator.Divide(num1, num2, out double result));
+        Assert.ThrowsException<DivideByZeroException>(() => Calculator.Divide(genericNum1, genericNum2, out double result));
     }
 
-    [TestMethod]
-    public void Divide_TwoNumbers_ReturnsDecimalQuotient()
-    {
-        // Arrange
-        int num1 = 10;
-        int num2 = 3;
-
-        // Act
-        Calculator.Divide(num1, num2, out double result);
-
-        // Assert
-        Assert.AreEqual(3.3333333333333335, result);
-    }
 
     [TestMethod]
     public void Dictionary_Should_Contain_All_Operations()
