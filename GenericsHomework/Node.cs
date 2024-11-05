@@ -27,6 +27,8 @@ public class Node<T>
         this.Next = newNode;
     }
 
+    // The .NET garbage collector will handle the removed nodes, even if they point to each other.
+    // The garbage collector will see that nothing outside of the list is pointing to the nodes, and clean it up automatically.
     public void Clear()
     {
         Node<T> current = this;
