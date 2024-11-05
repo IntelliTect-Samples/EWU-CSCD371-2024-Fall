@@ -20,18 +20,12 @@ public class Calculator
             };
     }
 
-    public static void Add(int num1, int num2, out double result) => result = num1 + num2;
+    public static void Add<T>(T num1, T num2, out double result) where T  : IConvertible=> result = Convert.ToDouble(num1) + Convert.ToDouble(num2);
 
-    public static void Subtract(int num1, int num2, out double result) => result = num1 - num2;
+    public static void Subtract<T>(T num1, T num2, out double result) where T : IConvertible => result = Convert.ToDouble(num1) - Convert.ToDouble(num2);
 
-    public static void Multiply(int num1, int num2, out double result) => result = num1 * num2;
+    public static void Multiply<T>(T num1, T num2, out double result) where T : IConvertible => result = Convert.ToDouble(num1) * Convert.ToDouble(num2);
 
-    public static void Divide(int num1, int num2, out double result)
-    {
-        if (num2 == 0)
-        {
-            throw new DivideByZeroException();
-        }
-        result = (double)num1 / num2;
-    }
+    public static void Divide<T>(T num1, T num2, out double result) where T : IConvertible => result = Convert.ToDouble(num2) == 0 ? throw new DivideByZeroException() : Convert.ToDouble(num1) / Convert.ToDouble(num2);
+
 }
