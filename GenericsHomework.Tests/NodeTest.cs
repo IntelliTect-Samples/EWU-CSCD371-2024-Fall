@@ -86,8 +86,8 @@ public class NodeTests
     public void AppendStringAndIntDataWorks()
     {
             // Arrange
-            Node<string> stringNode = new Node<string>("data");
-            Node<int> intNode = new Node<int>(1);
+            Node<string> stringNode = new("data");
+            Node<int> intNode = new (1);
 
             // Act
             stringNode.Append("new data");
