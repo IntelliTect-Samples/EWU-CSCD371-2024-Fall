@@ -1,6 +1,6 @@
 ﻿namespace GenericsAndStuff;
 
-public interface IParser
+public interface IParser<TOutput>
 {
-    static abstract bool TryParse(string input, out object output);
+    static abstract bool TryParse(string input, out TOutput output);
 }

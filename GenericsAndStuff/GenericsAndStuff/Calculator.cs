@@ -1,18 +1,23 @@
 ﻿namespace GenericsAndStuff;
 
-public class Calculator : IParser
+public class Calculator : IParser<int>
 {
-    public static bool TryParse(string input, out object output)
+    public static bool TryParse(string input, out int output)
     {
-        output = default;
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            output = default;
+            return false;
+        }
+
+        output = 2;
         return true;
     }
 }
 
-
-public record class Person(string FirstName, string LastName) : IParser
+public record class Person(string FirstName, string LastName) : IParser<Person?>
 {
-    public static bool TryParse(string input, out object output)
+    public static bool TryParse(string input, out Person? output)
     {
         if (string.IsNullOrWhiteSpace(input))
         {
