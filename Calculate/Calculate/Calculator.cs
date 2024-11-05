@@ -33,10 +33,11 @@ public class Calculator
         result = double.NaN;
 
         string[] split = input.Split(' ');
-        if (split.Length != 3) throw new ArgumentException("Invalid passed in string: " + input);
+        
 
         try
         {
+            if (split.Length != 3) throw new ArgumentException("Invalid passed in string: " + input);
             double left = Convert.ToDouble(split[0]);
             double right = Convert.ToDouble(split[2]);
             char givenOperator = Convert.ToChar(split[1]);
