@@ -29,17 +29,48 @@ public class Node<T>
 
     public bool Exists(T value)
     { 
+        Node<T> node = this;
+
+        while (node.Next != this)
+        {
+            if (EqualityComparer<T>.Default.Equals(node.Value, value))
+            {
+                return true;
+            }
+            node = node.Next;
+        }
+        return false;
 
     }
 
     public Node<T> Append(T value)
     {
+        if (Exists(value))
+        {
+            throw new InvalidOperationException("Value already exists in the list");
+        }
         Node<T> newNode = new(value)
         {
             Next = Next
         };
         Next = newNode;
         return newNode;
+    }
+
+    public void Clear()
+    {
+        //This method loop around all the nodes and sets all their next properties to themselves
+        //which effectively removes all the nodes from the list
+
+        var node = Next;
+        while (node.Next != null)
+        {
+            node = node.Next;
+        }
+        node.Next = Next;
+        Next = this;
+        //this set the node to point to itself, which make the list empty
+        //We don't have to worry about garbage collector because all nodes is disconnected and will be automatically collected
     }
 
 }
