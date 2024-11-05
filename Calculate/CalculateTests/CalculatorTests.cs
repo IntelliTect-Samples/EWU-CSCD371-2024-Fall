@@ -1,4 +1,4 @@
-using Calculate;
+﻿using Calculate;
 
 namespace Calculate.Tests;
 
@@ -98,53 +98,64 @@ public class CalculatorTests
 
 
     [TestMethod]
-    public void Dictionary_Should_Contain_All_Operations()
+    public void Dictionary_OnConstruct_ShouldContainAllOperations()
     {
         var calculator = new Calculator();
 
+        Assert.AreEqual(4, calculator.MathematicalOperations.Count);
         Assert.IsTrue(calculator.MathematicalOperations.ContainsKey('+'));
         Assert.IsTrue(calculator.MathematicalOperations.ContainsKey('-'));
         Assert.IsTrue(calculator.MathematicalOperations.ContainsKey('*'));
         Assert.IsTrue(calculator.MathematicalOperations.ContainsKey('/'));
     }
 
+
+    #region MathematicalOperations
+
     [TestMethod]
-    public void Addition_Should_Return_Correct_Result()
+    public void MathematicalOperations_SubtractChar_PointsToProperMethod()
     {
         var calculator = new Calculator();
 
-        calculator.MathematicalOperations['+'](5, 3, out double result);
+        //Assert
+        Assert.IsTrue(calculator.MathematicalOperations['-'] == Calculator.Subtract);
 
-        Assert.AreEqual(8.0, result);
+
     }
 
+
     [TestMethod]
-    public void Subtraction_Should_Return_Correct_Result()
+    public void MathematicalOperations_MultiplyChar_PointsToProperMethod()
     {
         var calculator = new Calculator();
 
-        calculator.MathematicalOperations['-'](5, 3, out double result);
+        //Assert
+        Assert.IsTrue(calculator.MathematicalOperations['*'] == Calculator.Multiply);
 
-        Assert.AreEqual(2.0, result);
+
     }
 
+
     [TestMethod]
-    public void Multiplication_Should_Return_Correct_Result()
+    public void MathematicalOperations_AddChar_PointsToProperMethod()
     {
         var calculator = new Calculator();
 
-        calculator.MathematicalOperations['*'](5, 3, out double result);
+        //Assert
+        Assert.IsTrue(calculator.MathematicalOperations['+'] == Calculator.Add);
 
-        Assert.AreEqual(15.0, result);
+
     }
-
     [TestMethod]
-    public void Division_Should_Return_Correct_Result()
+    public void MathematicalOperations_DivideChar_PointsToProperMethod()
     {
         var calculator = new Calculator();
 
-        calculator.MathematicalOperations['/'](6, 3, out double result);
+        //Assert
+        Assert.IsTrue(calculator.MathematicalOperations['/'] == Calculator.Divide);
 
-        Assert.AreEqual(2.0, result);
+
     }
+
+    #endregion
 }
