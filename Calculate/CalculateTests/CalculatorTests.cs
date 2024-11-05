@@ -1,4 +1,4 @@
-﻿using Calculate;
+using Calculate;
 
 namespace Calculate.Tests;
 
@@ -9,7 +9,7 @@ public class CalculatorTests
     [DataRow(5, 10)]
     [DataRow(5.0, 10)]
     [DataRow(0,0.1)]
-    [DataRow(1200,2.5)]
+    [DataRow((float)1200,2.5)]
     [DataRow(0.00, 0)]
     public void Add_TwoNumbers_ReturnsSum<T>(T genericNum1, T genericNum2) where T : IConvertible
     {
@@ -25,7 +25,7 @@ public class CalculatorTests
 
     [TestMethod]
     [DataRow(5, 10)]
-    [DataRow(5.0, 10)]
+    [DataRow((float)5.0, 10)]
     [DataRow(0, 0.1)]
     [DataRow(1200, 2.5)]
     [DataRow(0.00, 0)]
@@ -47,7 +47,7 @@ public class CalculatorTests
     [DataRow(5, 10)]
     [DataRow(5.0, 10)]
     [DataRow(0, 0.1)]
-    [DataRow(1200, 2.5)]
+    [DataRow(1200, (float)2.5)]
     [DataRow(0.00, 0)]
     public void Multiply_TwoNumbers_ReturnsProduct<T>(T genericNum1, T genericNum2) where T : IConvertible
     {
