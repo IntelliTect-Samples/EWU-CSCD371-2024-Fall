@@ -10,16 +10,17 @@ public class CalculatorTests
     [DataRow(5.0, 10)]
     [DataRow(0,0.1)]
     [DataRow(1200,2.5)]
-    public void Add_TwoNumbers_ReturnsSum<T>(T a, T b) where T : IConvertible
+    [DataRow(0.00, 0)]
+    public void Add_TwoNumbers_ReturnsSum<T>(T genericNum1, T genericNum2) where T : IConvertible
     {
         // Arrange
-        double a1 = Convert.ToDouble(a);
-        double b1 = Convert.ToDouble(b);
-        // Act
-        Calculator.Add(a1, b1, out double result);
 
+        double num1 = Convert.ToDouble(genericNum1);
+        double num2 = Convert.ToDouble(genericNum1);
+        // Act
+        Calculator.Add(genericNum1, genericNum2, out double result);
         // Assert
-        Assert.AreEqual(a1+b1, result);
+        Assert.AreEqual(num1+num2, result);
     }
 
     [TestMethod]
@@ -27,31 +28,38 @@ public class CalculatorTests
     [DataRow(5.0, 10)]
     [DataRow(0, 0.1)]
     [DataRow(1200, 2.5)]
+    [DataRow(0.00, 0)]
     public void Subtract_TwoNumbers_ReturnsDifference<T>(T genericNum1, T genericNum2) where T : IConvertible
     {
         // Arrange
+
         double num1 = Convert.ToDouble(genericNum1);
-        double num2 = Convert.ToDouble(genericNum2); 
+        double num2 = Convert.ToDouble(genericNum2);
 
         // Act
-        Calculator.Subtract(num1, num2, out double result);
+        Calculator.Subtract(genericNum1, genericNum2, out double result);
 
         // Assert
         Assert.AreEqual(num1-num2, result);
     }
 
     [TestMethod]
-    public void Multiply_TwoNumbers_ReturnsProduct()
+    [DataRow(5, 10)]
+    [DataRow(5.0, 10)]
+    [DataRow(0, 0.1)]
+    [DataRow(1200, 2.5)]
+    [DataRow(0.00, 0)]
+    public void Multiply_TwoNumbers_ReturnsProduct<T>(T genericNum1, T genericNum2) where T : IConvertible
     {
         // Arrange
-        int num1 = 5;
-        int num2 = 10;
+        double num1 = Convert.ToDouble(genericNum1);
+        double num2 = Convert.ToDouble(genericNum2);
 
         // Act
-        Calculator.Multiply(num1, num2, out double result);
+        Calculator.Multiply(genericNum1, genericNum2, out double result);
 
         // Assert
-        Assert.AreEqual(50, result);
+        Assert.AreEqual(num1 * num2, result);
     }
 
     [TestMethod]
