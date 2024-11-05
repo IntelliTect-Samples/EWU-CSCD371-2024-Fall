@@ -1,4 +1,4 @@
-using Calculate;
+﻿using Calculate;
 
 namespace Calculate.Tests;
 
@@ -147,5 +147,45 @@ public class CalculatorTests
 
     }
 
-    #endregion
+
+
+
+    [TestMethod]
+    [DataRow("1 + 1", 2, true)]
+    [DataRow("12 + 1.1", 13.1, true)]
+    [DataRow("1 + 1.1", 2.1, true)]
+
+    [DataRow("12 * 1.1", 13.2, true)]
+    [DataRow("121234555 * 0", 0, true)]
+    [DataRow("190.12345 * 4.6", 874.56787, true)]
+
+    [DataRow("12 - 12", 0, true)]
+    [DataRow("120.1234 - 21.1234", 99, true)]
+    [DataRow("12.5 - 100",-87.5, true)]
+
+    [DataRow("12 / 3",4, true)]
+    [DataRow("4.4 / 2.000000",2.2, true)]
+    [DataRow("92.52 / 2.57",36,true)]
+
+    //False cases
+    [DataRow("12/3",double.NaN,false)]
+    [DataRow("Hello World", double.NaN, false)]
+
+    public void TryCalculate_ValidString_ParsesResult(string input, double expectedResult, bool expectedTryBool)
+    {
+        //Arrange
+        Calculator calculator = new();
+
+        //Act
+        bool wasValid = calculator.TryCalculate(input, out double result);
+
+
+        //Assert
+        Assert.AreEqual(expectedTryBool, wasValid);
+        Assert.AreEqual(expectedResult,result);
+
+
+
+    }
+
 }
