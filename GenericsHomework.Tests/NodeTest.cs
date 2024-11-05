@@ -5,7 +5,7 @@ using Xunit;
 public class NodeTests
 {
     [Fact]
-    public void AppendDataThrowsArgumentInvalidOperationException()
+    public void AppendStringDataThrowsArgumentInvalidOperationException()
     {
         // Arrange
         Node<string> node = new("data");
@@ -80,5 +80,23 @@ public class NodeTests
 
         // Assert
         Assert.Equal("42", result);
+    }
+   
+    [Fact]
+    public void AppendStringAndIntDataWorks()
+    {
+            // Arrange
+            Node<string> stringNode = new Node<string>("data");
+            Node<int> intNode = new Node<int>(1);
+
+            // Act
+            stringNode.Append("new data");
+            intNode.Append(2);
+
+            // Assert
+            Assert.Equal("new data", stringNode.Next.Data);
+            Assert.Equal(2, intNode.Next.Data);
+            Assert.Equal(typeof(string), stringNode.Data.GetType());
+            Assert.Equal(typeof(int), intNode.Data.GetType());
     }
 }
