@@ -8,10 +8,27 @@ public class Program : ProgramBase
     public static void Main()
     {
         Program program = new();
-        Console.WriteLine("Enter a calculation you want to perform: ");
-        string input = program.ReadLine();
         Calculator calculator = new();
-        calculator.TryCalculate(input, out double result);
-        program.WriteLine($"Result: {result}");
+
+        string GetInput()
+        {
+            Console.WriteLine("Enter a calculation you want to perform: ");
+            return program.ReadLine();
+        }
+
+        double PerformCalculation(string input)
+        {
+            calculator.TryCalculate(input, out double result);
+            return result;
+        }
+
+        void DisplayResult(double result)
+        {
+            program.WriteLine($"Result: {result}");
+        }
+
+        string input = GetInput();
+        double result = PerformCalculation(input);
+        DisplayResult(result);
     }
 }
