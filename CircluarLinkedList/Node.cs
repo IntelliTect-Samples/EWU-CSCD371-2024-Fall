@@ -45,25 +45,21 @@ public class Node<T>
         return false;
     }
 
-
-
-    // Given there is a circular list of items, we would need to worry about GC, as all the items point to each other and, therefore, may never be garbage collected. 
-    // This can be solved by not fixing the loop, as we are not removing a node but instead clearing all but selected.
-    // HOWEVER, if we want to ensure each node has no connections to Next, we using Next = this; is not enough.
+    // By ensuring that each node points only to itself, we effectively break the circular references.
+    // This allows the garbage collector to reclaim the memory for all nodes except the current one.
+    // If we just set the first node's Next to itself, this would work as long as no other nodes are stored in a variable.
+    // If one of the Nodes had been stored in a variable, some of the list would still exist.
     public void Clear()
     {
         if (this.Next == null) return;
         Node<T> traversal = this;
         Node<T> old = this;
 
-        
         do
         {
             traversal = traversal.Next;
             old.Next = old;
             old = traversal;
-
-            
         } while (traversal != this);
     }
 }
