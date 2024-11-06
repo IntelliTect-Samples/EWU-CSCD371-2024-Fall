@@ -1,6 +1,6 @@
 ﻿namespace GenericsAndStuff;
 
-public class Calculator : IParser<int>
+public class Calculator : IStringParser<int>
 {
     public static bool TryParse(string input, out int output)
     {
@@ -15,7 +15,24 @@ public class Calculator : IParser<int>
     }
 }
 
-public record class Person(string FirstName, string LastName) : IParser<Person?>
+public class CalculatorParser : IParser<int>
+{
+
+    public bool TryParse(string input, out int output)
+    {
+        return Calculator.TryParse(input, out output);
+    }
+}
+
+public class PersonParser : IParser<Person>
+{
+    public bool TryParse(string input, out Person? output)
+    {
+        return Person.TryParse(input, out output);
+    }
+}
+
+public record class Person(string FirstName, string LastName) : IStringParser<Person?>
 {
     public static bool TryParse(string input, out Person? output)
     {

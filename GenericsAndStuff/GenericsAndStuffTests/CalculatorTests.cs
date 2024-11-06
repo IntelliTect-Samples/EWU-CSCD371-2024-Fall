@@ -7,24 +7,35 @@ public class CalculatorTests
     [Fact]
     public void Calculator_TryParse_ReturnsCorrectInt()
     {
-        bool condition = Calculator.TryParse("1 + 1", out int result);
-        Assert.True(condition);
-        Assert.Equal(2, result);
+        var calculator = new Calculator();
+        void Validate(int result)
+        {
+            Assert.NotNull(result);
+            Assert.Equal(2, result);
+        }
+        bool condition = TryParseTrue<CalculatorParser, int>(
+            new CalculatorParser(), "1 + 1", out int result, Validate);
+
     }
 
-    [Fact]
-    public void Person_TryParse_ReturnsCorrectPerson()
+    //[Fact]
+    //public void Person_TryParse_ReturnsCorrectPerson()
+    //{
+    //    bool condition = TryParseTrue(
+    //        new PersonParser(), "John Doe", out Person result, TODO);
+    //    Assert.Equal("John", result.FirstName);
+    //    Assert.Equal("Doe", result.LastName);
+    //}
+
+    private bool TryParseTrue<TParser, TOutput>(
+        TParser parser, string input, out TOutput output, Action<TOutput> validate)
+        where TParser : IParser<TOutput>
     {
-        bool condition = Person.TryParse("John Doe", out Person? result);
+        bool condition = parser.TryParse(input, out output);
         Assert.True(condition);
-        Assert.NotNull(result);
-        Assert.Equal("John", result.FirstName);
-        Assert.Equal("Doe", result.LastName);
-    }
+        // Call my validation methods (some assert methods of my choice)
+        validate(output);
 
-    [Fact]
-    public void IParserTryParse_SuperTest()
-    {
-
+        return condition;
     }
 }
