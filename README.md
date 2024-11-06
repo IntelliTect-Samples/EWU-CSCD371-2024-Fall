@@ -61,8 +61,8 @@ Do one of the following two options (or both if you want extra, extra credit) :)
 
 ## Fundamentals
 
-- Place all shared project properties into a `Directory.Build.Props` file.
-- Place all shared project items into a `Directory.Build.targets` file.
+- Place all shared project properties into a `Directory.Build.props` file.
+- Place all shared project items into a `Directory.Build.targets` file. (optional)
 - nullable reference types is enabled  ❌✔
 - Ensure that you turn on code analysis for all projects(EnableNETAnalyzers)  ❌✔
 - Set LangVersion and the TargetFramework to the latest released versions available (preview versions optional)   ❌✔
