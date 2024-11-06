@@ -48,27 +48,26 @@ Chapter 14: Events
     - If there is no whitespace around the operator, you can assume the `calculation` is invalid and return false. Similarly if the operands are not integers. ✔
     - Use `string.Split()`, pattern matching, logical and operators to parse the string in their entirety ✔
     - Index into the `MathematicalOperations` method using the operator parsed during pattern matching to find the corresponding implementation and invoke it. ❌✔
-- Implement the Program class to instantiate the calculator and invoke it based on user input from the console. ❌✔
-- Be sure to use the `WriteLine`/`ReadLine` properties on `Program` for testing the input and output of your program. ❌✔
+- Implement the Program class to instantiate the calculator and invoke it based on user input from the console. ✔
+- Be sure to use the `WriteLine`/`ReadLine` properties on `Program` for testing the input and output of your program. ✔
 
 ## Extra Credit
 
 Do one of the following two options (or both if you want extra, extra credit) :)
 
-- Refactor the redirect portion of the `Program` class into 'ProgramBase`
-- Move ProgramBase into a ConsoleUtilities assembly to be used in other console-based projects
+- Refactor the redirect portion of the `Program` class into 'ProgramBase` ✔
+- Move ProgramBase into a ConsoleUtilities assembly to be used in other console-based projects ✔
 - Use generics the mathematical operations methods and consider using generic constraints (requires .NET 7.0)
 
 ## Fundamentals
 
-- Place all shared project properties into a `Directory.Build.Props` file.
-- Place all shared project items into a `Directory.Build.targets` file.
-- nullable reference types is enabled  ❌✔
-- Ensure that you turn on code analysis for all projects(EnableNETAnalyzers)  ❌✔
-- Set LangVersion and the TargetFramework to the latest released versions available (preview versions optional)   ❌✔
-- and enabled .NET analyzers for both projects ❌✔
-- For this assignment, always use `Assert.AreEqual<T>()` (the generic version)  ❌✔
-- All of the above should be unit tested ❌✔
-- Choose simplicity over complexity ❌✔
+- Place all shared project properties into a `Directory.Build.Props` file. ✔
+- Place all shared project items into a `Directory.Build.targets` file. ✔
+- nullable reference types is enabled  ✔
+- Ensure that you turn on code analysis for all projects(EnableNETAnalyzers)  ✔
+- Set LangVersion and the TargetFramework to the latest released versions available (preview versions optional)   ✔
+- and enabled .NET analyzers for both projects ✔
+- All of the above should be unit tested ✔
+- Choose simplicity over complexity ✔
 
 ## See [Docs](Docs)
