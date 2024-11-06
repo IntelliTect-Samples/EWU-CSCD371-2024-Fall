@@ -4,4 +4,9 @@
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Calculate.Core\Calculate.Core.csproj" />
+    <ProjectReference Include="..\ConsoleUtilities\ConsoleUtilities.csproj" />
+  </ItemGroup>
+
 </Project>
