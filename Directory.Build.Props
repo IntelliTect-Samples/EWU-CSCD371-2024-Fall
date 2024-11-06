@@ -7,5 +7,6 @@
 	<EnableNETAnalyzers>true</EnableNETAnalyzers>
 	<ImplicitUsings>enable</ImplicitUsings>
 	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
   </PropertyGroup>
 </Project>
