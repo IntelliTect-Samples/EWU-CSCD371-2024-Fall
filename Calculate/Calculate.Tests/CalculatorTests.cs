@@ -65,6 +65,10 @@ public class CalculatorTests
     [InlineData("2- 3")]
     [InlineData("3  * 4")]
     [InlineData("4 /  2")]
+    [InlineData("1 + 2 + 3")]
+    [InlineData("one + 2")]
+    [InlineData("1 + two")]
+    [InlineData("1 plus 2")]
 
     public void TryCalculate_InvalidInput_ReturnsFalse(string input)
     {
