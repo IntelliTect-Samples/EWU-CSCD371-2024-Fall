@@ -28,6 +28,28 @@ public class ProgramTests
     }
 
     [Fact]
+    public void WriteLine_InvalidInput_ThrowsException()
+    {
+        ArgumentNullException? exception = Assert.Throws<ArgumentNullException>(() =>
+        {
+            Program instance = new Program { WriteLine = null! };
+        });
+
+        Assert.Equal("value", exception.ParamName);
+    }
+
+    [Fact]
+    public void ReadLine_InvalidInput_ThrowsException()
+    {
+        ArgumentNullException? exception = Assert.Throws<ArgumentNullException>(() =>
+        {
+            Program instance = new Program { ReadLine = null! };
+        });
+
+        Assert.Equal("value", exception.ParamName);
+    }
+
+    [Fact]
     public void GetInput_ValidInput_ReturnsInput()
     {
         // Arrange
