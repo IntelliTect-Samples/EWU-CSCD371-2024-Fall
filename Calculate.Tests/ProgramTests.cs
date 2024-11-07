@@ -1,5 +1,7 @@
 namespace Calculate.Tests;
 
+using Calculate.Core;
+
 public class ProgramTests
 {
     [Theory]
@@ -45,5 +47,76 @@ public class ProgramTests
         // Assert
         Assert.Equal("Hello World!" + Environment.NewLine, writer.ToString());
         Assert.Equal("Test input", result);
+    }
+
+    [Fact]
+    public void GetInput_ValidInput_ReturnsInput()
+    {
+        // Arrange
+        StringWriter writer = new();
+        StringReader reader = new("Test input");
+
+        Program program = new()
+        {
+            WriteLine = writer.WriteLine,
+            ReadLine = () => reader.ReadLine()!
+        };
+
+        // Act
+        string result = program.GetInput();
+
+        // Assert
+        Assert.Equal("Test input", result);
+    }
+
+    [Fact]
+    public void PerformCalculation_ValidInput_ReturnsResult()
+    {
+        // Arrange
+        Calculator calculator = new();
+        string input = "5 + 5";
+
+        // Act
+        double result = Program.PerformCalculation(calculator, input);
+
+        // Assert
+        Assert.Equal(10, result);
+    }
+
+    [Fact]
+    public void DisplayResult_ValidInput_WritesResult()
+    {
+        // Arrange
+        StringWriter writer = new();
+        Program program = new()
+        {
+            WriteLine = writer.WriteLine
+        };
+
+        // Act
+        program.DisplayResult(10);
+
+        // Assert
+        Assert.Equal("Result: 10" + Environment.NewLine, writer.ToString());
+    }
+
+    [Fact]
+    public void Run_ValidInput_WritesResult()
+    {
+        // Arrange
+        StringWriter writer = new();
+        StringReader reader = new("5 + 5");
+
+        Program program = new()
+        {
+            WriteLine = writer.WriteLine,
+            ReadLine = () => reader.ReadLine()!
+        };
+
+        // Act
+        program.Run();
+
+        // Assert
+        Assert.Equal("Result: 10" + Environment.NewLine, writer.ToString());
     }
 }
