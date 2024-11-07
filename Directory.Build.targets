@@ -15,10 +15,10 @@
     </PropertyGroup>
 
     <ItemGroup Condition="'$(IsTestProject)' == 'true'">
-        <!-- Test-specific references, will only apply if project is a test project -->
-        <PackageReference Include="coverlet.collector" Version="6.0.0"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
-        <PackageReference Include="xunit" Version="2.5.3"/>
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3"/>
+        <!-- Update versions for test-specific packages to maintain consistency without duplicate additions -->
+        <PackageReference Update="coverlet.collector" Version="6.0.0"/>
+        <PackageReference Update="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
+        <PackageReference Update="xunit" Version="2.5.3"/>
+        <PackageReference Update="xunit.runner.visualstudio" Version="2.5.3"/>
     </ItemGroup>
 </Project>
