@@ -5,11 +5,8 @@ public class CalculatorTests
     [Fact]
     public void Add_TwoArguments_ReturnParameter()
     {
-        // Arrange
-        Calculator calculator = new();
-
-        // Act
-        int result = calculator.Add(1, 2);
+        // Arrange & Act
+        Calculator.Add(1, 2, out int result);
 
         // Assert
         Assert.Equal(3, result);
