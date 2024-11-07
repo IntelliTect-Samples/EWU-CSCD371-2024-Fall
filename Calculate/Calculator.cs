@@ -1,4 +1,5 @@
 
+
 namespace Calculate;
 
 public class Calculator
@@ -7,4 +8,11 @@ public class Calculator
     {
         result = num1 + num2;
     }
+
+    public static void Subtract(int num1, int num2, out int result)
+    {
+        result = num1 - num2;
+    }
+
+
 }
