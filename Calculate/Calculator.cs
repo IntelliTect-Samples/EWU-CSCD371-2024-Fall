@@ -32,11 +32,6 @@ public class Calculator
             result = 0;
             return false;
         }
-        if (input[0] || )
-        {
-            result = 0;
-            return false;
-        }
         string firstOpperand = inputArray[0];
         string opperatorStr = inputArray[1];
         string secondOpperand = inputArray[2];
