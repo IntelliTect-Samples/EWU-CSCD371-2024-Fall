@@ -1,6 +1,6 @@
 namespace Calculate;
 
-public class Calculate
+public class Calculator
 {
     
 }
