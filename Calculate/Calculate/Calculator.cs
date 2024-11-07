@@ -26,16 +26,15 @@ public class Calculator
             ['/'] = Divide
     };
 
-    // Use string.Split(), pattern matching, logical and operators to parse the string in their entirety ❌✔
     public bool TryCalculate(string input, out double result)
     {
         //init result to 0.0
         result = 0.0;
-        //split the input string by space
+        //split the input string by spaces
         string[] parts = input.Split(' ');
         //check if the parts length is not equal to 3
         if (parts.Length != 3) return false;
-        //check if the first and last parts are not numbers
+        //check if the first and last parts are not doubles
         if (!double.TryParse(parts[0], out var left)) return false;
         if (!double.TryParse(parts[2], out var right)) return false;
         //check if middle part is of length 1
