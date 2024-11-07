@@ -3,7 +3,7 @@ namespace GenericsHomework;
 public class Node<T>
 {
     public T Data { get; }
-    public Node<T> Next { get; set; }
+    public Node<T> Next { get; private set; }
 
     public Node(T data)
     {

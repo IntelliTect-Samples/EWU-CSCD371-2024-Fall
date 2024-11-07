@@ -5,7 +5,7 @@ using Xunit;
 public class NodeTests
 {
     [Fact]
-    public void AppendStringDataThrowsArgumentInvalidOperationException()
+    public void Append_StringData_ThrowsArgumentInvalidOperationException()
     {
         // Arrange
         Node<string> node = new("data");
@@ -14,7 +14,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void AppendExistingDataThrowsInvalidOperationException()
+    public void Append_ExistingData_ThrowsInvalidOperationException()
     {
         // Arrange
         Node<int> node = new(1);
@@ -26,7 +26,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void ExistsDataExistsReturnsTrue()
+    public void Exists_DataExists_ReturnsTrue()
     {
         // Arrange
         Node<int> node = new(1);
@@ -41,7 +41,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void ExistsDataDoesNotExistReturnsFalse()
+    public void Exists_DataDoesNotExist_ReturnsFalse()
     {
         // Arrange
         Node<int> node = new(1);
@@ -56,7 +56,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void ClearNextValueAssignNextToThis()
+    public void Clear_NextValue_AssignNextToThis()
     {
         // Arrange
         Node<int> node = new(1);
@@ -70,7 +70,7 @@ public class NodeTests
         Assert.Equal(1, node.Next.Data);
     }
     [Fact]
-    public void ToStringReturnsDataAsString()
+    public void ToString_ReturnsDataAsString()
     {
         // Arrange
         Node<int> node = new(42);
@@ -83,7 +83,7 @@ public class NodeTests
     }
    
     [Fact]
-    public void AppendStringAndIntDataWorks()
+    public void Append_StringAndIntData_Works()
     {
             // Arrange
             Node<string> stringNode = new("data");
