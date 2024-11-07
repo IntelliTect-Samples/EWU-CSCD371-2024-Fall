@@ -35,6 +35,8 @@ public class Calculator
         string firstOpperand = inputArray[0];
         string opperatorStr = inputArray[1];
         string secondOpperand = inputArray[2];
+
+
         char opperator = opperatorStr[0];
 
         if (!int.TryParse(firstOpperand, out int firstNumber) || !int.TryParse(secondOpperand, out int secondNumber))
@@ -54,10 +56,6 @@ public class Calculator
 
     public static void Divide(int num1, int num2, out double result)
     {
-        if (num2 == 0)
-        {
-            Console.WriteLine("Cannot divide by zero");
-        }
         result = num1/num2;
     }
 
