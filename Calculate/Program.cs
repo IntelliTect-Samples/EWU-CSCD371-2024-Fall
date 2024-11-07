@@ -34,7 +34,7 @@ public class Program
                 Writeline($"Result: {result}");
             }
             Writeline("Would you like to try again?");
-            string input2 = Readline().Readline().ToLower(CultureInfo.InvariantCulture);
+            string input2 = Readline().ToLower(CultureInfo.InvariantCulture);
             if (input2 == "yes")
             {
                 Run();
