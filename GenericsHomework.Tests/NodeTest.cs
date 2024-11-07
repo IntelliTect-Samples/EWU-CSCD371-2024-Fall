@@ -1,9 +1,11 @@
 namespace GenericsHomework.Tests;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
 public class NodeTests
 {
+    [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Unit test method names")]
     [Fact]
     public void Append_StringData_ThrowsArgumentInvalidOperationException()
     {
@@ -13,6 +15,7 @@ public class NodeTests
         Assert.Throws<InvalidOperationException>(() => node.Append("data"));
     }
 
+    [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Unit test method names")]
     [Fact]
     public void Append_ExistingData_ThrowsInvalidOperationException()
     {
@@ -24,7 +27,7 @@ public class NodeTests
         // Act & Assert
         Assert.Throws<InvalidOperationException>(() => node.Append(2));
     }
-
+    [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Unit test method names")]
     [Fact]
     public void Exists_DataExists_ReturnsTrue()
     {
@@ -39,7 +42,7 @@ public class NodeTests
         // Assert
         Assert.True(exists);
     }
-
+    [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Unit test method names")]
     [Fact]
     public void Exists_DataDoesNotExist_ReturnsFalse()
     {
@@ -54,7 +57,7 @@ public class NodeTests
         // Assert
         Assert.False(exists);
     }
-
+    [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Unit test method names")]
     [Fact]
     public void Clear_NextValue_AssignNextToThis()
     {
@@ -69,6 +72,7 @@ public class NodeTests
         // Assert
         Assert.Equal(1, node.Next.Data);
     }
+    [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Unit test method names")]
     [Fact]
     public void ToString_ReturnsDataAsString()
     {
@@ -81,7 +85,7 @@ public class NodeTests
         // Assert
         Assert.Equal("42", result);
     }
-   
+    [SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Unit test method names")]
     [Fact]
     public void Append_StringAndIntData_Works()
     {
