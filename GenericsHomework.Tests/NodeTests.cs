@@ -205,19 +205,19 @@ public class NodeTests
         node1.Append(2);
         node1.Append(3);
 
+        // Capture references to each node before clearing
+        Node<int> node2 = node1.Next;
+        Node<int> node3 = node2.Next;
+
         // Act
         node1.Clear();
 
         // Assert
-        Assert.Same(node1, node1.Next); // The Next property of the head node should point to itself
-
-        Node<int> current = node1.Next;
-        do
-        {
-            Assert.Same(current, current.Next); // Each node points to itself
-            current = current.Next;
-        } while (current != node1);  // Loop through the circular list
+        Assert.Same(node1, node1.Next); // Head node should point to itself
+        Assert.Same(node2, node2.Next); // Second node should point to itself
+        Assert.Same(node3, node3.Next); // Third node should point to itself
     }
+
 
     [Fact]
     public void Clear_OnEmptyList_DoesNotThrowAndHeadRemainsSelfReferencing()
@@ -379,18 +379,7 @@ public class NodeTests
         // Assert
         Assert.False(isReadOnly);
     }
-
-    [Fact]
-    public void Clear_OnAlreadyClearedList_DoesNotThrow()
-    {
-        // Arrange
-        Node<int> head = new (1);
-        head.Clear();
-
-        // Act & Assert
-        var exception = Record.Exception(() => head.Clear());
-        Assert.Null(exception);
-    }
+    
 
     [Fact]
     public void Clear_SetsEachNodeToSelfReferencing()
