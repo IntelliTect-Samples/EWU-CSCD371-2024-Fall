@@ -30,6 +30,7 @@ public class Program
         {
             Writeline("Invalid Equation. Here's an Example: 1 + 1");
             Writeline("Would you like to try again?");
+            // Changed to CultureInfo.InvariantCulture
             string input2 = Readline().ToLower(CultureInfo.InvariantCulture);
             if (input2 == "yes")
             {
