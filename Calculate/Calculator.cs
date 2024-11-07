@@ -2,13 +2,6 @@ namespace Calculate;
 
 public class Calculator 
 {
-    //private readonly Dictionary<string, Func<int, int, double>> _mathematicalOperations = new()
-    //{
-    //    { "+", (a, b) => a + b },
-    //    { "-", (a, b) => a - b },
-    //    { "*", (a, b) => a * b },
-    //    { "/", (a, b) => b  != 0 ? a / b : throw new DivideByZeroException() }
-    //};
 
     public IReadOnlyDictionary<char, Func<int, int, double>> MathematicalOperations { get; }
 
