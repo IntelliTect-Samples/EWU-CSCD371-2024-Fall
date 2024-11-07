@@ -3,7 +3,7 @@ namespace Calculate.Tests;
 public class CalculatorTests
 {
     [Fact]
-    public void Add_TwoArguments_ReturnParameter()
+    public void Add_TwoArguments_ReturnResult()
     {
         // Arrange & Act
         Calculator.Add(1, 2, out int result);
@@ -13,7 +13,7 @@ public class CalculatorTests
     }
 
     [Fact]
-    public void Subtract_TwoArguments_ReturnParameter()
+    public void Subtract_TwoArguments_ReturnResult()
     {
         // Arrange & Act
         Calculator.Subtract(3, 2, out int result);
@@ -21,4 +21,13 @@ public class CalculatorTests
         // Assert
         Assert.Equal(1, result);
     }
-}
+
+    [Fact]
+    public void Multiply_TwoArguments_ReturnResult()
+    {
+        // Arrange & Act
+        Calculator.Multiply(3, 2, out int result);
+
+        // Assert
+        Assert.Equal(6, result);
+    }
