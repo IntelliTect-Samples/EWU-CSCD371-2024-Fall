@@ -1,16 +1,25 @@
-﻿namespace Calculate.Core;
+﻿using System.Globalization;
 
-public class Calculator
+namespace Calculate.Core;
+
+public class Calculator<T> where T : struct, IConvertible
 {
-    private readonly Dictionary<char, Operation> _mathematicalOperations = new()
-    {
-        ['+'] = Add,
-        ['-'] = Subtract,
-        ['*'] = Multiply,
-        ['/'] = Divide
-    };
+    private readonly Dictionary<char, Operation> _mathematicalOperations;
 
     public IReadOnlyDictionary<char, Operation> MathematicalOperations => _mathematicalOperations;
+
+    public delegate bool Operation(T a, T b, out double result);
+
+    public Calculator()
+    {
+        _mathematicalOperations = new Dictionary<char, Operation>();
+        {
+            _mathematicalOperations.Add('+', Add);
+            _mathematicalOperations.Add('-', Subtract);
+            _mathematicalOperations.Add('*', Multiply);
+            _mathematicalOperations.Add('/', Divide);
+        }
+    }
 
     public bool TryCalculate(string calculation, out double result)
     {
@@ -22,7 +31,7 @@ public class Calculator
             return false;
         }
 
-        if (!int.TryParse(parts[0], out int operand1) || !int.TryParse(parts[2], out int operand2))
+        if (!TryParse(parts[0], out T operand1) || !TryParse(parts[2], out T operand2))
         {
             return false;
         }
@@ -36,34 +45,46 @@ public class Calculator
         return operation(operand1, operand2, out result);
     }
 
-    public delegate bool Operation(int a, int b, out double result);
-
-    public static bool Add(int a, int b, out double result)
+    public bool Add(T a, T b, out double result)
     {
-        result = a + b;
+        result = Convert.ToDouble(a, CultureInfo.InvariantCulture) + Convert.ToDouble(b, CultureInfo.InvariantCulture);
         return true;
     }
 
-    public static bool Subtract(int a, int b, out double result)
+    public bool Subtract(T a, T b, out double result)
     {
-        result = a - b;
+        result = Convert.ToDouble(a, CultureInfo.InvariantCulture) - Convert.ToDouble(b, CultureInfo.InvariantCulture);
         return true;
     }
 
-    public static bool Multiply(int a, int b, out double result)
+    public bool Multiply(T a, T b, out double result)
     {
-        result = a * b;
+        result = Convert.ToDouble(a, CultureInfo.InvariantCulture) * Convert.ToDouble(b, CultureInfo.InvariantCulture);
         return true;
     }
 
-    public static bool Divide(int a, int b, out double result)
+    public bool Divide(T a, T b, out double result)
     {
-        if (b == 0)
+        if (Convert.ToDouble(b, CultureInfo.InvariantCulture) == 0)
         {
             result = 0;
             return false;
         }
-        result = a / (double)b;
+        result = Convert.ToDouble(a, CultureInfo.InvariantCulture) / Convert.ToDouble(b, CultureInfo.InvariantCulture);
         return true;
+    }
+
+    private static bool TryParse(string input, out T result)
+    {
+        try
+        {
+            result = (T)Convert.ChangeType(input, typeof(T), CultureInfo.InvariantCulture);
+            return true;
+        }
+        catch
+        {
+            result = default;
+            return false;
+        }
     }
 }

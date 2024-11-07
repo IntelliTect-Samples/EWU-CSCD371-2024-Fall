@@ -51,7 +51,7 @@ public class ProgramTests
     public void PerformCalculation_ValidInput_ReturnsResult()
     {
         // Arrange
-        Calculator calculator = new();
+        Calculator<double> calculator = new();
         string input = "5 + 5";
 
         // Act

@@ -13,7 +13,7 @@ public class Program : ProgramBase
 
     public void Run()
     {
-        Calculator calculator = new();
+        Calculator<double> calculator = new();
 
         string input = GetInput();
         double result = PerformCalculation(calculator, input);
@@ -26,7 +26,7 @@ public class Program : ProgramBase
         return ReadLine();
     }
 
-    public static double PerformCalculation(Calculator calculator, string input)
+    public static double PerformCalculation(Calculator<double> calculator, string input)
     {
         calculator.TryCalculate(input, out double result);
         return result;
