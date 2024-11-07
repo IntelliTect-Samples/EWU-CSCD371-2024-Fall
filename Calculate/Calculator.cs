@@ -19,12 +19,7 @@ public class Calculator
                 { '+', (a, b) => { Add(a, b, out double result); return result; } },
                 { '-', (a, b) => { Subtract(a, b, out double result); return result; } },
                 { '*', (a, b) => { Multiply(a, b, out double result); return result; } },
-                { '/', (a, b) =>
-                    {
-                        if (b == 0) throw new DivideByZeroException("Cannot divide by zero.");
-                        Divide(a, b, out double result);
-                        return result;
-                    }
+                { '/', (a, b) => { Divide(a, b, out double result); return result; }
                 }
             };
     }
@@ -64,6 +59,10 @@ public class Calculator
 
     public static void Divide(int num1, int num2, out double result)
     {
+        if (num2 == 0)
+        {
+            Console.WriteLine("Cannot divide by zero");
+        }
         result = num1/num2;
     }
 
