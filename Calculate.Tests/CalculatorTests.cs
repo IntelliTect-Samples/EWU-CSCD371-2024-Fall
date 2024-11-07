@@ -31,3 +31,6 @@ public class CalculatorTests
         // Assert
         Assert.Equal(6, result);
     }
+
+
+}
