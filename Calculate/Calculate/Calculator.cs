@@ -39,7 +39,7 @@ public class Calculator
         if (!double.TryParse(parts[2], out var right)) return false;
         //check if middle part is of length 1
         if (parts[1].Length != 1) return false;
-        //retrieve the operation from the dictionary
+        //retrieve the cooresponding operation from the dictionary
         if (!MathematicalOperations.TryGetValue(parts[1][0], out var operation)) return false;
         result = operation(left, right);
         return true;
