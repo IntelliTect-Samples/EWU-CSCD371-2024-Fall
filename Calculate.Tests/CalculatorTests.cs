@@ -4,14 +4,14 @@ namespace Calculate.Tests;
 
 public class CalculatorTests
 {
-    [Fact]
-    public void Add_WhenCalled_ReturnsSum()
+    [Theory]
+    [InlineData(42L, 42.0, 84.0)]
+    [InlineData(42, 42, 84)]
+    [InlineData(42.0f, 42, 84.0)]
+    public void Add_WhenCalled_ReturnsSum<T>(T a, T b, double expected) where T : struct, IConvertible
     {
         // Arrange
-        Calculator<int> calculator = new();
-        int a = 5;
-        int b = 10;
-        double expected = 15;
+        Calculator<T> calculator = new();
 
         // Act
         bool success = calculator.Add(a, b, out double actual);
