@@ -11,4 +11,14 @@ public class CalculatorTests
         // Assert
         Assert.Equal(3, result);
     }
+
+    //[Fact]
+    //public void Subtract_TwoArguments_ReturnParameter()
+    //{
+    //    // Arrange & Act
+    //    Calculator.Add(1, 2, out int result);
+
+    //    // Assert
+    //    Assert.Equal(3, result);
+    //}
 }
