@@ -32,5 +32,15 @@ public class CalculatorTests
         Assert.Equal(6, result);
     }
 
+    [Fact]
+    public void Divide_TwoArguments_ReturnResult()
+    {
+        // Arrange & Act
+        Calculator.Divide(10, 5, out int result);
+
+        // Assert
+        Assert.Equal(2, result);
+    }
+
 
 }
