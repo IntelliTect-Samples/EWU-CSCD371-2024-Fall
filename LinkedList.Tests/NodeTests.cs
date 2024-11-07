@@ -32,7 +32,6 @@ public class NodeTests
         Assert.Same(node, node.Next);
     }
 
-    // TODO: Check how to test complex objects such as an array with multiple values
     [Theory]
     [InlineData("Data!")]
     [InlineData("")]
@@ -135,7 +134,6 @@ public class NodeTests
         Assert.Equal(expectedMessage, actualMessage);
     }
 
-    //TODO: Add test to check for multiple appends
     [Theory]
     [InlineData(13, 42, 18)]
     [InlineData(13.0, 12.0, 14.0)]

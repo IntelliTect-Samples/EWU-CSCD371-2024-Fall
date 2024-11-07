@@ -15,7 +15,6 @@ public class Node<T>
 
     public override string ToString()
     {
-        // TODO: Ask if this is a appropriate for handling null values
         return Value?.ToString() ?? $"{nameof(Value)} does not exist.";
     }
 
