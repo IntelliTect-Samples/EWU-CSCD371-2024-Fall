@@ -48,7 +48,7 @@ public class Program
         
     }
 
-    private string FormatInput(string input)
+    private static string FormatInput(string input)
     {
         // Ensure there's exactly one space around the operators
         input = input.Replace("+", " + ")
