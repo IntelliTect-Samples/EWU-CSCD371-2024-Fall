@@ -9,7 +9,6 @@ public class Program
     // Empty Constructor
     public Program() { }
     
-    
     public static void Main(string[] args)
     {
         Program program = new();
