@@ -24,4 +24,66 @@ public class ProgramTests
         Assert.Equal(expectedOutput, capturedOutput);
         Assert.Equal(expectedOutput, readResult);
     }
+    
+    [Fact]
+    public void Main_InitializesProgramCorrectly()
+    {
+        // Arrange
+        Program program = new ();
+
+        // Act & Assert
+        Assert.NotNull(program.Writeline);
+        Assert.NotNull(program.Readline);
+    }
+   
+    [Fact]
+    public void Program_Writeline_WritesExpectedOutputToConsole()
+    {
+        // Arrange
+        string expectedOutput = "Please Kill Me Now!!!";
+        using var sw = new StringWriter();
+        Console.SetOut(sw);
+
+        // Initialize Program with Writeline set to Console.WriteLine
+        Program program = new()
+        {
+            Writeline = Console.WriteLine
+        };
+
+        // Act
+        program.Writeline(expectedOutput);
+
+        // Reset Console output after the test
+        Console.SetOut(new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
+
+        // Assert
+        string result = sw.ToString().Trim();
+        Assert.Equal(expectedOutput, result);
+    }
+    
+    [Fact]
+    public void Program_Readline_ReadsExpectedInputFromConsole()
+    {
+        // Arrange
+        string expectedInput = " You know nothing Jon Snow!";
+        using var sr = new StringReader(expectedInput);
+        Console.SetIn(sr);
+
+        // Initialize Program with Readline set to Console.ReadLine with null-coalescing operator
+        Program program = new()
+        {
+            Readline = () => Console.ReadLine() ?? ""
+        };
+
+        // Act
+        string result = program.Readline();
+
+        // Reset Console input after the test
+        Console.SetIn(new StreamReader(Console.OpenStandardInput()));
+
+        // Assert
+        Assert.Equal(expectedInput, result);
+    }
+
+    
 }
