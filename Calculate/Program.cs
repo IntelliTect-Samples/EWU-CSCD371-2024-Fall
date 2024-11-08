@@ -19,7 +19,7 @@ public class Program : ProgramBase
         string input = Readline();
         input = FormatInput(input);
         bool tryAgain = false;
-        Calculator calculator = new();
+        Calculator<double> calculator = new();
         
         // Loop to allow the user to try again
         do
@@ -28,7 +28,7 @@ public class Program : ProgramBase
             {
                 Writeline($"Result: {result}");
             }
-            Writeline("Would you like to try again?");
+            Writeline("Would you like to try again? (yes or press any key to exit.)");
             string input2 = Readline().ToLower(CultureInfo.InvariantCulture);
             if (input2 == "yes")
             {
