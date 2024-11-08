@@ -18,7 +18,7 @@ public class ProgamTests
         {
             return "whatever";
         }
-        // Consider passing in anonymous methods
+
         var program = new Program(newWriteLine, newReadLine);
 
         // Act

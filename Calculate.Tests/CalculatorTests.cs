@@ -9,7 +9,8 @@ public class CalculatorTests
     [InlineData(0, 0, 0)]
     public void Add_LeftAndRight_ReturnsExpected(double left, double right, double expected)
     {
-        Assert.Equal(expected, Calculator.Add(left, right));
+        Calculator.Add(left, right, out double result);
+        Assert.Equal(expected, result);
     }
 
     [Theory]
@@ -19,7 +20,8 @@ public class CalculatorTests
     [InlineData(0, 0, 0)]
     public void Subtract_LeftAndRight_ReturnsExpected(double left, double right, double expected)
     {
-        Assert.Equal(expected, Calculator.Subtract(left, right));
+        Calculator.Subtract(left, right, out double result);
+        Assert.Equal(expected, result);
     }
 
     [Theory]
@@ -29,7 +31,8 @@ public class CalculatorTests
     [InlineData(0, 0, 0)]
     public void Multiply_LeftAndRight_ReturnsExpected(double left, double right, double expected)
     {
-        Assert.Equal(expected, Calculator.Multiply(left, right));
+        Calculator.Multiply(left, right, out double result);
+        Assert.Equal(expected, result);
     }
 
     [Theory]
@@ -39,13 +42,14 @@ public class CalculatorTests
     [InlineData(-25, -5, 5)]
     public void Divide_LeftAndRight_ReturnsExpected(double left, double right, double expected)
     {
-        Assert.Equal(expected, Calculator.Divide(left, right));
+        Calculator.Divide(left, right, out double result);
+        Assert.Equal(expected, result);
     }
 
     [Fact]
     public void Divide_ByZero_ThrowsDivideByZeroException()
     {
-        Assert.Throws<DivideByZeroException>(() => Calculator.Divide(1, 0));
+        Assert.Throws<DivideByZeroException>(() => Calculator.Divide(1, 0, out double result));
     }
 
     [Theory]

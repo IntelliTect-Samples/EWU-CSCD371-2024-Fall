@@ -12,13 +12,28 @@ namespace Calculate;
 
 public class Calculator
 {
-    public static double Add(double left, double right) => left + right;
-    public static double Subtract(double left, double right) => left - right;
-    public static double Multiply(double left, double right) => left * right;
-    public static double Divide(double left, double right) => right == 0 ? throw new DivideByZeroException() : left / right;
+    public static bool Add(double left, double right, out double result)
+    {
+        return (result = left + right) == result;
+    }
+    public static bool Subtract(double left, double right, out double result)
+    {
+        return (result = left - right) == result;
+    }
 
-    public IReadOnlyDictionary<char, Func<double, double, double>> MathematicalOperations { get; }
-        = new Dictionary<char, Func<double, double, double>>
+    public static bool Multiply(double left, double right, out double result)
+    {
+        return (result = left * right) == result;
+    }
+    public static bool Divide(double left, double right, out double result)
+    {
+        return right == 0 ? throw new DivideByZeroException() : (result = left / right) == result;
+    }
+
+    public delegate bool MathOperation(double left, double right, out double result);
+
+    public IReadOnlyDictionary<char, MathOperation> MathematicalOperations { get; }
+        = new Dictionary<char, MathOperation>
     {
             ['+'] = Add,
             ['-'] = Subtract,
@@ -41,7 +56,8 @@ public class Calculator
         if (parts[1].Length != 1) return false;
         //retrieve the cooresponding operation from the dictionary
         if (!MathematicalOperations.TryGetValue(parts[1][0], out var operation)) return false;
-        result = operation(left, right);
+        //result = operation(left, right);
+        operation(left, right, out result);
         return true;
     }
 }
