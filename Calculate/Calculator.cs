@@ -4,6 +4,7 @@ using System.Numerics;
 namespace Calculate;
 public class Calculator<T> where T : INumber<T>
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1859:Use concrete types for improved performance")]
     private IReadOnlyDictionary<char, Func<T, T, double>> MathematicalOperations { get; }
 
     public Calculator()
