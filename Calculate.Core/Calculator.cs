@@ -45,32 +45,37 @@ public class Calculator<T> where T : struct, IConvertible
         return operation(operand1, operand2, out result);
     }
 
+    private static double ConvertToDouble(T value)
+    {
+        return Convert.ToDouble(value, CultureInfo.InvariantCulture);
+    }
+
     public bool Add(T a, T b, out double result)
     {
-        result = Convert.ToDouble(a, CultureInfo.InvariantCulture) + Convert.ToDouble(b, CultureInfo.InvariantCulture);
+        result = ConvertToDouble(a) + ConvertToDouble(b);
         return true;
     }
 
     public bool Subtract(T a, T b, out double result)
     {
-        result = Convert.ToDouble(a, CultureInfo.InvariantCulture) - Convert.ToDouble(b, CultureInfo.InvariantCulture);
+        result = ConvertToDouble(a) - ConvertToDouble(b);
         return true;
     }
 
     public bool Multiply(T a, T b, out double result)
     {
-        result = Convert.ToDouble(a, CultureInfo.InvariantCulture) * Convert.ToDouble(b, CultureInfo.InvariantCulture);
+        result = ConvertToDouble(a) * ConvertToDouble(b);
         return true;
     }
 
     public bool Divide(T a, T b, out double result)
     {
-        if (Convert.ToDouble(b, CultureInfo.InvariantCulture) == 0)
+        if (ConvertToDouble(b) == 0)
         {
             result = 0;
             return false;
         }
-        result = Convert.ToDouble(a, CultureInfo.InvariantCulture) / Convert.ToDouble(b, CultureInfo.InvariantCulture);
+        result = ConvertToDouble(a) / ConvertToDouble(b);
         return true;
     }
 
