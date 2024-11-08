@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<Import Project="..\Directory.Build.Props"/>
+<Import Project="..\Directory.Build.Props"/>
 
   <PropertyGroup>
     <IsPackable>false</IsPackable>
