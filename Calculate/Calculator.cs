@@ -1,28 +1,29 @@
+using System.Globalization;
+using System.Numerics;
+
 namespace Calculate;
-
-public class Calculator 
+public class Calculator<T> where T : INumber<T>
 {
-
-    public IReadOnlyDictionary<char, Func<int, int, double>> MathematicalOperations { get; }
+    private IReadOnlyDictionary<char, Func<T, T, double>> MathematicalOperations { get; }
 
     public Calculator()
     {
-        MathematicalOperations = new Dictionary<char, Func<int, int, double>>
-            {
-                { '+', (a, b) => { Add(a, b, out double result); return result; } },
-                { '-', (a, b) => { Subtract(a, b, out double result); return result; } },
-                { '*', (a, b) => { Multiply(a, b, out double result); return result; } },
-                { '/', (a, b) =>
+        MathematicalOperations = new Dictionary<char, Func<T, T, double>>
+        {
+            { '+', (a, b) => { Add(a, b, out double result); return result; } },
+            { '-', (a, b) => { Subtract(a, b, out double result); return result; } },
+            { '*', (a, b) => { Multiply(a, b, out double result); return result; } },
+            { '/', (a, b) =>
+                {
+                    if (b == T.Zero)
                     {
-                        if (b == 0)
-                        {
-                            throw new DivideByZeroException("Cannot divide by zero.");
-                        }
-                        Divide(a, b, out double result);
-                        return result;
+                        throw new DivideByZeroException("Cannot divide by zero.");
                     }
+                    Divide(a, b, out double result);
+                    return result;
                 }
-            };
+            }
+        };
     }
 
     public bool TryCalculate(string input, out double result)
@@ -46,7 +47,7 @@ public class Calculator
                 return false;
             }
 
-            if (!int.TryParse(firstOperand, out int firstNumber) || !int.TryParse(secondOperand, out int secondNumber))
+            if (!TryParse(firstOperand, out T firstNumber) || !TryParse(secondOperand, out T secondNumber))
             {
                 result = 0;
                 return false;
@@ -65,23 +66,56 @@ public class Calculator
         }
     }
 
-    public static void Add(int num1, int num2, out double result)
+    public static void Add(T num1, T num2, out double result)
     {
-        result = num1 + num2;
+        result = double.CreateChecked(num1 + num2);
     }
 
-    public static void Divide(int num1, int num2, out double result)
+    public static void Divide(T num1, T num2, out double result)
     {
-        result = (double)num1/num2;
+        result = double.CreateChecked(num1 / num2);
     }
 
-    public static void Multiply(int num1, int num2, out double result)
+    public static void Multiply(T num1, T num2, out double result)
     {
-        result = num1 * num2;
+        result = double.CreateChecked(num1 * num2);
     }
 
-    public static void Subtract(int num1, int num2, out double result)
+    public static void Subtract(T num1, T num2, out double result)
     {
-        result = num1 - num2;
+        result = double.CreateChecked(num1 - num2);
     }
+    
+    private static bool TryParse(string input, out T result)
+    {
+        // Dictionary mapping types to their parsing functions
+        var parseFunctions = new Dictionary<Type, Func<string, T>>
+        {
+            { typeof(int), s => T.CreateChecked(int.Parse(s, NumberStyles.Any, CultureInfo.InvariantCulture)) },
+            { typeof(double), s => T.CreateChecked(double.Parse(s, NumberStyles.Any, CultureInfo.InvariantCulture)) },
+            { typeof(float), s => T.CreateChecked(float.Parse(s, NumberStyles.Any, CultureInfo.InvariantCulture)) },
+            { typeof(decimal), s => T.CreateChecked(decimal.Parse(s, NumberStyles.Any, CultureInfo.InvariantCulture)) }
+        };
+
+        // Try to find the appropriate parse function based on the type of T
+        if (parseFunctions.TryGetValue(typeof(T), out var parseFunc))
+        {
+            try
+            {
+                result = parseFunc(input);
+                return true;
+            }
+            catch
+            {
+                // Parsing failed; handle by returning T.Zero as result
+                result = T.Zero;
+                return false;
+            }
+        }
+
+        // If T is not a supported type, return T.Zero and false
+        result = T.Zero;
+        return false;
+    }
+
 }

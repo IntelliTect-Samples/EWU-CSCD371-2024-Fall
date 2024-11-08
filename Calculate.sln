@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculate", "Calculate\Calc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculate.Tests", "Calculate.Tests\Calculate.Tests.csproj", "{10896D03-317C-4E26-930B-AB883E0FE125}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUtilities", "ConsoleUtilities\ConsoleUtilities.csproj", "{BA26716C-FCEE-4F13-A7E3-DEFDF1733BE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{10896D03-317C-4E26-930B-AB883E0FE125}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10896D03-317C-4E26-930B-AB883E0FE125}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10896D03-317C-4E26-930B-AB883E0FE125}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA26716C-FCEE-4F13-A7E3-DEFDF1733BE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA26716C-FCEE-4F13-A7E3-DEFDF1733BE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA26716C-FCEE-4F13-A7E3-DEFDF1733BE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA26716C-FCEE-4F13-A7E3-DEFDF1733BE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
