@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 
 namespace GenericsHomework;
-
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix", Justification = "Benjamin is allowing this suppression.")]
 public class Node<T> : ICollection<T>
 {
     private readonly T _value;
