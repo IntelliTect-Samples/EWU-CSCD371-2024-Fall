@@ -1,6 +1,8 @@
-﻿namespace GenericsHomework;
+﻿using System.Collections;
 
-public class Node<T>
+namespace GenericsHomework;
+
+public class Node<T> : ICollection<T>
 {
     private readonly T _value;
     private Node<T> _next;
@@ -71,6 +73,76 @@ public class Node<T>
         Next = this;
         //this set the node to point to itself, which make the list empty
         //We don't have to worry about garbage collector because all nodes is disconnected and will be automatically collected
+    }
+
+    //ICollection<T> implementation
+    public int Count
+    {
+        get
+        {
+            int count = 0;
+            Node<T> node = this;
+            do
+            {
+                count++;
+                node = node.Next;
+            } while (node != this);
+            return count;
+        }
+    }
+
+    public bool IsReadOnly => false;
+
+    public void Add(T item)
+    {
+        Append(item);
+    }
+
+    public bool Contains(T item)
+    {
+        return Exists(item);
+    }
+
+    public bool Remove(T item)
+    {
+        Node<T> node = this;
+        Node<T> previous = this;
+        do
+        {
+            if (EqualityComparer<T>.Default.Equals(node.Value, item))
+            {
+                previous.Next = node.Next;
+                return true;
+            }
+            previous = node;
+            node = node.Next;
+        } while (node != this);
+        return false;
+    }
+
+    public void CopyTo(T[] array, int arrayIndex)
+    {
+        Node<T> node = this;
+        do
+        {
+            array[arrayIndex++] = node.Value;
+            node = node.Next;
+        } while (node != this);
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        Node<T> node = this;
+        do
+        {
+            yield return node.Value;
+            node = node.Next;
+        } while (node != this);
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 
 }
