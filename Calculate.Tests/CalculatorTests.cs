@@ -85,7 +85,7 @@ public class CalculatorTests
         bool success = calculator.Divide(a, b, out double actual);
 
         // Assert
-        Assert.Equal(0, actual);
+        Assert.Equal(double.NaN, actual);
         Assert.False(success);
     }
 
