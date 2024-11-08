@@ -182,18 +182,18 @@ public class NodeTests
     }
 
     [Fact]
-    public void GetEnumerator_ReturnsValuesInReverseOrder_Success()
+    public void GetEnumerator_ReturnsValuesInCorrectOrder_Success()
     {
         Node<int> node = new(1);
         node.Append(2);
         node.Append(3);
         int[] array = new int[3];
         int i = 0;
-        foreach (var item in node.Reverse())
+        foreach (var item in node)
         {
             array[i++] = item;
         }
-        Assert.Equal(new int[] { 3, 2, 1 }, array);
+        Assert.Equal(new int[] { 1, 2, 3 }, array);
     }
 
 }

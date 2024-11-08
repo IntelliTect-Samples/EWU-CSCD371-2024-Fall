@@ -51,11 +51,20 @@ public class Node<T> : ICollection<T>
         {
             throw new InvalidOperationException("Value already exists in the list");
         }
-        Node<T> newNode = new(value)
+
+        Node<T> newNode = new(value);
+        Node<T> node = this;
+
+
+        while (node.Next != this)
         {
-            Next = Next
-        };
-        Next = newNode;
+            node = node.Next;
+        }
+
+        // Set the new node as the last node's next and update the last node's next to the new node
+        node.Next = newNode;
+        newNode.Next = this;  // The list is circular, so the last node points to the first node
+
         return newNode;
     }
 
@@ -123,9 +132,10 @@ public class Node<T> : ICollection<T>
     public void CopyTo(T[] array, int arrayIndex)
     {
         Node<T> node = this.Next;  // Start from the first actual node, not the sentinel node
+        int index = arrayIndex;
         do
         {
-            array[arrayIndex++] = node.Value;
+            array[index++] = node.Value;
             node = node.Next;
         } while (node != this.Next);  // Loop until we return to the first node
     }
