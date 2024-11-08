@@ -155,7 +155,7 @@ public class NodeTests
     [Fact]
     public void CopyTo_CopyValues_Success()
     {
-        Node<int> list = new Node<int>(0); //this is necessary 
+        Node<int> list = new(0); //this is necessary 
         list.Append(1); 
         list.Append(2);  
         list.Append(3);  
@@ -163,7 +163,7 @@ public class NodeTests
         int[] array = new int[3];
         list.CopyTo(array, 0);
 
-        Assert.Equal(new int[] { 1, 2, 3 }, array); 
+        Assert.Equal([1, 2, 3], array); 
     }
 
     [Fact]
@@ -178,7 +178,7 @@ public class NodeTests
         {
             array[i++] = item;
         }
-        Assert.Equal(new int[] { 1, 2, 3 }, array);
+        Assert.Equal([1, 2, 3], array);
     }
 
     [Fact]
@@ -193,7 +193,7 @@ public class NodeTests
         {
             array[i++] = item;
         }
-        Assert.Equal(new int[] { 1, 2, 3 }, array);
+        Assert.Equal([1, 2, 3], array);
     }
 
 }
