@@ -34,6 +34,23 @@ public class PersonParser : IParser<Person>
 
 public record class Person(string FirstName, string LastName) : IStringParser<Person?>
 {
+    private string name = $"{FirstName} {LastName}";
+
+    public string Name
+    {
+        get
+        {
+            return name;
+        }
+        set
+        {
+
+            name = value;
+            NameChanged?.Invoke(this, new());
+        }
+    }
+    public event EventHandler<EventArgs> NameChanged;
+
     public static bool TryParse(string input, out Person? output)
     {
         if (string.IsNullOrWhiteSpace(input))
