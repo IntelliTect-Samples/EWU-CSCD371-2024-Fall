@@ -27,7 +27,7 @@ public class NodeTests
 
         // Assert
         Assert.Equal(99, node.Next.Value);
-        Assert.Same(node, node.Next.Next); // should point back to node.
+        Assert.Same(node, node.Next.Next);
     }
 
     [Fact]

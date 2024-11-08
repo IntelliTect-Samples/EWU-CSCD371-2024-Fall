@@ -5,8 +5,6 @@ public class Node<T>
     public T Value { get; }
     public Node<T> Next { get; private set; }
 
-    // initialize the node with a value
-    // set the Next reference to itself which makes it circular
     public Node(T value)
     {
         Value = value;
@@ -28,22 +26,18 @@ public class Node<T>
         Node<T> newNode = new(value);
         Node<T> current = this;
 
-        // Traverse to the last node
         while (current.Next != this)
         {
             current = current.Next;
         }
 
-        // Insert the new node at the end and point it back to the first node
         current.Next = newNode;
         newNode.Next = this;
     }
     public bool Exists(T value)
     {
-        // Start at current node
         Node<T> current = this;
 
-        // Traverse the list
         do
         {
             // Check if the current node matches the value
@@ -53,25 +47,28 @@ public class Node<T>
                 return true;
             }
             current = current.Next;
-        } while (current != this); // Continue until back to start
+        } while (current != this);
 
         return false;
     }
     public void Clear()
     {
-        // Start from the node after the current node
         Node<T> current = this.Next;
         Node<T> previous = this;
 
-        // Traverse and disconnect each node
+        /* 
+            In order for garbage collection to pickup the cleared nodes, they must be unreachable.
+            If the linked list was used with a singular Node as a point of entry, just setting it's Next to itself would be sufficient, 
+            however it is possible that a Node is instantiated with the next pointer, therefore we opted to
+            iterate through the entire list to ensure all Nodes are unreachable.
+        */
         while (current != this)
         {
-            Node<T> nextNode = current.Next; // Save the next node
-            previous.Next = previous;        // Disconnect the current node
-            current = nextNode;              // Move to the next node
+            Node<T> nextNode = current.Next;
+            previous.Next = previous;
+            current = nextNode;
         }
 
-        // Reset next to point back to itself
         this.Next = this;
     }
 }
