@@ -50,34 +50,10 @@ public class Calculator<T> where T : struct, IConvertible
         return Convert.ToDouble(value, CultureInfo.InvariantCulture);
     }
 
-    public bool Add(T a, T b, out double result)
-    {
-        result = ConvertToDouble(a) + ConvertToDouble(b);
-        return true;
-    }
-
-    public bool Subtract(T a, T b, out double result)
-    {
-        result = ConvertToDouble(a) - ConvertToDouble(b);
-        return true;
-    }
-
-    public bool Multiply(T a, T b, out double result)
-    {
-        result = ConvertToDouble(a) * ConvertToDouble(b);
-        return true;
-    }
-
-    public bool Divide(T a, T b, out double result)
-    {
-        if (ConvertToDouble(b) == 0)
-        {
-            result = 0;
-            return false;
-        }
-        result = ConvertToDouble(a) / ConvertToDouble(b);
-        return true;
-    }
+    public bool Add(T a, T b, out double result) => (result = ConvertToDouble(a) + ConvertToDouble(b)) == result;
+    public bool Subtract(T a, T b, out double result) => (result = ConvertToDouble(a) - ConvertToDouble(b)) == result;
+    public bool Multiply(T a, T b, out double result) => (result = ConvertToDouble(a) * ConvertToDouble(b)) == result;
+    public bool Divide(T a, T b, out double result) => ConvertToDouble(b) != 0 ? (result = ConvertToDouble(a) / ConvertToDouble(b)) == result : (result = 0) != result;
 
     private static bool TryParse(string input, out T result)
     {
