@@ -122,12 +122,12 @@ public class Node<T> : ICollection<T>
 
     public void CopyTo(T[] array, int arrayIndex)
     {
-        Node<T> node = this;
+        Node<T> node = this.Next;  // Start from the first actual node, not the sentinel node
         do
         {
             array[arrayIndex++] = node.Value;
             node = node.Next;
-        } while (node != this);
+        } while (node != this.Next);  // Loop until we return to the first node
     }
 
     public IEnumerator<T> GetEnumerator()

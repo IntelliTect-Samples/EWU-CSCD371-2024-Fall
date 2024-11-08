@@ -92,4 +92,108 @@ public class NodeTests
         Assert.Equal(node, node.Next);
     }
 
+    //ICollection<T> implementation tests
+
+    [Fact]
+    public void Count_ReturnsCorrectCount_Success()
+    {
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+        Assert.Equal(3, node.Count);
+    }
+
+    [Fact]
+    public void IsReadOnly_ReturnsFalse_Success()
+    {
+        Node<int> node = new(1);
+        Assert.False(node.IsReadOnly);
+    }
+
+    [Fact]
+    public void Add_InsertValue_Success()
+    {
+        Node<int> node = new(1);
+        node.Add(2);
+        Assert.True(node.Exists(2));
+    }
+
+    [Fact]
+    public void Contains_ValueExists_ReturnsTrue()
+    {
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+        Assert.Contains(2, node);
+    }
+
+    [Fact]
+    public void Contains_ValueDoesNotExists_ReturnsFalse()
+    {
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+        Assert.DoesNotContain(4, node);
+    }
+
+    [Fact]
+    public void Remove_ValueExists_ReturnsTrue()
+    {
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+        Assert.True(node.Remove(2));
+        Assert.DoesNotContain(2, node);
+    }
+
+    [Fact]
+    public void Remove_ValueDoesNotExists_ReturnsFalse()
+    {
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+        Assert.False(node.Remove(4));
+    }
+
+    [Fact]
+    public void CopyTo_CopyValues_Success()
+    {
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+        int[] array = new int[3];
+        node.CopyTo(array, 0);
+        Assert.Equal(new int[] { 1, 2, 3 }, array);
+    }
+
+    [Fact]
+    public void GetEnumerator_ReturnsValues_Success()
+    {
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+        int[] array = new int[3];
+        int i = 0;
+        foreach (var item in node)
+        {
+            array[i++] = item;
+        }
+        Assert.Equal(new int[] { 1, 2, 3 }, array);
+    }
+
+    [Fact]
+    public void GetEnumerator_ReturnsValuesInReverseOrder_Success()
+    {
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+        int[] array = new int[3];
+        int i = 0;
+        foreach (var item in node.Reverse())
+        {
+            array[i++] = item;
+        }
+        Assert.Equal(new int[] { 3, 2, 1 }, array);
+    }
+
 }
