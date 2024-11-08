@@ -66,22 +66,22 @@ public class Calculator<T> where T : INumber<T>
         }
     }
 
-    public static void Add(T num1, T num2, out double result)
+    public void Add(T num1, T num2, out double result)
     {
         result = double.CreateChecked(num1 + num2);
     }
 
-    public static void Divide(T num1, T num2, out double result)
+    public void Divide(T num1, T num2, out double result)
     {
         result = double.CreateChecked(num1 / num2);
     }
 
-    public static void Multiply(T num1, T num2, out double result)
+    public void Multiply(T num1, T num2, out double result)
     {
         result = double.CreateChecked(num1 * num2);
     }
 
-    public static void Subtract(T num1, T num2, out double result)
+    public void Subtract(T num1, T num2, out double result)
     {
         result = double.CreateChecked(num1 - num2);
     }
