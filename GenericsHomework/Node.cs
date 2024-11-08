@@ -45,7 +45,7 @@ public class Node<T> : ICollection<T>
 
     }
 
-    public Node<T> Append(T value)
+    public void Append(T value)
     {
         if (Exists(value))
         {
@@ -62,8 +62,6 @@ public class Node<T> : ICollection<T>
 
         node.Next = newNode;
         newNode.Next = this;  
-
-        return newNode;
     }
 
     public void Clear()

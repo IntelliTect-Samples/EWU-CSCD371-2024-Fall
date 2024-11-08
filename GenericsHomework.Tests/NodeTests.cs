@@ -39,11 +39,9 @@ public class NodeTests
     [Fact]
     public void Append_InsertValue_Success()
     {
-        Node<int> node = new(5);
-        var newNode = node.Append(10);
-        Assert.Equal(newNode, node.Next);
-        Assert.Equal(node, newNode.Next);
-
+        Node<int> node = new(1);
+        node.Append(2);
+        Assert.True(node.Exists(2));
     }
 
     [Fact]
@@ -76,12 +74,11 @@ public class NodeTests
     [Fact]
     public void Clear_RemoveAllNodes_Success()
     {
-        Node<int> node1 = new(1);
-        var node2 = node1.Append(2);
-        var node3 = node2.Append(3);
-        node1.Clear();
-        Assert.Equal(node1, node1.Next);
-        Assert.Equal(node2, node3.Next);
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+        node.Clear();
+        Assert.Equal(node, node.Next);
     }
 
     [Fact]
