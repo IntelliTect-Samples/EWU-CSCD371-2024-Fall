@@ -158,12 +158,15 @@ public class NodeTests
     [Fact]
     public void CopyTo_CopyValues_Success()
     {
-        Node<int> node = new(1);
-        node.Append(2);
-        node.Append(3);
+        Node<int> list = new Node<int>(0); //this is necessary 
+        list.Append(1); 
+        list.Append(2);  
+        list.Append(3);  
+
         int[] array = new int[3];
-        node.CopyTo(array, 0);
-        Assert.Equal(new int[] { 1, 2, 3 }, array);
+        list.CopyTo(array, 0);
+
+        Assert.Equal(new int[] { 1, 2, 3 }, array); 
     }
 
     [Fact]

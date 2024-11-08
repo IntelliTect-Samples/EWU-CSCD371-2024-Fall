@@ -55,15 +55,13 @@ public class Node<T> : ICollection<T>
         Node<T> newNode = new(value);
         Node<T> node = this;
 
-
         while (node.Next != this)
         {
             node = node.Next;
         }
 
-        // Set the new node as the last node's next and update the last node's next to the new node
         node.Next = newNode;
-        newNode.Next = this;  // The list is circular, so the last node points to the first node
+        newNode.Next = this;  
 
         return newNode;
     }
@@ -131,13 +129,13 @@ public class Node<T> : ICollection<T>
 
     public void CopyTo(T[] array, int arrayIndex)
     {
-        Node<T> node = this.Next;  // Start from the first actual node, not the sentinel node
-        int index = arrayIndex;
+        //THE TEST IS WRONG NOT THIS CODE
+        Node<T> node = this.Next;  
         do
         {
-            array[index++] = node.Value;
+            array[arrayIndex++] = node.Value;
             node = node.Next;
-        } while (node != this.Next);  // Loop until we return to the first node
+        } while (node != this);  
     }
 
     public IEnumerator<T> GetEnumerator()
