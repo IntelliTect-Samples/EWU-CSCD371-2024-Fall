@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Assignment;
+﻿namespace Assignment;
 
 public interface IAsyncSampleData
 {
