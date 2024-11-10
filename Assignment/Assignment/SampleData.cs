@@ -17,7 +17,10 @@ public class SampleData : ISampleData
 
     // 2.
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
-        => throw new NotImplementedException();
+    {
+        IEnumerable<string> states = CsvRows.Select(row => row.Split(',')[6]).Distinct();
+        return states.OrderBy(state => state);
+    }
 
     // 3.
     public string GetAggregateSortedListOfStatesUsingCsvRows()
