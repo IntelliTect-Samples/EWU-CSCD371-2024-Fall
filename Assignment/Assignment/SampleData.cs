@@ -1,15 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
 
 namespace Assignment
 {
     public class SampleData : ISampleData
     {
         // 1.
-        public IEnumerable<string> CsvRows => throw new NotImplementedException();
+        public IEnumerable<string> CsvRows
+        {
+            get
+            {
+                IEnumerable<string> data = File.ReadLines("People.csv");
+                return data.Skip(1);
+            }
+        }
 
         // 2.
-        public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() 
+        public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
             => throw new NotImplementedException();
 
         // 3.

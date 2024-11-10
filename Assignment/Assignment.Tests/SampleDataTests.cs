@@ -19,6 +19,6 @@ public class SampleDataTests
         // Assert
         Assert.IsNotNull(csvRows);
         Assert.IsTrue(csvRows.Count > 0);
-        Assert.AreEqual("Priscilla,Jenyns,pjenyns0@7884 Corry,Helena,MT,70577", csvRows[0]);
+        Assert.AreEqual("1,Priscilla,Jenyns,pjenyns0@state.gov,7884 Corry Way,Helena,MT,70577", csvRows[0]);
     }
 }
