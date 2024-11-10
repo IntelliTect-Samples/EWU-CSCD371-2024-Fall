@@ -34,5 +34,6 @@ public class SampleDataTests
         Assert.IsNotNull(states);
         Assert.IsTrue(states.Count > 0);
         Assert.AreEqual(expectedState, states[0]);
+        Assert.AreEqual(states.Count, states.Distinct().Count());
     }
 }
