@@ -54,11 +54,11 @@ Chapter 14: Events
    - Using LINQ, skip the first row in the `People.csv`. ❌✔
    - Be sure to appropriately handle resource (`IDisposable`) items correctly if applicable (and it may not be depending on how you implement it). ❌✔
 
-2. Implement `IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()` to return a **sorted**, **unique** list of states. ❌✔
+2. Implement `IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()` to return a **sorted**, **unique** list of states. ✔
 
-   - Use `ISampleData.CsvRows` for your data source. ❌✔
-   - Don't forget the list should be unique. ❌✔
-   - Sort the list alphabetically. ❌✔
+   - Use `ISampleData.CsvRows` for your data source. ✔
+   - Don't forget the list should be unique. ✔
+   - Sort the list alphabetically. ✔
    - Include a test that leverages a hardcoded list of addresses. ❌✔
    - Include a test that uses LINQ to verify the data is sorted correctly (do not use a hardcoded list). ❌✔
 
