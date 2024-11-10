@@ -18,6 +18,9 @@ namespace Assignment
             }
         }
 
+        // Note on IDisposable: File.ReadLines() does not require manuel disposal of resources.
+        // It internally manages the file stream and cleans it up automatically when the enumeration is complete.
+
         // 2.
         public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
             => throw new NotImplementedException();
