@@ -85,5 +85,34 @@ public class ProgramTests
         Assert.Equal(expectedInput, result);
     }
 
-    
+    [Fact]
+    public void Run_ValidExpression_ReturnsCorrectResult()
+    {
+        // Arrange
+        string inputExpression = "2 + 2";
+        string expectedOutput = "Result: 4";
+        string capturedOutput = string.Empty;
+
+        // Create a sequence of inputs to simulate user interaction
+        Queue<string> inputs = new Queue<string>(new[] { inputExpression, "no" });
+
+        ProgramTestable program = new ProgramTestable
+        {
+            Writeline = (output) => capturedOutput += output,
+            Readline = () => inputs.Dequeue()
+        };
+
+        // Act
+        program.RunPublic();
+
+        // Assert
+        Assert.Contains(expectedOutput, capturedOutput);
+        Assert.Contains("Goodbye!", capturedOutput);
+    }
+
+}
+
+public class ProgramTestable : Program
+{
+    public void RunPublic() => Run(); // Expose Run as a public method for testing
 }
