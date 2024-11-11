@@ -96,7 +96,7 @@ public class ProgramTests
         // Create a sequence of inputs to simulate user interaction
         Queue<string> inputs = new Queue<string>(new[] { inputExpression, "no" });
 
-        ProgramTestable program = new ProgramTestable
+        ProgramTestable program = new()
         {
             Writeline = (output) => capturedOutput += output,
             Readline = () => inputs.Dequeue()
