@@ -155,8 +155,11 @@ public class CalculatorTests
     [InlineData("", 0, false)]
     public void TryParse_WithVariousInputs_ReturnsExpectedResults(string input, double expectedValue, bool expectedSuccess)
     {
+        // Arrange
+        Calculator<double> calculator = new();
+
         // Act
-        bool success = Calculator<double>.TryParse(input, out double result);
+        bool success = calculator.TryParse(input, out double result);
 
         // Assert
         Assert.Equal(expectedSuccess, success);
