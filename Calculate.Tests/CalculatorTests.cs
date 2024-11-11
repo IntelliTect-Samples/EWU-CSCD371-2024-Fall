@@ -84,4 +84,46 @@ public class CalculatorTests
         Assert.Equal(3, result);
     }
 
+    [Fact]
+    public void MathematicalOperations_SubtractChar_PointsToSubtractMethod()
+    {
+        // Arrange
+        Calculator<int> calc = new();
+
+        // Act
+        var subtractOperation = calc.MathematicalOperations['-'];
+        double result = subtractOperation(3, 2);
+
+        // Assert
+        Assert.Equal(1, result);
+    }
+
+    [Fact]
+    public void MathematicalOperations_MultiplyChar_PointsToMultiplyMethod()
+    {
+        // Arrange
+        Calculator<int> calc = new();
+
+        // Act
+        var multiplyOperation = calc.MathematicalOperations['*'];
+        double result = multiplyOperation(3, 2);
+
+        // Assert
+        Assert.Equal(6, result);
+    }
+
+    [Fact]
+    public void MathematicalOperations_DivideChar_PointsToDivideMethod()
+    {
+        // Arrange
+        Calculator<int> calc = new();
+
+        // Act
+        var divideOperation = calc.MathematicalOperations['/'];
+        double result = divideOperation(10, 2);
+
+        // Assert
+        Assert.Equal(5, result);
+    }
+
 }
