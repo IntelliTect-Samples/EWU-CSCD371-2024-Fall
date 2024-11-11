@@ -126,4 +126,24 @@ public class CalculatorTests
         Assert.Equal(5, result);
     }
 
+    [Theory]
+    [InlineData("1 + 3", 4, true)]
+    [InlineData("1 + 2.1", 3.1, true)]
+    [InlineData("8888 * 1", 8888, true)]
+    [InlineData("33.55 * 7.77", 260.6835, true)]
+    [InlineData("1 - 1", 0, true)]
+    [InlineData("6.6 / 3.00", 2.2, true)]
+    public void TryCalculate_ValidString_ParsesResult(string input, double expected, bool boolResult)
+    {
+        // Arrange
+        Calculator<double> calculator = new();
+
+        // Act
+        bool valid = calculator.TryCalculate(input, out double result);
+
+        // Assert
+        Assert.Equal(boolResult, valid);
+        Assert.Equal(expected, result, precision: 5);
+    }
+
 }
