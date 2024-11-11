@@ -70,5 +70,18 @@ public class CalculatorTests
         Assert.True(calc.MathematicalOperations.ContainsKey('/'));
     }
 
+    [Fact]
+    public void MathematicalOperations_AddChar_PointsToAddMethod()
+    {
+        // Arrange
+        Calculator<int> calc = new();
+
+        // Act
+        var addOperation = calc.MathematicalOperations['+'];
+        double result = addOperation(1, 2);
+
+        // Assert
+        Assert.Equal(3, result);
+    }
 
 }
