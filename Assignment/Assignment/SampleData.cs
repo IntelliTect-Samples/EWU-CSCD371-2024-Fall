@@ -2,12 +2,31 @@
 
 public class SampleData : ISampleData
 {
+    private readonly string _fileName;
+
+    private const string ExpectedHeader = "Id,FirstName,LastName,Email,StreetAddress,City,State,Zip";
+
+    public SampleData(string fileName)
+    {
+        _fileName = fileName;
+        if (!File.Exists(_fileName))
+        {
+            throw new FileNotFoundException($"File not found: {_fileName}");
+        }
+
+        string? header = File.ReadLines(_fileName).FirstOrDefault();
+        if (header == null || header != ExpectedHeader)
+        {
+            throw new FormatException($"Invalid header: {header}");
+        }
+    }
+
     // 1.
     public IEnumerable<string> CsvRows
     {
         get
         {
-            IEnumerable<string> data = File.ReadLines("People.csv");
+            IEnumerable<string> data = File.ReadLines(_fileName);
             return data.Skip(1);
         }
     }
