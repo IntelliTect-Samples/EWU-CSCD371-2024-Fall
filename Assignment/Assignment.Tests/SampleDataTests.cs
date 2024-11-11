@@ -126,13 +126,13 @@ public class SampleDataTests
     public void GetAggregateSortedListOfStatesUsingCsvRows_InputFromTestFile_ShouldReturnCommaSeparatedSortedStates()
     {
         // Arrange
-        SampleData sampleData = new("TestPeople.CSV");
+        SampleData sampleData = new("TestPeople.csv");
 
         // Act
-        var result = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+        string result = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
 
         // Assert
-        Assert.AreEqual("CA, FL, GA, MN", result);
+        Assert.AreEqual("CA, FL, GA, MT", result);
     }
 
     [TestMethod]
@@ -142,10 +142,10 @@ public class SampleDataTests
         TestSampleData testSampleData = new();
 
         // Act
-        var result = testSampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+        string result = testSampleData.GetAggregateSortedListOfStatesUsingCsvRows();
 
         // Assert
-        Assert.AreEqual("CA, FL, GA, MN", result);
+        Assert.AreEqual("CA, FL, TX", result);
     }
 
     private sealed class TestSampleData : ISampleData
@@ -171,7 +171,10 @@ public class SampleDataTests
 
         // 3.
         public string GetAggregateSortedListOfStatesUsingCsvRows()
-            => throw new NotImplementedException();
+        {
+            IEnumerable<string> rowOfStates = GetUniqueSortedListOfStatesGivenCsvRows();
+            return string.Join(", ", rowOfStates);
+        }
 
         // 4.
         public IEnumerable<IPerson> People => throw new NotImplementedException();

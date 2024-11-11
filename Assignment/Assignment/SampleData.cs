@@ -43,7 +43,10 @@ public class SampleData : ISampleData
 
     // 3.
     public string GetAggregateSortedListOfStatesUsingCsvRows()
-        => throw new NotImplementedException();
+    {
+        IEnumerable<string> rowOfStates = GetUniqueSortedListOfStatesGivenCsvRows();
+        return string.Join(", ", rowOfStates);
+    }
 
     // 4.
     public IEnumerable<IPerson> People => throw new NotImplementedException();
