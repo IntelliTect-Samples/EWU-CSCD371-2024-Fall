@@ -10,7 +10,7 @@ public class SampleDataTests
     public void CsvRows_LoadDataFromCsv_SkipFirstRow()
     {
         // Arrange
-        SampleData sampleData = new();
+        SampleData sampleData = new("People.csv");
 
         // Act
         List<string> csvRows = sampleData.CsvRows.ToList();
@@ -25,7 +25,7 @@ public class SampleDataTests
     public void GetUniqueSortedListOfStates_GivenCsvRows_ReturnsUniqueSortedListOfStates()
     {
         // Arrange
-        SampleData sampleData = new();
+        SampleData sampleData = new("People.csv");
 
         // Act
         List<string> states = sampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
@@ -70,5 +70,55 @@ public class SampleDataTests
         Assert.AreEqual(expectedState, states[0]);
         Assert.AreEqual(states.Count, states.Distinct().Count());
         Assert.IsTrue(states.SequenceEqual(states.OrderBy(s => s)), "The list should be sorted alphabetically using LINQ verification.");
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(FileNotFoundException))]
+    public void Constructor_ShouldThrowFileNotFoundException_WhenFileDoesNotExist()
+    {
+        // Arrange & Act
+        SampleData sampleData = new("NonExistentFile.csv");
+
+        // Assert - Expecting a FileNotFoundException
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(FormatException))]
+    public void Constructor_ShouldThrowFormatException_WhenHeaderIsNull()
+    {
+        // Arrange
+        string fileName = "TestFile.csv";
+        File.WriteAllText(fileName, ""); // Create an empty file to simulate null header
+
+        try
+        {
+            // Act
+            SampleData sampleData = new(fileName);
+        }
+        finally
+        {
+            // Cleanup
+            File.Delete(fileName);
+        }
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(FormatException))]
+    public void Constructor_ShouldThrowFormatException_WhenHeaderDoesNotMatchExpected()
+    {
+        // Arrange
+        string fileName = "TestFile.csv";
+        File.WriteAllText(fileName, "Id,FirstName,LastName,Email,Street,City,State,PostalCode"); // Incorrect header format
+
+        try
+        {
+            // Act
+            SampleData sampleData = new(fileName);
+        }
+        finally
+        {
+            // Cleanup
+            File.Delete(fileName);
+        }
     }
 }
