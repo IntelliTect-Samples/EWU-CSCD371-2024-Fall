@@ -46,5 +46,15 @@ public class CalculatorTests
         Assert.Equal(2, result);
     }
 
+    [Fact]
+    public void Divide_ByZero_ThrowException()
+    {
+        // Arrange
+        Calculator<int> calc = new();
+
+        // Act & Assert
+        Assert.Throws<DivideByZeroException>(() => calc.Divide(10, 0, out double result));
+    }
+
 
 }
