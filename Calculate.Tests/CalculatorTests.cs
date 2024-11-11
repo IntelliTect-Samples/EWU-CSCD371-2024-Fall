@@ -56,5 +56,19 @@ public class CalculatorTests
         Assert.Throws<DivideByZeroException>(() => calc.Divide(10, 0, out double result));
     }
 
+    [Fact]
+    public void MathematicalOperations_OnConstruct_ShouldContainAllOperations()
+    {
+        // Assert
+        Calculator<int> calc = new();
+
+        // Act and Assert
+        Assert.Equal(4, calc.MathematicalOperations.Count);
+        Assert.True(calc.MathematicalOperations.ContainsKey('+'));
+        Assert.True(calc.MathematicalOperations.ContainsKey('-'));
+        Assert.True(calc.MathematicalOperations.ContainsKey('*'));
+        Assert.True(calc.MathematicalOperations.ContainsKey('/'));
+    }
+
 
 }
