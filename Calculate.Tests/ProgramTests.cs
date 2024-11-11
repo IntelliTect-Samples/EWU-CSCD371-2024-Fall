@@ -94,7 +94,7 @@ public class ProgramTests
         string capturedOutput = string.Empty;
 
         // Create a sequence of inputs to simulate user interaction
-        Queue<string> inputs = new Queue<string>(new[] { inputExpression, "no" });
+        Queue<string> inputs = new(new[] { inputExpression, "no" });
 
         ProgramTestable program = new()
         {
