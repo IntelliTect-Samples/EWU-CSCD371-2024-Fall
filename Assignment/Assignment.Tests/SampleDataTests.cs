@@ -121,4 +121,67 @@ public class SampleDataTests
             File.Delete(fileName);
         }
     }
+
+    [TestMethod]
+    public void GetAggregateSortedListOfStatesUsingCsvRows_InputFromTestFile_ShouldReturnCommaSeparatedSortedStates()
+    {
+        // Arrange
+        SampleData sampleData = new("TestPeople.CSV");
+
+        // Act
+        var result = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+
+        // Assert
+        Assert.AreEqual("CA, FL, GA, MN", result);
+    }
+
+    [TestMethod]
+    public void GetAggregateSortedListOfStatesUsingCsvRows_UsingTestClass_ShouldReturnCommaSeparatedSortedStates()
+    {
+        // Arrange
+        TestSampleData testSampleData = new();
+
+        // Act
+        var result = testSampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+
+        // Assert
+        Assert.AreEqual("CA, FL, GA, MN", result);
+    }
+
+    private sealed class TestSampleData : ISampleData
+    {
+        // 1.
+        private readonly List<string> _dataWithHeader =
+        [
+            "Id,FirstName,LastName,Email,StreetAddress,City,State,Zip",  // Header row
+            "1,John,Doe,johndoe@example.com,123 Street,City,CA,12345",
+            "2,Jane,Doe,janedoe@example.com,456 Avenue,Town,TX,67890",
+            "3,Bob,Smith,bobsmith@example.com,789 Boulevard,Village,FL,54321"
+        ];
+
+        // CsvRows property skips the header automatically
+        public IEnumerable<string> CsvRows => _dataWithHeader.Skip(1);
+
+        // 2.
+        public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
+        {
+            IEnumerable<string> states = CsvRows.Select(row => row.Split(',')[6]).Distinct();
+            return states.OrderBy(state => state);
+        }
+
+        // 3.
+        public string GetAggregateSortedListOfStatesUsingCsvRows()
+            => throw new NotImplementedException();
+
+        // 4.
+        public IEnumerable<IPerson> People => throw new NotImplementedException();
+
+        // 5.
+        public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
+            Predicate<string> filter) => throw new NotImplementedException();
+
+        // 6.
+        public string GetAggregateListOfStatesGivenPeopleCollection(
+            IEnumerable<IPerson> people) => throw new NotImplementedException();
+    }
 }
