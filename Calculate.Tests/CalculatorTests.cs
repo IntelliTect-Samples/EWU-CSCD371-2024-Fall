@@ -146,4 +146,21 @@ public class CalculatorTests
         Assert.Equal(expected, result, precision: 5);
     }
 
+    [Theory]
+    [InlineData("123", 123, true)]
+    [InlineData("456.78", 456.78, true)]
+    [InlineData("3.14159", 3.14159, true)]
+    [InlineData("-99.99", -99.99, true)]
+    [InlineData("notANumber", 0, false)]
+    [InlineData("", 0, false)]
+    public void TryParse_WithVariousInputs_ReturnsExpectedResults(string input, double expectedValue, bool expectedSuccess)
+    {
+        // Act
+        bool success = Calculator<double>.TryParse(input, out double result);
+
+        // Assert
+        Assert.Equal(expectedSuccess, success);
+        Assert.Equal(expectedValue, result, precision: 5);
+    }
+
 }

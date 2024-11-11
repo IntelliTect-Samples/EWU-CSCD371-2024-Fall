@@ -87,7 +87,7 @@ public class Calculator<T> where T : INumber<T>
         result = double.CreateChecked(num1 - num2);
     }
     
-    private static bool TryParse(string input, out T result)
+    public static bool TryParse(string input, out T result)
     {
         // Dictionary mapping types to their parsing functions
         var parseFunctions = new Dictionary<Type, Func<string, T>>
