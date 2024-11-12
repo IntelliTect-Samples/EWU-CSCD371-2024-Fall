@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/jacoblucas/Projects/Calculate/Calculate/Calculate.csproj": {}
+    "/Users/jacoblucas/EWU-CSCD371-2024-Fall/Calculate/Calculate.csproj": {}
   },
   "projects": {
-    "/Users/jacoblucas/Projects/Calculate/Calculate/Calculate.csproj": {
+    "/Users/jacoblucas/EWU-CSCD371-2024-Fall/Calculate/Calculate.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jacoblucas/Projects/Calculate/Calculate/Calculate.csproj",
+        "projectUniqueName": "/Users/jacoblucas/EWU-CSCD371-2024-Fall/Calculate/Calculate.csproj",
         "projectName": "Calculate",
-        "projectPath": "/Users/jacoblucas/Projects/Calculate/Calculate/Calculate.csproj",
+        "projectPath": "/Users/jacoblucas/EWU-CSCD371-2024-Fall/Calculate/Calculate.csproj",
         "packagesPath": "/Users/jacoblucas/.nuget/packages/",
-        "outputPath": "/Users/jacoblucas/Projects/Calculate/Calculate/obj/",
+        "outputPath": "/Users/jacoblucas/EWU-CSCD371-2024-Fall/Calculate/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/jacoblucas/.nuget/NuGet/NuGet.Config"
@@ -32,11 +32,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -53,12 +48,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[6.0.31, 6.0.31]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-arm64",
+              "version": "[6.0.31, 6.0.31]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[6.0.31, 6.0.31]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.402/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.317/RuntimeIdentifierGraph.json"
         }
       }
     }

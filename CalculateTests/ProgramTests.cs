@@ -1,5 +1,4 @@
-﻿using Calculate;
-using Xunit;
+﻿using Xunit;
 
 namespace CalculateTests;
 
@@ -12,7 +11,7 @@ public class ProgramTests
     public void Program_WriteLineAndReadLine_InvokedCorrectly()
     {
         // Arrange
-        var program = new Program(
+        var program = new Calculate.Program(
             writeLine: text => output = text,
             readLine: () => input
         );
