@@ -12,7 +12,7 @@ namespace Calculator.Tests;
             var mockWriteLine = new Mock<Action<string>>();
             var mockReadLine = new Mock<Func<string?>>();
             mockReadLine.Setup(r => r()).Returns("3 + 4");
-        Program program = new Program
+        Program program = new()
         {
             WriteLine = mockWriteLine.Object,
             ReadLine = mockReadLine.Object
@@ -33,7 +33,7 @@ namespace Calculator.Tests;
             var mockWriteLine = new Mock<Action<string>>();
             var mockReadLine = new Mock<Func<string?>>();
             mockReadLine.Setup(r => r()).Returns("invalid");
-            Program program = new Program
+            Program program = new()
             {
                 WriteLine = mockWriteLine.Object,
                 ReadLine = mockReadLine.Object
