@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Calculate_
-{
-    public class Calculator
+namespace Calculator;
+
+    public class Calculates
     {
         private static readonly IReadOnlyDictionary<char, Func<int, int, double>> _mathematicalOperations =
             new Dictionary<char, Func<int, int, double>>
             {
                     { '+', (a, b) => Add(a, b) },
                     { '-', (a, b) => Subtract(a, b) },
-                    { '', (a, b) => Multiply(a, b) },
+                    { '*', (a, b) => Multiply(a, b) },
                     { '/', (a, b) => Divide(a, b) }
             };
 
@@ -31,7 +31,7 @@ namespace Calculate_
 
         public static int Multiply(int a, int b)
         {
-            return a b;
+            return a * b;
         }
 
         public static double Divide(int a, int b)
@@ -69,4 +69,3 @@ namespace Calculate_
             return true;
         }
     }
-}
