@@ -3,8 +3,8 @@ using Calculator;
 namespace Calculator;
 public class Program
 {
-    public static Action<string> WriteLine { get; init; } = Console.WriteLine;
-    public static Func<string?> ReadLine { get; init; } = Console.ReadLine;
+    public Action<string> WriteLine { get; init; } = Console.WriteLine;
+    public Func<string?> ReadLine { get; init; } = Console.ReadLine;
 
     public Program()
     {
