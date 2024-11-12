@@ -3,9 +3,9 @@
 public class Program
 {
     public Action<string> WriteLine { get; init; }
-    public Func<string> ReadLine { get; init; }
+    public Func<string?> ReadLine { get; init; }
 
-    private Calculator calculator;
+    private Calculator? calculator;
 
     public Program()
     {
@@ -26,7 +26,7 @@ public class Program
         Console.WriteLine("Enter a calculation (e.g., '3 + 4' or '10 * 2') or 'exit' to quit:");
         while (true)
         {
-            string input = Console.ReadLine();
+            string? input = Console.ReadLine();
 
             if (input?.ToLower() == "exit")
             {
@@ -34,7 +34,7 @@ public class Program
                 break;
             }
 
-            if (Calculator.TryCalculate(input, out int result))
+            if (input != null && Calculator.TryCalculate(input, out int result))
             {
                 Console.WriteLine($"Result: {result}");
             }
