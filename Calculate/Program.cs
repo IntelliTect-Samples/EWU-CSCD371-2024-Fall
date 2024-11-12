@@ -1,4 +1,5 @@
-﻿namespace Calculate;
+﻿using System;
+namespace Calculate;
 
 public class Program
 {
