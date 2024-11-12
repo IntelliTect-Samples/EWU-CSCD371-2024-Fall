@@ -47,7 +47,7 @@ public class Calculator
                     }
                     catch (FormatException)
                     {
-                        throw new Exception("Invalid operation format");
+                        throw new FormatException("Unable to Parse");
                     }
 
                 }
