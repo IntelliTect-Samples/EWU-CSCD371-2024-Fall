@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using Calculator;
 namespace Calculator;
 public class Program
 {
-  
+    public Action<string> WriteLine { get; init; };
+    public Func<string?> ReadLine { get; init; };
 
     public Program()
     {
-        public Action<string> WriteLine { get; init; } = Console.WriteLine;
-        public Func<string?> ReadLine { get; init; } = Console.ReadLine;
-}
+        Action<string> writeLine = Console.WriteLine;
+        Func<string?> readLine = Console.ReadLine;
+    }
 
     public static void Main()
     {
