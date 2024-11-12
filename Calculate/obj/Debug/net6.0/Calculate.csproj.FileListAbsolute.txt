@@ -1,0 +1,14 @@
+/Users/jacoblucas/Projects/Calculate/Calculate/bin/Debug/net6.0/Calculate.deps.json
+/Users/jacoblucas/Projects/Calculate/Calculate/bin/Debug/net6.0/Calculate.dll
+/Users/jacoblucas/Projects/Calculate/Calculate/bin/Debug/net6.0/Calculate.pdb
+/Users/jacoblucas/Projects/Calculate/Calculate/obj/Debug/net6.0/Calculate.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jacoblucas/Projects/Calculate/Calculate/obj/Debug/net6.0/Calculate.AssemblyInfoInputs.cache
+/Users/jacoblucas/Projects/Calculate/Calculate/obj/Debug/net6.0/Calculate.AssemblyInfo.cs
+/Users/jacoblucas/Projects/Calculate/Calculate/obj/Debug/net6.0/Calculate.csproj.CoreCompileInputs.cache
+/Users/jacoblucas/Projects/Calculate/Calculate/obj/Debug/net6.0/Calculate.dll
+/Users/jacoblucas/Projects/Calculate/Calculate/obj/Debug/net6.0/refint/Calculate.dll
+/Users/jacoblucas/Projects/Calculate/Calculate/obj/Debug/net6.0/Calculate.pdb
+/Users/jacoblucas/Projects/Calculate/Calculate/obj/Debug/net6.0/ref/Calculate.dll
+/Users/jacoblucas/Projects/Calculate/Calculate/bin/Debug/net6.0/Calculate
+/Users/jacoblucas/Projects/Calculate/Calculate/bin/Debug/net6.0/Calculate.runtimeconfig.json
+/Users/jacoblucas/Projects/Calculate/Calculate/obj/Debug/net6.0/Calculate.genruntimeconfig.cache
