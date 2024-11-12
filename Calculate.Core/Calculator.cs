@@ -31,12 +31,14 @@ public class Calculator<T> where T : struct, IConvertible
             return false;
         }
 
+        string operatorStr = parts[1];
+
         if (!TryParse(parts[0], out T operand1) || !TryParse(parts[2], out T operand2))
         {
             return false;
         }
 
-        char operatorChar = parts[1][0];
+        char operatorChar = operatorStr[0];
         if (!_mathematicalOperations.TryGetValue(operatorChar, out Operation? operation))
         {
             return false;
