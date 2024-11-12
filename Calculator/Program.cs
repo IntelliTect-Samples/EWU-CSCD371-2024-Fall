@@ -11,7 +11,7 @@ public class Program
         // Default constructor
     }
 
-    public void Main()
+    public static void Main()
     {
         var program = new Program();
         program.WriteLine("Enter a mathematical expression (e.g., 3 + 4):");
