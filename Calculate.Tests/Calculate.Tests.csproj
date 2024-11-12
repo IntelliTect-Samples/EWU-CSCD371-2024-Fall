@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <!-- Import shared properties from Directory.Build.props -->
-  <Import Project="..\Directory.Build.props" />
+  <Import Project= "..\..\Directory.Build.props" />
 
   <PropertyGroup>
 
