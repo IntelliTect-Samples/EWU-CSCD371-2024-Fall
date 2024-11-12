@@ -1,8 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <!-- Import shared properties from Directory.Build.props -->
-  <Import Project= "..\..\Directory.Build.props" />
-
   <PropertyGroup>
 
     <IsPackable>false</IsPackable>
@@ -23,8 +20,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Calculate\Calculate.csproj" />
   </ItemGroup>
-
-  <!-- Import shared build targets from Directory.Build.targets -->
-  <Import Project="..\Directory.Build.targets" />
 
 </Project>
