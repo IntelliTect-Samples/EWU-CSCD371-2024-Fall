@@ -1,8 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project=" EWU-CSCD371-2024-Fall / Directory.Build.props" />
-  <PropertyGroup>
+  <!-- Import shared properties from Directory.Build.props -->
+  <Import Project="EWU-CSCD371-2024-Fall/Directory.Build.props" />
 
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
@@ -22,6 +24,7 @@
     <ProjectReference Include="..\Calculate\Calculate.csproj" />
   </ItemGroup>
 
-      <Import Project=" EWU-CSCD371-2024-Fall / Directory.Build.targets" />
+  <!-- Import shared build targets from Directory.Build.targets -->
+  <Import Project="EWU-CSCD371-2024-Fall/Directory.Build.targets" />
 
 </Project>
