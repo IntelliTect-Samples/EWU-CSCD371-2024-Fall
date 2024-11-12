@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project=" EWU-CSCD371-2024-Fall / Directory.Build.props" />
   <PropertyGroup>
 
     <IsPackable>false</IsPackable>
@@ -20,5 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Calculate\Calculate.csproj" />
   </ItemGroup>
+
+      <Import Project=" EWU-CSCD371-2024-Fall / Directory.Build.targets" />
 
 </Project>
