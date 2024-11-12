@@ -21,4 +21,9 @@ public class Program
         WriteLine = writeLine;
         ReadLine = readLine;
     }
+
+    public static void Main(string[] args)
+    {
+
+    }
 }
