@@ -3,8 +3,13 @@ using Calculator;
 namespace Calculator;
 public class Program
 {
-    private static Action<string> WriteLine = Console.WriteLine;
-    private static Func<string?> ReadLine = Console.ReadLine;
+    public static Action<string> WriteLine { get; init; } = Console.WriteLine;
+    public static Func<string?> ReadLine { get; init; } = Console.ReadLine;
+
+    public Program()
+    {
+        // Default constructor
+    }
 
     public static void Main()
     {

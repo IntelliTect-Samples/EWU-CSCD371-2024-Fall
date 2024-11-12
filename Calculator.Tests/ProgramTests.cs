@@ -9,16 +9,15 @@ namespace Calculator.Tests;
         public void Main_ValidExpression_PrintsResult()
         {
             // Arrange
-            Program program = new Program();
             var mockWriteLine = new Mock<Action<string>>();
             var mockReadLine = new Mock<Func<string?>>();
             mockReadLine.Setup(r => r()).Returns("3 + 4");
 
-            program.WriteLine = mockWriteLine.Object;
-            program.ReadLine = mockReadLine.Object;
+            Program.WriteLine = mockWriteLine.Object;
+            Program.ReadLine = mockReadLine.Object;
 
             // Act
-            program.Main();
+            Program.Main();
 
             // Assert
             mockWriteLine.Verify(w => w("Enter a mathematical expression (e.g., 3 + 4):"), Times.Once);
@@ -28,17 +27,16 @@ namespace Calculator.Tests;
         [Fact]
         public void Main_InvalidExpression_PrintsErrorMessage()
         {
-        // Arrange
-            Program program = new Program();
+            // Arrange
             var mockWriteLine = new Mock<Action<string>>();
             var mockReadLine = new Mock<Func<string?>>();
             mockReadLine.Setup(r => r()).Returns("invalid");
 
-            program.WriteLine = mockWriteLine.Object;
-            program.ReadLine = mockReadLine.Object;
+            Program.WriteLine = mockWriteLine.Object;
+            Program.ReadLine = mockReadLine.Object;
 
             // Act
-            program.Main();
+            Program.Main();
 
             // Assert
             mockWriteLine.Verify(w => w("Enter a mathematical expression (e.g., 3 + 4):"), Times.Once);
