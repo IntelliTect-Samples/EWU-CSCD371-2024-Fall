@@ -13,10 +13,12 @@ public class ProgramTest
         var mockReadLine = new Mock<Func<string?>>();
         mockReadLine.Setup(r => r()).Returns("3 + 4");
 
-        var program = new Program(mockWriteLine.Object, mockReadLine.Object);
+        // Replace the constructor injection with static properties
+        Program.WriteLine = mockWriteLine.Object;
+        Program.ReadLine = mockReadLine.Object;
 
         // Act
-        program.Main();
+        Program.Main();
 
         // Assert
         mockWriteLine.Verify(w => w("Enter a mathematical expression (e.g., 3 + 4):"), Times.Once);
@@ -31,10 +33,12 @@ public class ProgramTest
         var mockReadLine = new Mock<Func<string?>>();
         mockReadLine.Setup(r => r()).Returns("invalid");
 
-        var program = new Program(mockWriteLine.Object, mockReadLine.Object);
+        // Replace the constructor injection with static properties
+        Program.WriteLine = mockWriteLine.Object;
+        Program.ReadLine = mockReadLine.Object;
 
         // Act
-        program.Main();
+        Program.Main();
 
         // Assert
         mockWriteLine.Verify(w => w("Enter a mathematical expression (e.g., 3 + 4):"), Times.Once);
