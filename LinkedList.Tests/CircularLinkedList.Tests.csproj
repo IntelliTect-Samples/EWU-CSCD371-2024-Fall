@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LinkedList\CircularLinkedList.csproj" />
+    <ProjectReference Include="..\LinkedList\GenericsHomework.csproj" />
   </ItemGroup>
 
   <ItemGroup>

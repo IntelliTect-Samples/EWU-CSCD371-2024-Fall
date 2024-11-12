@@ -1,4 +1,4 @@
-namespace CircularLinkedList.Tests;
+namespace GenericsHomework.Tests;
 
 public class NodeTests
 {

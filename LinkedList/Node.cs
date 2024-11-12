@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace CircularLinkedList;
+namespace GenericsHomework;
 
 public class Node<T>
 {
