@@ -4,8 +4,8 @@ using Calculator;
 namespace Calculator;
 public class Program
 {
-    public Action<string> WriteLine { get; init; };
-    public Func<string?> ReadLine { get; init; };
+    public Action<string> WriteLine { get; init; }
+    public Func<string?> ReadLine { get; init; }
 
     public Program()
     {
