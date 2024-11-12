@@ -16,16 +16,23 @@ public class Program
     public static void Main()
     {
         var program = new Program();
-        program.WriteLine("Enter a mathematical expression (e.g., 3 + 4):");
-        string? input = program.ReadLine();
+        string? input;
+        double result;
 
-        if (input != null && Calculates.TryCalculate(input, out double result))
+        do
         {
-            program.WriteLine($"Result: {result}");
-        }
-        else
-        {
-            program.WriteLine("Invalid expression. Please enter a valid mathematical expression.");
-        }
+            program.WriteLine("Enter a mathematical expression (e.g., 3 + 4):");
+            input = program.ReadLine();
+
+            if (input != null && Calculates.TryCalculate(input, out result))
+            {
+                program.WriteLine($"Result: {result}");
+                break;
+            }
+            else
+            {
+                program.WriteLine("Invalid expression. Please enter a valid mathematical expression.");
+            }
+        } while (true);
     }
 }

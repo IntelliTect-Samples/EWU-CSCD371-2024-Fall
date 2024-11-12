@@ -9,40 +9,39 @@ namespace Calculator.Tests;
         public void Main_ValidExpression_PrintsResult()
         {
             // Arrange
-            var mockWriteLine = new Mock<Action<string>>();
-            var mockReadLine = new Mock<Func<string?>>();
-            mockReadLine.Setup(r => r()).Returns("3 + 4");
-        Program program = new()
-        {
-            WriteLine = mockWriteLine.Object,
-            ReadLine = mockReadLine.Object
-        };
+            var input = "3 + 4";
+            var expectedOutput = "Enter a mathematical expression (e.g., 3 + 4):\nResult: 7\n";
+            var stringReader = new StringReader(input);
+            var stringWriter = new StringWriter();
+            Console.SetIn(stringReader);
+            Console.SetOut(stringWriter);
 
-        // Act
-        Program.Main();
+            // Act
+            Program.Main();
 
             // Assert
-            mockWriteLine.Verify(w => w("Enter a mathematical expression (e.g., 3 + 4):"), Times.Once);
-            mockWriteLine.Verify(w => w("Result: 7"), Times.Once);
+            var output = stringWriter.ToString();
+            Assert.Equal(expectedOutput, output);
         }
 
         [Fact]
         public void Main_InvalidExpression_PrintsErrorMessage()
         {
             // Arrange
-            var mockWriteLine = new Mock<Action<string>>();
-            var mockReadLine = new Mock<Func<string?>>();
-            mockReadLine.Setup(r => r()).Returns("invalid");
-            Program program = new()
-            {
-                WriteLine = mockWriteLine.Object,
-                ReadLine = mockReadLine.Object
-            };
+            var input = "invalid expression";
+            var expectedOutput = "Enter a mathematical expression (e.g., 3 + 4):\nInvalid expression. Please enter a valid mathematical expression.\n";
+            var stringReader = new StringReader(input);
+            var stringWriter = new StringWriter();
+            Console.SetIn(stringReader);
+            Console.SetOut(stringWriter);
+
             // Act
             Program.Main();
 
             // Assert
-            mockWriteLine.Verify(w => w("Enter a mathematical expression (e.g., 3 + 4):"), Times.Once);
-            mockWriteLine.Verify(w => w("Invalid expression. Please enter a valid mathematical expression."), Times.Once);
+            var output = stringWriter.ToString();
+            Assert.Equal(expectedOutput, output);
         }
     }
+    
+
