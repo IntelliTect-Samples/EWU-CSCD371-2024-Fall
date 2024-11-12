@@ -62,19 +62,16 @@ public class Node<T>
     {
         Node<T> current = this;
 
-        if (current.Value != null && current.Value.Equals(value))
+        do
         {
-            return true;
-        }
-
-        while (current.Next != this)
-        {
-            current = current.Next;
             if (current.Value != null && current.Value.Equals(value))
             {
                 return true;
             }
+            current = current.Next;
         }
+        while (current != this);
+
         return false;
     }
 }
