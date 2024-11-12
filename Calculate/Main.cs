@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace Calculate
 {
     public static class CalculatorMain

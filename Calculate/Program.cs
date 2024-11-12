@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-
+﻿
 namespace Calculate;
 
 public class Program
