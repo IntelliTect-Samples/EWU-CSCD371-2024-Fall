@@ -28,7 +28,7 @@ public class Program
         {
             string? input = Console.ReadLine();
 
-            if (input?.ToLower() == "exit")
+            if (input?.ToLower(CultureInfo.InvariantCulture) == "exit")
             {
                 Console.WriteLine("Exiting program.");
                 break;
