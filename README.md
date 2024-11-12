@@ -50,7 +50,7 @@ Chapter 14: Events
 
 1. Implement the `ISampleData.CsvRows` property, loading the data from the `People.csv` file and returning each line as a single string. ❌✔
 
-   - Change the "Copy to" property on People.csv to "Copy if newer" so that the file is deployed along with your test project. ❌✔
+   - Change the "Copy to" property on People.csv to "Copy if newer" so that the file is deployed along with your test project. ✔
    - Using LINQ, skip the first row in the `People.csv`. ❌✔
    - Be sure to appropriately handle resource (`IDisposable`) items correctly if applicable (and it may not be depending on how you implement it). ❌✔
 
