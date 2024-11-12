@@ -9,8 +9,8 @@ public class Program
 
     public Program()
     {
-        Action<string> writeLine = Console.WriteLine;
-        Func<string?> readLine = Console.ReadLine;
+        WriteLine = Console.WriteLine!;
+        ReadLine = Console.ReadLine!;
     }
 
     public static void Main()

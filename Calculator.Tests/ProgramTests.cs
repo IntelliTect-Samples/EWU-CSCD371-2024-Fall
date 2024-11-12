@@ -12,12 +12,14 @@ namespace Calculator.Tests;
             var mockWriteLine = new Mock<Action<string>>();
             var mockReadLine = new Mock<Func<string?>>();
             mockReadLine.Setup(r => r()).Returns("3 + 4");
+        Program program = new Program
+        {
+            WriteLine = mockWriteLine.Object,
+            ReadLine = mockReadLine.Object
+        };
 
-            Program.WriteLine = mockWriteLine.Object;
-            Program.ReadLine = mockReadLine.Object;
-
-            // Act
-            Program.Main();
+        // Act
+        Program.Main();
 
             // Assert
             mockWriteLine.Verify(w => w("Enter a mathematical expression (e.g., 3 + 4):"), Times.Once);
@@ -31,10 +33,11 @@ namespace Calculator.Tests;
             var mockWriteLine = new Mock<Action<string>>();
             var mockReadLine = new Mock<Func<string?>>();
             mockReadLine.Setup(r => r()).Returns("invalid");
-
-            Program.WriteLine = mockWriteLine.Object;
-            Program.ReadLine = mockReadLine.Object;
-
+            Program program = new Program
+            {
+                WriteLine = mockWriteLine.Object,
+                ReadLine = mockReadLine.Object
+            };
             // Act
             Program.Main();
 
