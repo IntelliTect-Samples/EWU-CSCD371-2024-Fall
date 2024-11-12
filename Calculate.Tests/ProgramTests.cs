@@ -1,5 +1,5 @@
 ﻿namespace Calculate.Tests;
 
-internal class ProgramTests
+public class ProgramTests
 {
 }
