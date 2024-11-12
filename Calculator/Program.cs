@@ -1,5 +1,6 @@
 ﻿using System;
 using Calculator;
+namespace Calculator;
 public class Program
 {
     public static Action<string> WriteLine = Console.WriteLine;
