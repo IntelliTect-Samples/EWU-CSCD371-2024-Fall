@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-namespace Calculate;
+﻿namespace Calculate;
 
 public class Calculator
 {
@@ -34,27 +32,24 @@ public class Calculator
         }
         else
         {
-            if (int.TryParse(parts[0], out int opera1) && int.TryParse(parts[2], out int opera2))
+            if (int.TryParse(parts[0], out int opera1) && int.TryParse(parts[2], out int opera2) && MathematicalOperations.ContainsKey(parts[1][0]))
             {
-                if (MathematicalOperations.ContainsKey(parts[1][0]))
+                try
                 {
-                    try
-                    {
-                        char operationChar = parts[1][0];
-                        Func<int, int, int> operation = MathematicalOperations[operationChar];
-                        result = operation(opera1, opera2);
-                        return true;
-                    }
-                    catch (FormatException)
-                    {
-                        throw new FormatException("Unable to Parse");
-                    }
-
+                    char operationChar = parts[1][0];
+                    Func<int, int, int> operation = MathematicalOperations[operationChar];
+                    result = operation(opera1, opera2);
+                    return true;
                 }
+                catch (FormatException)
+                {
+                    throw new FormatException("Unable to Parse");
+                }
+
 
             }
 
-        } 
+        }
         result = null;
         return false;
     }
