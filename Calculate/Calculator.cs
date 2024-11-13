@@ -7,13 +7,15 @@ namespace Calculate;
 
 public class Calculator
 {
+    #pragma warning disable CA1859
     private readonly IReadOnlyDictionary<char, Func<int, int, int>> MathematicalOperations = new Dictionary<char, Func<int, int, int>>
-        {
-            { '-', Subtract},
-            { '+', Add },
-            { '/', Divide },
-            { '*', Multiply },
-        };
+    #pragma warning restore CA1859    
+    {
+        { '-', Subtract},
+        { '+', Add },
+        { '/', Divide },
+        { '*', Multiply },
+    };
 
 
     public Calculator()
