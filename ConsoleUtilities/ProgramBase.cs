@@ -1,4 +1,5 @@
-﻿namespace ConsoleUtilities;
+﻿using System;
+namespace ConsoleUtilities;
 
 public class ProgramBase
 {

@@ -1,5 +1,4 @@
 ﻿using ConsoleUtilities;
-using System;
 namespace Calculate;
 
 public class Program : ProgramBase
