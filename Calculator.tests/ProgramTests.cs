@@ -16,7 +16,7 @@ public class ProgramTests
         
         // Arrange
         var input = "8 + 2";
-        var expected = "Enter an arithmetic Operation to calculate (Ex, 4 + 3) : \r\nSolution : 10\r\n";
+        var expected = "Enter an arithmetic Operation to calculate (Ex, 4 + 3) : \nSolution : 10\n";
 
         var consoleReader = new StringReader(input);                
         var consoleWriter = new StringWriter();
