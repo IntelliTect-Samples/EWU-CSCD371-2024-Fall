@@ -1,42 +1,53 @@
 {
   "format": 1,
   "restore": {
-    "/Users/jacoblucas/EWU-CSCD371-2024-Fall/Calculate/Calculate.csproj": {}
+    "C:\\Users\\gales\\source\\repos\\Lucas-EWU-CSCD371-2024-Fall\\Calculate\\Calculate.csproj": {}
   },
   "projects": {
-    "/Users/jacoblucas/EWU-CSCD371-2024-Fall/Calculate/Calculate.csproj": {
+    "C:\\Users\\gales\\source\\repos\\Lucas-EWU-CSCD371-2024-Fall\\Calculate\\Calculate.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jacoblucas/EWU-CSCD371-2024-Fall/Calculate/Calculate.csproj",
+        "projectUniqueName": "C:\\Users\\gales\\source\\repos\\Lucas-EWU-CSCD371-2024-Fall\\Calculate\\Calculate.csproj",
         "projectName": "Calculate",
-        "projectPath": "/Users/jacoblucas/EWU-CSCD371-2024-Fall/Calculate/Calculate.csproj",
-        "packagesPath": "/Users/jacoblucas/.nuget/packages/",
-        "outputPath": "/Users/jacoblucas/EWU-CSCD371-2024-Fall/Calculate/obj/",
+        "projectPath": "C:\\Users\\gales\\source\\repos\\Lucas-EWU-CSCD371-2024-Fall\\Calculate\\Calculate.csproj",
+        "packagesPath": "C:\\Users\\gales\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gales\\source\\repos\\Lucas-EWU-CSCD371-2024-Fall\\Calculate\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/jacoblucas/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\gales\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
-            "projectReferences": {}
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\gales\\source\\repos\\Lucas-EWU-CSCD371-2024-Fall\\ConsoleUtilities\\ConsoleUtilities.csproj": {
+                "projectPath": "C:\\Users\\gales\\source\\repos\\Lucas-EWU-CSCD371-2024-Fall\\ConsoleUtilities\\ConsoleUtilities.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "imports": [
             "net461",
             "net462",
@@ -48,26 +59,72 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.31, 6.0.31]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.osx-arm64",
-              "version": "[6.0.31, 6.0.31]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.31, 6.0.31]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.317/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\gales\\source\\repos\\Lucas-EWU-CSCD371-2024-Fall\\ConsoleUtilities\\ConsoleUtilities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\gales\\source\\repos\\Lucas-EWU-CSCD371-2024-Fall\\ConsoleUtilities\\ConsoleUtilities.csproj",
+        "projectName": "ConsoleUtilities",
+        "projectPath": "C:\\Users\\gales\\source\\repos\\Lucas-EWU-CSCD371-2024-Fall\\ConsoleUtilities\\ConsoleUtilities.csproj",
+        "packagesPath": "C:\\Users\\gales\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gales\\source\\repos\\Lucas-EWU-CSCD371-2024-Fall\\ConsoleUtilities\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\gales\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

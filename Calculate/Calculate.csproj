@@ -9,4 +9,8 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleUtilities\ConsoleUtilities.csproj" />
+  </ItemGroup>
+
 </Project>

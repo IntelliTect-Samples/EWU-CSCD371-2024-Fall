@@ -1,27 +1,21 @@
+using ConsoleUtilities;
 using System;
 using System.Globalization;
 
 namespace Calculate;
 
-public class Program
+public class Program : ProgramBase
 {
-    public Action<string> WriteLine { get; init; }
-    public Func<string?> ReadLine { get; init; }
-
     private Calculator? calculator;
 
-    public Program()
+    public Program() : base()
     {
-        WriteLine = Console.WriteLine;
-        ReadLine = Console.ReadLine;
-
         calculator = new Calculator();
     }
 
-    public Program(Action<string> writeLine, Func<string> readLine)
+    public Program(Action<string> writeLine, Func<string?> readLine) : base(writeLine, readLine)
     {
-        WriteLine = writeLine;
-        ReadLine = readLine;
+
     }
 
     public static void Run()
