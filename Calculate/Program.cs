@@ -6,11 +6,9 @@ namespace Calculate;
 
 public class Program : ProgramBase
 {
-    private Calculator? calculator;
-
     public Program() : base()
     {
-        calculator = new Calculator();
+    
     }
 
     public Program(Action<string> writeLine, Func<string?> readLine) : base(writeLine, readLine)
