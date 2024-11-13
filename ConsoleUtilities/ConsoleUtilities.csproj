@@ -2,10 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\ConsoleUtilities\ConsoleUtilities.csproj" />	
-	</ItemGroup>
-	
 </Project>
