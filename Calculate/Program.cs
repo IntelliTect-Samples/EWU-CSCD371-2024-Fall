@@ -26,7 +26,7 @@ public class Program
 
     public static void Main()
     {
-        Program program = new Program();
+        Program program = new();
         string? userInput;
         do
         {

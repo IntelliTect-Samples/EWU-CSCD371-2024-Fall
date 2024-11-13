@@ -7,18 +7,17 @@ namespace Calculate;
 
 public class Calculator
 {
-    private IReadOnlyDictionary<char, Func<int, int, int>> MathematicalOperations;
-
-
-    public Calculator()
-    {
-        MathematicalOperations = new Dictionary<char, Func<int, int, int>>
+    private readonly IReadOnlyDictionary<char, Func<int, int, int>> MathematicalOperations = new Dictionary<char, Func<int, int, int>>
         {
-            { '-', Subtract },
+            { '-', Subtract},
             { '+', Add },
             { '/', Divide },
             { '*', Multiply },
         };
+
+
+    public Calculator()
+    {
     }
 
     public static int Add(int first, int second)
