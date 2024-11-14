@@ -1,17 +1,10 @@
 ﻿namespace Assignment
 {
-    public class Address : IAddress
+    public class Address(string streetAddress, string city, string state, string zip) : IAddress
     {
-        public Address(string streetAddress, string city, string state, string zip)
-        {
-            StreetAddress = streetAddress;
-            City = city;
-            State = state;
-            Zip = zip;
-        }
-        public string StreetAddress { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Zip { get; set; }
+        public string StreetAddress { get; set; } = streetAddress;
+        public string City { get; set; } = city;
+        public string State { get; set; } = state;
+        public string Zip { get; set; } = zip;
     }
 }
