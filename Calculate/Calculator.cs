@@ -4,19 +4,19 @@ namespace Calculate;
 
 public class Calculator
 {
-    public static int Add(int a, int b) => a + b;
-    public static int Subtract(int a, int b) => a - b;
-    public static int Multiplication(int a, int b) => a * b;
-    public static int Division(int a, int b)
+    public static double Add(int a, int b) => a + b;
+    public static double Subtract(int a, int b) => a - b;
+    public static double Multiplication(int a, int b) => a * b;
+    public static double Division(int a, int b)
     {
         if (b == 0)
         {
             throw new DivideByZeroException();
         }
-        return a / b;
+        return (double)a / b;
     }
 
-    public IReadOnlyDictionary<char, Func<int, int, int>> MathematicalOperations { get; } = new Dictionary<char, Func<int, int, int>>
+    public IReadOnlyDictionary<char, Func<int, int, double>> MathematicalOperations { get; } = new Dictionary<char, Func<int, int, double>>
     {
         ['+'] = Add,
         ['-'] = Subtract,
@@ -24,7 +24,7 @@ public class Calculator
         ['/'] = Division
     };
 
-    public bool TryCalculate(string expression, out int? result)
+    public bool TryCalculate(string expression, out double? result)
     {
         string[] parts = expression.Split(' ');
         if (parts.Length != 3)
@@ -39,7 +39,7 @@ public class Calculator
                 try
                 {
                     char operationChar = parts[1][0];
-                    Func<int, int, int> operation = MathematicalOperations[operationChar];
+                    Func<int, int, double> operation = MathematicalOperations[operationChar];
                     result = operation(opera1, opera2);
                     return true;
                 }

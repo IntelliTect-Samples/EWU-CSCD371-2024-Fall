@@ -10,7 +10,7 @@ public class ProgramTests
     public void Main_ChangeInput_Success()
     {
         // Arrange
-        int? answer;
+        double? answer;
         Program program = new()
         {
             ReadLine = TestInput

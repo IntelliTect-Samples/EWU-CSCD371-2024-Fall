@@ -12,7 +12,7 @@ public class CalculatorTests
         int expected = 15;
 
         // Act
-        int actual = Calculator.Add(a, b);
+        double actual = Calculator.Add(a, b);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -27,7 +27,7 @@ public class CalculatorTests
         int expected = 5;
 
         // Act
-        int actual = Calculator.Subtract(a, b);
+        double actual = Calculator.Subtract(a, b);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -42,7 +42,7 @@ public class CalculatorTests
         int expected = 50;
 
         // Act
-        int actual = Calculator.Multiplication(a, b);
+        double actual = Calculator.Multiplication(a, b);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -57,7 +57,7 @@ public class CalculatorTests
         int expected = 2;
 
         // Act
-        int actual = Calculator.Division(a, b);
+        double actual = Calculator.Division(a, b);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -83,7 +83,7 @@ public class CalculatorTests
         int expected = 15;
 
         // Act
-        bool actual = cal.TryCalculate(expression, out int? result);
+        bool actual = cal.TryCalculate(expression, out double? result);
 
         // Assert
         Assert.True(actual);
@@ -99,7 +99,7 @@ public class CalculatorTests
         int expected = 5;
 
         // Act
-        bool actual = cal.TryCalculate(expression, out int? result);
+        bool actual = cal.TryCalculate(expression, out double? result);
 
         // Assert
         Assert.True(actual);
@@ -115,7 +115,7 @@ public class CalculatorTests
         int expected = 50;
 
         // Act
-        bool actual = cal.TryCalculate(expression, out int? result);
+        bool actual = cal.TryCalculate(expression, out double? result);
 
         // Assert
         Assert.True(actual);
@@ -131,7 +131,7 @@ public class CalculatorTests
         int expected = 2;
 
         // Act
-        bool actual = cal.TryCalculate(expression, out int? result);
+        bool actual = cal.TryCalculate(expression, out double? result);
 
         // Assert
         Assert.True(actual);
@@ -146,7 +146,7 @@ public class CalculatorTests
         string expression = "10 / 0";
 
         // Act and Assert
-        Assert.Throws<DivideByZeroException>(() => cal.TryCalculate(expression, out int? result));
+        Assert.Throws<DivideByZeroException>(() => cal.TryCalculate(expression, out double? result));
     }
 
     [Fact]
@@ -157,7 +157,7 @@ public class CalculatorTests
         string expression = "10 5";
 
         // Act
-        bool actual = cal.TryCalculate(expression, out int? result);
+        bool actual = cal.TryCalculate(expression, out double? result);
 
         // Assert
         Assert.False(actual);
@@ -172,6 +172,6 @@ public class CalculatorTests
         string expression = "10 * ";
 
         // Act and Assert
-        Assert.False(cal.TryCalculate(expression, out int? result));
+        Assert.False(cal.TryCalculate(expression, out double? result));
     }
 }

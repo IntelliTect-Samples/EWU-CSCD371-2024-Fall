@@ -9,7 +9,7 @@ public class Program : ProgramBase
         Program program = new();
         Calculator cal = new();
         string input;
-        int? ans;
+        double? ans;
 
         do
         {
