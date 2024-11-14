@@ -20,10 +20,10 @@ public class Calculator<T> where T : INumber<T>
 
     public IReadOnlyDictionary<char, Func<T, T, T>> MathematicalOperations { get; } = new Dictionary<char, Func<T, T, T>>
     {
-        ['+'] = Add,
-        ['-'] = Subtract,
-        ['*'] = Multiply,
-        ['/'] = Divide
+        ['+'] = (a, b) => a + b,
+        ['-'] = (a, b) => a - b,
+        ['*'] = (a, b) => a * b,
+        ['/'] = (a, b) => b != T.Zero ? a / b : throw new DivideByZeroException()
     };
 
     public bool TryCalculate(string expression, out T? result)
