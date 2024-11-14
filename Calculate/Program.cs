@@ -6,16 +6,9 @@ public class Program
 {
     public Func<string?> ReadLine { get; init; } = Console.ReadLine;
     public Action<string> WriteLine { get; init; } = Console.WriteLine;
-    
-    public Program() {}
-    public Action<string> WriteLine { get; init; }
 
-    public Program()
-    {
-        ReadLine = Console.ReadLine;
-        WriteLine = Console.WriteLine;
-    }
-    public Program(Func<string?> readline,Action<string> writeLine)
+    public Program() { }
+    public Program(Func<string?> readline, Action<string> writeLine)
     {
 
 
@@ -32,10 +25,10 @@ public class Program
         WriteLine("Please type a simple mathematical equation or type exit");
         while (true)
         {
-            input =ReadLine() ?? "";
+            input = ReadLine() ?? "";
 
             if (input.Equals("exit", StringComparison.OrdinalIgnoreCase) || input.Equals("", StringComparison.OrdinalIgnoreCase)) break;
-            status = calculator.TryCalculate(input,out output);
+            status = calculator.TryCalculate(input, out output);
             if (status)
             {
                 WriteLine(output.ToString(new CultureInfo("en-US")));
@@ -49,9 +42,9 @@ public class Program
 
     public static void Main()
     {
-        Program p = new(Console.ReadLine,Console.WriteLine);
+        Program p = new(Console.ReadLine, Console.WriteLine);
         p.Run();
     }
 
- 
+
 }
