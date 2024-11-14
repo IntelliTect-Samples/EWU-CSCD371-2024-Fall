@@ -3,15 +3,15 @@
 public class Calculator
 {
 
-    public static int Add(int a, int b) => a + b;
+    public static double Add(int a, int b) => a + b;
+                  
+    public static double Subtract(int a, int b) => a - b;
+                  
+    public static double Multiple(int a, int b) => a * b;
+                
+    public static double Divide(int a, int b) => b != 0 ? a / b : throw new DivideByZeroException("Cannot divide by 0");
 
-    public static int Subtract(int a, int b) => a - b;
-
-    public static int Multiple(int a, int b) => a * b;
-
-    public static int Divide(int a, int b) => b != 0 ? a / b : throw new DivideByZeroException("Cannot divide by 0");
-
-    public IReadOnlyDictionary<char, Func<int, int, int>> MathematicalOperations { get; } = new Dictionary<char, Func<int, int, int>>
+    public IReadOnlyDictionary<char, Func<int, int, double>> MathematicalOperations { get; } = new Dictionary<char, Func<int, int, double>>
     {
         ['+'] = Add,
         ['-'] = Subtract,
@@ -19,7 +19,7 @@ public class Calculator
         ['/'] = Divide
     };
 
-    public bool TryCalculate(string expression, out int result)
+    public bool TryCalculate(string expression, out double result)
     {
         result = int.MaxValue;
         var parts = expression.Split(' ');

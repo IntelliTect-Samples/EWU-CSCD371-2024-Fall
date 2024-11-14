@@ -4,32 +4,27 @@
 public class ProgramTests
 {
     [TestMethod]
-    public void WriteLine_WritesToConsole_Success()
+    public void Program_WriteLine_InvokedCorrectly()
     {
-        // Arrange
         Program program = new();
-        string message = "Hello, World!";
         StringWriter writer = new();
         Console.SetOut(writer);
 
-        // Act
-        program.WriteLine(message);
+        program.WriteLine("Hello World");
 
-        // Assert
-        Assert.AreEqual(message, writer.ToString().Trim());
+        Assert.AreEqual("Hello World", writer.ToString().Trim());
     }
 
     [TestMethod]
-    public void ReadLine_ReadsInputFromConsole_Success()
+    public void Program_ReadLine_InvokedCorrectly()
     {
-        // Arrange
         Program program = new();
-        string input = "Hello, World!";
-        StringReader reader = new(input);
+        StringReader reader = new("Hello World");
         Console.SetIn(reader);
 
-        // Act and Assert
-        Assert.AreEqual(input, program.ReadLine());
+        string? actual = program.ReadLine();
+
+        Assert.AreEqual("Hello World", actual);
     }
 
     [TestMethod]

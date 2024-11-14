@@ -11,7 +11,7 @@ public class CalculatorTests
         int b = 2;
 
         // Act
-        int actual = Calculator.Add(a, b);
+        double actual = Calculator.Add(a, b);
 
         // Assert
         Assert.AreEqual(3, actual);
@@ -25,7 +25,7 @@ public class CalculatorTests
         int b = 1;
 
         // Act
-        int actual = Calculator.Subtract(a, b);
+        double actual = Calculator.Subtract(a, b);
 
         // Assert
         Assert.AreEqual(1, actual);
@@ -39,7 +39,7 @@ public class CalculatorTests
         int b = 3;
 
         // Act
-        int actual = Calculator.Multiple(a, b);
+        double actual = Calculator.Multiple(a, b);
 
         // Assert
         Assert.AreEqual(6, actual);
@@ -53,7 +53,7 @@ public class CalculatorTests
         int b = 3;
 
         // Act
-        int actual = Calculator.Divide(a, b);
+        double actual = Calculator.Divide(a, b);
 
         // Assert
         Assert.AreEqual(2, actual);
@@ -85,7 +85,7 @@ public class CalculatorTests
         Calculator calculator = new();
 
         // Act
-        bool actualSuccess = calculator.TryCalculate(expression, out int actualResult);
+        bool actualSuccess = calculator.TryCalculate(expression, out double actualResult);
 
         // Assert
         Assert.AreEqual(expectedSuccess, actualSuccess);
