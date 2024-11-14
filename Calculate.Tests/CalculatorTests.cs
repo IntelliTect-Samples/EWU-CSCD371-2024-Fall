@@ -12,7 +12,7 @@ public class CalculatorTests
         int expected = 15;
 
         // Act
-        double actual = Calculator.Add(a, b);
+        double actual = Calculator<double>.Add(a, b);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -27,7 +27,7 @@ public class CalculatorTests
         int expected = 5;
 
         // Act
-        double actual = Calculator.Subtract(a, b);
+        double actual = Calculator<double>.Subtract(a, b);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -42,7 +42,7 @@ public class CalculatorTests
         int expected = 50;
 
         // Act
-        double actual = Calculator.Multiplication(a, b);
+        double actual = Calculator<double>.Multiply(a, b);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -52,12 +52,12 @@ public class CalculatorTests
     public void Division_DividesTwoNumbers_Success()
     {
         // Arrange
-        int a = 10;
-        int b = 5;
-        int expected = 2;
+        int a = 7;
+        int b = 2;
+        double expected = 3.5;
 
         // Act
-        double actual = Calculator.Division(a, b);
+        double actual = Calculator<double>.Divide(a, b);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -71,19 +71,19 @@ public class CalculatorTests
         int b = 0;
 
         // Act and Assert
-        Assert.Throws<DivideByZeroException>(() => Calculator.Division(a, b));
+        Assert.Throws<DivideByZeroException>(() => Calculator<double>.Divide(a, b));
     }
 
     [Fact]
     public void TryCalculate_AddsTwoNumbers_Success()
     {
         // Arrange
-        Calculator cal = new();
+        Calculator<double> cal = new();
         string expression = "5 + 10";
         int expected = 15;
 
         // Act
-        bool actual = cal.TryCalculate(expression, out double? result);
+        bool actual = cal.TryCalculate(expression, out double result);
 
         // Assert
         Assert.True(actual);
@@ -94,12 +94,12 @@ public class CalculatorTests
     public void TryCalculate_SubtractsTwoNumbers_Success()
     {
         // Arrange
-        Calculator cal = new();
+        Calculator<double> cal = new();
         string expression = "10 - 5";
         int expected = 5;
 
         // Act
-        bool actual = cal.TryCalculate(expression, out double? result);
+        bool actual = cal.TryCalculate(expression, out double result);
 
         // Assert
         Assert.True(actual);
@@ -110,12 +110,12 @@ public class CalculatorTests
     public void TryCalculate_MultipliesTwoNumbers_Success()
     {
         // Arrange
-        Calculator cal = new();
+        Calculator<double> cal = new();
         string expression = "5 * 10";
         int expected = 50;
 
         // Act
-        bool actual = cal.TryCalculate(expression, out double? result);
+        bool actual = cal.TryCalculate(expression, out double result);
 
         // Assert
         Assert.True(actual);
@@ -126,12 +126,12 @@ public class CalculatorTests
     public void TryCalculate_DividesTwoNumbers_Success()
     {
         // Arrange
-        Calculator cal = new();
-        string expression = "10 / 5";
-        int expected = 2;
+        Calculator<double> cal = new();
+        string expression = "7 / 2";
+        double expected = 3.5;
 
         // Act
-        bool actual = cal.TryCalculate(expression, out double? result);
+        bool actual = cal.TryCalculate(expression, out double result);
 
         // Assert
         Assert.True(actual);
@@ -142,36 +142,35 @@ public class CalculatorTests
     public void TryCalculate_DividesByZero_Failure()
     {
         // Arrange
-        Calculator cal = new();
+        Calculator<double> cal = new();
         string expression = "10 / 0";
 
         // Act and Assert
-        Assert.Throws<DivideByZeroException>(() => cal.TryCalculate(expression, out double? result));
+        Assert.Throws<DivideByZeroException>(() => cal.TryCalculate(expression, out double result));
     }
 
     [Fact]
     public void TryCalculate_InvalidExpression_Failure()
     {
         // Arrange
-        Calculator cal = new();
+        Calculator<double> cal = new();
         string expression = "10 5";
 
         // Act
-        bool actual = cal.TryCalculate(expression, out double? result);
+        bool actual = cal.TryCalculate(expression, out double result);
 
         // Assert
         Assert.False(actual);
-        Assert.Null(result);
     }
 
     [Fact]
     public void TryCalculate_NotEnoughArgs_Failure()
     {
         // Arrange
-        Calculator cal = new();
+        Calculator<double> cal = new();
         string expression = "10 * ";
 
         // Act and Assert
-        Assert.False(cal.TryCalculate(expression, out double? result));
+        Assert.False(cal.TryCalculate(expression, out double result));
     }
 }

@@ -10,16 +10,15 @@ public class ProgramTests
     public void Main_ChangeInput_Success()
     {
         // Arrange
-        double? answer;
         Program program = new()
         {
             ReadLine = TestInput
         };
-        Calculator calculator = new();
+        Calculator<double> calculator = new();
 
         // Act
         string? input = program.ReadLine();
-        calculator.TryCalculate(input!, out answer);
+        calculator.TryCalculate(input!, out double answer);
 
         // Assert
         Assert.Equal(21, answer);
