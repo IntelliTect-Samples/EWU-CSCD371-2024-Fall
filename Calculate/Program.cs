@@ -4,7 +4,10 @@ using System.Globalization;
 namespace Calculate;
 public class Program
 {
-    public Func<string?> ReadLine { get; init; }
+    public Func<string?> ReadLine { get; init; } = Console.ReadLine;
+    public Action<string> WriteLine { get; init; } = Console.WriteLine;
+    
+    public Program() {}
     public Action<string> WriteLine { get; init; }
 
     public Program()
