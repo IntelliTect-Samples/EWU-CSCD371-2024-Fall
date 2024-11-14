@@ -3,6 +3,8 @@ namespace Calculate.Tests;
 
 public class CalculatorTests
 {
+    private readonly Calculator<double> _calculator = new();
+
     [Fact]
     public void Add_AddsTwoNumbers_Success()
     {
@@ -12,7 +14,7 @@ public class CalculatorTests
         int expected = 15;
 
         // Act
-        double actual = Calculator<double>.Add(a, b);
+        double actual = _calculator.Add(a, b);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -27,7 +29,7 @@ public class CalculatorTests
         int expected = 5;
 
         // Act
-        double actual = Calculator<double>.Subtract(a, b);
+        double actual = _calculator.Subtract(a, b);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -42,7 +44,7 @@ public class CalculatorTests
         int expected = 50;
 
         // Act
-        double actual = Calculator<double>.Multiply(a, b);
+        double actual = _calculator.Multiply(a, b);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -57,7 +59,7 @@ public class CalculatorTests
         double expected = 3.5;
 
         // Act
-        double actual = Calculator<double>.Divide(a, b);
+        double actual = _calculator.Divide(a, b);
 
         // Assert
         Assert.Equal(expected, actual);
@@ -71,7 +73,7 @@ public class CalculatorTests
         int b = 0;
 
         // Act and Assert
-        Assert.Throws<DivideByZeroException>(() => Calculator<double>.Divide(a, b));
+        Assert.Throws<DivideByZeroException>(() => _calculator.Divide(a, b));
     }
 
     [Fact]

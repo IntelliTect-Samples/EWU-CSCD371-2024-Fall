@@ -6,10 +6,10 @@ namespace Calculate;
 
 public class Calculator<T> where T : INumber<T>
 {
-    public static T Add(T a, T b) => a + b;
-    public static T Subtract(T a, T b) => a - b;
-    public static T Multiply(T a, T b) => a * b;
-    public static T Divide(T a, T b)
+    public T Add(T a, T b) => a + b;
+    public T Subtract(T a, T b) => a - b;
+    public T Multiply(T a, T b) => a * b;
+    public T Divide(T a, T b)
     {
         if (b == T.Zero)
         {
