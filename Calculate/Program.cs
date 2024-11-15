@@ -30,7 +30,8 @@ public class Program
     {
         Program program = new();
         string? userInput;
-        Console.WriteLine("Welcome to ultimate calculator.\nEnsure format: 'int validOperator int'\nType EXIT to close the program.");
+        Console.WriteLine("Welcome to ultimate calculator.\nEnsure format: 'int validOperator int'" +
+            "\nType EXIT to close the program.");
         
         do
         {
