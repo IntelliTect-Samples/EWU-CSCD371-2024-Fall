@@ -154,8 +154,8 @@ public class SampleDataTests
     {
         // Arrange
         SampleData sampleData = new("People.csv");
-        Address expectedAddress = new("7884 Corry Way", "Helena", "MT", "70577");
-        Person expectedPerson = new("Priscilla", "Jenyns", expectedAddress, "pjenyns0@state.gov");
+        Address expectedAddress = new("4718 Thackeray Pass", "Mobile", "AL", "37308");
+        Person expectedPerson = new("Arthur", "Myles", expectedAddress, "amyles1c@miibeian.gov.cn");
 
         // Act
         var people = sampleData.People.ToList(); // Materialize the collection
@@ -163,7 +163,7 @@ public class SampleDataTests
 
         // Assert
         // Validate collection size
-        Assert.IsNotNull(people);
+        Assert.IsNotNull(people, "The People collection should not be null.");
         Assert.AreEqual(50, people.Count, "The size of the collection should be 50.");
 
         // Validate first person's details
@@ -177,6 +177,46 @@ public class SampleDataTests
         Assert.AreEqual(expectedAddress.City, actualPerson.Address.City, "City does not match.");
         Assert.AreEqual(expectedAddress.State, actualPerson.Address.State, "State does not match.");
         Assert.AreEqual(expectedAddress.Zip, actualPerson.Address.Zip, "Zip does not match.");
+    }
+
+    [TestMethod]
+    public void PeopleProperty_TestSampleData_ShouldReturnAllPersonsInSortedOrder()
+    {
+        // Arrange
+        TestSampleData testSampleData = new(); // Use the TestSampleData class
+
+        // Expected data in sorted order by State > City > Zip
+        var expectedPeople = new List<Person>
+    {
+        new Person("John", "Doe", new Address("123 Street", "City", "CA", "12345"), "johndoe@example.com"),
+        new Person("Bob", "Smith", new Address("789 Boulevard", "Village", "FL", "54321"), "bobsmith@example.com"),
+        new Person("Jane", "Doe", new Address("456 Avenue", "Town", "TX", "67890"), "janedoe@example.com")
+    };
+
+        // Act
+        var people = testSampleData.People.ToList(); // Materialize the collection for testing
+
+        // Assert
+        Assert.IsNotNull(people, "The People collection should not be null.");
+        Assert.AreEqual(3, people.Count, "The People collection should contain exactly 3 people.");
+
+        for (int i = 0; i < expectedPeople.Count; i++)
+        {
+            var expected = expectedPeople[i];
+            var actual = people[i];
+
+            // Validate each person's details
+            Assert.AreEqual(expected.FirstName, actual.FirstName, $"FirstName does not match for person {i + 1}.");
+            Assert.AreEqual(expected.LastName, actual.LastName, $"LastName does not match for person {i + 1}.");
+            Assert.AreEqual(expected.EmailAddress, actual.EmailAddress, $"Email does not match for person {i + 1}.");
+
+            // Validate address details
+            Assert.IsNotNull(actual.Address, $"Address should not be null for person {i + 1}.");
+            Assert.AreEqual(expected.Address.StreetAddress, actual.Address.StreetAddress, $"StreetAddress does not match for person {i + 1}.");
+            Assert.AreEqual(expected.Address.City, actual.Address.City, $"City does not match for person {i + 1}.");
+            Assert.AreEqual(expected.Address.State, actual.Address.State, $"State does not match for person {i + 1}.");
+            Assert.AreEqual(expected.Address.Zip, actual.Address.Zip, $"Zip does not match for person {i + 1}.");
+        }
     }
 
     private sealed class TestSampleData : ISampleData
@@ -193,6 +233,23 @@ public class SampleDataTests
         // CsvRows property skips the header automatically
         public IEnumerable<string> CsvRows => _dataWithHeader.Skip(1);
 
+        public IEnumerable<IPerson> People
+        {
+            get
+            {
+                var person = CsvRows.Select(item =>
+                {
+                    var columns = item.Split(',');
+                    var address = new Address(columns[4], columns[5], columns[6], columns[7]);
+                    return new Person(columns[1], columns[2], address, columns[3]);
+                });
+
+                return person.OrderBy(p => p.Address.State)
+                             .ThenBy(p => p.Address.City)
+                             .ThenBy(p => p.Address.Zip);
+            }
+        }
+
         // 2.
         public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
         {
@@ -208,7 +265,6 @@ public class SampleDataTests
         }
 
         // 4.
-        public IEnumerable<IPerson> People => throw new NotImplementedException();
 
         // 5.
         public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
