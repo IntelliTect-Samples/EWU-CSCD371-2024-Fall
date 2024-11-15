@@ -99,6 +99,8 @@ public class CalculatorTests
         Assert.Equal(1, Calculator.Divide(2, 2));
     }
 
+
+
     [Theory]
     [InlineData("1 - 1", 0)]
     [InlineData("10 - 5", 5)]
