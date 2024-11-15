@@ -1,5 +1,8 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GenericsHomework.Tests
 {
@@ -102,6 +105,104 @@ namespace GenericsHomework.Tests
             var node2 = node1.Append(2);
             var node3 = node2.Append(3);
             var node4 = node3.Append(2);
+        }
+
+        [TestMethod]
+        public void Node_CanIterate()
+        {
+            Node<int> node1 = new(0);
+            var node2 = node1.Append(1);
+
+            int count = 0;
+            foreach (var item in node1)
+            {
+                count++;
+            }
+
+            Assert.AreEqual(2, count);
+        }
+
+        [TestMethod]
+        public void Node_ThreeNodes_CanIterate()
+        {
+            Node<int> node1 = new(0);
+            node1 = node1.Append(2);
+            node1.Append(1);
+
+            int count = 0;
+            foreach (var item in node1)
+            {
+                count++;
+            }
+
+            Assert.AreEqual(3, count);
+        }
+
+        [TestMethod]
+        public void GetValues_ThreeNodes_ReturnsThreeValues()
+        {
+            Node<int> node1 = new(2);
+            node1.Append(0);
+            node1.Append(1);
+
+            Assert.AreEqual(3, node1.GetValues().Count());
+            foreach (var item in node1.GetValues().Where(item => item % 2 == 0))
+            {
+            }
+        }
+
+
+        [TestMethod]
+        public void Test()
+        {
+            Program program = new Program(); // (Console.WriteLine, Console.ReadLine)
+            program.Execute();
+            {
+                WriteLine("My name is Inigo Montoya");
+            }
+
+            Program program = new Program(
+                output => Assert.AreEqual(output == "My name is Inigo Montoya."));
+
+            Program.DoSomething();
+
+        }
+
+        [TestMethod]
+        public void GetMembers()
+        {
+            int counter = 0;
+            var resultEnumerable = typeof(string).GetMembers().AsEnumerable()
+            //.Select(item =>
+            //{
+            //    counter++;
+            //    return item.Name;
+            //});
+
+            /*resultEnumerable = resultEnumerable*/.Where(
+                item =>
+                {
+                    var name = item.Name;
+                    return name.StartsWith("T", StringComparison.CurrentCultureIgnoreCase);
+                }).Select(item => item.Name);
+
+            IEnumerable<string> result = resultEnumerable.ToList();
+
+            Func<IEnumerable<string>?, int> count =
+                 (IEnumerable<string>? items) =>
+            {
+                items ??= Enumerable.Empty<string>();
+                int counter1 = 0;
+                foreach (var item in items)
+                {
+                    counter1++;
+                }
+                return counter1;
+            };
+            var resultCount = resultEnumerable.Count();
+            Assert.AreEqual(counter, count(result));
+            var result2Count = resultEnumerable.Count();
+            Assert.AreEqual(counter, result2Count);
         }
     }
 }

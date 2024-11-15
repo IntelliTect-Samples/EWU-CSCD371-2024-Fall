@@ -1,6 +1,8 @@
-﻿namespace GenericsHomework
+﻿using System.Collections;
+
+namespace GenericsHomework
 {
-    public class Node<T>
+    public class Node<T> : IEnumerable<Node<T>>
     {
         private readonly T _value;
         private Node<T> _next;
@@ -65,6 +67,31 @@
             Next = this;
             // Note that any disconnected nodes will not be found in the reference tree next time and automatically garbage collected.
             // At least once all local instances of other nodes pass out of scope.
+        }
+
+        public IEnumerator<Node<T>> GetEnumerator()
+        {
+            Node<T> start = this;
+            Node<T> current = start;
+            yield return current;
+            //yield return current.Next;
+            //yield return current.Next;
+
+            while (current.Next != start)
+            {
+                yield return current.Next;
+                current = current.Next;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public IEnumerable<T> GetValues()
+        {
+            foreach (var item in this)
+            {
+                yield return item.Value;
+            }
         }
     }
 }
