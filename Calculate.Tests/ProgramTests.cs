@@ -38,7 +38,7 @@ public class ProgramTests
     }
 
     [Fact]
-    public void TryCalculate_GivenDivideByZero_CatchesAndOutputsCorrectly()
+    public void Main_GivenDivideByZeroInput_CatchesAndOutputsCorrectly()
     {
         // Arrange
         StringWriter writer = new();
@@ -57,7 +57,7 @@ public class ProgramTests
     }
 
     [Fact]
-    public void TryCalculate_GivenValid_OutputsResult()
+    public void Main_GivenValidInput_OutputsResult()
     {
         // Arrange
         StringWriter writer = new();
@@ -75,7 +75,7 @@ public class ProgramTests
     }
 
     [Fact]
-    public void TryCalculate_GivenStringNoSpaces_OutputsInvalidInputMessage()
+    public void Main_GivenStringNoSpacesInput_OutputsInvalidInputMessage()
     {
         // Arrange
         StringWriter writer = new();
