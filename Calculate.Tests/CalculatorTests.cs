@@ -98,4 +98,24 @@ public class CalculatorTests
         // Assert
         Assert.Equal(1, Calculator.Divide(2, 2));
     }
+
+    [Theory]
+    [InlineData("1 - 1", 0)]
+    [InlineData("10 - 5", 5)]
+    [InlineData("3 * 4", 12)]
+    [InlineData("8 / 2", 4)]
+    [InlineData("100 - 50", 50)]
+    [InlineData("7 + 3", 10)]
+    public void TryCalculate_ValidExpressions_ReturnsExpectedResult(string input, int expected)
+    {
+        // Arrange
+        Calculator calculator = new();
+
+        // Act
+        bool result = calculator.TryCalculate(input, out int actual);
+
+        // Assert
+        Assert.True(result);
+        Assert.Equal(expected, actual);
+    }
 }
