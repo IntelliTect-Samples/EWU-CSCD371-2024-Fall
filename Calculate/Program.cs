@@ -56,7 +56,7 @@ public class Program
 
             if (tryCalculateSuccess)
             {
-                program.WriteLine("" + tryCalculateResult);
+                program.WriteLine($"Result: {tryCalculateResult.ToString()}");
             }
             else
             {
