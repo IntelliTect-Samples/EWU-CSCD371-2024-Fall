@@ -1,6 +1,3 @@
-using System;
-using Xunit;
-
 namespace Calculator.Tests;
 
     public class CalculatorTests
@@ -56,7 +53,7 @@ namespace Calculator.Tests;
         [InlineData("3 - 2", 1)]
         [InlineData("2 * 3", 6)]
         [InlineData("6 / 3", 2)]
-        public void TryCalculate_ShouldReturnTrueAndCorrectResult(string expression, double expected)
+        public void TryCalculate_ShouldReturnTrue_CorrectResult(string expression, double expected)
         {
             var success = Calculates.TryCalculate(expression, out var result);
             Assert.True(success);
@@ -67,7 +64,7 @@ namespace Calculator.Tests;
         [InlineData("1 +")]
         [InlineData("a + b")]
         [InlineData("1 ^ 2")]
-        public void TryCalculate_ShouldReturnFalseForInvalidExpressions(string expression)
+        public void TryCalculate_ShouldReturnFalse_InvalidExpressions(string expression)
         {
             var success = Calculates.TryCalculate(expression, out var result);
             Assert.False(success);
