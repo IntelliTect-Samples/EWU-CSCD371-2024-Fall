@@ -49,7 +49,19 @@ public class SampleData : ISampleData
     }
 
     // 4.
-    public IEnumerable<IPerson> People => throw new NotImplementedException();
+    public IEnumerable<IPerson> People
+    {
+        get
+        {
+            var person = CsvRows.Select(item =>
+            {
+                var columns = item.Split(',');
+                var address = new Address(columns[4], columns[5], columns[6], columns[7]);
+                return new Person(columns[1], columns[2], address, columns[3]);
+            });
+            return person;
+        }
+    }
 
     // 5.
     public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
