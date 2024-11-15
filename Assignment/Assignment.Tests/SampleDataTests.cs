@@ -209,6 +209,24 @@ public class SampleDataTests
         }
     }
 
+    [TestMethod]
+    public void FilterByEmailAddress_ValidPredicate_ShouldReturnFilteredPersonObjects()
+    {
+        // Arrange
+        TestSampleData testSampleData = new();
+        var expectedName = ("John", "Doe");
+
+        // Act
+        var filterNames = testSampleData.FilterByEmailAddress(email => email.Equals("johndoe@example.com"));
+
+        // Assert
+        Assert.IsNotNull(filterNames, "The Filtered collection should not be null.");
+        Assert.AreEqual(1, filterNames.Count(), "The Filtered collection should contain exactly 1 person.");
+        var firstMatch = filterNames.First();
+        Assert.AreEqual(expectedName.FirstName, firstMatch.FirstName, "FirstName does not match.");
+        Assert.AreEqual(expectedName.LastName, firstMatch.LastName, "LastName does not match.");
+    }
+
     private sealed class TestSampleData : ISampleData
     {
         // 1.
