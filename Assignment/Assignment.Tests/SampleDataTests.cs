@@ -154,15 +154,29 @@ public class SampleDataTests
     {
         // Arrange
         SampleData sampleData = new("People.csv");
-        Address sampleAddress = new("7884 Corry Way", "Helena", "MT", "70577");
-        Person expectedPerson = new("Priscilla", "Jenyns", sampleAddress, "pjenyns0@state.gov");
+        Address expectedAddress = new("7884 Corry Way", "Helena", "MT", "70577");
+        Person expectedPerson = new("Priscilla", "Jenyns", expectedAddress, "pjenyns0@state.gov");
 
         // Act
-        var data = sampleData.People.First();
+        var people = sampleData.People.ToList(); // Materialize the collection
+        var actualPerson = people.First();      // Get the first person in the collection
 
         // Assert
-        Assert.IsNotNull(sampleData.People);
-        Assert.AreEqual(expectedPerson.FirstName, data.FirstName);
+        // Validate collection size
+        Assert.IsNotNull(people);
+        Assert.AreEqual(50, people.Count, "The size of the collection should be 50.");
+
+        // Validate first person's details
+        Assert.AreEqual(expectedPerson.FirstName, actualPerson.FirstName, "FirstName does not match.");
+        Assert.AreEqual(expectedPerson.LastName, actualPerson.LastName, "LastName does not match.");
+        Assert.AreEqual(expectedPerson.EmailAddress, actualPerson.EmailAddress, "Email does not match.");
+
+        // Validate address details
+        Assert.IsNotNull(actualPerson.Address, "Address should not be null.");
+        Assert.AreEqual(expectedAddress.StreetAddress, actualPerson.Address.StreetAddress, "StreetAddress does not match.");
+        Assert.AreEqual(expectedAddress.City, actualPerson.Address.City, "City does not match.");
+        Assert.AreEqual(expectedAddress.State, actualPerson.Address.State, "State does not match.");
+        Assert.AreEqual(expectedAddress.Zip, actualPerson.Address.Zip, "Zip does not match.");
     }
 
     private sealed class TestSampleData : ISampleData
