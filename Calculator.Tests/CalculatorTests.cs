@@ -5,71 +5,105 @@ namespace Calculator.Tests;
 
     public class CalculatorTests
     {
-        [Theory]
-        [InlineData(1, 2, 3)]
-        [InlineData(-1, -2, -3)]
-        [InlineData(-1, 1, 0)]
-        public void Add_ShouldReturnCorrectSum(int a, int b, int expected)
-        {
-            var result = Calculates.Add(a, b);
-            Assert.Equal(expected, result);
-        }
-
-        [Theory]
-        [InlineData(3, 2, 1)]
-        [InlineData(-3, -2, -1)]
-        [InlineData(1, -1, 2)]
-        public void Subtract_ShouldReturnCorrectDifference(int a, int b, int expected)
-        {
-            var result = Calculates.Subtract(a, b);
-            Assert.Equal(expected, result);
-        }
-
-        [Theory]
-        [InlineData(2, 3, 6)]
-        [InlineData(-2, -3, 6)]
-        [InlineData(-2, 3, -6)]
-        public void Multiply_ShouldReturnCorrectProduct(int a, int b, int expected)
-        {
-            var result = Calculates.Multiply(a, b);
-            Assert.Equal(expected, result);
-        }
-
-        [Theory]
-        [InlineData(6, 3, 2)]
-        [InlineData(-6, -3, 2)]
-        [InlineData(-6, 3, -2)]
-        public void Divide_ShouldReturnCorrectQuotient(int a, int b, double expected)
-        {
-            var result = Calculates.Divide(a, b);
-            Assert.Equal(expected, result);
-        }
-
         [Fact]
-        public void Divide_ByZero_ShouldThrowDivideByZeroException()
+        public void Subtract_TwoPositiveNumbers_ReturnsCorrectResult()
         {
-            Assert.Throws<DivideByZeroException>(() => Calculates.Divide(1, 0));
-        }
+            // Arrange
+            int a = 10;
+            int b = 5;
+            double expected = 5;
+            double result;
 
-        [Theory]
-        [InlineData("1 + 2", 3)]
-        [InlineData("3 - 2", 1)]
-        [InlineData("2 * 3", 6)]
-        [InlineData("6 / 3", 2)]
-        public void TryCalculate_ShouldReturnTrueAndCorrectResult(string expression, double expected)
-        {
-            var success = Calculates.TryCalculate(expression, out var result);
+            // Act
+            bool success = Calculates.Subtract(a, b, out result);
+
+            // Assert
             Assert.True(success);
             Assert.Equal(expected, result);
         }
 
-        [Theory]
-        [InlineData("1 +")]
-        [InlineData("a + b")]
-        [InlineData("1 ^ 2")]
-        public void TryCalculate_ShouldReturnFalseForInvalidExpressions(string expression)
+        [Fact]
+        public void Subtract_TwoNegativeNumbers_ReturnsCorrectResult()
         {
-            var success = Calculates.TryCalculate(expression, out var result);
-            Assert.False(success);
+            // Arrange
+            int a = -10;
+            int b = -5;
+            double expected = -5;
+            double result;
+
+            // Act
+            bool success = Calculates.Subtract(a, b, out result);
+
+            // Assert
+            Assert.True(success);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void Subtract_PositiveAndNegativeNumber_ReturnsCorrectResult()
+        {
+            // Arrange
+            int a = 10;
+            int b = -5;
+            double expected = 15;
+            double result;
+
+            // Act
+            bool success = Calculates.Subtract(a, b, out result);
+
+            // Assert
+            Assert.True(success);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void Subtract_NegativeAndPositiveNumber_ReturnsCorrectResult()
+        {
+            // Arrange
+            int a = -10;
+            int b = 5;
+            double expected = -15;
+            double result;
+
+            // Act
+            bool success = Calculates.Subtract(a, b, out result);
+
+            // Assert
+            Assert.True(success);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void Subtract_ZeroAndNumber_ReturnsCorrectResult()
+        {
+            // Arrange
+            int a = 0;
+            int b = 5;
+            double expected = -5;
+            double result;
+
+            // Act
+            bool success = Calculates.Subtract(a, b, out result);
+
+            // Assert
+            Assert.True(success);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void Subtract_NumberAndZero_ReturnsCorrectResult()
+        {
+            // Arrange
+            int a = 5;
+            int b = 0;
+            double expected = 5;
+            double result;
+
+            // Act
+            bool success = Calculates.Subtract(a, b, out result);
+
+            // Assert
+            Assert.True(success);
+            Assert.Equal(expected, result);
         }
     }

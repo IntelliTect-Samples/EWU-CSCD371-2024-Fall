@@ -10,7 +10,7 @@ namespace Calculator.Tests;
         {
             // Arrange
             var input = "3 + 4";
-            var expectedOutput = "Enter a mathematical expression (e.g., 3 + 4):\nResult: 7\n";
+            var expectedOutput = $"Enter a mathematical expression (e.g., 3 + 4):{Environment.NewLine}Result: 7{Environment.NewLine}";
             var stringReader = new StringReader(input);
             var stringWriter = new StringWriter();
             Console.SetIn(stringReader);

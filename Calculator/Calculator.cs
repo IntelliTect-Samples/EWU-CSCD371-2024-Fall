@@ -8,42 +8,49 @@ namespace Calculator;
 
     public class Calculates
     {
-        private static readonly IReadOnlyDictionary<char, Func<int, int, double>> _mathematicalOperations =
-            new Dictionary<char, Func<int, int, double>>
+        private readonly Dictionary<char, Operation> _mathematicalOperations;
+        private IReadOnlyDictionary<char, Operation> MathematicalOperations => _mathematicalOperations; 
+        public delegate bool Operation(int a, int b, out double result);
+        public Calculates()
+        {
+            _mathematicalOperations = new Dictionary<char, Operation>();
             {
-                    { '+', (a, b) => Add(a, b) },
-                    { '-', (a, b) => Subtract(a, b) },
-                    { '*', (a, b) => Multiply(a, b) },
-                    { '/', (a, b) => Divide(a, b) }
+                _mathematicalOperations.Add( '+', Add );
+                _mathematicalOperations.Add( '-', Subtract );
+                _mathematicalOperations.Add( '*', Multiply );
+                _mathematicalOperations.Add( '/', Divide );
             };
-
-        public static IReadOnlyDictionary<char, Func<int, int, double>> MathematicalOperations => _mathematicalOperations;
-
-        public static int Add(int a, int b)
+        }
+        public static bool Add(int a, int b, out double result)
         {
-            return a + b;
+            result = a + b;
+            return true;
         }
 
-        public static int Subtract(int a, int b)
+        public static bool Subtract(int a, int b, out double result)
         {
-            return a - b;
+            result = a - b;
+            return true;
         }
 
-        public static int Multiply(int a, int b)
+        public static bool Multiply(int a, int b, out double result)
         {
-            return a * b;
+            result = a * b;
+            return true;
         }
 
-        public static double Divide(int a, int b)
+        public static bool Divide(int a, int b, out double result)
         {
             if (b == 0)
             {
-                throw new DivideByZeroException("Division by zero is not allowed.");
+                result = 0;
+                return false;
             }
-            return (double)a / b;
+            result = (double)a / b;
+            return true;
         }
 
-        public static bool TryCalculate(string expression, out double result)
+        public bool TryCalculate(string expression, out double result)
         {
             result = 0;
             var parts = expression.Split(' ');
@@ -60,12 +67,11 @@ namespace Calculator;
 
             char operation = parts[1][0];
 
-            if (!MathematicalOperations.TryGetValue(operation, out var func))
+            if (!_mathematicalOperations.TryGetValue(operation, out var func))
             {
                 return false;
             }
 
-            result = func(operand1, operand2);
-            return true;
+            return func(operand1, operand2, out result);
         }
     }
