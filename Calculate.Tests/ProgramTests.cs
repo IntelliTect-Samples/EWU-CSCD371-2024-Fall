@@ -51,7 +51,7 @@ public class ProgramTests
         Program.Main();
 
         // Assert
-        Assert.Equal("Welcome to ultimate calculator.\nEnsure format: 'int validOperator int'\nType EXIT to close the program.\r\nIt's not possible to divide by zero, please try again\r\n", writer.ToString());
+        Assert.Equal("Welcome to ultimate calculator.\nEnsure format: 'int validOperator int'\nType EXIT to close the program.\nIt's not possible to divide by zero, please try again\n", writer.ToString());
     }
 }
 
