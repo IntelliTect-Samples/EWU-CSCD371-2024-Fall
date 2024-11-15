@@ -17,12 +17,13 @@ public class Program
     {
         var program = new Program();
         string? input;
+        var calculator = new Calculates();
         do
         {
             program.WriteLine("Enter a mathematical expression (e.g., 3 + 4):");
             input = program.ReadLine();
 
-            if (input != null && Calculates.TryCalculate(input, out double result))
+            if (input != null && calculator.TryCalculate(input, out double result))
             {
                 program.WriteLine($"Result: {result}");
                 break;

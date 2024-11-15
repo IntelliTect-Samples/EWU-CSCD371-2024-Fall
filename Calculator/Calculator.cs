@@ -5,47 +5,54 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Calculator;
 
-public class Calculates
-{
-    private static readonly IReadOnlyDictionary<char, Func<int, int, double>> _mathematicalOperations =
-        new Dictionary<char, Func<int, int, double>>
+    public class Calculates
+    {
+        private readonly Dictionary<char, Operation> _mathematicalOperations;
+       
+        public delegate bool Operation(int a, int b, out double result);
+        public Calculates()
         {
-                { '+', (a, b) => Add(a, b) },
-                { '-', (a, b) => Subtract(a, b) },
-                { '*', (a, b) => Multiply(a, b) },
-                { '/', (a, b) => Divide(a, b) }
-        };
-
-    public static IReadOnlyDictionary<char, Func<int, int, double>> MathematicalOperations => _mathematicalOperations;
-
-    public static void Add(int a, int b, out int output)
-    {
-        output = a + b;
-    }
-
-    public static void Subtract(int a, int b, out int output)
-    {
-        output = a - b;
-    }
-
-    public static void Multiply(int a, int b, out int output)
-    {
-        output = a * b;
-    }
-
-    public static void Divide(int a, int b, out double output)
-    {
-        if (b == 0)
-        {
-            throw new DivideByZeroException("Division by zero is not allowed.");
+            _mathematicalOperations = new Dictionary<char, Operation>();
+            {
+                _mathematicalOperations.Add( '+', Add );
+                _mathematicalOperations.Add( '-', Subtract );
+                _mathematicalOperations.Add( '*', Multiply );
+                _mathematicalOperations.Add( '/', Divide );
+            };
         }
-        output = (double)a / b;
-    }
+        public static bool Add(int a, int b, out double result)
+        {
+            result = a + b;
+            return true;
+        }
 
-    public static bool TryCalculate(string expression, out double result)
-    {
-        result = 0;
-        var parts = expression.Split(' ');
+        public static bool Subtract(int a, int b, out double result)
+        {
+            result = a - b;
+            return true;
+        }
+
+        public static bool Multiply(int a, int b, out double result)
+        {
+            result = a * b;
+            return true;
+        }
+
+        public static bool Divide(int a, int b, out double result)
+        {
+            if (b == 0)
+            {
+                result = 0;
+                return false;
+            }
+            result = (double)a / b;
+            return true;
+        }
+
+        public bool TryCalculate(string expression, out double result)
+        {
+            result = 0;
+            var parts = expression.Split(' ');
 
         if (parts.Length != 3)
         {
@@ -59,12 +66,11 @@ public class Calculates
 
         char operation = parts[1][0];
 
-        if (!MathematicalOperations.TryGetValue(operation, out var func))
-        {
-            return false;
-        }
+            if (!_mathematicalOperations.TryGetValue(operation, out var func))
+            {
+                return false;
+            }
 
-        result = func(operand1, operand2);
-        return true;
+            return func(operand1, operand2, out result);
+        }
     }
-}
