@@ -217,14 +217,14 @@ public class SampleDataTests
         var expectedName = ("John", "Doe");
 
         // Act
-        var filterNames = testSampleData.FilterByEmailAddress(email => email.Equals("johndoe@example.com"));
+        var filteredNames = testSampleData.FilterByEmailAddress(email => email.Equals("johndoe@example.com", StringComparison.Ordinal));
 
         // Assert
-        Assert.IsNotNull(filterNames, "The Filtered collection should not be null.");
-        Assert.AreEqual(1, filterNames.Count(), "The Filtered collection should contain exactly 1 person.");
-        var firstMatch = filterNames.First();
-        Assert.AreEqual(expectedName.FirstName, firstMatch.FirstName, "FirstName does not match.");
-        Assert.AreEqual(expectedName.LastName, firstMatch.LastName, "LastName does not match.");
+        Assert.IsNotNull(filteredNames, "The filtered collection should not be null.");
+        Assert.AreEqual(1, filteredNames.Count(), "The filtered collection should contain exactly 1 person.");
+        var firstMatch = filteredNames.First();
+        Assert.AreEqual(expectedName.Item1, firstMatch.Item1, "FirstName does not match."); // Access the first element of the tuple
+        Assert.AreEqual(expectedName.Item2, firstMatch.Item2, "LastName does not match.");  // Access the second element of the tuple
     }
 
     private sealed class TestSampleData : ISampleData
@@ -276,7 +276,11 @@ public class SampleDataTests
 
         // 5.
         public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
-            Predicate<string> filter) => throw new NotImplementedException();
+            Predicate<string> filter)
+        {
+            return People.Where(person => filter(person.EmailAddress))
+                         .Select(person => (person.FirstName, person.LastName));
+        }
 
         // 6.
         public string GetAggregateListOfStatesGivenPeopleCollection(
