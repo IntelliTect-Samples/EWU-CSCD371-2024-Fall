@@ -41,7 +41,7 @@ public class ProgramTests
     public void TryCalculate_GivenDivideByZero_CatchesAndOutputsCorrectly()
     {
         // Arrange
-        StringWriter writer = new StringWriter();
+        StringWriter writer = new();
         Console.SetOut(writer);
 
         StringReader reader = new($"2 / 0{Environment.NewLine}EXIT{Environment.NewLine}");

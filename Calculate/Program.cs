@@ -36,13 +36,13 @@ public class Program
         {
             userInput = Console.ReadLine();
 
-            if (userInput is null)
+            if (userInput is null || userInput is "EXIT")
             {
                 continue;
             }
 
-            bool tryCalculateSuccess = false;
-            int tryCalculateResult = -1;
+            int tryCalculateResult;
+            bool tryCalculateSuccess;
 
             try
             {
@@ -51,7 +51,7 @@ public class Program
             catch (DivideByZeroException)
             {
                 Console.WriteLine("It's not possible to divide by zero, please try again");
-                break;
+                continue;
             }
 
             if (tryCalculateSuccess)
