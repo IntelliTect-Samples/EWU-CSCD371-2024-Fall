@@ -126,13 +126,14 @@ public class SampleDataTests
     public void GetAggregateSortedListOfStatesUsingCsvRows_InputFromTestFile_ShouldReturnCommaSeparatedSortedStates()
     {
         // Arrange
-        SampleData sampleData = new("TestPeople.csv");
+        SampleData sampleData = new("People.csv");
+        string actualStates = "AL, AZ, CA, DC, FL, GA, IN, KS, LA, MD, MN, MO, MT, NC, NE, NH, NV, NY, OR, PA, SC, TN, TX, UT, VA, WA, WV";
 
         // Act
         string result = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
 
         // Assert
-        Assert.AreEqual("CA, FL, GA, MT", result);
+        Assert.AreEqual(actualStates, result);
     }
 
     [TestMethod]
