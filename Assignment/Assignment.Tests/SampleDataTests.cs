@@ -88,16 +88,14 @@ public class SampleDataTests
     {
         // Arrange
         string fileName = "TestFile.csv";
-        File.WriteAllText(fileName, ""); // Create an empty file to simulate null header
+        File.WriteAllText(fileName, "");
 
         try
         {
-            // Act
             SampleData sampleData = new(fileName);
         }
         finally
         {
-            // Cleanup
             File.Delete(fileName);
         }
     }
@@ -108,16 +106,14 @@ public class SampleDataTests
     {
         // Arrange
         string fileName = "TestFile.csv";
-        File.WriteAllText(fileName, "Id,FirstName,LastName,Email,Street,City,State,PostalCode"); // Incorrect header format
+        File.WriteAllText(fileName, "Id,FirstName,LastName,Email,Street,City,State,PostalCode");
 
         try
         {
-            // Act
             SampleData sampleData = new(fileName);
         }
         finally
         {
-            // Cleanup
             File.Delete(fileName);
         }
     }
@@ -158,20 +154,17 @@ public class SampleDataTests
         Person expectedPerson = new("Arthur", "Myles", expectedAddress, "amyles1c@miibeian.gov.cn");
 
         // Act
-        var people = sampleData.People.ToList(); // Materialize the collection
-        var actualPerson = people.First();      // Get the first person in the collection
+        var people = sampleData.People.ToList();
+        var actualPerson = people.First();
 
         // Assert
-        // Validate collection size
         Assert.IsNotNull(people, "The People collection should not be null.");
         Assert.AreEqual(50, people.Count, "The size of the collection should be 50.");
 
-        // Validate first person's details
         Assert.AreEqual(expectedPerson.FirstName, actualPerson.FirstName, "FirstName does not match.");
         Assert.AreEqual(expectedPerson.LastName, actualPerson.LastName, "LastName does not match.");
         Assert.AreEqual(expectedPerson.EmailAddress, actualPerson.EmailAddress, "Email does not match.");
 
-        // Validate address details
         Assert.IsNotNull(actualPerson.Address, "Address should not be null.");
         Assert.AreEqual(expectedAddress.StreetAddress, actualPerson.Address.StreetAddress, "StreetAddress does not match.");
         Assert.AreEqual(expectedAddress.City, actualPerson.Address.City, "City does not match.");
@@ -183,18 +176,17 @@ public class SampleDataTests
     public void PeopleProperty_TestSampleData_ShouldReturnAllPersonsInSortedOrder()
     {
         // Arrange
-        TestSampleData testSampleData = new(); // Use the TestSampleData class
+        TestSampleData testSampleData = new();
 
-        // Expected data in sorted order by State > City > Zip
-        var expectedPeople = new List<Person>
-    {
-        new Person("John", "Doe", new Address("123 Street", "City", "CA", "12345"), "johndoe@example.com"),
-        new Person("Bob", "Smith", new Address("789 Boulevard", "Village", "FL", "54321"), "bobsmith@example.com"),
-        new Person("Jane", "Doe", new Address("456 Avenue", "Town", "TX", "67890"), "janedoe@example.com")
-    };
+        List<Person> expectedPeople = new List<Person>
+        {
+            new Person("John", "Doe", new Address("123 Street", "City", "CA", "12345"), "johndoe@example.com"),
+            new Person("Bob", "Smith", new Address("789 Boulevard", "Village", "FL", "54321"), "bobsmith@example.com"),
+            new Person("Jane", "Doe", new Address("456 Avenue", "Town", "TX", "67890"), "janedoe@example.com")
+        };
 
         // Act
-        var people = testSampleData.People.ToList(); // Materialize the collection for testing
+        List<IPerson> people = testSampleData.People.ToList();
 
         // Assert
         Assert.IsNotNull(people, "The People collection should not be null.");
@@ -202,15 +194,13 @@ public class SampleDataTests
 
         for (int i = 0; i < expectedPeople.Count; i++)
         {
-            var expected = expectedPeople[i];
-            var actual = people[i];
+            Person expected = expectedPeople[i];
+            IPerson actual = people[i];
 
-            // Validate each person's details
             Assert.AreEqual(expected.FirstName, actual.FirstName, $"FirstName does not match for person {i + 1}.");
             Assert.AreEqual(expected.LastName, actual.LastName, $"LastName does not match for person {i + 1}.");
             Assert.AreEqual(expected.EmailAddress, actual.EmailAddress, $"Email does not match for person {i + 1}.");
 
-            // Validate address details
             Assert.IsNotNull(actual.Address, $"Address should not be null for person {i + 1}.");
             Assert.AreEqual(expected.Address.StreetAddress, actual.Address.StreetAddress, $"StreetAddress does not match for person {i + 1}.");
             Assert.AreEqual(expected.Address.City, actual.Address.City, $"City does not match for person {i + 1}.");
