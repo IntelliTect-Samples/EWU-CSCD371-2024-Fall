@@ -53,7 +53,7 @@ public class SampleData : ISampleData
     {
         get
         {
-            var person = CsvRows.Select(item =>
+            IEnumerable<Person> person = CsvRows.Select(item =>
             {
                 var columns = item.Split(',');
                 var address = new Address(columns[4], columns[5], columns[6], columns[7]);
