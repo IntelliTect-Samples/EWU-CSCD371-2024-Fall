@@ -9,7 +9,7 @@ namespace Calculator;
     public class Calculates
     {
         private readonly Dictionary<char, Operation> _mathematicalOperations;
-        private IReadOnlyDictionary<char, Operation> MathematicalOperations => _mathematicalOperations; 
+       
         public delegate bool Operation(int a, int b, out double result);
         public Calculates()
         {
