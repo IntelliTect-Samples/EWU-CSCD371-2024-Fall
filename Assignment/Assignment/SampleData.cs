@@ -59,7 +59,10 @@ public class SampleData : ISampleData
                 var address = new Address(columns[4], columns[5], columns[6], columns[7]);
                 return new Person(columns[1], columns[2], address, columns[3]);
             });
-            return person;
+
+            return person.OrderBy(p => p.Address.State)
+                         .ThenBy(p => p.Address.City)
+                         .ThenBy(p => p.Address.Zip);
         }
     }
 
