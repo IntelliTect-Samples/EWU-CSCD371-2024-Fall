@@ -53,16 +53,18 @@ public class SampleData : ISampleData
     {
         get
         {
-            IEnumerable<Person> person = CsvRows.Select(item =>
-            {
-                string[] columns = item.Split(',');
-                Address address = new(columns[4], columns[5], columns[6], columns[7]);
-                return new Person(columns[1], columns[2], address, columns[3]);
-            });
+            IEnumerable<Person> person = CsvRows.OrderBy
+                (row => row.Split(',')[6])
+                .ThenBy(row => row.Split(',')[5])
+                .ThenBy(row => row.Split(',')[7])
+                .Select(item =>
+                {
+                    string[] columns = item.Split(',');
+                    Address address = new(columns[4], columns[5], columns[6], columns[7]);
+                    return new Person(columns[1], columns[2], address, columns[3]);
+                });
 
-            return person.OrderBy(p => p.Address.State)
-                         .ThenBy(p => p.Address.City)
-                         .ThenBy(p => p.Address.Zip);
+            return person;
         }
     }
 
