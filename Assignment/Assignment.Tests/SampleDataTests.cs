@@ -149,6 +149,22 @@ public class SampleDataTests
         Assert.AreEqual("CA, FL, TX", result);
     }
 
+    [TestMethod]
+    public void PeopleProperty_ValidCsvRows_ShouldReturnPersonObjects()
+    {
+        // Arrange
+        SampleData sampleData = new("People.csv");
+        Address sampleAddress = new("7884 Corry Way", "Helena", "MT", "70577");
+        Person expectedPerson = new("Priscilla", "Jenyns", sampleAddress, "pjenyns0@state.gov");
+
+        // Act
+        var data = sampleData.People.First();
+
+        // Assert
+        Assert.IsNotNull(sampleData.People);
+        Assert.AreEqual(expectedPerson.FirstName, data.FirstName);
+    }
+
     private sealed class TestSampleData : ISampleData
     {
         // 1.
