@@ -109,4 +109,29 @@ public class SampleDataTests
             counter++;
         }
     }
+
+    [TestMethod]
+    public void GetUniqueSortedListOfStatesGivenCsvRows_GivenSoftList_ReturnsUniqueSortedList()
+    {
+        //Arrange
+        SampleData sampleData = new();
+        IEnumerable<string> fileLines = File.ReadAllLines("People.csv").Skip(1);
+        List<string> expectedResult = [.. fileLines
+            .Select(row => row.Split(',')[6].Trim())
+            .Distinct()
+            .OrderBy(state => state)];
+
+        //Act
+        IEnumerable<string> resultEnumerable = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+
+        //Assert
+        Assert.AreEqual(expectedResult.Count, resultEnumerable.Count());
+
+        int counter = 0;
+        foreach (string state in resultEnumerable)
+        {
+            Assert.AreEqual(expectedResult[counter], state);
+            counter++;
+        }
+    }
 }
