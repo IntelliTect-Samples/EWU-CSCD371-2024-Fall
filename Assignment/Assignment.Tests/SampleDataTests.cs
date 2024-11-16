@@ -106,7 +106,7 @@ public class SampleDataTests
         foreach (string state in resultEnumerable)
         {
             Assert.AreEqual(expectedResult[counter], state);
+            counter++;
         }
-
     }
 }
