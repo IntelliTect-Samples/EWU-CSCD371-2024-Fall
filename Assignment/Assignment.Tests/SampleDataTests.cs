@@ -134,4 +134,17 @@ public class SampleDataTests
             counter++;
         }
     }
+
+    [TestMethod]
+    public void GetAggregateSortedListOfStatesUsingCsvRows_ReturnsAggregateSortedList()
+    {
+        //Arrange
+        SampleData sampleData = new();
+        string expectedResult = "AL, AZ, CA, DC, FL, GA, IN, KS, LA, MD, MN, MO, MT, NC, NE, NH, NV, NY, OR, PA, SC, TN, TX, UT, VA, WA, WV";
+        //Act
+        string result = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+        //Assert
+        Assert.IsNotNull(sampleData);
+        Assert.AreEqual(expectedResult, result);
+    }
 }
