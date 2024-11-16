@@ -38,8 +38,13 @@ public class SampleData : ISampleData
     // 3.
     public string GetAggregateSortedListOfStatesUsingCsvRows()
     {
-        throw new NotImplementedException();
+        IEnumerable<string> states = GetUniqueSortedListOfStatesGivenCsvRows();
+
+        return states.Aggregate((accumlateList, states) =>
+        $"{accumlateList}, {states}"); ;
     }
+    //TODO: Ask about readme about ToArray()
+    //TODO: Ask about string.Join()
 
     // 4.
     public IEnumerable<IPerson> People => throw new NotImplementedException();
