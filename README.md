@@ -64,7 +64,7 @@ Chapter 14: Events
 
 3. Implement `ISampleData.GetAggregateSortedListOfStatesUsingCsvRows()` to return a `string` that contains a **unique**, comma separated list of states. ❌✔
 
-   - Use `ISampleData.GetUniqueSortedListOfStatesGivenCsvRows()` for your data source. ❌✔
+   - Use `ISampleData.GetUniqueSortedListOfStatesGivenCsvRows()` for your data source. ✔
    - Consider "selecting" only the states and calling `ToArray()` to retrieve an array of all the state names. ❌✔
    - Given the array, consider using `string.Join` to combine the list into a single string. ❌✔
 
