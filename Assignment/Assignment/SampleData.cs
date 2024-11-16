@@ -3,8 +3,26 @@ namespace Assignment;
 
 public class SampleData : ISampleData
 {
+
+    public SampleData()
+    {
+        CsvRows = File.ReadAllLines("People.csv");
+    }
+
+
+    public SampleData(IEnumerable<string> csvValues)
+    {
+        CsvRows = csvValues;
+    }
+
+
+    private IEnumerable<string>? _csvRows;
     // 1.
-    public IEnumerable<string> CsvRows => throw new NotImplementedException();
+    public IEnumerable<string> CsvRows
+    {
+        get => _csvRows!;
+        set => _csvRows = value.Skip(1) ?? [];
+    }
 
     // 2.
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
