@@ -95,7 +95,7 @@ public class SampleDataTests
     {
         //Arrange
         SampleData sampleData = new();
-        List<string> expectedResult = ["AZ", "CA", "FL", "GA", "LA", "MD", "MN", "NC", "NV", "NY", "PA", "SC", "TN", "TX", "VA", "WA", "WV"];
+        List<string> expectedResult = ["AL", "AZ", "CA", "DC", "FL", "GA", "IN", "KS", "LA", "MD", "MN", "MO", "MT", "NC", "NE", "NH", "NV", "NY", "OR", "PA", "SC", "TN", "TX", "UT", "VA", "WA", "WV"];
         //Act
         IEnumerable<string> resultEnumerable = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
         //Assert

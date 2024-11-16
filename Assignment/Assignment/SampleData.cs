@@ -32,7 +32,7 @@ public class SampleData : ISampleData
     // 2.
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
     {
-        throw new NotImplementedException();
+        return CsvRows.Select(row => row.Split(',')[6]).Distinct().OrderBy(state => state);
     }
 
     // 3.
