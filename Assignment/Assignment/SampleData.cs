@@ -8,7 +8,7 @@ namespace Assignment;
 public class SampleData : ISampleData
 {
     // 1.
-    public IEnumerable<string> CsvRows
+    public virtual IEnumerable<string> CsvRows
     {
         get
         {
@@ -20,7 +20,7 @@ public class SampleData : ISampleData
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
     {
         return CsvRows
-           .Select(row => row.Split(',')[2])
+           .Select(row => row.Split(',')[6])
            .Distinct()
            .OrderBy(state => state)
            .ToList();
