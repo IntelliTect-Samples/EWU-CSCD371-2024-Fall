@@ -91,7 +91,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetUniqueSortedListOfStatesGivenCsvRows_ReturnsUniqueSortedList()
+    public void GetUniqueSortedListOfStatesGivenCsvRows_HardcodedValues_ReturnsUniqueSortedList()
     {
         //Arrange
         SampleData sampleData = new();
