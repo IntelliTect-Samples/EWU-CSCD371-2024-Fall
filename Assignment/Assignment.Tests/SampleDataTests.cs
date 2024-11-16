@@ -1,5 +1,9 @@
+using Microsoft.VisualStudio.TestPlatform.ObjectModel.DataCollection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.Globalization;
+using System.Xml;
 
 namespace Assignment.Tests;
 
@@ -84,5 +88,25 @@ public class SampleDataTests
             Assert.AreEqual(value, expectedValues[counter]);
             counter++;
         }
+    }
+
+    [TestMethod]
+    public void GetUniqueSortedListOfStatesGivenCsvRows_ReturnsUniqueSortedList()
+    {
+        //Arrange
+        SampleData sampleData = new();
+        List<string> expectedResult = ["AZ", "CA", "FL", "GA", "LA", "MD", "MN", "NC", "NV", "NY", "PA", "SC", "TN", "TX", "VA", "WA", "WV"];
+        //Act
+        IEnumerable<string> resultEnumerable = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+        //Assert
+        Assert.IsNotNull(sampleData);
+        Assert.AreEqual(expectedResult.Count, resultEnumerable.Count());
+
+        int counter = 0;
+        foreach (string state in resultEnumerable)
+        {
+            Assert.AreEqual(expectedResult[counter], state);
+        }
+
     }
 }
