@@ -60,4 +60,29 @@ public class SampleDataTests
             counter++;
         }
     }
+
+
+    [TestMethod]
+    public void CsvRows_StringEVC_ContainsAllRows()
+    {
+        //Arrange
+        SampleData sampleData = new("People.csv");
+        List<string> expectedValues = File.ReadAllLines("People.csv").Skip(1).ToList();
+        //Act
+
+        //Assert
+        Assert.IsNotNull(sampleData);
+        Assert.IsNotNull(expectedValues);
+        Assert.AreEqual(expectedValues.Count, sampleData.CsvRows.Count());
+        Assert.IsTrue(sampleData.CsvRows.Any());
+
+        Assert.AreEqual('1', sampleData.CsvRows.First().First());
+
+        int counter = 0;
+        foreach (string value in sampleData.CsvRows)
+        {
+            Assert.AreEqual(value, expectedValues[counter]);
+            counter++;
+        }
+    }
 }
