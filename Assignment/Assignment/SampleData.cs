@@ -9,6 +9,11 @@ public class SampleData : ISampleData
         CsvRows = File.ReadAllLines("People.csv");
     }
 
+    public SampleData(string filePath)
+    {
+        CsvRows = File.ReadAllLines(filePath);
+    }
+
 
     public SampleData(IEnumerable<string> csvValues)
     {
