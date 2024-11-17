@@ -157,7 +157,13 @@ public class SampleDataTests
         //Arrange
         SampleData sampleData = new();
         IEnumerable<IPerson> peopleResult = sampleData.People;
-        List<string> csvRowsResult = sampleData.CsvRows.ToList();
+        IEnumerable<string> strings = File.ReadAllLines("People.csv").Skip(1);
+        List<string[]> sortedStrings = strings.Select(row => row.Split(',')).
+            OrderBy(state => state[6]).
+            ThenBy(city => city[5]).
+            ThenBy(zip => zip[7]).ToList();
+
+
         int counter = 0;
         string[] expectedValues;
         string expectedFirstName;
@@ -169,14 +175,15 @@ public class SampleDataTests
         string expectedZip;
         //Act
 
+
         //Assert
         Assert.IsNotNull(peopleResult);
-        Assert.IsNotNull(csvRowsResult);
-        Assert.AreEqual(peopleResult.Count(), csvRowsResult.Count);
+        Assert.IsNotNull(sortedStrings);
+        Assert.AreEqual(peopleResult.Count(), sortedStrings.Count);
 
         foreach (IPerson person in peopleResult)
         {
-            expectedValues = csvRowsResult[counter].Split(',');
+            expectedValues = sortedStrings[counter];
             expectedFirstName = expectedValues[1];
             expectedLastName = expectedValues[2];
             expectedEmail = expectedValues[3];
