@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestPlatform.ObjectModel.DataCollection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Globalization;
@@ -202,6 +203,59 @@ public class SampleDataTests
         }
 
 
+
+    }
+
+    [TestMethod]
+    public void FilterByEmailAddress_FullEmailValue_ReturnsList()
+    {
+        //Arrange
+        string searchValue = "fpallaske3@umich.edu";
+        (string, string) expectedName = ("Fremont", "Pallaske");
+        SampleData sampleData = new();
+        bool predicate(string value)
+        {
+            return value.Contains(searchValue);
+        }
+        //Act
+        IEnumerable<(string first, string last)> resultEnumerable =
+            sampleData.FilterByEmailAddress(predicate);
+
+        //Assert
+        Assert.IsNotNull(resultEnumerable);
+        Assert.AreEqual(1, resultEnumerable.Count());
+        Assert.AreEqual(expectedName, resultEnumerable.First());
+    }
+
+
+    [TestMethod]
+    public void FilterByEmailAddress_EduValue_ReturnsList()
+    {
+        //Arrange
+        string searchValue = ".edu";
+        List<(string first, string last)> expectedNames = [("Fremont", "Pallaske"), ("Sancho", "Mahony"), ("Claudell", "Leathe"), ("Issiah", "Bester"), ("Fayette", "Dougherty"),];
+        int counter = 0;
+        SampleData sampleData = new();
+
+        bool predicate(string value)
+        {
+            return value.Contains(searchValue);
+        }
+
+        //Act
+        IEnumerable<(string first, string last)> resultEnumerable =
+            sampleData.FilterByEmailAddress(predicate);
+
+        //Assert
+        Assert.IsNotNull(resultEnumerable);
+        Assert.AreEqual(resultEnumerable.Count(), expectedNames.Count);
+
+        foreach ((string first, string last) in resultEnumerable)
+        {
+            Assert.AreEqual(expectedNames[counter].first, first);
+            Assert.AreEqual(expectedNames[counter].last, last);
+            counter++;
+        }
     }
 
 }
