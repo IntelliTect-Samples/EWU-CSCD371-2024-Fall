@@ -21,6 +21,7 @@ public class SampleData : ISampleData
     }
 
 
+
     private IEnumerable<string>? _csvRows;
     // 1.
     public IEnumerable<string> CsvRows
@@ -62,7 +63,17 @@ public class SampleData : ISampleData
     public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
         Predicate<string> filter)
     {
-        throw new NotImplementedException();
+        List<(string first, string last)> resultEnumerable = new();
+        foreach (Person person in People)
+        {
+            if (filter(person.EmailAddress))
+            {
+                resultEnumerable.Add((person.FirstName, person.LastName));
+
+            }
+        }
+
+        return resultEnumerable;
     }
 
     // 6.
