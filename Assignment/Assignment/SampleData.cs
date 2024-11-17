@@ -29,6 +29,9 @@ public class SampleData : ISampleData
         set => _csvRows = value.Skip(1) ?? [];
     }
 
+    // 4.
+    public IEnumerable<IPerson> People => throw new NotImplementedException();
+
     // 2.
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
     {
@@ -45,9 +48,6 @@ public class SampleData : ISampleData
     }
     //TODO: Ask about readme about ToArray()
     //TODO: Ask about string.Join()
-
-    // 4.
-    public IEnumerable<IPerson> People => throw new NotImplementedException();
 
     // 5.
     public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
