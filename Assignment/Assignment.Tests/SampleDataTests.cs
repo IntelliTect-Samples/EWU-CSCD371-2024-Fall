@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Globalization;
+using System.Security;
 using System.Xml;
 
 namespace Assignment.Tests;
@@ -155,12 +156,45 @@ public class SampleDataTests
     {
         //Arrange
         SampleData sampleData = new();
-        IEnumerable<Person> people = sampleData.People;
-        List<string> rows = sampleData.CsvRows.ToList();
-
+        IEnumerable<IPerson> peopleResult = sampleData.People;
+        List<string> csvRowsResult = sampleData.CsvRows.ToList();
+        int counter = 0;
+        string[] expectedValues;
+        string expectedFirstName;
+        string expectedLastName;
+        string expectedEmail;
+        string expectedAddress;
+        string expectedCity;
+        string expectedState;
+        string expectedZip;
         //Act
 
         //Assert
+        Assert.IsNotNull(peopleResult);
+        Assert.IsNotNull(csvRowsResult);
+        Assert.AreEqual(peopleResult.Count(), csvRowsResult.Count);
+
+        foreach (IPerson person in peopleResult)
+        {
+            expectedValues = csvRowsResult[counter].Split(',');
+            expectedFirstName = expectedValues[1];
+            expectedLastName = expectedValues[2];
+            expectedEmail = expectedValues[3];
+            expectedAddress = expectedValues[4];
+            expectedCity = expectedValues[5];
+            expectedState = expectedValues[6];
+            expectedZip = expectedValues[7];
+            Assert.AreEqual(expectedFirstName, person.FirstName);
+            Assert.AreEqual(expectedLastName, person.LastName);
+            Assert.AreEqual(expectedEmail, person.EmailAddress);
+            Assert.AreEqual(expectedAddress, person.Address.StreetAddress);
+            Assert.AreEqual(expectedCity, person.Address.City);
+            Assert.AreEqual(expectedState, person.Address.State);
+            Assert.AreEqual(expectedZip, person.Address.Zip);
+            counter++;
+        }
+
+
     }
 
 }
