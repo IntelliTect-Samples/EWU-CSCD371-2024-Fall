@@ -149,4 +149,18 @@ public class SampleDataTests
         Assert.IsNotNull(sampleData);
         Assert.AreEqual(expectedResult, result);
     }
+
+    [TestMethod]
+    public void People_CSVFile_ReturnsPeople()
+    {
+        //Arrange
+        SampleData sampleData = new();
+        IEnumerable<Person> people = sampleData.People;
+        List<string> rows = sampleData.CsvRows.ToList();
+
+        //Act
+
+        //Assert
+    }
+
 }
