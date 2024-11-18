@@ -2,7 +2,7 @@
 
 namespace Assignment;
 
-public class Node<T>
+public class Node<T> : IEnumerable<T>
 {
     public T Value { get; set; }
     public Node<T> Next { get; private set; }
@@ -39,13 +39,6 @@ public class Node<T>
 
     public void Clear()
     {
-        /*
-         * We have decided to iterate through the list, clearing each node.
-         * This does not necessarily have to be done, as the garbage collector
-         * should be able to handle this. However, this is a good practice to
-         * ensure that the garbage collector can do its job efficiently.
-        */
-
         Node<T> current = Next;
 
         while (current != this)
@@ -73,5 +66,15 @@ public class Node<T>
         while (current != this);
 
         return false;
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        throw new NotImplementedException();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        throw new NotImplementedException();
     }
 }
