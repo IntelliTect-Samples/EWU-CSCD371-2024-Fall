@@ -89,36 +89,5 @@ public class Calculator<T> where T : INumber<T>
         result = double.CreateChecked(num1 - num2);
     }
     
-    public bool TryParse(string input, out T result)
-    {
-        // Dictionary mapping types to their parsing functions
-        var parseFunctions = new Dictionary<Type, Func<string, T>>
-        {
-            { typeof(int), s => T.CreateChecked(int.Parse(s, NumberStyles.Any, CultureInfo.InvariantCulture)) },
-            { typeof(double), s => T.CreateChecked(double.Parse(s, NumberStyles.Any, CultureInfo.InvariantCulture)) },
-            { typeof(float), s => T.CreateChecked(float.Parse(s, NumberStyles.Any, CultureInfo.InvariantCulture)) },
-            { typeof(decimal), s => T.CreateChecked(decimal.Parse(s, NumberStyles.Any, CultureInfo.InvariantCulture)) }
-        };
-
-        // Try to find the appropriate parse function based on the type of T
-        if (parseFunctions.TryGetValue(typeof(T), out var parseFunc))
-        {
-            try
-            {
-                result = parseFunc(input);
-                return true;
-            }
-            catch
-            {
-                // Parsing failed; handle by returning T.Zero as result
-                result = T.Zero;
-                return false;
-            }
-        }
-
-        // If T is not a supported type, return T.Zero and false
-        result = T.Zero;
-        return false;
-    }
 
 }
