@@ -17,15 +17,17 @@ public class NodeTests
     {
         //Arrange
         Node<string> node = new("val1");
-
         node.Append("Why");
         node.Append("hello");
         node.Append("there");
+
         //Act
         IEnumerator<string> enumerator = node.GetEnumerator();
 
 
         //Assert
+
+        Assert.IsTrue(enumerator.MoveNext());
         Assert.AreEqual("val1", enumerator.Current);
         Assert.IsTrue(enumerator.MoveNext());
         Assert.AreEqual("Why", enumerator.Current);
