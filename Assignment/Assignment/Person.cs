@@ -6,7 +6,7 @@ public class Person : IPerson
     {
         FirstName = string.IsNullOrWhiteSpace(firstName) ? throw new ArgumentException($"{nameof(firstName)} cannot be null or whitespace.") : firstName;
         LastName = string.IsNullOrWhiteSpace(lastName) ? throw new ArgumentException($"{nameof(lastName)} cannot be null or whitespace.") : lastName;
-        Address = address;
+        Address = address ?? throw new ArgumentNullException(nameof(address), $"{nameof(address)} cannot be null.");
         EmailAddress = string.IsNullOrWhiteSpace(emailAddress) ? throw new ArgumentException($"{nameof(emailAddress)} cannot be null or whitespace.") : emailAddress;
     }
 

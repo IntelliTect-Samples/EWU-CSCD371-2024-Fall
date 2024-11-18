@@ -51,4 +51,15 @@ public class PersonTests
         // Assert
         Assert.ThrowsException<ArgumentException>(() => new Person(firstName, lastName, address, emailAddress));
     }
+
+    [TestMethod]
+    public void Constructor_NullAddress_ThrowsException()
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
+        Assert.ThrowsException<ArgumentNullException>(() => new Person("John", "Doe", null!, "john.doe@example.com"));
+    }
 }
