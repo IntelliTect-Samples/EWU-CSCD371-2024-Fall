@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 
 namespace Assignment;
 
@@ -39,13 +39,6 @@ public class Node<T> : IEnumerable<T>
 
     public void Clear()
     {
-        /*
-         * We have decided to iterate through the list, clearing each node.
-         * This does not necessarily have to be done, as the garbage collector
-         * should be able to handle this. However, this is a good practice to
-         * ensure that the garbage collector can do its job efficiently.
-        */
-
         Node<T> current = Next;
 
         while (current != this)
