@@ -48,8 +48,8 @@ public class Calculator<T> where T : INumber<T>
                 return false;
             }
 
-           if (!T.TryParse(firstOperand, NumberStyles.Any, CultureInfo.InvariantCulture, out T? firstNumber) ||
-!T.TryParse(secondOperand, NumberStyles.Any, CultureInfo.InvariantCulture, out T?secondNumber))
+           if (!T.TryParse(firstOperand, out T? firstNumber) ||
+!T.TryParse(secondOperand, out T?secondNumber))
 
             {
                 result = 0;
