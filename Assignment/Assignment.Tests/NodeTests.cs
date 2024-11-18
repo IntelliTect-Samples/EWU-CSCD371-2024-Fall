@@ -38,4 +38,27 @@ public class NodeTests
         Assert.IsFalse(enumerator.MoveNext());
 
     }
+
+    [TestMethod]
+    public void ChildItems_ValidNodes_ReturnsValues()
+    {
+        //Arrange
+        Node<string> node = new("val1");
+        node.Append("Why");
+        node.Append("hello");
+        node.Append("there");
+
+        //Act
+        IEnumerable<string> enumerable = node.ChildItems(2);
+        List<string> resultList = enumerable.ToList();
+
+        //Assert
+        Assert.AreEqual(2, enumerable.Count());
+
+        Assert.AreEqual("val1", resultList[0]);
+        Assert.AreEqual("Why", resultList[1]);
+    }
+
+
+
 }
