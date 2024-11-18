@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Diagnostics.Metrics;
 
 namespace Assignment;
 
@@ -82,5 +83,18 @@ public class Node<T> : IEnumerable<T>
     IEnumerator IEnumerable.GetEnumerator()
     {
         return GetEnumerator();
+    }
+    public IEnumerable<T> ChildItems(int num)
+    {
+        int counter = 0;
+        Node<T> start = this;
+        Node<T> current = start;
+        do
+        {
+            yield return current.Value;
+            current = current.Next;
+            counter++;
+
+        } while (counter < num && current != start);
     }
 }
