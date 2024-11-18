@@ -2,7 +2,7 @@
 
 namespace Assignment;
 
-public class Node<T>
+public class Node<T> : IEnumerable<T>
 {
     public T Value { get; set; }
     public Node<T> Next { get; private set; }
@@ -73,5 +73,21 @@ public class Node<T>
         while (current != this);
 
         return false;
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        Node<T> current = this;
+        Node<T> startNode = this;
+        do
+        {
+            yield return current.Value;
+            current = current.Next;
+        } while (current.Next != startNode);
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }
