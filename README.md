@@ -62,13 +62,13 @@ Chapter 14: Events
    - Include a test that leverages a hardcoded list of addresses. ✔
    - Include a test that uses LINQ to verify the data is sorted correctly (do not use a hardcoded list). ✔
 
-3. Implement `ISampleData.GetAggregateSortedListOfStatesUsingCsvRows()` to return a `string` that contains a **unique**, comma separated list of states. ❌✔
+3. Implement `ISampleData.GetAggregateSortedListOfStatesUsingCsvRows()` to return a `string` that contains a **unique**, comma separated list of states. ✔
 
    - Use `ISampleData.GetUniqueSortedListOfStatesGivenCsvRows()` for your data source. ✔
    - Consider "selecting" only the states and calling `ToArray()` to retrieve an array of all the state names. ❌✔
    - Given the array, consider using `string.Join` to combine the list into a single string. ❌✔
 
-4. Implement the `ISampleData.People` property to return all the items in `People.csv` as `Person` objects ❌✔
+4. Implement the `ISampleData.People` property to return all the items in `People.csv` as `Person` objects ✔
 
    - Use `ISampleData.CsvRows` as the source of the data. ✔
    - Sort the list by State, City, and Zip. (Sort the addresses first then select). ❌✔
@@ -76,9 +76,9 @@ Chapter 14: Events
    - Adding null validation to all the `Person` and `Address` properties is **optional**.
    - Consider using `ISampleData.CsvRows` in your test to verify your results. ✔
 
-5. Implement `ISampleDate.FilterByEmailAddress(Predicate<string> filter)` to return a list of names where the email address matches the `filter`. ❌✔
+5. Implement `ISampleDate.FilterByEmailAddress(Predicate<string> filter)` to return a list of names where the email address matches the `filter`. ✔
 
-   - Use `ISampleData.People` for your data source. ❌✔
+   - Use `ISampleData.People` for your data source. ✔
 
 6. Implement `ISampleData.GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)` to return a `string` that contains a **unique**, comma-separated list of states. ❌✔
 
