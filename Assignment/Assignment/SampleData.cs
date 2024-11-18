@@ -63,7 +63,7 @@ public class SampleData : ISampleData
     public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
         Predicate<string> filter)
     {
-        List<(string first, string last)> resultEnumerable = new();
+        List<(string first, string last)> resultEnumerable = [];
         foreach (Person person in People)
         {
             if (filter(person.EmailAddress))
