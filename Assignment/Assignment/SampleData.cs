@@ -80,8 +80,6 @@ public class SampleData : ISampleData
     public string GetAggregateListOfStatesGivenPeopleCollection(
         IEnumerable<IPerson> people)
     {
-        // sort, aggregate?
-        //Select transforms, i
         return people.Select(people => people.Address.State).Distinct().OrderBy(state => state).Aggregate((oldStates, newState) => $"{oldStates}, {newState}");
 
     }
