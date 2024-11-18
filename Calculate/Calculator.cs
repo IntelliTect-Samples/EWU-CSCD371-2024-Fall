@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Numerics;
 
 namespace Calculate;
 
@@ -21,13 +22,13 @@ public class Calculator
             };
     }
 
-    public static void Add<T, T2>(T num1, T2 num2, out double result) where T : IConvertible where T2 : IConvertible => result = Convert.ToDouble(num1, new CultureInfo("en-US")) + Convert.ToDouble(num2, new CultureInfo("en-US"));
+    public static void Add<T, T2>(T num1, T2 num2, out double result) where T :  INumber<double> where T2 :  INumber<double> => result = Convert.ToDouble(num1, new CultureInfo("en-US")) + Convert.ToDouble(num2, new CultureInfo("en-US"));
 
-    public static void Subtract<T, T2>(T num1, T2 num2, out double result) where T : IConvertible where T2 : IConvertible => result = Convert.ToDouble(num1, new CultureInfo("en-US")) - Convert.ToDouble(num2, new CultureInfo("en-US"));
+    public static void Subtract<T, T2>(T num1, T2 num2, out double result) where T :  INumber<double> where T2 :  INumber<double> => result = Convert.ToDouble(num1, new CultureInfo("en-US")) - Convert.ToDouble(num2, new CultureInfo("en-US"));
 
-    public static void Multiply<T, T2>(T num1, T2 num2, out double result) where T : IConvertible where T2 : IConvertible => result = Math.Round(Convert.ToDouble(num1, new CultureInfo("en-US")) * Convert.ToDouble(num2, new CultureInfo("en-US")), 12);
+    public static void Multiply<T, T2>(T num1, T2 num2, out double result) where T :  INumber<double> where T2 :  INumber<double> => result = Math.Round(Convert.ToDouble(num1, new CultureInfo("en-US")) * Convert.ToDouble(num2, new CultureInfo("en-US")), 12);
 
-    public static void Divide<T, T2>(T num1, T2 num2, out double result) where T : IConvertible where T2 : IConvertible => result = Math.Round(Convert.ToDouble(num2, new CultureInfo("en-US")) == 0 ? throw new DivideByZeroException() : Convert.ToDouble(num1, new CultureInfo("en-US")) / Convert.ToDouble(num2, new CultureInfo("en-US")), 12);
+    public static void Divide<T, T2>(T num1, T2 num2, out double result) where T : INumber<double> where T2 :  INumber<double> => result = Math.Round(Convert.ToDouble(num2, new CultureInfo("en-US")) == 0 ? throw new DivideByZeroException() : Convert.ToDouble(num1, new CultureInfo("en-US")) / Convert.ToDouble(num2, new CultureInfo("en-US")), 12);
 
     public bool TryCalculate(string input, out double result)
     {
