@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
@@ -35,6 +35,7 @@ public class Calculator
         result = double.NaN;
 
         string[] split = input.Split(' ');
+        if (split is null) return false;
         if (split.Length != 3) return false;
 
         if (!double.TryParse(split[0], out double left) || !double.TryParse(split[2], out double right))
@@ -48,7 +49,16 @@ public class Calculator
         }
 
         char givenOperator = split[1][0];
-        MathematicalOperations[givenOperator](left, right, out result);
+        try
+        {
+            MathematicalOperations[givenOperator](left, right, out result);
+        }
+
+        catch (DivideByZeroException)
+        {
+            return false;
+        }
+
 
         return true;
     }
