@@ -114,4 +114,5 @@ public class Calculator<T> where T : INumber<T>
                 return false;
             }
         }
+        }
 }
