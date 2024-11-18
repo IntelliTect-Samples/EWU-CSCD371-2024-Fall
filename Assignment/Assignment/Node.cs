@@ -76,7 +76,7 @@ public class Node<T> : IEnumerable<T>
         {
             yield return current.Value;
             current = current.Next;
-        } while (current.Next != startNode);
+        } while (current != startNode);
     }
 
     IEnumerator IEnumerable.GetEnumerator()
