@@ -257,5 +257,20 @@ public class SampleDataTests
             counter++;
         }
     }
+    [TestMethod]
+    public void GetAggregateListOfStatesGivenPeopleCollection_ValidPeopleEnumerable_ReturnsExpected()
+    {
+        //Arrange
+        SampleData sample = new();
+        IEnumerable<IPerson> people = sample.People;
+        string expected = sample.GetAggregateSortedListOfStatesUsingCsvRows();
+        //Act
+
+        string result = sample.GetAggregateListOfStatesGivenPeopleCollection(people);
+        //Assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(expected, result);
+
+    }
 
 }
