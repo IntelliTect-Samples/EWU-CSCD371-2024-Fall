@@ -49,7 +49,6 @@ public class Calculator<T> where T : INumber<T>
             }
 
             if (!TryParse(firstOperand, out T firstNumber) || !TryParse(secondOperand, out T secondNumber))
-
             {
                 result = 0;
                 return false;
@@ -87,7 +86,7 @@ public class Calculator<T> where T : INumber<T>
     {
         result = double.CreateChecked(num1 - num2);
     }
-
+    
     public bool TryParse(string input, out T result)
     {
         // Dictionary mapping types to their parsing functions
@@ -114,5 +113,10 @@ public class Calculator<T> where T : INumber<T>
                 return false;
             }
         }
-        }
+
+        // If T is not a supported type, return T.Zero and false
+        result = T.Zero;
+        return false;
+    }
+
 }
