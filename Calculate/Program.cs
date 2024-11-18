@@ -10,8 +10,6 @@ public class Program
     public Program() { }
     public Program(Func<string?> readline, Action<string> writeLine)
     {
-
-
         ReadLine = readline;
         WriteLine = writeLine;
     }
