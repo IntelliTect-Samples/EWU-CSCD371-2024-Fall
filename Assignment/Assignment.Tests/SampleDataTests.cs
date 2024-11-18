@@ -275,8 +275,7 @@ public class SampleDataTests
         // 4.
 
         // 5.
-        public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
-            Predicate<string> filter)
+        public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter)
         {
             return People.Where(person => filter(person.EmailAddress))
                          .Select(person => (person.FirstName, person.LastName));
