@@ -29,13 +29,28 @@ public class AddressTests
     [DataRow("123 Main St", null, "Anystate", "12345")]
     [DataRow("123 Main St", "Anytown", null, "12345")]
     [DataRow("123 Main St", "Anytown", "Anystate", null)]
-    public void Constructor_InvalidInputs_ThrowsException(string streetAddress, string city, string state, string zip)
+    public void Constructor_NullInputs_ThrowsException(string streetAddress, string city, string state, string zip)
     {
         // Arrange
 
         // Act
 
         // Assert
-        Assert.ThrowsException<ArgumentNullException>(() => new Address(streetAddress, city, state, zip));
+        Assert.ThrowsException<ArgumentException>(() => new Address(streetAddress, city, state, zip));
+    }
+
+    [DataTestMethod]
+    [DataRow("  ", "Anytown", "Anystate", "12345")]
+    [DataRow("123 Main St", "", "Anystate", "12345")]
+    [DataRow("123 Main St", "Anytown", "", "12345")]
+    [DataRow("123 Main St", "Anytown", "Anystate", "")]
+    public void Constructor_EmptyInputs_ThrowsException(string streetAddress, string city, string state, string zip)
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
+        Assert.ThrowsException<ArgumentException>(() => new Address(streetAddress, city, state, zip));
     }
 }
