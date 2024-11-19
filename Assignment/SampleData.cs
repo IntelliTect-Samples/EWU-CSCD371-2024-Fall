@@ -31,8 +31,15 @@ namespace Assignment;
         
         // 3.
         public string GetAggregateSortedListOfStatesUsingCsvRows()
-            => throw new NotImplementedException();
+        {
+            // Call the method to get the unique sorted states and convert them into an array.
+            IEnumerable<string> states = GetUniqueSortedListOfStatesGivenCsvRows().ToArray();
 
+            // Use string.Join to concatenate all states into a single string, separated by commas.
+            string aggregate = string.Join(", ", states);
+            return aggregate; // Return the aggregated string of states.
+        }
+        
         // 4.
         public IEnumerable<IPerson> People => throw new NotImplementedException();
 
