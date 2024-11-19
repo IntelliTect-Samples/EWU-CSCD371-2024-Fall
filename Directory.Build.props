@@ -9,7 +9,6 @@
 	<CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
 	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 	<AnalysisLevel>latest-recommended</AnalysisLevel>
-	<NoWarn>IDE0005</NoWarn>
-	<NoWarn>CA1861</NoWarn>
+	<NoWarn>IDE0005, CA1861</NoWarn>
   </PropertyGroup>
 </Project>
