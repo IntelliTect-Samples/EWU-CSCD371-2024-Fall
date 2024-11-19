@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,15 +11,13 @@ public class SampleDataTests
     {
         return new List<string>
         {
-            // Id,FirstName,LastName,Email,StreetAddress,City,State,Zip
-            "1,John,Doe,john.doe@example.com,123 Main St,Springfield,IL,62701", // Row 1
-            "2,Jane,Smith,jane.smith@example.com,456 Oak St,Chicago,IL,60601", // Row 2
-            "3,Alice,Johnson,alice.johnson@example.com,789 Pine St,Peoria,AZ,85001", // Row 3
-            "4,Bob,Williams,bob.williams@example.com,321 Birch St,Houston,TX,77001", // Row 4
-            "5,Charlie,Brown,charlie.brown@example.com,654 Cedar St,New York,NY,10001" // Row 5
+            "1,Priscilla,Jenyns,pjenyns0@state.gov,7884 Corry Way,Helena,MT,70577",
+            "2,Karin,Joder,kjoder1@quantcast.com,03594 Florence Park,Tampa,FL,71961",
+            "3,Chadd,Stennine,cstennine2@wired.com,94148 Kings Terrace,Long Beach,CA,59721",
+            "4,Fremont,Pallaske,fpallaske3@umich.edu,16958 Forster Crossing,Atlanta,GA,10687",
+            "5,Melisa,Kerslake,mkerslake4@dion.ne.jp,283 Pawling Parkway,Dallas,TX,88632"
         };
     }
-
 
     [TestMethod]
     public void GetUniqueSortedListOfStatesGivenCsvRows_ShouldReturnUniqueSortedStates()
@@ -31,8 +29,37 @@ public class SampleDataTests
         var uniqueSortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
 
         // Assert
-        var expectedStates = new List<string> { "AZ", "IL", "NY", "TX" }; // The states from the hardcoded rows
+        var expectedStates = new List<string> { "CA", "FL", "GA", "MT", "TX" }; // Corrected expected states
         CollectionAssert.AreEqual(expectedStates, uniqueSortedStates.ToList(), "The unique sorted list of states is incorrect.");
+    }
+
+    [TestMethod]
+    public void GetUniqueSortedListOfStatesGivenCsvRows_Linq_ShouldReturnUniqueSortedStates()
+    {
+        // Arrange
+        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+
+        // Act
+        var uniqueSortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+
+        // Assert
+        var isSorted = uniqueSortedStates.SequenceEqual(uniqueSortedStates.OrderBy(state => state));
+        Assert.IsTrue(isSorted, "States aren't sorted alphabetically.");
+    }
+
+    [TestMethod]
+    public void People_ShouldBeOrderedByStateCityAndZip()
+    {
+        // Arrange
+        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+
+        // Act
+        var people = sampleData.People.ToList();
+
+        // Assert
+        Assert.AreEqual("CA", people[0].Address.State);
+        Assert.AreEqual("Long Beach", people[0].Address.City);
+        Assert.AreEqual("59721", people[0].Address.Zip);
     }
 }
 
