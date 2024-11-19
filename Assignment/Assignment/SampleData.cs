@@ -75,6 +75,17 @@ public class SampleData : ISampleData
         .Select(person => (person.FirstName, person.LastName));
 
     // 6.
-    public string GetAggregateListOfStatesGivenPeopleCollection(
-        IEnumerable<IPerson> people) => throw new NotImplementedException();
+    public string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)
+    {
+        if (people == null || !people.Any())
+        {
+            return string.Empty;
+        }
+
+        IEnumerable<string> states = people.Select(person => person.Address.State)
+                           .Distinct()
+                           .OrderBy(state => state);
+
+        return string.Join(", ", states);
+    }
 }

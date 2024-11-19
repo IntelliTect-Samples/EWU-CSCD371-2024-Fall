@@ -255,6 +255,48 @@ public class SampleDataTests
         Assert.AreEqual(0, filteredNames.Count());
     }
 
+    [TestMethod]
+    public void GetAggregateListOfStatesGivenPeopleCollection_ValidPeopleCollection_ShouldReturnCommaSeparatedStates()
+    {
+        // Arrange
+        SampleData sampleData = new("People.csv");
+        List<IPerson> people = sampleData.People.ToList();
+
+        // Act
+        string result = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
+
+        // Assert
+        Assert.AreEqual("AL, AZ, CA, DC, FL, GA, IN, KS, LA, MD, MN, MO, MT, NC, NE, NH, NV, NY, OR, PA, SC, TN, TX, UT, VA, WA, WV", result);
+    }
+
+    [TestMethod]
+    public void GetAggregateListOfStatesGivenPeopleCollection_EmptyPeopleCollection_ShouldReturnEmptyString()
+    {
+        // Arrange
+        SampleData sampleData = new("People.csv");
+        List<IPerson> people = new();
+
+        // Act
+        string result = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
+
+        // Assert
+        Assert.AreEqual(string.Empty, result);
+    }
+
+    [TestMethod]
+    public void GetAggregateListOfStatesGivenPeopleCollection_NullPeopleCollection_ShouldReturnEmptyString()
+    {
+        // Arrange
+        SampleData testSampleData = new("People.csv");
+        List<IPerson> people = null!;
+
+        // Act
+        string result = testSampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
+
+        // Assert
+        Assert.AreEqual(string.Empty, result);
+    }
+
     private sealed class TestSampleData : ISampleData
     {
         // 1.
