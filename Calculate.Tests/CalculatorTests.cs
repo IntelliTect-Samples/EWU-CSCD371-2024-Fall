@@ -46,17 +46,17 @@ public class CalculatorTests
     }
 
     [TestMethod]
-    public void Divide_Divides6By3_Returns2()
+    public void Divide_Divides5By2_Returns2Point5()
     {
         // Arrange
-        int a = 6;
-        int b = 3;
+        int a = 5;
+        int b = 2;
 
         // Act
         double actual = Calculator.Divide(a, b);
 
         // Assert
-        Assert.AreEqual(2, actual);
+        Assert.AreEqual(2.5, actual);
     }
 
     [TestMethod]
