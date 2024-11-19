@@ -26,7 +26,7 @@ public class Node<T> : IEnumerable<T>
     {
         if (newNode == null)
         {
-            throw new ArgumentNullException(nameof(newNode));
+            throw new ArgumentNullException();
         }
 
         Node<T> current = this;
