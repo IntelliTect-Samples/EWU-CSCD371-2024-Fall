@@ -1,4 +1,3 @@
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.DataCollection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Assignment.Tests;
@@ -87,7 +86,7 @@ public class NodeTests
     [DataRow("Data!")]
     [DataRow("")]
     [DataRow(42)]
-    [DataRow(new int[] { 32 })]
+    [DataRow(new[] { 32 })]
     public void ToString_GivenData_ReturnsExpectedValue<T>(T value)
     {
         // Arrange
