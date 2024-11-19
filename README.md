@@ -71,7 +71,7 @@ Chapter 14: Events
 4. Implement the `ISampleData.People` property to return all the items in `People.csv` as `Person` objects ❌✔
 
    - Use `ISampleData.CsvRows` as the source of the data. ❌✔
-   - Sort the list by State, City, and Zip. (Sort first then select). ❌✔
+   - Sort the list by State, City, and Zip. ❌✔
    - Be sure that `Person.Address` is also populated. ❌✔
    - Adding null validation to all the `Person` and `Address` properties is **optional**.
    - Consider using `ISampleData.CsvRows` in your test to verify your results. ❌✔
