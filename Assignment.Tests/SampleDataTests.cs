@@ -29,6 +29,24 @@ public class SampleDataTests
         
         Assert.Equal(expectedStates, result);
     }
+    
+    [Fact]
+    public void GetAggregateSortedListOfStatesUsingCsvRows_GivenCsvFile_Successful()
+    {
+        // Arrange
+        SampleData sampleData = new ();
+
+        // Act
+        string result = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+
+        // Assert
+        string expectedAggregate = 
+            "AL, AZ, CA, DC, FL, GA, IN, KS, LA, MD, " +
+            "MN, MO, MT, NC, NE, NH, NV, NY, OR, PA, " +
+            "SC, TN, TX, UT, VA, WA, WV";
+
+        Assert.Equal(expectedAggregate, result);
+    }
 
 
 }
