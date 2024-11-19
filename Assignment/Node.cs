@@ -115,6 +115,7 @@ public class Node<T> : IEnumerable<T>
     }
     
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    
     // Implementation of ChildItems method
     public IEnumerable<T> ChildItems(int maximum)
     {
