@@ -26,7 +26,7 @@ public class Node<T> : IEnumerable<T>
     {
         if (newNode == null)
         {
-            throw new ArgumentNullException();
+            throw new ArgumentNullException(nameof(newNode), "Cannot add a null node.");
         }
 
         Node<T> current = this;
@@ -132,5 +132,32 @@ public class Node<T> : IEnumerable<T>
             current = current.Next;
             count++;
         }
+    }
+    
+    public void Append(T data)
+    {
+        if (Exists(data))
+        {
+            throw new ArgumentException("Data already exists in the list");
+        }
+
+        Node<T> newNode = new(data);
+        Node<T> current = this;
+
+        if (current.Next == this)
+        {
+            current.Next = newNode;
+            newNode.Next = this;
+        }
+        else
+        {
+            while (current.Next != this)
+            {
+                current = current.Next;
+            }
+            current.Next = newNode;
+            newNode.Next = this;
+        }
+
     }
 }
