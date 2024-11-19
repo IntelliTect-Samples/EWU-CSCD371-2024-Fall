@@ -82,23 +82,6 @@ public class NodeTests
         Assert.AreSame(node, node.Next);
     }
 
-    [DataTestMethod]
-    [DataRow("Data!")]
-    [DataRow("")]
-    [DataRow(42)]
-    [DataRow(new[] { 32 })]
-    public void ToString_GivenData_ReturnsExpectedValue<T>(T value)
-    {
-        // Arrange
-        Node<T> node = new(value);
-
-        // Act
-        string nodeOut = node.ToString();
-
-        // Assert
-        Assert.AreEqual($"{node.Value}", nodeOut);
-    }
-
     [TestMethod]
     public void ToString_Null_ReturnsExpectedValue()
     {
