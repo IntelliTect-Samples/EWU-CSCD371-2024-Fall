@@ -24,4 +24,11 @@
       <ProjectReference Include="..\Assignment\Assignment.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <None Include="..\Assignment\People.csv">
+            <Link>People.csv</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
 </Project>
