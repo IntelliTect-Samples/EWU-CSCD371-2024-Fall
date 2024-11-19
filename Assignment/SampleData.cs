@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Assignment
-{
+namespace Assignment;
+
     public class SampleData : ISampleData
     {
         // 1.
@@ -22,14 +22,13 @@ namespace Assignment
                 The Trim method ensures no leading or trailing whitespace in the state names.
                 The Distinct method removes duplicate state entries.
                 The OrderBy method sorts the states alphabetically.
-            */
-            IEnumerable<string> states = CsvRows
-                .Select(row => row.Split(",")[6].Trim())
+            */ 
+
+            return CsvRows.Select(row => row.Split(",")[6].Trim())
                 .Distinct()
                 .OrderBy(state => state);
-
-            return states; // Return the final list of unique, sorted states.
         }
+        
         // 3.
         public string GetAggregateSortedListOfStatesUsingCsvRows()
             => throw new NotImplementedException();
@@ -45,4 +44,4 @@ namespace Assignment
         public string GetAggregateListOfStatesGivenPeopleCollection(
             IEnumerable<IPerson> people) => throw new NotImplementedException();
     }
-}
+

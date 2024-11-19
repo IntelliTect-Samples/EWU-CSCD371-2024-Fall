@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Assignment
-{
+namespace Assignment;
+
     public interface IAsyncSampleData
     {
         // 1.
@@ -24,4 +24,4 @@ namespace Assignment
         string GetAggregateListOfStatesGivenPeopleCollection(IAsyncEnumerable<IPerson> people);
 
     }
-}
+
