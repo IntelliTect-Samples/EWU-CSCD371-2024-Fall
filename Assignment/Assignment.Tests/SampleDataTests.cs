@@ -227,6 +227,34 @@ public class SampleDataTests
         Assert.AreEqual(expectedName.Item2, firstMatch.Item2, "LastName does not match.");  // Access the second element of the tuple
     }
 
+    [TestMethod]
+    public void FilterByEmailAddress_ValidPredicate_ShouldReturnCollection()
+    {
+        // Arrange
+        SampleData sampleData = new("People.csv");
+
+        // Act
+        IEnumerable<(string FirstName, string LastName)> filteredNames = sampleData.FilterByEmailAddress(email => email.Equals("pjenyns0@state.gov", StringComparison.Ordinal));
+
+        // Assert
+        Assert.IsNotNull(filteredNames);
+        Assert.AreEqual(1, filteredNames.Count());
+    }
+
+    [TestMethod]
+    public void FilterByEmailAddress_InvalidPredicate_ShouldReturnEmptyCollection()
+    {
+        // Arrange
+        SampleData sampleData = new("People.csv");
+
+        // Act
+        IEnumerable<(string FirstName, string LastName)> filteredNames = sampleData.FilterByEmailAddress(email => email.Equals("nonexistent@example.com", StringComparison.Ordinal));
+
+        // Assert
+        Assert.IsNotNull(filteredNames);
+        Assert.AreEqual(0, filteredNames.Count());
+    }
+
     private sealed class TestSampleData : ISampleData
     {
         // 1.
