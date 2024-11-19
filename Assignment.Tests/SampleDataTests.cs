@@ -21,7 +21,7 @@ public class SampleDataTests
         IEnumerable<string> result = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
 
         // Assert
-        List<string> expectedStates = new List<string> {
+        List<string> expectedStates = new() {
             "AL", "AZ", "CA", "DC", "FL", "GA", "IN", "KS", "LA", "MD", "MN", 
             "MO", "MT", "NC", "NE", "NH", "NV", "NY", "OR", "PA", "SC", "TN", 
             "TX", "UT", "VA", "WA", "WV"
