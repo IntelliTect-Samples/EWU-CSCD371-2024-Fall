@@ -162,38 +162,6 @@ public class NodeTests
     }
 
     [Fact]
-    public void ChildItems_ReturnsSortedNodes()
-    {
-        // Arrange
-        Node<string> node = new("Rhaenyra Targaryen");
-        List<string> names = new()
-        {
-            "Daemon Targaryen", "Alicent Hightower", "Viserys Targaryen",
-            "Helaena Targaryen", "Aegon II Targaryen", "Lucerys Velaryon"
-        };
-
-        foreach (string name in names)
-        {
-            node.Append(name);
-        }
-
-        // Act
-        List<string> allNodes = new List<string> { node.Data };
-        allNodes.AddRange(node.ChildItems(10));
-        List<string> sortedNodes = allNodes.OrderBy(name => name).ToList();
-
-        // Assert
-        List<string> expectedSortedItems = new()
-        {
-            "Aegon II Targaryen", "Alicent Hightower", "Daemon Targaryen",
-            "Helaena Targaryen", "Lucerys Velaryon", "Rhaenyra Targaryen",
-            "Viserys Targaryen"
-        };
-
-        Assert.True(sortedNodes.SequenceEqual(expectedSortedItems));
-    }
-
-    [Fact]
     public void Append_MaintainsCircularStructure_ForLargeNumberOfNodes()
     {
         // Arrange
@@ -220,4 +188,37 @@ public class NodeTests
 
         Assert.True(actualSequence.SequenceEqual(expectedSequence));
     }
+
+    [Fact]
+    public void ChildItems_ReturnsSortedNodes()
+    {
+        // Arrange
+        Node<string> node = new("Rhaenyra Targaryen");
+        List<string> names = new()
+        {
+            "Daemon Targaryen", "Alicent Hightower", "Viserys Targaryen",
+            "Helaena Targaryen", "Aegon II Targaryen", "Lucerys Velaryon"
+        };
+
+        foreach (string name in names)
+        {
+            node.Append(name);
+        }
+
+        // Act
+        List<string> allNodes = new() { node.Data };
+        allNodes.AddRange(node.ChildItems(10));
+        List<string> sortedNodes = allNodes.OrderBy(name => name).ToList();
+
+        // Assert
+        List<string> expectedSortedItems = new()
+        {
+            "Aegon II Targaryen", "Alicent Hightower", "Daemon Targaryen",
+            "Helaena Targaryen", "Lucerys Velaryon", "Rhaenyra Targaryen",
+            "Viserys Targaryen"
+        };
+
+        Assert.True(sortedNodes.SequenceEqual(expectedSortedItems));
+    }
+
 }
