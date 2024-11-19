@@ -83,8 +83,8 @@ public class SampleData : ISampleData
         }
 
         IEnumerable<string> states = people.Select(person => person.Address.State)
-                           .Distinct()
-                           .OrderBy(state => state);
+                                           .Distinct()
+                                           .OrderBy(state => state);
 
         return string.Join(", ", states);
     }
