@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -41,15 +41,15 @@ public class SampleData : ISampleData
             return CsvRows
                 .Select(row => row.Split(','))
                 .Select(columns => new Person(
-                    columns[0],
+                    columns[0], 
                     columns[1],
                     new Address(
-                        columns[2],
-                        columns[3],
                         columns[4],
-                        columns[5]
+                        columns[5], 
+                        columns[6],
+                        columns[7]  
                     ),
-                    columns[6]
+                    columns[3]
                 ))
                 .OrderBy(person => person.Address.State)
                 .ThenBy(person => person.Address.City)
