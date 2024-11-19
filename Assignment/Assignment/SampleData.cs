@@ -31,7 +31,7 @@ public class SampleData : ISampleData
         }
     }
 
-    // Note on IDisposable: File.ReadLines() does not require manuel disposal of resources.
+    // Note on IDisposable: File.ReadLines() does not require manual disposal of resources.
     // It internally manages the file stream and cleans it up automatically when the enumeration is complete.
 
     // 2.
