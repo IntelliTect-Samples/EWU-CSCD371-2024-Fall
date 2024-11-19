@@ -64,7 +64,7 @@ public class SampleData : ISampleData
         Predicate<string> filter)
     {
         List<(string first, string last)> resultEnumerable = [];
-        foreach (Person person in People)
+        foreach (Person person in People.Cast<Person>())
         {
             if (filter(person.EmailAddress))
             {

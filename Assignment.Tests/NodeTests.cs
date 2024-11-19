@@ -3,10 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Assignment.Tests;
 
-
 //We understand that logic in tests is typically frowned upon, but the assignment recommends we don't use collection assertions,
 //Thus we must iterate :)
-
 
 [TestClass]
 public class NodeTests
