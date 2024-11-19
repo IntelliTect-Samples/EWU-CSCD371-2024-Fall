@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Runtime.CompilerServices;
 
 namespace Assignment.Tests;
 
@@ -270,5 +271,22 @@ public class NodeTests
 
         // Assert
         Assert.IsFalse(node.Exists(node.Next.Value));
+    }
+
+    [TestMethod]
+    [DataRow("Data!")]
+    [DataRow("")]
+    [DataRow(42)]
+    [DataRow([32, 2])]
+    public void ToString_GivenData_ReturnsExpectedValue<T>(T value)
+    {
+        // Arrange
+        Node<T> node = new(value);
+
+        // Act
+        string nodeOut = node.ToString();
+
+        // Assert
+        Assert.AreEqual($"{node.Value}", nodeOut);
     }
 }
