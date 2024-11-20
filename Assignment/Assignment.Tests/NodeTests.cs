@@ -173,4 +173,24 @@ public class NodeTests
         Assert.AreEqual(node, node.Next);
         Assert.AreSame(node, node.Next);
     }
+
+    [TestMethod]
+    public void GetEnumerator_ValidLoop_ReturnsEnumerator()
+    {
+        // Arrange
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+        // Act
+        IEnumerator<int> enumerator = node.GetEnumerator();
+        // Assert
+        Assert.IsNotNull(enumerator);
+        Assert.IsTrue(enumerator.MoveNext());
+        Assert.AreEqual(1, enumerator.Current);
+        Assert.IsTrue(enumerator.MoveNext());
+        Assert.AreEqual(2, enumerator.Current);
+        Assert.IsTrue(enumerator.MoveNext());
+        Assert.AreEqual(3, enumerator.Current);
+        Assert.IsFalse(enumerator.MoveNext());
+    }
 }

@@ -1,6 +1,8 @@
-﻿namespace Assignment;
+﻿using System.Collections;
 
-public class Node<T>
+namespace Assignment;
+
+public class Node<T> : IEnumerable<T>
 {
     public T? Value { get; set; }
     public Node<T> Next { get; private set; }
@@ -65,5 +67,20 @@ public class Node<T>
             old.Next = old;
             old = traversal;
         } while (traversal != this);
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        throw new NotImplementedException();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<T> ChildItems(int maximum)
+    {
+        throw new NotImplementedException();
     }
 }
