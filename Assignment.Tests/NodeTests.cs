@@ -2,6 +2,7 @@
 using System;
 using Assignment;
 using System.Globalization;
+using System.Collections;
 
 namespace Assignment.Tests;
 
@@ -200,6 +201,31 @@ public class NodeTests
 
         // Assert
         Assert.IsNotNull(enumerator);
+        Assert.IsTrue(enumerator.MoveNext());
+        Assert.AreEqual(1, enumerator.Current);
+        Assert.IsTrue(enumerator.MoveNext());
+        Assert.AreEqual(3, enumerator.Current);
+        Assert.IsTrue(enumerator.MoveNext());
+        Assert.AreEqual(2, enumerator.Current);
+        Assert.IsFalse(enumerator.MoveNext());
+    }
+
+    [TestMethod]
+    public void GetEnumerator_NonGeneric_ReturnsEnumerator()
+    {
+        // Arrange
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+
+        // Act
+        IEnumerable enumerableNode = (IEnumerable)node;
+        IEnumerator enumerator = enumerableNode.GetEnumerator();
+
+        // Assert
+        Assert.IsNotNull(enumerator);
+
+        // Enumerate through the collection and verify
         Assert.IsTrue(enumerator.MoveNext());
         Assert.AreEqual(1, enumerator.Current);
         Assert.IsTrue(enumerator.MoveNext());
