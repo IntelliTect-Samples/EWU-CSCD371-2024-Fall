@@ -47,6 +47,24 @@ public class SampleDataTests
 
         Assert.Equal(expectedAggregate, result);
     }
+    
+    [Fact]
+    public void GetUniqueSortedListOfStates_GivenCsvFile_VerifiesSortingAndUniqueness()
+    {
+        // Arrange
+        SampleData sampleData = new();
+
+        // Act
+        List<string> result = sampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToList(); // Materialize the collection
+
+        // Assert
+        // Verify that the result is sorted alphabetically
+        Assert.True(result.SequenceEqual(result.OrderBy(state => state)), "The list is not sorted alphabetically.");
+
+        // Verify that the result contains unique items
+        Assert.Equal(result.Count, result.Distinct().Count()); // Count is a property for lists
+    }
+
 
     [Fact]
     public void PeopleProperty_PeopleCSV_ReturnsPeopleObject()
@@ -80,13 +98,17 @@ public class SampleDataTests
     public void FilterByEmailAddress_GivenEmailAddress_ReturnsListOfFilteredNames()
     {
         // Arrange
-        SampleData sampleData = new();
-        sampleData.CsvRows = File.ReadLines("People.csv").Skip(1);
+        SampleData sampleData = new()
+        {
+            CsvRows = File.ReadLines("People.csv").Skip(1)
+        };
+
         Predicate<string> emailFilter = email => email.Contains("echallaceu@nasa.gov");
         var expectedResult = new List<(string FirstName, string LastName)>
         {
             ("Ev", "Challace")
         };
+
 
         // Act
         var filteredNames = sampleData.FilterByEmailAddress(emailFilter).ToList();
@@ -101,21 +123,21 @@ public class SampleDataTests
     public void GetAggregateListOfStatesGivenPeopleCollection_PeopleCSV_ReturnsListOfStates()
     {
         // Arrange
-        SampleData sampleData = new();
-        sampleData.CsvRows = File.ReadLines("People.csv").Skip(1);
-        var people = sampleData.People;
-        var expectedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+        SampleData sampleData = new()
+        {
+            CsvRows = File.ReadLines("People.csv").Skip(1).ToList() // Materialize the CsvRows collection
+        };
+
+        var people = sampleData.People; // Assume People is already processed and materialized
+        var expectedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToList(); // Materialize the expected states
 
         // Act
         var result = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
-        var resultStates = result.Split(", ").ToList();
+        var resultStates = result.Split(", ").ToList(); // Split the aggregated states string into a list
 
         // Assert
-        Assert.NotNull(result);
-        Assert.Equal(expectedStates.Count(), resultStates.Count);
-        Assert.True(expectedStates.SequenceEqual(resultStates));
+        Assert.NotNull(result); // Ensure the result is not null
+        Assert.Equal(expectedStates.Count, resultStates.Count); // Ensure the counts match
+        Assert.True(expectedStates.SequenceEqual(resultStates), "The states do not match the expected sorted and unique list.");
     }
-
-
-
 }
