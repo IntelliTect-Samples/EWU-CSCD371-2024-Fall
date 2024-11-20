@@ -76,5 +76,21 @@ public class SampleDataTests
         }
     }
 
+    [Fact]
+    public void FilterByEmailAddress_GivenEmailAddress_ReturnsListOfFilteredNames()
+    {
+        // Arrange
+        SampleData sampleData = new();
+        sampleData.CsvRows = File.ReadLines("People.csv").Skip(1); // Load People.csv and skip the header
+        
+        // Act
+        Predicate<string> emailFilter = email => email.Contains("cbucklej@tiny.cc");
+
+        var filteredNames = sampleData.FilterByEmailAddress(emailFilter).ToList();
+
+        // Assert
+        Assert.NotNull(filteredNames);
+    }
+
 
 }
