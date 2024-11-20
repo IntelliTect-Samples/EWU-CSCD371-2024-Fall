@@ -230,4 +230,21 @@ public class SampleDataTests
         // Assert
         Assert.AreEqual(string.Empty, result);
     }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void GetAggregateListOfStatesGivenPeopleCollection_InvalidPeopleCollection_ShouldThrowInvalidOperationException()
+    {
+        // Arrange
+        SampleData testSampleData = new("People.csv");
+        List<IPerson> people =
+        [
+            new Person("John", "Doe", new Address("123 Main St", "Anytown", "Anystate", "12345"), "jdoe@example.com")
+        ];
+
+        // Act
+        _ = testSampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
+
+        // Assert - Expecting an InvalidOperationException
+    }
 }
