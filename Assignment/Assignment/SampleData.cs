@@ -92,7 +92,7 @@ public class SampleData : ISampleData
 
         IEnumerable<string> expectedStates = GetUniqueSortedListOfStatesGivenCsvRows();
         return !result.Equals(string.Join(", ", expectedStates), StringComparison.Ordinal)
-            ? throw new InvalidOperationException("Validation failed: Result does not match the expected unique sorted list of states.")
-            : result;
+               ? throw new InvalidOperationException("Validation failed: Result does not match the expected unique sorted list of states.")
+               : result;
     }
 }
