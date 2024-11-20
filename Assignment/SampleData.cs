@@ -90,10 +90,23 @@ public class SampleData : ISampleData
         {
             throw new ArgumentNullException(nameof(people), "The people collection cannot be null.");
         }
-        return people
-            .Select(person => person.Address.State)  
-            .Distinct()                             
-            .OrderBy(state => state)                
-            .Aggregate((current, next) => $"{current}, {next}");
+
+        // Extract unique and sorted states from the people collection
+        List<string> statesFromPeople = people
+            .Select(person => person.Address.State)
+            .Distinct()
+            .OrderBy(state => state)
+            .ToList();
+
+        // Optionally validate against GetUniqueSortedListOfStatesGivenCsvRows
+        List<string> validatedStates = GetUniqueSortedListOfStatesGivenCsvRows().ToList();
+        if (!statesFromPeople.SequenceEqual(validatedStates))
+        {
+            throw new InvalidOperationException("The aggregated states do not match the unique sorted list of states.");
+        }
+
+        // Aggregate into a comma-separated string
+        return statesFromPeople.Aggregate((current, next) => $"{current}, {next}");
     }
+
 }
