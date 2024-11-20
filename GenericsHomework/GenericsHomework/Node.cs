@@ -74,8 +74,6 @@ namespace GenericsHomework
             Node<T> start = this;
             Node<T> current = start;
             yield return current;
-            //yield return current.Next;
-            //yield return current.Next;
 
             while (current.Next != start)
             {

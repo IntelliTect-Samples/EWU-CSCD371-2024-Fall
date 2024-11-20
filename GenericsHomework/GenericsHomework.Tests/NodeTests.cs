@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GenericsHomework.Tests
@@ -153,18 +152,60 @@ namespace GenericsHomework.Tests
 
 
         [TestMethod]
-        public void Test()
+        public void Node_OrderBy()
         {
-            Program program = new Program(); // (Console.WriteLine, Console.ReadLine)
-            program.Execute();
-            {
-                WriteLine("My name is Inigo Montoya");
-            }
+            Node<int> node1 = new(1);
+            node1.Append(1);
+            node1.Append(2);
 
-            Program program = new Program(
-                output => Assert.AreEqual(output == "My name is Inigo Montoya."));
+            node1.Select(item => item);
 
-            Program.DoSomething();
+            IOrderedEnumerable<Node<int>> temp =
+                node1.OrderBy(item => item)
+                .ThenBy(item => item.Value);
+        }
+
+        [TestMethod]
+        public void Node_Covariance()
+        {
+            string[] strings = ["", "test", "mark"];
+
+            object[] objects = strings;
+            if (objects is not object[]) { Assert.Fail(); }
+            Assert.AreEqual(typeof(string[]), objects.GetType());
+            Assert.ThrowsException<ArrayTypeMismatchException>(() => objects[1] = 1);
+
+
+            //List<string> strings = ["", "test", "mark"];
+            //List<object> objects = strings;
+            //objects[1] = 1;
+
+            //IEnumerable<string> strings = ["", "test", "mark"];
+            //IEnumerable<object> objects = strings;
+            //objects[1] = 1;
+
+            //ICollection<string> strings2 = ["", "test", "mark"];
+            //ICollection<object> objects2 = strings2;
+
+            IReadOnlyList<string> strings1 = ["", "yellow", "palevioletred"];
+            IReadOnlyList<object> objects1 = strings1;
+
+
+            //IReadWriteEnumerable<string>? strings2 = null;
+            //IReadWriteEnumerable<object>? objects2 = strings2;
+
+        }
+
+        [TestMethod]
+        public void DelegateAssignment()
+        {
+            Action<object> pink = (object number) => { };
+            Action<string> foo = pink;
+
+            Func<string> black = () => { return ""; };
+            Func<object> foo1 = black;
+
+
 
         }
 
@@ -204,5 +245,10 @@ namespace GenericsHomework.Tests
             var result2Count = resultEnumerable.Count();
             Assert.AreEqual(counter, result2Count);
         }
+    }
+
+    public interface IReadWriteEnumerable<T>
+    {
+        IEnumerator<T> GetEnumerator();
     }
 }
