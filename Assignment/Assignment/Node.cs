@@ -90,6 +90,22 @@ public class Node<T> : IEnumerable<T>
 
     public IEnumerable<T> ChildItems(int maximum)
     {
-        throw new NotImplementedException();
+        if (maximum < 0)
+        {
+            yield break;
+        }
+
+        Node<T> current = this;
+        int count = 0;
+
+        do
+        {
+            if (current.Value is not null)
+            {
+                yield return current.Value;
+                count++;
+            }
+            current = current.Next;
+        } while (current != this && count < maximum);
     }
 }

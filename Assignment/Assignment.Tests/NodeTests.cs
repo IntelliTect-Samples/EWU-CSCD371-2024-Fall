@@ -187,20 +187,52 @@ public class NodeTests
     }
 
     [TestMethod]
-    public void ChildItems_ValidLoop_ReturnsEnumerator()
+    public void Node_ChildItems_ShouldReturnLimitedItems()
     {
         // Arrange
         Node<int> node = new(1);
         node.Append(2);
         node.Append(3);
+
         // Act
-        IEnumerator<int> enumerator = node.ChildItems(2);
+        List<int> limitedItems = node.ChildItems(2).ToList();
+
         // Assert
-        Assert.IsNotNull(enumerator);
-        Assert.IsTrue(enumerator.MoveNext());
-        Assert.AreEqual(1, enumerator.Current);
-        Assert.IsTrue(enumerator.MoveNext());
-        Assert.AreEqual(3, enumerator.Current);
-        Assert.IsFalse(enumerator.MoveNext());
+        Assert.IsNotNull(limitedItems, "The limited items collection should not be null.");
+        Assert.AreEqual(2, limitedItems.Count, "The limited items collection should contain exactly 2 items.");
+        Assert.IsTrue(limitedItems.SequenceEqual([1, 3]), "The items in the list do not match the expected limited values.");
+    }
+
+    [TestMethod]
+    public void ChildItems_MaximumIsZero_ShouldReturnEmptyCollection()
+    {
+        // Arrange
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+
+        // Act
+        List<int> items = node.ChildItems(0).ToList();
+
+        // Assert
+        Assert.IsNotNull(items, "The items collection should not be null.");
+        Assert.AreEqual(0, items.Count, "The items collection should be empty when maximum is 0.");
+    }
+
+    [TestMethod]
+    public void ChildItems_MaximumExceedsNodeCount_ShouldReturnAllNodes()
+    {
+        // Arrange
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+
+        // Act
+        List<int> items = node.ChildItems(10).ToList(); // Maximum exceeds the number of nodes
+
+        // Assert
+        Assert.IsNotNull(items, "The items collection should not be null.");
+        Assert.AreEqual(3, items.Count, "The items collection should contain all nodes when maximum exceeds the node count.");
+        Assert.IsTrue(items.SequenceEqual([1, 3, 2]), "The items collection does not match the expected values.");
     }
 }
