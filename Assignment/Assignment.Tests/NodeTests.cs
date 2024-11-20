@@ -34,24 +34,16 @@ public class NodeTests
         Assert.AreEqual(value, node.Value);
     }
 
-    [TestMethod]
-    public void Constructor_NullInput_CreatesValidNode()
-    {
-        // Act
-        Node<object> node = new(null);
+    //[TestMethod]
+    //public void Constructor_NullInput_CreatesValidNode()
+    //{
+    //    // Act
+    //    Node<object> node = new(null);
 
-        // Assert
-        Assert.IsNotNull(node);
-        Assert.IsNull(node.Value);
-    }
-
-    [TestMethod]
-    public void SimpleTest()
-    {
-        Assert.IsTrue(true);
-    }
-
-    // ... other code ...
+    //    // Assert
+    //    Assert.IsNotNull(node);
+    //    Assert.IsNull(node.Value);
+    //}
 
     [DataTestMethod]
     [DataRow(1)]

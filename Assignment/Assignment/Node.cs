@@ -4,16 +4,16 @@ namespace Assignment;
 
 public class Node<T> : IEnumerable<T>
 {
-    public T? Value { get; set; }
+    public T Value { get; set; }
     public Node<T> Next { get; private set; }
 
-    public Node(T? value)
+    public Node(T value)
     {
         Value = value;
         Next = this;
     }
 
-    public void Append(T? val)
+    public void Append(T val)
     {
         if (Exists(val))
         {
@@ -80,8 +80,7 @@ public class Node<T> : IEnumerable<T>
                 yield return current.Value;
             }
             current = current.Next;
-        }
-        while (current != this);
+        } while (current != this);
     }
 
     IEnumerator IEnumerable.GetEnumerator()
