@@ -56,9 +56,9 @@ public class SampleDataTests
         IEnumerable<IPerson> peopleResult = sampleData.People;
         IEnumerable<string> csvRows = File.ReadLines("People.csv").Skip(1);
         List<string[]> sortedCsvRows = csvRows.Select(row => row.Split(','))
-            .OrderBy(columns => columns[6]) // State
-            .ThenBy(columns => columns[5]) // City
-            .ThenBy(columns => columns[7]) // Zip
+            .OrderBy(columns => columns[6])
+            .ThenBy(columns => columns[5])
+            .ThenBy(columns => columns[7])
             .ToList();
 
         // Assert
@@ -66,14 +66,15 @@ public class SampleDataTests
         foreach (IPerson person in peopleResult)
         {
             string[] expectedValues = sortedCsvRows[index++];
-            Assert.Equal(expectedValues[0], person.FirstName);
-            Assert.Equal(expectedValues[1], person.LastName);
-            Assert.Equal(expectedValues[2], person.EmailAddress);
-            Assert.Equal(expectedValues[3], person.Address.StreetAddress);
-            Assert.Equal(expectedValues[4], person.Address.City);
-            Assert.Equal(expectedValues[5], person.Address.State);
-            Assert.Equal(expectedValues[6], person.Address.Zip);
+            Assert.Equal(expectedValues[1], person.FirstName);
+            Assert.Equal(expectedValues[2], person.LastName);            
+            Assert.Equal(expectedValues[3], person.EmailAddress);          
+            Assert.Equal(expectedValues[4], person.Address.StreetAddress);  
+            Assert.Equal(expectedValues[5], person.Address.City);           
+            Assert.Equal(expectedValues[6], person.Address.State);          
+            Assert.Equal(expectedValues[7], person.Address.Zip);           
         }
     }
+
 
 }

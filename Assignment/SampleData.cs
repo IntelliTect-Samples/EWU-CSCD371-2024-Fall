@@ -50,23 +50,18 @@ namespace Assignment;
                 {
                     var columns = row.Split(',');
 
-                    if (columns.Length < 8)
-                    {
-                        throw new InvalidDataException("CSV row is missing required data.");
-                    }
-
                     var address = new Address(
-                        columns[4].Trim(), // StreetAddress
-                        columns[5].Trim(), // City
-                        columns[6].Trim(), // State
-                        columns[7].Trim()  // Zip
+                        columns[4].Trim(),
+                        columns[5].Trim(),
+                        columns[6].Trim(),
+                        columns[7].Trim()
                     );
 
                     return new Person(
-                        columns[0].Trim(), // FirstName
-                        columns[1].Trim(), // LastName
-                        address,           // Address
-                        columns[2].Trim()  // EmailAddress
+                        columns[1].Trim(),
+                        columns[2].Trim(),
+                        address,
+                        columns[3].Trim()
                     );
                 })
                 .OrderBy(person => person.Address.State)
