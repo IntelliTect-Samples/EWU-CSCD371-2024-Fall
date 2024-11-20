@@ -82,10 +82,18 @@ public class SampleData : ISampleData
             return string.Empty;
         }
 
-        IEnumerable<string> states = people.Select(person => person.Address.State)
-                                           .Distinct()
-                                           .OrderBy(state => state);
+        var uniqueStates = people.Select(person => person.Address.State)
+                                  .Distinct()
+                                  .OrderBy(state => state);
 
-        return string.Join(", ", states);
+        string result = uniqueStates.Aggregate((current, next) => current + ", " + next);
+
+        var expectedStates = GetUniqueSortedListOfStatesGivenCsvRows();
+        if (!result.Equals(string.Join(", ", expectedStates), StringComparison.Ordinal))
+        {
+            throw new InvalidOperationException("Validation failed: Result does not match the expected unique sorted list of states.");
+        }
+
+        return result;
     }
 }
