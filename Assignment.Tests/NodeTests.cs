@@ -11,25 +11,12 @@ public class NodeTests
     [DataTestMethod]
     [DataRow(1)]
     [DataRow(11231)]
-    public void Constructor_ValidInput_CreatesValidNode(int value)
-    {
-        // Arrange
-        Node<int> node = new(value);
-
-        // Act
-
-        // Assert
-        Assert.IsNotNull(node);
-        Assert.AreEqual(value, node.Value);
-    }
-
-    [DataTestMethod]
     [DataRow("MyDataValue")]
     [DataRow("AnotherValue")]
-    public void Constructor_ValidInput_CreatesValidNode(string value)
+    public void Constructor_ValidInput_CreatesValidNode<T>(T value)
     {
         // Arrange
-        Node<string> node = new(value);
+        Node<T> node = new(value);
 
         // Act
 
@@ -39,33 +26,21 @@ public class NodeTests
     }
 
     [DataTestMethod]
+    [DataRow(null)]
     [DataRow(1)]
     [DataRow(2)]
-    public void ToString_ValidCall_ReturnsString(int val)
-    {
-        // Arrange
-        Node<int> node = new(val);
-
-        // Act
-
-        // Assert
-        Assert.IsNotNull(node);
-        Assert.AreEqual(val.ToString(CultureInfo.InvariantCulture), node.ToString());
-    }
-
-    [DataTestMethod]
     [DataRow("SomeData")]
     [DataRow("AnotherData")]
-    public void ToString_ValidCall_ReturnsString(string val)
+    public void ToString_ValidCall_ReturnsString<T>(T val)
     {
         // Arrange
-        Node<string> node = new(val);
+        Node<T> node = new(val);
 
         // Act
 
         // Assert
         Assert.IsNotNull(node);
-        Assert.AreEqual(val.ToString(), node.ToString());
+        Assert.AreEqual(val?.ToString(), node.ToString());
     }
 
     [TestMethod]
@@ -106,27 +81,12 @@ public class NodeTests
     [DataTestMethod]
     [DataRow(1, 2, 3, 3, true)]
     [DataRow(1, 2, 3, 4, false)]
-    public void Exists_ValidInput_ReturnsTrue(int val, int val2, int val3, int expectedValue, bool expectedResult)
-    {
-        // Arrange
-        Node<int> node = new(val);
-        node.Append(val2);
-        node.Append(val3);
-
-        // Act
-        bool exists = node.Exists(expectedValue);
-
-        // Assert
-        Assert.AreEqual(expectedResult, exists);
-    }
-
-    [DataTestMethod]
     [DataRow("SomeData", "AnotherData", "ThirdData", "AnotherData", true)]
     [DataRow("SomeData", "AnotherData", "ThirdData", "NotPresent", false)]
-    public void Exists_ValidInput_ReturnsTrue(string val, string val2, string val3, string expectedValue, bool expectedResult)
+    public void Exists_ValidInput_ReturnsTrue<T>(T val, T val2, T val3, T expectedValue, bool expectedResult)
     {
         // Arrange
-        Node<string> node = new(val);
+        Node<T> node = new(val);
         node.Append(val2);
         node.Append(val3);
 
@@ -148,6 +108,43 @@ public class NodeTests
 
         // Assert
         Assert.IsTrue(exists);
+    }
+
+    [TestMethod]
+    public void Exists_SameValues_ReturnsTrue()
+    {
+        // Arrange
+        Node<string> node = new("SomeData");
+        // Act
+        bool exists = node.Exists("SomeData");
+        // Assert
+        Assert.IsTrue(exists);
+    }
+
+    [TestMethod]
+    public void Exists_ValueIsNotNullExpectedValueIsNull_ReturnsFalse()
+    {
+        // Arrange
+        Node<string> node = new("SomeData");
+
+        // Act
+        bool exists = node.Exists(null);
+
+        // Assert
+        Assert.IsFalse(exists);
+    }
+
+    [TestMethod]
+    public void Exists_ValueIsNullExpectedValueNotNull_ReturnsFalse()
+    {
+        // Arrange
+        Node<string> node = new(null!);
+
+        // Act
+        bool exists = node.Exists("SomeData");
+
+        // Assert
+        Assert.IsFalse(exists);
     }
 
     [TestMethod]
