@@ -109,6 +109,7 @@ public class Node<T> : IEnumerable<T>
                 count++;
             }
             current = current.Next;
-        } while (current != this && count < maximum);
+        }
+        while (current != this && count < maximum);
     }
 }
