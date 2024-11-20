@@ -71,12 +71,22 @@ public class Node<T> : IEnumerable<T>
 
     public IEnumerator<T> GetEnumerator()
     {
-        throw new NotImplementedException();
+        Node<T> current = this;
+
+        do
+        {
+            if (current.Value is not null)
+            {
+                yield return current.Value;
+            }
+            current = current.Next;
+        }
+        while (current != this);
     }
 
     IEnumerator IEnumerable.GetEnumerator()
     {
-        throw new NotImplementedException();
+        return GetEnumerator();
     }
 
     public IEnumerable<T> ChildItems(int maximum)
