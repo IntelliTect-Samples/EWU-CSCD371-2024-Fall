@@ -14,8 +14,8 @@ public class SampleData : ISampleData
             throw new FileNotFoundException($"File not found: {_fileName}");
         }
 
-        string? header = File.ReadLines(_fileName).FirstOrDefault();
-        if (header is null or not ExpectedHeader)
+        string header = File.ReadLines(_fileName).FirstOrDefault() ?? throw new FormatException("File is empty.");
+        if (header != ExpectedHeader)
         {
             throw new FormatException($"Invalid header: {header}");
         }
