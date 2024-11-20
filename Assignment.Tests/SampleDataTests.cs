@@ -81,7 +81,7 @@ public class SampleDataTests
     {
         // Arrange
         SampleData sampleData = new();
-        sampleData.CsvRows = File.ReadLines("People.csv").Skip(1); // Load People.csv and skip the header
+        sampleData.CsvRows = File.ReadLines("People.csv").Skip(1);
         
         // Act
         Predicate<string> emailFilter = email => email.Contains("cbucklej@tiny.cc");
