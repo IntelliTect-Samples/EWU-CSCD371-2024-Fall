@@ -188,9 +188,9 @@ public class NodeTests
         Assert.IsTrue(enumerator.MoveNext());
         Assert.AreEqual(1, enumerator.Current);
         Assert.IsTrue(enumerator.MoveNext());
-        Assert.AreEqual(2, enumerator.Current);
-        Assert.IsTrue(enumerator.MoveNext());
         Assert.AreEqual(3, enumerator.Current);
+        Assert.IsTrue(enumerator.MoveNext());
+        Assert.AreEqual(2, enumerator.Current);
         Assert.IsFalse(enumerator.MoveNext());
     }
 }
