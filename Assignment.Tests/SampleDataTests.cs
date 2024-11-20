@@ -98,13 +98,17 @@ public class SampleDataTests
     public void FilterByEmailAddress_GivenEmailAddress_ReturnsListOfFilteredNames()
     {
         // Arrange
-        SampleData sampleData = new();
-        sampleData.CsvRows = File.ReadLines("People.csv").Skip(1);
+        SampleData sampleData = new()
+        {
+            CsvRows = File.ReadLines("People.csv").Skip(1)
+        };
+
         Predicate<string> emailFilter = email => email.Contains("echallaceu@nasa.gov");
         var expectedResult = new List<(string FirstName, string LastName)>
         {
             ("Ev", "Challace")
         };
+
 
         // Act
         var filteredNames = sampleData.FilterByEmailAddress(emailFilter).ToList();
@@ -119,8 +123,11 @@ public class SampleDataTests
     public void GetAggregateListOfStatesGivenPeopleCollection_PeopleCSV_ReturnsListOfStates()
     {
         // Arrange
-        SampleData sampleData = new();
-        sampleData.CsvRows = File.ReadLines("People.csv").Skip(1).ToList(); // Materialize the CsvRows collection
+        SampleData sampleData = new()
+        {
+            CsvRows = File.ReadLines("People.csv").Skip(1).ToList() // Materialize the CsvRows collection
+        };
+
         var people = sampleData.People; // Assume People is already processed and materialized
         var expectedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToList(); // Materialize the expected states
 

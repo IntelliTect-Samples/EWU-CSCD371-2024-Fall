@@ -97,4 +97,3 @@ public class SampleData : ISampleData
             .Aggregate((current, next) => $"{current}, {next}");
     }
 }
-
