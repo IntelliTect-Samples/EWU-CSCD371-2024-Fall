@@ -29,7 +29,7 @@ public class SampleDataTests
         var uniqueSortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
 
         // Assert
-        var expectedStates = new List<string> { "CA", "FL", "GA", "MT", "TX" }; // Corrected expected states
+        var expectedStates = new List<string> { "CA", "FL", "GA", "MT", "TX" };
         CollectionAssert.AreEqual(expectedStates, uniqueSortedStates.ToList(), "The unique sorted list of states is incorrect.");
     }
 
@@ -47,20 +47,60 @@ public class SampleDataTests
         Assert.IsTrue(isSorted, "States aren't sorted alphabetically.");
     }
 
+    //TODO: Add a test for GetAggregateSortedListOfStatesUsingCsvRows
     [TestMethod]
-    public void People_ShouldBeOrderedByStateCityAndZip()
+    public void GetAggregateSortedListOfStatesUsingCsvRows_ShouldReturnAggregateSortedStates()
     {
         // Arrange
         var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        // Act
+        var aggregateSortedStates = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+        // Assert
+        Assert.AreEqual("CA, FL, GA, MT, TX", aggregateSortedStates);
+    }
 
+    [TestMethod]
+    public void People_ShouldReturnCorrectNumOfPeople_Success()
+    {
+        // Arrange
+        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
         // Act
         var people = sampleData.People.ToList();
-
         // Assert
-        Assert.AreEqual("CA", people[0].Address.State);
+        Assert.AreEqual(5, people.Count);
+    }
+
+    [TestMethod]
+    public void People_ShouldReturnCorrectPeople_Success()
+    {
+        // Arrange
+        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        // Act
+        var people = sampleData.People.ToList();
+        // Assert
+        Assert.AreEqual("Chadd", people[0].FirstName);
+        Assert.AreEqual("Stennine", people[0].LastName);
+        Assert.AreEqual("cstennine2@wired.com", people[0].EmailAddress);
+        Assert.AreEqual("94148 Kings Terrace", people[0].Address.StreetAddress);
         Assert.AreEqual("Long Beach", people[0].Address.City);
+        Assert.AreEqual("CA", people[0].Address.State);
         Assert.AreEqual("59721", people[0].Address.Zip);
     }
+
+    //TODO: Add a test for FilterByEmailAddress
+    public void FilterByEmailAddress_ShouldReturnCorrectPeople_Success()
+    {
+        // Arrange
+        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        // Act
+        var people = sampleData.FilterByEmailAddress(email => email.Contains("state.gov")).ToList();
+        // Assert
+        Assert.AreEqual(1, people.Count);
+        Assert.AreEqual("Priscilla", people[0].FirstName);
+        Assert.AreEqual("Jenyns", people[0].LastName);
+    }
+
+    //TODO: Add a test for GetAggregateListOfStatesGivenPeopleCollection
 }
 
 public class SampleDataForTesting : SampleData
