@@ -104,12 +104,16 @@ public class SampleDataTests
         SampleData sampleData = new();
         sampleData.CsvRows = File.ReadLines("People.csv").Skip(1);
         var people = sampleData.People;
+        var expectedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
 
         // Act
-        string result = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
+        var result = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
+        var resultStates = result.Split(", ").ToList();
 
         // Assert
         Assert.NotNull(result);
+        Assert.Equal(expectedStates.Count(), resultStates.Count);
+        Assert.True(expectedStates.SequenceEqual(resultStates));
     }
 
 
