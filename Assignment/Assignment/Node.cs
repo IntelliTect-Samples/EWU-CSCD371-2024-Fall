@@ -42,7 +42,8 @@ public class Node<T> : IEnumerable<T>
                 return true;
             }
             current = current.Next;
-        } while (current != this);
+        }
+        while (current != this);
 
         return false;
     }
@@ -66,7 +67,8 @@ public class Node<T> : IEnumerable<T>
             traversal = traversal.Next;
             old.Next = old;
             old = traversal;
-        } while (traversal != this);
+        }
+        while (traversal != this);
     }
 
     public IEnumerator<T> GetEnumerator()
@@ -80,7 +82,8 @@ public class Node<T> : IEnumerable<T>
                 yield return current.Value;
             }
             current = current.Next;
-        } while (current != this);
+        }
+        while (current != this);
     }
 
     IEnumerator IEnumerable.GetEnumerator()

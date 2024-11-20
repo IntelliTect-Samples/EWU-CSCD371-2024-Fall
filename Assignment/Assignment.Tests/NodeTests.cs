@@ -228,7 +228,7 @@ public class NodeTests
         node.Append(3);
 
         // Act
-        List<int> items = node.ChildItems(10).ToList(); // Maximum exceeds the number of nodes
+        List<int> items = node.ChildItems(10).ToList();
 
         // Assert
         Assert.IsNotNull(items, "The items collection should not be null.");
