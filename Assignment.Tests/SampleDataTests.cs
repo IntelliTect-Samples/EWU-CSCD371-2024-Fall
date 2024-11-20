@@ -48,5 +48,16 @@ public class SampleDataTests
         Assert.Equal(expectedAggregate, result);
     }
 
+    [Fact]
+    public void PeopleProperty_PeopleCSV_ReturnsPeopleObjects()
+    {
+        // Arrange
+        SampleData sampleData = new();
+        IEnumerable<IPerson> peopleResult = sampleData.People;
+    }
+
+
+
+
 
 }
