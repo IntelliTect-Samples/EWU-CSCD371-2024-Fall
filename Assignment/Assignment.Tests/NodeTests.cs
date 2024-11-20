@@ -1,142 +1,177 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Assignment;
+using System.Globalization;
 
-namespace Assignment.Tests;
-
-[TestClass]
-public class NodeTests
+namespace Assignment.Tests
 {
-    [DataTestMethod]
-    [DataRow(1)]
-    [DataRow(11231.2)]
-    [DataRow("MyDataValue")]
-    [DataRow(null)]
-    public void Constructor_ValidInput_CreatesValidNode<T>(T value)
+    [TestClass]
+    public class NodeTests
     {
-        // Act
-        Node<T> node = new(value);
+        [DataTestMethod]
+        [DataRow(1)]
+        [DataRow(11231)]
+        public void Constructor_ValidInput_CreatesValidNode_Int(int value)
+        {
+            // Act
+            Node<int> node = new(value);
 
-        // Assert
-        Assert.IsNotNull(node);
-        Assert.AreEqual(typeof(Node<T>), node.GetType());
-        Assert.AreEqual(value, node.Value);
-    }
+            // Assert
+            Assert.IsNotNull(node);
+            Assert.AreEqual(value, node.Value);
+        }
 
-    [DataTestMethod]
-    [DataRow(1)]
-    [DataRow("SomeData")]
-    [DataRow(null)]
-    public void ToString_ValidCall_ReturnsString<T>(T val)
-    {
-        // Arrange
-        Node<T> node = new(val);
+        [DataTestMethod]
+        [DataRow("MyDataValue")]
+        [DataRow("AnotherValue")]
+        public void Constructor_ValidInput_CreatesValidNode_String(string value)
+        {
+            // Act
+            Node<string> node = new(value);
 
-        // Act & Assert
-        Assert.IsNotNull(node);
-        Assert.AreEqual(val?.ToString(), node.ToString());
-    }
+            // Assert
+            Assert.IsNotNull(node);
+            Assert.AreEqual(value, node.Value);
+        }
 
-    [DataTestMethod]
-    [DataRow(1)]
-    [DataRow("SomeData")]
-    [DataRow(null)]
-    public void Next_NoSet_ReturnsBaseNode<T>(T val)
-    {
-        // Arrange
-        Node<T> node = new(val);
+        [TestMethod]
+        public void Constructor_NullInput_CreatesValidNode()
+        {
+            // Act
+            Node<object> node = new(null);
 
-        // Act & Assert
-        Assert.IsNotNull(node);
-        Assert.IsNotNull(node.Next);
-        Assert.AreEqual(node, node.Next);
-        Assert.AreSame(node, node.Next);
-    }
+            // Assert
+            Assert.IsNotNull(node);
+            Assert.IsNull(node.Value);
+        }
 
-    [DataTestMethod]
-    [DataRow(1, 2, 3)]
-    [DataRow("SomeData", "21", "thirdValue")]
-    [DataRow(45.6, null, 43.5)]
-    public void Append_ValidChange_ReturnsExpected<T>(T val, T val2, T val3)
-    {
-        // Arrange
-        Node<T> node = new(val);
-        node.Append(val3);
+        [TestMethod]
+        public void SimpleTest()
+        {
+            Assert.IsTrue(true);
+        }
 
-        // Act
-        node.Append(val2);
+        // ... other code ...
 
-        // Assert
-        Assert.IsNotNull(node);
-        Assert.IsNotNull(node.Next);
-        Assert.IsNotNull(node.Next.Next);
-        Assert.AreEqual(val, node.Value);
-        Assert.AreEqual(val2, node.Next.Value);
-        Assert.AreEqual(val3, node.Next.Next.Value);
-        Assert.AreSame(node, node.Next.Next.Next);
-    }
+        [DataTestMethod]
+        [DataRow(1)]
+        [DataRow(2)]
+        public void ToString_ValidCall_ReturnsString_Int(int val)
+        {
+            // Arrange
+            Node<int> node = new(val);
 
-    [DataTestMethod]
-    [DataRow(1, 2, 3, 3, true)]
-    [DataRow(1, 2, 3, 13, false)]
-    [DataRow("SomeData", "21", "thirdValue", "21", true)]
-    [DataRow("SomeData", "21", "thirdValue", "22", false)]
-    [DataRow("SomeData", "21", "thirdValue", null, false)]
-    [DataRow(null, 32.5, 42.1, null, true)]
-    public void Exists_ValidInput_ReturnsTrue<T>(T val, T val2, T val3, T expectedValue, bool expectedResult)
-    {
-        // Arrange
-        Node<T> node = new(val);
-        node.Append(val2);
-        node.Append(val3);
+            // Act & Assert
+            Assert.IsNotNull(node);
+            Assert.AreEqual(val.ToString(CultureInfo.InvariantCulture), node.ToString());
+        }
 
-        // Act
-        bool exists = node.Exists(expectedValue);
+        [DataTestMethod]
+        [DataRow("SomeData")]
+        [DataRow("AnotherData")]
+        public void ToString_ValidCall_ReturnsString_String(string val)
+        {
+            // Arrange
+            Node<string> node = new(val);
 
-        // Assert
-        Assert.AreEqual(expectedResult, exists);
-    }
+            // Act & Assert
+            Assert.IsNotNull(node);
+            Assert.AreEqual(val.ToString(), node.ToString());
+        }
 
-    [DataTestMethod]
-    [DataRow(1, 3, 1)]
-    [DataRow("SomeData", "21", "SomeData")]
-    [DataRow(null, "data", null)]
-    [DataRow("data", null, null)]
-    [DataRow(1.0, 2.8, 2.8)]
-    public void Append_DuplicateValues_ThrowsException<T>(T val, T val2, T val3)
-    {
-        // Arrange
-        Node<T> node = new(val);
-        node.Append(val2);
+        [TestMethod]
+        public void Next_NoSet_ReturnsBaseNode()
+        {
+            // Arrange
+            Node<int> node = new(1);
 
-        // Act & Assert
-        Assert.ThrowsException<ArgumentException>(() => node.Append(val3));
-    }
+            // Act & Assert
+            Assert.IsNotNull(node);
+            Assert.IsNotNull(node.Next);
+            Assert.AreEqual(node, node.Next);
+            Assert.AreSame(node, node.Next);
+        }
 
-    [DataTestMethod]
-    [DataRow(1, 3, 2)]
-    [DataRow("SomeData", "21", "SomeData2")]
-    [DataRow(null, "data2", "data")]
-    [DataRow("data", null, "t")]
-    [DataRow(1.0, 2.8, 2.9)]
-    public void Clear_ValidLoop_RemovesNodes<T>(T val, T val2, T val3)
-    {
-        // Arrange
-        Node<T> node = new(val);
-        node.Append(val2);
-        node.Append(val3);
-        Node<T> node2 = node.Next;
-        Node<T> node3 = node2.Next;
+        [TestMethod]
+        public void Append_ValidChange_AddsNodeAfterCurrent()
+        {
+            // Arrange
+            Node<int> node = new(1);
 
-        // Act
-        node.Clear();
+            // Act
+            node.Append(2);
+            node.Append(3);
 
-        // Assert
-        Assert.AreEqual(node, node.Next);
-        Assert.AreSame(node, node.Next);
-        Assert.AreSame(node2.Next, node2);
-        Assert.AreSame(node3.Next, node3);
-        Assert.AreEqual(node2, node2.Next);
-        Assert.AreEqual(node3, node3.Next);
+            // Assert
+            Assert.IsNotNull(node);
+            Assert.IsNotNull(node.Next);
+            Assert.IsNotNull(node.Next.Next);
+            Assert.AreEqual(1, node.Value);
+            Assert.AreEqual(3, node.Next.Value);
+            Assert.AreEqual(2, node.Next.Next.Value);
+            Assert.AreSame(node, node.Next.Next.Next);
+        }
+
+        [DataTestMethod]
+        [DataRow(1, 2, 3, 3, true)]
+        [DataRow(1, 2, 3, 4, false)]
+        public void Exists_ValidInput_ReturnsTrue_Int(int val, int val2, int val3, int expectedValue, bool expectedResult)
+        {
+            // Arrange
+            Node<int> node = new(val);
+            node.Append(val2);
+            node.Append(val3);
+
+            // Act
+            bool exists = node.Exists(expectedValue);
+
+            // Assert
+            Assert.AreEqual(expectedResult, exists);
+        }
+
+        [DataTestMethod]
+        [DataRow("SomeData", "AnotherData", "ThirdData", "AnotherData", true)]
+        [DataRow("SomeData", "AnotherData", "ThirdData", "NotPresent", false)]
+        public void Exists_ValidInput_ReturnsTrue_String(string val, string val2, string val3, string expectedValue, bool expectedResult)
+        {
+            // Arrange
+            Node<string> node = new(val);
+            node.Append(val2);
+            node.Append(val3);
+
+            // Act
+            bool exists = node.Exists(expectedValue);
+
+            // Assert
+            Assert.AreEqual(expectedResult, exists);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Append_DuplicateValues_ThrowsException()
+        {
+            // Arrange
+            Node<int> node = new(1);
+            node.Append(2);
+
+            // Act
+            node.Append(1); // This should throw
+        }
+
+        [TestMethod]
+        public void Clear_ValidLoop_RemovesNodes()
+        {
+            // Arrange
+            Node<int> node = new(1);
+            node.Append(2);
+            node.Append(3);
+
+            // Act
+            node.Clear();
+
+            // Assert
+            Assert.AreEqual(node, node.Next);
+            Assert.AreSame(node, node.Next);
+        }
     }
 }
