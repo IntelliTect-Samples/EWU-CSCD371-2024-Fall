@@ -82,14 +82,19 @@ public class SampleDataTests
         // Arrange
         SampleData sampleData = new();
         sampleData.CsvRows = File.ReadLines("People.csv").Skip(1);
-        
-        // Act
-        Predicate<string> emailFilter = email => email.Contains("cbucklej@tiny.cc");
+        Predicate<string> emailFilter = email => email.Contains("echallaceu@nasa.gov");
+        var expectedResult = new List<(string FirstName, string LastName)>
+        {
+            ("Ev", "Challace")
+        };
 
+        // Act
         var filteredNames = sampleData.FilterByEmailAddress(emailFilter).ToList();
 
         // Assert
         Assert.NotNull(filteredNames);
+        Assert.Equal(expectedResult[0].FirstName, filteredNames[0].FirstName);
+        Assert.Equal(expectedResult[0].LastName, filteredNames[0].LastName);
     }
 
 
