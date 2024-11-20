@@ -76,11 +76,11 @@ Chapter 14: Events
    - Adding null validation to all the `Person` and `Address` properties is **optional**.
    - Consider using `ISampleData.CsvRows` in your test to verify your results. ✔
 
-5. Implement `ISampleDate.FilterByEmailAddress(Predicate<string> filter)` to return a list of names where the email address matches the `filter`. ❌✔
+5. Implement `ISampleDate.FilterByEmailAddress(Predicate<string> filter)` to return a list of names where the email address matches the `filter`. ✔
 
    - Use `ISampleData.People` for your data source. ✔
 
-6. Implement `ISampleData.GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)` to return a `string` that contains a **unique**, comma-separated list of states. ❌✔
+6. Implement `ISampleData.GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)` to return a `string` that contains a **unique**, comma-separated list of states. ✔
 
    - Use the `people` parameter from `ISampleData.People` property for your data source. ✔
    - At a minimum, use the `System.Linq.Enumerable.`Aggregate` LINQ method to create your result. ✔
