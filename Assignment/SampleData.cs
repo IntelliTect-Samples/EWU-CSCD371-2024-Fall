@@ -48,16 +48,13 @@ namespace Assignment;
             return CsvRows
                 .Select(row =>
                 {
-                    // Split the CSV row into columns
                     var columns = row.Split(',');
 
-                    // Ensure the row contains enough columns to prevent index errors
                     if (columns.Length < 8)
                     {
                         throw new InvalidDataException("CSV row is missing required data.");
                     }
 
-                    // Create an Address object
                     var address = new Address(
                         columns[4].Trim(), // StreetAddress
                         columns[5].Trim(), // City
@@ -65,7 +62,6 @@ namespace Assignment;
                         columns[7].Trim()  // Zip
                     );
 
-                    // Create and return a Person object
                     return new Person(
                         columns[0].Trim(), // FirstName
                         columns[1].Trim(), // LastName
@@ -73,7 +69,6 @@ namespace Assignment;
                         columns[2].Trim()  // EmailAddress
                     );
                 })
-                // Sort by State, City, and Zip
                 .OrderBy(person => person.Address.State)
                 .ThenBy(person => person.Address.City)
                 .ThenBy(person => person.Address.Zip);

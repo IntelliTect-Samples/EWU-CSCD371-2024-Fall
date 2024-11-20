@@ -49,14 +49,24 @@ public class SampleDataTests
     }
 
     [Fact]
-    public void People_CSVFile_ReturnsPeople()
+    public void PeopleProperty_PeopleCSV_ReturnsPeopleObject()
     {
         // Arrange
         SampleData sampleData = new();
         IEnumerable<IPerson> peopleResult = sampleData.People;
 
-        // Act & Assert
+        // Read and sort the CSV rows
+        IEnumerable<string> csvRows = File.ReadLines("People.csv").Skip(1);
+        List<string[]> sortedCsvRows = csvRows.Select(row => row.Split(','))
+            .OrderBy(columns => columns[6]) // State
+            .ThenBy(columns => columns[5]) // City
+            .ThenBy(columns => columns[7]) // Zip
+            .ToList();
+
+        // Assert that the collections are non-null and have matching counts
         Assert.NotNull(peopleResult);
+        Assert.NotNull(sortedCsvRows);
+        Assert.Equal<int>(sortedCsvRows.Count, peopleResult.Count());
     }
 
 }
