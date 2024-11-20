@@ -90,7 +90,7 @@ public class Node<T> : IEnumerable<T>
 
     public IEnumerable<T> ChildItems(int maximum)
     {
-        if (maximum < 0)
+        if (maximum <= 0)
         {
             yield break;
         }
