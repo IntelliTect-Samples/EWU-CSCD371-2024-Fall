@@ -185,4 +185,22 @@ public class NodeTests
         Assert.AreEqual(2, enumerator.Current);
         Assert.IsFalse(enumerator.MoveNext());
     }
+
+    [TestMethod]
+    public void ChildItems_ValidLoop_ReturnsEnumerator()
+    {
+        // Arrange
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+        // Act
+        IEnumerator<int> enumerator = node.ChildItems(2);
+        // Assert
+        Assert.IsNotNull(enumerator);
+        Assert.IsTrue(enumerator.MoveNext());
+        Assert.AreEqual(1, enumerator.Current);
+        Assert.IsTrue(enumerator.MoveNext());
+        Assert.AreEqual(3, enumerator.Current);
+        Assert.IsFalse(enumerator.MoveNext());
+    }
 }
