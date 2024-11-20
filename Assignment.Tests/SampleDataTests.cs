@@ -64,19 +64,23 @@ public class SampleDataTests
         // Verify that the result contains unique items
         Assert.Equal(result.Count, result.Distinct().Count()); // Count is a property for lists
     }
-
-
+    
     [Fact]
     public void PeopleProperty_PeopleCSV_ReturnsPeopleObject()
     {
-        // Arrange & Act
-        SampleData sampleData = new();
-        IEnumerable<IPerson> peopleResult = sampleData.People;
-        IEnumerable<string> csvRows = File.ReadLines("People.csv").Skip(1);
-        List<string[]> sortedCsvRows = csvRows.Select(row => row.Split(','))
-            .OrderBy(columns => columns[6])
-            .ThenBy(columns => columns[5])
-            .ThenBy(columns => columns[7])
+        // Arrange
+        SampleData data = new();
+        IEnumerable<string> csvRows = data.CsvRows; // Use ISampleData.CsvRows directly
+
+        // Act
+        IEnumerable<IPerson> peopleResult = data.People;
+
+        // Sort csvRows for validation
+        List<string[]> sortedCsvRows = csvRows
+            .Select(row => row.Split(','))
+            .OrderBy(columns => columns[6]) // Sort by State
+            .ThenBy(columns => columns[5]) // Then by City
+            .ThenBy(columns => columns[7]) // Then by Zip
             .ToList();
 
         // Assert
@@ -85,15 +89,15 @@ public class SampleDataTests
         {
             string[] expectedValues = sortedCsvRows[index++];
             Assert.Equal(expectedValues[1], person.FirstName);
-            Assert.Equal(expectedValues[2], person.LastName);            
-            Assert.Equal(expectedValues[3], person.EmailAddress);          
-            Assert.Equal(expectedValues[4], person.Address.StreetAddress);  
-            Assert.Equal(expectedValues[5], person.Address.City);           
-            Assert.Equal(expectedValues[6], person.Address.State);          
-            Assert.Equal(expectedValues[7], person.Address.Zip);           
+            Assert.Equal(expectedValues[2], person.LastName);
+            Assert.Equal(expectedValues[3], person.EmailAddress);
+            Assert.Equal(expectedValues[4], person.Address.StreetAddress);
+            Assert.Equal(expectedValues[5], person.Address.City);
+            Assert.Equal(expectedValues[6], person.Address.State);
+            Assert.Equal(expectedValues[7], person.Address.Zip);
         }
     }
-
+    
     [Fact]
     public void FilterByEmailAddress_GivenEmailAddress_ReturnsListOfFilteredNames()
     {
