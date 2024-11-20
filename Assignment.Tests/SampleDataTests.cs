@@ -48,4 +48,15 @@ public class SampleDataTests
         Assert.Equal(expectedAggregate, result);
     }
 
+    [Fact]
+    public void People_CSVFile_ReturnsPeople()
+    {
+        // Arrange
+        SampleData sampleData = new();
+        IEnumerable<IPerson> peopleResult = sampleData.People;
+
+        // Act & Assert
+        Assert.NotNull(peopleResult);
+    }
+
 }
