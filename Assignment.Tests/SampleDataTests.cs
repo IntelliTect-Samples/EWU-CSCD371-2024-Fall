@@ -51,11 +51,9 @@ public class SampleDataTests
     [Fact]
     public void PeopleProperty_PeopleCSV_ReturnsPeopleObject()
     {
-        // Arrange
+        // Arrange & Act
         SampleData sampleData = new();
         IEnumerable<IPerson> peopleResult = sampleData.People;
-
-        // Read and sort the CSV rows
         IEnumerable<string> csvRows = File.ReadLines("People.csv").Skip(1);
         List<string[]> sortedCsvRows = csvRows.Select(row => row.Split(','))
             .OrderBy(columns => columns[6]) // State
@@ -63,10 +61,19 @@ public class SampleDataTests
             .ThenBy(columns => columns[7]) // Zip
             .ToList();
 
-        // Assert that the collections are non-null and have matching counts
-        Assert.NotNull(peopleResult);
-        Assert.NotNull(sortedCsvRows);
-        Assert.Equal<int>(sortedCsvRows.Count, peopleResult.Count());
+        // Assert
+        int index = 0;
+        foreach (IPerson person in peopleResult)
+        {
+            string[] expectedValues = sortedCsvRows[index++];
+            Assert.Equal(expectedValues[0], person.FirstName);
+            Assert.Equal(expectedValues[1], person.LastName);
+            Assert.Equal(expectedValues[2], person.EmailAddress);
+            Assert.Equal(expectedValues[3], person.Address.StreetAddress);
+            Assert.Equal(expectedValues[4], person.Address.City);
+            Assert.Equal(expectedValues[5], person.Address.State);
+            Assert.Equal(expectedValues[6], person.Address.Zip);
+        }
     }
 
 }
