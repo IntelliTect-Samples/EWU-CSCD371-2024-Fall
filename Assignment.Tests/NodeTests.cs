@@ -26,7 +26,6 @@ public class NodeTests
     }
 
     [DataTestMethod]
-    [DataRow(null)]
     [DataRow(1)]
     [DataRow(2)]
     [DataRow("SomeData")]
@@ -41,6 +40,19 @@ public class NodeTests
         // Assert
         Assert.IsNotNull(node);
         Assert.AreEqual(val?.ToString(), node.ToString());
+    }
+
+    [TestMethod]
+    public void ToString_NullValue_ReturnsNull()
+    {
+        // Arrange
+        Node<string> node = new(null!);
+
+        // Act
+
+        // Assert
+        Assert.IsNotNull(node);
+        Assert.IsNull(node.ToString());
     }
 
     [TestMethod]
