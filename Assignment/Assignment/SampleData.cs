@@ -42,7 +42,10 @@ namespace Assignment
         }
 
         // 6.
-        public string GetAggregateListOfStatesGivenPeopleCollection(
-            IEnumerable<IPerson> people) => throw new NotImplementedException();
+        public string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)
+        {
+            IEnumerable<string> uniqueSort = people.Select(p => p.Address.State).Distinct().OrderBy(state => state);
+            return uniqueSort.Aggregate((current, next) => current + ", " + next);
+        }
     }
 }
