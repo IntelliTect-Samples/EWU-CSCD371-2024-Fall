@@ -44,14 +44,14 @@ public class SampleDataTests
     {
         // Arrange
         Mock<ISampleData> mockSampleData = new();
-        mockSampleData.Setup(data => data.CsvRows).Returns(new List<string>
-            {
+        mockSampleData.Setup(data => data.CsvRows).Returns(
+            [
                 "1,Priscilla,Jenyns,pjenyns0@state.gov,7884 Corry Way,Helena,MT,70577",
                 "2,John,Doe,jdoe1@example.com,1234 Elm St,Springfield,IL,62704",
                 "3,Jane,Smith,jsmith2@example.com,5678 Oak St,Springfield,IL,62704",
                 "4,Emily,Jones,ejones3@example.com,9101 Pine St,Helena,MT,70577",
                 "5,Michael,Brown,mbrown4@example.com,1122 Maple St,Denver,CO,80203"
-            });
+            ]);
 
         mockSampleData.Setup(list => list.GetUniqueSortedListOfStatesGivenCsvRows()).Returns(
             mockSampleData.Object.CsvRows
@@ -76,8 +76,10 @@ public class SampleDataTests
     [ExpectedException(typeof(FileNotFoundException))]
     public void Constructor_ShouldThrowFileNotFoundException_WhenFileDoesNotExist()
     {
-        // Arrange & Act
-        SampleData sampleData = new("NonExistentFile.csv");
+        // Arrange
+
+        // Act
+        _ = new SampleData("NonExistentFile.csv");
 
         // Assert - Expecting a FileNotFoundException
     }
@@ -154,8 +156,8 @@ public class SampleDataTests
         Person expectedPerson = new("Arthur", "Myles", expectedAddress, "amyles1c@miibeian.gov.cn");
 
         // Act
-        var people = sampleData.People.ToList();
-        var actualPerson = people.First();
+        List<IPerson> people = sampleData.People.ToList();
+        IPerson actualPerson = people.First();
 
         // Assert
         Assert.IsNotNull(people, "The People collection should not be null.");
@@ -178,12 +180,12 @@ public class SampleDataTests
         // Arrange
         TestSampleData testSampleData = new();
 
-        List<Person> expectedPeople = new List<Person>
-        {
-            new Person("John", "Doe", new Address("123 Street", "City", "CA", "12345"), "johndoe@example.com"),
-            new Person("Bob", "Smith", new Address("789 Boulevard", "Village", "FL", "54321"), "bobsmith@example.com"),
-            new Person("Jane", "Doe", new Address("456 Avenue", "Town", "TX", "67890"), "janedoe@example.com")
-        };
+        List<Person> expectedPeople =
+        [
+            new("John", "Doe", new Address("123 Street", "City", "CA", "12345"), "johndoe@example.com"),
+            new("Bob", "Smith", new Address("789 Boulevard", "Village", "FL", "54321"), "bobsmith@example.com"),
+            new("Jane", "Doe", new Address("456 Avenue", "Town", "TX", "67890"), "janedoe@example.com")
+        ];
 
         // Act
         List<IPerson> people = testSampleData.People.ToList();
@@ -214,17 +216,17 @@ public class SampleDataTests
     {
         // Arrange
         TestSampleData testSampleData = new();
-        var expectedName = ("John", "Doe");
+        (string, string) expectedName = ("John", "Doe");
 
         // Act
-        var filteredNames = testSampleData.FilterByEmailAddress(email => email.Equals("johndoe@example.com", StringComparison.Ordinal));
+        IEnumerable<(string FirstName, string LastName)> filteredNames = testSampleData.FilterByEmailAddress(email => email.Equals("johndoe@example.com", StringComparison.Ordinal));
 
         // Assert
         Assert.IsNotNull(filteredNames, "The filtered collection should not be null.");
         Assert.AreEqual(1, filteredNames.Count(), "The filtered collection should contain exactly 1 person.");
-        var firstMatch = filteredNames.First();
-        Assert.AreEqual(expectedName.Item1, firstMatch.Item1, "FirstName does not match."); // Access the first element of the tuple
-        Assert.AreEqual(expectedName.Item2, firstMatch.Item2, "LastName does not match.");  // Access the second element of the tuple
+        (string FirstName, string LastName) = filteredNames.First();
+        Assert.AreEqual(expectedName.Item1, FirstName, "FirstName does not match."); // Access the first element of the tuple
+        Assert.AreEqual(expectedName.Item2, LastName, "LastName does not match.");  // Access the second element of the tuple
     }
 
     [TestMethod]
@@ -274,7 +276,7 @@ public class SampleDataTests
     {
         // Arrange
         SampleData sampleData = new("People.csv");
-        List<IPerson> people = new();
+        List<IPerson> people = [];
 
         // Act
         string result = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
@@ -315,10 +317,10 @@ public class SampleDataTests
         {
             get
             {
-                var person = CsvRows.Select(item =>
+                IEnumerable<Person> person = CsvRows.Select(item =>
                 {
-                    var columns = item.Split(',');
-                    var address = new Address(columns[4], columns[5], columns[6], columns[7]);
+                    string[] columns = item.Split(',');
+                    Address address = new(columns[4], columns[5], columns[6], columns[7]);
                     return new Person(columns[1], columns[2], address, columns[3]);
                 });
 
@@ -352,7 +354,9 @@ public class SampleDataTests
         }
 
         // 6.
-        public string GetAggregateListOfStatesGivenPeopleCollection(
-            IEnumerable<IPerson> people) => throw new NotImplementedException();
+        public string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
