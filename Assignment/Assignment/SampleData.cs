@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assignment
 {
@@ -17,7 +18,21 @@ namespace Assignment
             => throw new NotImplementedException();
 
         // 4.
-        public IEnumerable<IPerson> People => throw new NotImplementedException();
+        public IEnumerable<IPerson> People
+        {
+            get
+            {
+                IEnumerable<IPerson> peopleOut = new List<IPerson>();
+                IEnumerable<string[]> peopleIn = CsvRows.Select(CsvRows => CsvRows.Split(','));
+                foreach (string[] person in peopleIn) 
+                {
+                    string[] currentPerson = person;
+                    peopleOut = peopleOut.Append(new Person(currentPerson[1], currentPerson[2], new Address(currentPerson[4], currentPerson[5], currentPerson[6], currentPerson[7]), currentPerson[3]));
+                }
+                peopleOut = peopleOut.OrderBy(p => p.Address.State).ThenBy(p => p.Address.City).ThenBy(p => p.Address.Zip);
+                return peopleOut;
+            }
+        }
 
         // 5.
         public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
