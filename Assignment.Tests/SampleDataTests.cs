@@ -97,5 +97,21 @@ public class SampleDataTests
         Assert.Equal(expectedResult[0].LastName, filteredNames[0].LastName);
     }
 
+    [Fact]
+    public void GetAggregateListOfStatesGivenPeopleCollection_PeopleCSV_ReturnsListOfStates()
+    {
+        // Arrange
+        SampleData sampleData = new();
+        sampleData.CsvRows = File.ReadLines("People.csv").Skip(1);
+        var people = sampleData.People;
+
+        // Act
+        string result = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
+
+        // Assert
+        Assert.NotNull(result);
+    }
+
+
 
 }
