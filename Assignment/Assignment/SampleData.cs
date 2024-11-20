@@ -15,7 +15,7 @@ public class SampleData : ISampleData
         }
 
         string? header = File.ReadLines(_fileName).FirstOrDefault();
-        if (header == null || header != ExpectedHeader)
+        if (header is null or not ExpectedHeader)
         {
             throw new FormatException($"Invalid header: {header}");
         }
@@ -69,10 +69,12 @@ public class SampleData : ISampleData
     }
 
     // 5.
-    public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
-        Predicate<string> filter) => People
+    public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter)
+    {
+        return People
         .Where(person => filter(person.EmailAddress))
         .Select(person => (person.FirstName, person.LastName));
+    }
 
     // 6.
     public string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)
@@ -82,18 +84,15 @@ public class SampleData : ISampleData
             return string.Empty;
         }
 
-        var uniqueStates = people.Select(person => person.Address.State)
+        IOrderedEnumerable<string> uniqueStates = people.Select(person => person.Address.State)
                                   .Distinct()
                                   .OrderBy(state => state);
 
         string result = uniqueStates.Aggregate((current, next) => current + ", " + next);
 
-        var expectedStates = GetUniqueSortedListOfStatesGivenCsvRows();
-        if (!result.Equals(string.Join(", ", expectedStates), StringComparison.Ordinal))
-        {
-            throw new InvalidOperationException("Validation failed: Result does not match the expected unique sorted list of states.");
-        }
-
-        return result;
+        IEnumerable<string> expectedStates = GetUniqueSortedListOfStatesGivenCsvRows();
+        return !result.Equals(string.Join(", ", expectedStates), StringComparison.Ordinal)
+            ? throw new InvalidOperationException("Validation failed: Result does not match the expected unique sorted list of states.")
+            : result;
     }
 }
