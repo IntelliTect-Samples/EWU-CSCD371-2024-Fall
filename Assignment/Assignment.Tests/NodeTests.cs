@@ -13,8 +13,10 @@ public class NodeTests
     [DataRow(11231)]
     public void Constructor_ValidInput_CreatesValidNode_Int(int value)
     {
-        // Act
+        // Arrange
         Node<int> node = new(value);
+
+        // Act
 
         // Assert
         Assert.IsNotNull(node);
@@ -26,8 +28,10 @@ public class NodeTests
     [DataRow("AnotherValue")]
     public void Constructor_ValidInput_CreatesValidNode_String(string value)
     {
-        // Act
+        // Arrange
         Node<string> node = new(value);
+
+        // Act
 
         // Assert
         Assert.IsNotNull(node);
@@ -42,7 +46,9 @@ public class NodeTests
         // Arrange
         Node<int> node = new(val);
 
-        // Act & Assert
+        // Act
+
+        // Assert
         Assert.IsNotNull(node);
         Assert.AreEqual(val.ToString(CultureInfo.InvariantCulture), node.ToString());
     }
@@ -55,7 +61,9 @@ public class NodeTests
         // Arrange
         Node<string> node = new(val);
 
-        // Act & Assert
+        // Act
+
+        // Assert
         Assert.IsNotNull(node);
         Assert.AreEqual(val.ToString(), node.ToString());
     }
@@ -66,7 +74,9 @@ public class NodeTests
         // Arrange
         Node<int> node = new(1);
 
-        // Act & Assert
+        // Act
+
+        // Assert
         Assert.IsNotNull(node);
         Assert.IsNotNull(node.Next);
         Assert.AreEqual(node, node.Next);
@@ -136,7 +146,7 @@ public class NodeTests
         node.Append(2);
 
         // Act
-        node.Append(1); // This should throw
+        node.Append(1);
     }
 
     [TestMethod]
@@ -162,8 +172,10 @@ public class NodeTests
         Node<int> node = new(1);
         node.Append(2);
         node.Append(3);
+
         // Act
         IEnumerator<int> enumerator = node.GetEnumerator();
+
         // Assert
         Assert.IsNotNull(enumerator);
         Assert.IsTrue(enumerator.MoveNext());
