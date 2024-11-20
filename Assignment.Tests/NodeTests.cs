@@ -11,7 +11,7 @@ public class NodeTests
     [DataTestMethod]
     [DataRow(1)]
     [DataRow(11231)]
-    public void Constructor_ValidInput_CreatesValidNode_Int(int value)
+    public void Constructor_ValidInput_CreatesValidNode(int value)
     {
         // Arrange
         Node<int> node = new(value);
@@ -26,7 +26,7 @@ public class NodeTests
     [DataTestMethod]
     [DataRow("MyDataValue")]
     [DataRow("AnotherValue")]
-    public void Constructor_ValidInput_CreatesValidNode_String(string value)
+    public void Constructor_ValidInput_CreatesValidNode(string value)
     {
         // Arrange
         Node<string> node = new(value);
@@ -41,7 +41,7 @@ public class NodeTests
     [DataTestMethod]
     [DataRow(1)]
     [DataRow(2)]
-    public void ToString_ValidCall_ReturnsString_Int(int val)
+    public void ToString_ValidCall_ReturnsString(int val)
     {
         // Arrange
         Node<int> node = new(val);
@@ -56,7 +56,7 @@ public class NodeTests
     [DataTestMethod]
     [DataRow("SomeData")]
     [DataRow("AnotherData")]
-    public void ToString_ValidCall_ReturnsString_String(string val)
+    public void ToString_ValidCall_ReturnsString(string val)
     {
         // Arrange
         Node<string> node = new(val);
@@ -106,7 +106,7 @@ public class NodeTests
     [DataTestMethod]
     [DataRow(1, 2, 3, 3, true)]
     [DataRow(1, 2, 3, 4, false)]
-    public void Exists_ValidInput_ReturnsTrue_Int(int val, int val2, int val3, int expectedValue, bool expectedResult)
+    public void Exists_ValidInput_ReturnsTrue(int val, int val2, int val3, int expectedValue, bool expectedResult)
     {
         // Arrange
         Node<int> node = new(val);
@@ -123,7 +123,7 @@ public class NodeTests
     [DataTestMethod]
     [DataRow("SomeData", "AnotherData", "ThirdData", "AnotherData", true)]
     [DataRow("SomeData", "AnotherData", "ThirdData", "NotPresent", false)]
-    public void Exists_ValidInput_ReturnsTrue_String(string val, string val2, string val3, string expectedValue, bool expectedResult)
+    public void Exists_ValidInput_ReturnsTrue(string val, string val2, string val3, string expectedValue, bool expectedResult)
     {
         // Arrange
         Node<string> node = new(val);
@@ -135,6 +135,19 @@ public class NodeTests
 
         // Assert
         Assert.AreEqual(expectedResult, exists);
+    }
+
+    [TestMethod]
+    public void Exists_NullValues_ReturnsTrue()
+    {
+        // Arrange
+        Node<string> node = new(null!);
+
+        // Act
+        bool exists = node.Exists(null);
+
+        // Assert
+        Assert.IsTrue(exists);
     }
 
     [TestMethod]
