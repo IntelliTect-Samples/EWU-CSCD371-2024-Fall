@@ -8,7 +8,7 @@ namespace Assignment.Tests;
 [TestClass]
 public class SampleDataTests
 {
-    private IEnumerable<string> GetHardcodedCsvRows()
+    private static List<string> GetHardcodedCsvRows()
     {
         return new List<string>
         {

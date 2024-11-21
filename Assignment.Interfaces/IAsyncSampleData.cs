@@ -7,7 +7,7 @@ public interface IAsyncSampleData
 {
     // 1.
     IAsyncEnumerable<string> CsvRows { get; }
-    
+
     // 2.
     IAsyncEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows();
 
