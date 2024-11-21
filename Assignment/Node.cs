@@ -20,7 +20,7 @@ public class Node<T> : IEnumerable<T>
     // Appends a new node right in front of this node
     public void Append(T value)
     {
-        if (Exists(value)) throw new ArgumentException(nameof(value));
+        if (Exists(value)) throw new ArgumentException("Value already exists in the list", nameof(value));
 
         Node<T> newNode = new(value)
         {
