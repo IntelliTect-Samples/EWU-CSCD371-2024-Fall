@@ -34,13 +34,18 @@ public class SampleDataAsync : SampleDataBase, IAsyncSampleData
     public async IAsyncEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
     {
         HashSet<string> states = [];
+
+        // Collect all states into the HashSet
         await foreach (string row in GetCsvRowsAsync())
         {
             string state = CsvHelper.ParseRow(row)[6];
-            if (states.Add(state))
-            {
-                yield return state;
-            }
+            states.Add(state);
+        }
+
+        // Sort the states alphabetically and yield them
+        foreach (string state in states.OrderBy(s => s))
+        {
+            yield return state;
         }
     }
 
@@ -57,11 +62,26 @@ public class SampleDataAsync : SampleDataBase, IAsyncSampleData
 
     public async IAsyncEnumerable<IPerson> GetPeopleAsync()
     {
+        List<IPerson> people = [];
+
+        // Collect all rows and create Person objects
         await foreach (string row in GetCsvRowsAsync())
         {
             string[] columns = CsvHelper.ParseRow(row);
             Address address = new(columns[4], columns[5], columns[6], columns[7]);
-            yield return new Person(columns[1], columns[2], address, columns[3]);
+            people.Add(new Person(columns[1], columns[2], address, columns[3]));
+        }
+
+        // Sort the list by State, City, and Zip
+        IOrderedEnumerable<IPerson> sortedPeople = people
+            .OrderBy(person => person.Address.State)
+            .ThenBy(person => person.Address.City)
+            .ThenBy(person => person.Address.Zip);
+
+        // Yield the sorted list
+        foreach (IPerson person in sortedPeople)
+        {
+            yield return person;
         }
     }
 
