@@ -4,7 +4,7 @@ public class SampleData : SampleDataBase, ISampleData
 {
     public SampleData(string fileName) : base(fileName)
     {
-        ValidateAndReadHeader(); // Ensure file and header are valid
+        ValidateAndReadHeader();
     }
 
     public IEnumerable<string> CsvRows => File.ReadLines(FileName).Skip(1);
