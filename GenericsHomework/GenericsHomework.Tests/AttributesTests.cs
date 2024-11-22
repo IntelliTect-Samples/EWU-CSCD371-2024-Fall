@@ -22,9 +22,5 @@ public class MyCustomAttribute(string displayName) : Attribute
 {
     public string DisplayName { get; } = displayName;
 
-
-    public MyCustomAttribute? GetAttribute(MethodInfo info)
-    {
-        return info.GetCustomAttribute<MyCustomAttribute>();
-    }
+    public MyCustomAttribute? GetAttribute(MethodInfo info) => info.GetCustomAttribute<MyCustomAttribute>();
 }

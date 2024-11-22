@@ -24,7 +24,6 @@ namespace GenericsHomework.Tests
             Assert.AreEqual("Inigo", node2.ToString());
         }
 
-
         [TestMethod]
         public void SingleNext()
         {
@@ -52,7 +51,6 @@ namespace GenericsHomework.Tests
             Assert.AreEqual(node1, node3.Next);
         }
 
-
         [TestMethod]
         public void Clear()
         {
@@ -74,14 +72,12 @@ namespace GenericsHomework.Tests
             Assert.AreEqual(node1, node1.Next);
         }
 
-
         [TestMethod]
         public void NullTest()
         {
             Node<string?> node1 = new(null);
             Assert.AreEqual(null, node1.ToString());
         }
-
 
         [TestMethod]
         public void Duplicate()
@@ -94,7 +90,6 @@ namespace GenericsHomework.Tests
             Assert.IsTrue(node1.Exists(3));
             Assert.IsTrue(node2.Exists(3));
         }
-
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException), "Duplicate")]
@@ -150,7 +145,6 @@ namespace GenericsHomework.Tests
             }
         }
 
-
         [TestMethod]
         public void Node_OrderBy()
         {
@@ -175,7 +169,6 @@ namespace GenericsHomework.Tests
             Assert.AreEqual(typeof(string[]), objects.GetType());
             Assert.ThrowsException<ArrayTypeMismatchException>(() => objects[1] = 1);
 
-
             //List<string> strings = ["", "test", "mark"];
             //List<object> objects = strings;
             //objects[1] = 1;
@@ -187,13 +180,11 @@ namespace GenericsHomework.Tests
             //ICollection<string> strings2 = ["", "test", "mark"];
             //ICollection<object> objects2 = strings2;
 
-            IReadOnlyList<string> strings1 = ["", "yellow", "palevioletred"];
+            IReadOnlyList<string> strings1 = ["", "yellow", "silver"];
             IReadOnlyList<object> objects1 = strings1;
-
 
             //IReadWriteEnumerable<string>? strings2 = null;
             //IReadWriteEnumerable<object>? objects2 = strings2;
-
         }
 
         [TestMethod]
@@ -204,9 +195,6 @@ namespace GenericsHomework.Tests
 
             Func<string> black = () => { return ""; };
             Func<object> foo1 = black;
-
-
-
         }
 
         [TestMethod]
@@ -229,17 +217,16 @@ namespace GenericsHomework.Tests
 
             IEnumerable<string> result = resultEnumerable.ToList();
 
-            Func<IEnumerable<string>?, int> count =
-                 (IEnumerable<string>? items) =>
+            static int count(IEnumerable<string>? items)
             {
-                items ??= Enumerable.Empty<string>();
+                items ??= [];
                 int counter1 = 0;
                 foreach (var item in items)
                 {
                     counter1++;
                 }
                 return counter1;
-            };
+            }
             var resultCount = resultEnumerable.Count();
             Assert.AreEqual(counter, count(result));
             var result2Count = resultEnumerable.Count();
