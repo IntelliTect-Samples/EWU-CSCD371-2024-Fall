@@ -3,7 +3,7 @@
 public interface IAsyncSampleData
 {
     // 1.
-    IAsyncEnumerable<string> CsvRows { get; }
+    IAsyncEnumerable<string> GetCsvRowsAsync();
 
     // 2.
     IAsyncEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows();
@@ -12,7 +12,7 @@ public interface IAsyncSampleData
     Task<string> GetAggregateSortedListOfStatesUsingCsvRows();
 
     // 4.
-    IAsyncEnumerable<IPerson> People { get; }
+    IAsyncEnumerable<IPerson> GetPeopleAsync();
 
     // 5.
     IAsyncEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter);

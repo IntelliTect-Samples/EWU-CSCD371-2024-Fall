@@ -7,17 +7,26 @@ public class SampleDataAsync : SampleDataBase, IAsyncSampleData
         ValidateAndReadHeader(); // Ensure file and header are valid
     }
 
-    public async IAsyncEnumerable<string> CsvRows
+    public StreamReader GetReader()
     {
-        get
-        {
-            using var reader = new StreamReader(FileName);
-            string header = await reader.ReadLineAsync();
-            CsvHelper.ValidateHeader(header);
+        return new(FileName);
+    }
 
-            while (!reader.EndOfStream)
+    public async IAsyncEnumerable<string> GetCsvRowsAsync()
+    {
+        using StreamReader reader = new(FileName);
+        string? header = await reader.ReadLineAsync();
+        if (header is null or not CsvHelper.ExpectedHeader)
+        {
+            throw new FormatException($"Invalid header: {header}");
+        }
+
+        while (!reader.EndOfStream)
+        {
+            string? line = await reader.ReadLineAsync();
+            if (line is not null) // Ensure we don't yield null values
             {
-                yield return await reader.ReadLineAsync();
+                yield return line;
             }
         }
     }
@@ -25,7 +34,7 @@ public class SampleDataAsync : SampleDataBase, IAsyncSampleData
     public async IAsyncEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
     {
         HashSet<string> states = [];
-        await foreach (string row in CsvRows)
+        await foreach (string row in GetCsvRowsAsync())
         {
             string state = CsvHelper.ParseRow(row)[6];
             if (states.Add(state))
@@ -46,21 +55,19 @@ public class SampleDataAsync : SampleDataBase, IAsyncSampleData
         return string.Join(", ", states);
     }
 
-    public async IAsyncEnumerable<IPerson> People
+    public async IAsyncEnumerable<IPerson> GetPeopleAsync()
     {
-        get
+        await foreach (string row in GetCsvRowsAsync())
         {
-            await foreach (var row in CsvRows)
-            {
-                var person = CsvHelper.CreatePerson(CsvHelper.ParseRow(row));
-                yield return person;
-            }
+            string[] columns = CsvHelper.ParseRow(row);
+            Address address = new(columns[4], columns[5], columns[6], columns[7]);
+            yield return new Person(columns[1], columns[2], address, columns[3]);
         }
     }
 
     public async IAsyncEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter)
     {
-        await foreach (IPerson person in People)
+        await foreach (IPerson person in GetPeopleAsync())
         {
             if (filter(person.EmailAddress))
             {
