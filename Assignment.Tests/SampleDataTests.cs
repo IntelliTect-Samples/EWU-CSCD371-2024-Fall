@@ -86,7 +86,7 @@ public class SampleDataTests
 
     [TestMethod]
     [ExpectedException(typeof(FormatException))]
-    public void Constructor_ShouldThrowFormatException_WhenHeaderIsNull()
+    public void Constructor_ShouldThrowFormatException_WhenHeaderIsEmptyString()
     {
         // Arrange
         string fileName = "TestFile.csv";

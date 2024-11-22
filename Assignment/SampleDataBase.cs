@@ -6,6 +6,11 @@ public abstract class SampleDataBase
 
     protected SampleDataBase(string fileName)
     {
+        if (string.IsNullOrWhiteSpace(fileName))
+        {
+            throw new ArgumentException("File name cannot be null or empty.", nameof(fileName));
+        }
+
         FileName = fileName;
         if (!File.Exists(FileName))
         {
