@@ -86,11 +86,11 @@ public class SampleDataTests
 
     [TestMethod]
     [ExpectedException(typeof(FormatException))]
-    public void Constructor_ShouldThrowFormatException_WhenHeaderIsEmptyString()
+    public void Constructor_InvalidHeader_ShouldThrowInvalidFormatException()
     {
         // Arrange
         string fileName = "TestFile.csv";
-        File.WriteAllText(fileName, "");
+        File.WriteAllText(fileName, "FirstName");
 
         try
         {

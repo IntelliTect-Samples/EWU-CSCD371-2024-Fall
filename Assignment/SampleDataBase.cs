@@ -20,7 +20,7 @@ public abstract class SampleDataBase
 
     protected string ValidateAndReadHeader()
     {
-        string header = File.ReadLines(FileName).First();
+        string? header = File.ReadLines(FileName).FirstOrDefault() ?? throw new InvalidOperationException("Header cannot be null.");
         CsvHelper.ValidateHeader(header);
         return header;
     }
