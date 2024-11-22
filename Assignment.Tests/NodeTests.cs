@@ -80,7 +80,7 @@ public class NodeTests
         node.Append(43);
         node.Append(44);
         // Act
-        var result = node.ToList();
+        List<int> result = node.ToList();
         // Assert
         CollectionAssert.AreEqual(new List<int> { 42, 44, 43 }, result);
     }
@@ -94,10 +94,6 @@ public class NodeTests
         node.Append(44);
         // Act
         IEnumerable<int> result = node.ChildItems(2);
-        foreach (int item in result)
-        {
-            Console.WriteLine(item);
-        }
         //Assert
         CollectionAssert.AreEqual(new List<int> { 42, 44 }, result.ToList());
     }
