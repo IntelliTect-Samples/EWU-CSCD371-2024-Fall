@@ -70,6 +70,35 @@ public class NodeTests
 
         // Act & Assert
         Assert.ThrowsException<ArgumentException>(() => node.Append(43));
+    }
 
+    [TestMethod]
+    public void GetEnumerator_ToList_Success()
+    {
+        // Arrange
+        var node = new Node<int>(42);
+        node.Append(43);
+        node.Append(44);
+        // Act
+        var result = node.ToList();
+        // Assert
+        CollectionAssert.AreEqual(new List<int> { 42, 44, 43 }, result);
+    }
+
+    [TestMethod]
+    public void ChildItems_ToList_Success()
+    {
+        // Arrange
+        var node = new Node<int>(42);
+        node.Append(43);
+        node.Append(44);
+        // Act
+        IEnumerable<int> result = node.ChildItems(2);
+        foreach (int item in result)
+        {
+            Console.WriteLine(item);
+        }
+        //Assert
+        CollectionAssert.AreEqual(new List<int> { 42, 44 }, result.ToList());
     }
 }
