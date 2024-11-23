@@ -26,4 +26,24 @@ public class NodeTests
         Assert.AreSame(node, node.Next);
     }
 
+    [TestMethod]
+    public void Append_Value_AddsNodeToList()
+    {
+        // Arrange
+        Node<int> node = new(8);
+
+        // Act
+        node.Append(11);
+        node.Append(23);
+
+        // Assert
+        Assert.IsTrue(node.Exists(11));
+        Assert.IsTrue(node.Exists(23));
+        Assert.AreEqual(8, node.Value);
+        Assert.AreEqual(11, node.Next.Value);
+        Assert.AreEqual(23, node.Next.Next.Value);
+        Assert.AreEqual(node, node.Next.Next.Next);
+    }
+
+
 }
