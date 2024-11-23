@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <IsPackable>false</IsPackable>
-	<ExcludeByFile>**/System.Linq.Async.dll</ExcludeByFile>
-	<Exclude>[System.Linq.Async]*</Exclude>
   </PropertyGroup>
 
   <ItemGroup>
