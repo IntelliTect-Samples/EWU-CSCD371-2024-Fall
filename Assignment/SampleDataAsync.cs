@@ -19,8 +19,10 @@ public class SampleDataAsync : IAsyncSampleData
     {
         CsvRows = File.ReadLinesAsync("People.csv");
     }
+
+
     //2
-    IAsyncEnumerable<string> IAsyncSampleData.GetUniqueSortedListOfStatesGivenCsvRows()
+    public IAsyncEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
     {
         throw new NotImplementedException();
     }
@@ -32,10 +34,10 @@ public class SampleDataAsync : IAsyncSampleData
 
 
     //4
-    IAsyncEnumerable<IPerson> IAsyncSampleData.People => throw new NotImplementedException();
+    public IAsyncEnumerable<IPerson> People => throw new NotImplementedException();
 
     //5
-    IAsyncEnumerable<(string FirstName, string LastName)> IAsyncSampleData.FilterByEmailAddress(Predicate<string> filter)
+    public IAsyncEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter)
     {
         throw new NotImplementedException();
     }
