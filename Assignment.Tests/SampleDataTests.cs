@@ -34,9 +34,9 @@ public class SampleDataTests
         Assert.AreEqual('1', resultEnumerable.First().First());
         int counter = 0;
 
-        foreach (string value in expectedvalues)
+        foreach (string value in resultEnumerable)
         {
-            Assert.AreEqual(value, expectedvalues[counter]);
+            Assert.AreEqual(expectedvalues[counter], value);
             counter++;
         }
     }
