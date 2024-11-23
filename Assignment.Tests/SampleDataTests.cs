@@ -217,8 +217,7 @@ public class SampleDataTests
         Assert.AreEqual(string.Empty, result);
     }
 
-    // TODO: Fix tests from the extra credit refactor
-    /*[TestMethod]
+    [TestMethod]
     public void GetAggregateListOfStatesGivenPeopleCollection_NullPeopleCollection_ShouldReturnEmptyString()
     {
         // Arrange
@@ -247,5 +246,5 @@ public class SampleDataTests
         _ = testSampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
 
         // Assert - Expecting an InvalidOperationException
-    }*/
+    }
 }

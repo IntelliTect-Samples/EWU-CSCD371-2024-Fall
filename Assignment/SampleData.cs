@@ -37,9 +37,20 @@ public class SampleData : SampleDataBase, ISampleData
 
     public string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)
     {
-        return string.Join(", ", people
-            .Select(person => person.Address.State)
-            .Distinct()
-            .OrderBy(state => state));
+        if (people is null || !people.Any())
+        {
+            return string.Empty;
+        }
+
+        IOrderedEnumerable<string> uniqueStates = people.Select(person => person.Address.State)
+                                  .Distinct()
+                                  .OrderBy(state => state);
+
+        string result = uniqueStates.Aggregate((current, next) => current + ", " + next);
+
+        IEnumerable<string> expectedStates = GetUniqueSortedListOfStatesGivenCsvRows();
+        return !result.Equals(string.Join(", ", expectedStates), StringComparison.Ordinal)
+               ? throw new InvalidOperationException("Validation failed: Result does not match the expected unique sorted list of states.")
+               : result;
     }
 }
