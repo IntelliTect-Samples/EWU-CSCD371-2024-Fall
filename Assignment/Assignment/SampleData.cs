@@ -31,7 +31,7 @@ namespace Assignment
                 return CsvRows.Select(row => row.Split(','))
                     .Select(columns => 
                     new Person(columns[1], columns[2], 
-                    new Address(columns[4], columns[5], columns[6], columns[6]), 
+                    new Address(columns[4], columns[5], columns[6], columns[7]), 
                     columns[3]))
                     .OrderBy(person => person.Address.State)
                     .ThenBy(person => person.Address.City)
