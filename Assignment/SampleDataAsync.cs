@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 namespace Assignment;
 
 
@@ -26,6 +26,7 @@ public class SampleDataAsync : IAsyncSampleData
     {
         return CsvRows.Select(row => row.Split(',')[6]).Distinct().OrderBy(state => state);
     }
+
     //3
     public string GetAggregateSortedListOfStatesUsingCsvRows()
     {
@@ -41,7 +42,16 @@ public class SampleDataAsync : IAsyncSampleData
     }
 
     //4
-    public IAsyncEnumerable<IPerson> People => throw new NotImplementedException();
+    public IAsyncEnumerable<IPerson> People =>
+        CsvRows.Select(row =>
+        {
+            string[] values = row.Split(',');
+            return new Person(values[1], values[2],
+                new Address(values[4], values[5], values[6], values[7]), values[3]);
+        }).
+        OrderBy(person => person.Address.State).
+        ThenBy(person => person.Address.City).
+        ThenBy(person => person.Address.Zip);
 
     //5
     public IAsyncEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter)
