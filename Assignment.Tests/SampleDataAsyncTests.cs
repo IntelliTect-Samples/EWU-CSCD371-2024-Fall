@@ -86,7 +86,7 @@ public class SampleDataAsyncTests
         //Assert
         Assert.IsNotNull(peopleResult);
         Assert.IsNotNull(sortedStrings);
-        Assert.AreEqual(sortedStrings.Count, peopleResult.CountAsync().Result);
+        Assert.AreEqual(sortedStrings.Count, await peopleResult.CountAsync());
 
         await foreach (IPerson person in peopleResult)
         {
