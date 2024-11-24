@@ -20,11 +20,11 @@ public class SampleDataAsync : IAsyncSampleData
         CsvRows = File.ReadLinesAsync("People.csv");
     }
 
-
     //2
     public IAsyncEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
     {
-        return CsvRows.Select(row => row.Split(',')[6]).Distinct().OrderBy(state => state);
+        return CsvRows.Select(row => row.Split(',')[6])
+            .Distinct().OrderBy(state => state);
     }
 
     //3
@@ -48,15 +48,16 @@ public class SampleDataAsync : IAsyncSampleData
             string[] values = row.Split(',');
             return new Person(values[1], values[2],
                 new Address(values[4], values[5], values[6], values[7]), values[3]);
-        }).
-        OrderBy(person => person.Address.State).
-        ThenBy(person => person.Address.City).
-        ThenBy(person => person.Address.Zip);
+        })
+        .OrderBy(person => person.Address.State)
+        .ThenBy(person => person.Address.City)
+        .ThenBy(person => person.Address.Zip);
 
     //5
     public IAsyncEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter)
     {
-        return People.Where(person => filter(person.EmailAddress)).Select(person => (person.FirstName, person.LastName));
+        return People.Where(person => filter(person.EmailAddress))
+            .Select(person => (person.FirstName, person.LastName));
     }
     //6
     public string GetAggregateListOfStatesGivenPeopleCollection(IAsyncEnumerable<IPerson> people)

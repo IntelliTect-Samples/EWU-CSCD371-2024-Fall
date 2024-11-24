@@ -144,10 +144,10 @@ public class SampleDataTests
         SampleData sampleData = new();
         IEnumerable<IPerson> peopleResult = sampleData.People;
         IEnumerable<string> strings = File.ReadAllLines("People.csv").Skip(1);
-        List<string[]> sortedStrings = strings.Select(row => row.Split(',')).
-            OrderBy(state => state[6]).
-            ThenBy(city => city[5]).
-            ThenBy(zip => zip[7]).ToList();
+        List<string[]> sortedStrings = strings.Select(row => row.Split(','))
+            .OrderBy(state => state[6])
+            .ThenBy(city => city[5])
+            .ThenBy(zip => zip[7]).ToList();
 
         int counter = 0;
         string[] expectedValues;
