@@ -56,10 +56,7 @@ public class SampleDataAsync : IAsyncSampleData
     //5
     public IAsyncEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter)
     {
-        IAsyncEnumerable<(string FirstName, string LastName)> result;
-        result = People.Where(person => filter(person.EmailAddress)).Select(person => (person.FirstName, person.LastName));
-
-        return result;
+        return People.Where(person => filter(person.EmailAddress)).Select(person => (person.FirstName, person.LastName));
     }
     //6
     public string GetAggregateListOfStatesGivenPeopleCollection(IAsyncEnumerable<IPerson> people)
