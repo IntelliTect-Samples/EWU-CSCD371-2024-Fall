@@ -60,4 +60,52 @@ public class SampleDataAsyncTests
         Assert.AreEqual(expectedResult, result);
     }
 
+    [TestMethod]
+    public async Task People_CSVFile_ReturnsPeople()
+    {
+        //Arrange
+        SampleDataAsync sampleData = new();
+        IAsyncEnumerable<IPerson> peopleResult = sampleData.People;
+        IEnumerable<string> strings = File.ReadAllLines("People.csv").Skip(1);
+        List<string[]> sortedStrings = strings.Select(row => row.Split(',')).
+            OrderBy(state => state[6]).
+            ThenBy(city => city[5]).
+            ThenBy(zip => zip[7]).ToList();
+
+        int counter = 0;
+        string[] expectedValues;
+        string expectedFirstName;
+        string expectedLastName;
+        string expectedEmail;
+        string expectedAddress;
+        string expectedCity;
+        string expectedState;
+        string expectedZip;
+        //Act
+
+        //Assert
+        Assert.IsNotNull(peopleResult);
+        Assert.IsNotNull(sortedStrings);
+        Assert.AreEqual(sortedStrings.Count, peopleResult.CountAsync().Result);
+
+        await foreach (IPerson person in peopleResult)
+        {
+            expectedValues = sortedStrings[counter];
+            expectedFirstName = expectedValues[1];
+            expectedLastName = expectedValues[2];
+            expectedEmail = expectedValues[3];
+            expectedAddress = expectedValues[4];
+            expectedCity = expectedValues[5];
+            expectedState = expectedValues[6];
+            expectedZip = expectedValues[7];
+            Assert.AreEqual(expectedFirstName, person.FirstName);
+            Assert.AreEqual(expectedLastName, person.LastName);
+            Assert.AreEqual(expectedEmail, person.EmailAddress);
+            Assert.AreEqual(expectedAddress, person.Address.StreetAddress);
+            Assert.AreEqual(expectedCity, person.Address.City);
+            Assert.AreEqual(expectedState, person.Address.State);
+            Assert.AreEqual(expectedZip, person.Address.Zip);
+            counter++;
+        }
+    }
 }
