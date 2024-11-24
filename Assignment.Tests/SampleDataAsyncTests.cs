@@ -173,7 +173,5 @@ public class SampleDataAsyncTests
         //Assert
         Assert.IsNotNull(result);
         Assert.AreEqual(expected, result);
-
     }
-
 }
