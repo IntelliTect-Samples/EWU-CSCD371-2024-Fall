@@ -59,10 +59,16 @@ public class SampleDataAsync : IAsyncSampleData
         return People.Where(person => filter(person.EmailAddress))
             .Select(person => (person.FirstName, person.LastName));
     }
+
     //6
     public string GetAggregateListOfStatesGivenPeopleCollection(IAsyncEnumerable<IPerson> people)
     {
-        throw new NotImplementedException();
+        async Task<string> GetAggregate()
+        {
+            return await people.Select(people => people.Address.State)
+                .Distinct().OrderBy(state => state)
+                .AggregateAsync((oldStates, newState) => $"{oldStates}, {newState}");
+        }
+        return GetAggregate().Result;
     }
-
 }
