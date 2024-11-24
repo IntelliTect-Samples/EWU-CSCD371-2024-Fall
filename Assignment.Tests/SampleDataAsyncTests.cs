@@ -108,4 +108,72 @@ public class SampleDataAsyncTests
             counter++;
         }
     }
+
+    [TestMethod]
+    public async Task FilterByEmailAddress_FullEmailValue_ReturnsList()
+    {
+        //Arrange
+        string searchValue = "fpallaske3@umich.edu";
+        (string, string) expectedName = ("Fremont", "Pallaske");
+        SampleDataAsync sampleData = new();
+        bool predicate(string value)
+        {
+            return value.Contains(searchValue);
+        }
+        //Act
+        IAsyncEnumerable<(string first, string last)> resultEnumerable =
+            sampleData.FilterByEmailAddress(predicate);
+
+        //Assert
+        Assert.IsNotNull(resultEnumerable);
+        Assert.AreEqual(1, await resultEnumerable.CountAsync());
+        Assert.AreEqual(expectedName, await resultEnumerable.FirstAsync());
+    }
+
+    [TestMethod]
+    public async Task FilterByEmailAddress_EduValue_ReturnsList()
+    {
+        //Arrange
+        string searchValue = ".edu";
+        List<(string first, string last)> expectedNames = [("Fremont", "Pallaske"), ("Sancho", "Mahony"), ("Claudell", "Leathe"), ("Issiah", "Bester"), ("Fayette", "Dougherty"),];
+        int counter = 0;
+        SampleDataAsync sampleData = new();
+
+        bool predicate(string value)
+        {
+            return value.Contains(searchValue);
+        }
+
+        //Act
+        IAsyncEnumerable<(string first, string last)> resultEnumerable =
+            sampleData.FilterByEmailAddress(predicate);
+
+        //Assert
+        Assert.IsNotNull(resultEnumerable);
+        Assert.AreEqual(expectedNames.Count, await resultEnumerable.CountAsync());
+
+        await foreach ((string first, string last) in resultEnumerable)
+        {
+            Assert.AreEqual(expectedNames[counter].first, first);
+            Assert.AreEqual(expectedNames[counter].last, last);
+            counter++;
+        }
+    }
+
+    [TestMethod]
+    public void GetAggregateListOfStatesGivenPeopleCollection_ValidPeopleEnumerable_ReturnsExpected()
+    {
+        //Arrange
+        SampleDataAsync sample = new();
+        IAsyncEnumerable<IPerson> people = sample.People;
+        string expected = sample.GetAggregateSortedListOfStatesUsingCsvRows();
+        //Act
+
+        string result = sample.GetAggregateListOfStatesGivenPeopleCollection(people);
+        //Assert
+        Assert.IsNotNull(result);
+        Assert.AreEqual(expected, result);
+
+    }
+
 }
