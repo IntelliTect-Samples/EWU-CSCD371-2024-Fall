@@ -9,10 +9,8 @@ using System.Xml;
 
 namespace Assignment.Tests;
 
-
 //We understand that logic in tests is typically frowned upon, but the assignment recommends we don't use collection assertions,
 //Thus we must iterate :)
-
 
 [TestClass]
 public class SampleDataTests
@@ -25,7 +23,6 @@ public class SampleDataTests
         List<string> expectedvalues = File.ReadAllLines("People.csv").Skip(1).ToList();
         // Act
         IEnumerable<string> resultEnumerable = sampleData.CsvRows;
-
         //  Assert
         Assert.IsNotNull(sampleData);
         Assert.IsNotNull(resultEnumerable);
@@ -41,8 +38,6 @@ public class SampleDataTests
         }
     }
 
-
-
     [TestMethod]
     public void CsvRows_DVC_ContainsAllRows()
     {
@@ -50,15 +45,12 @@ public class SampleDataTests
         SampleData sampleData = new();
         List<string> expectedValues = File.ReadAllLines("People.csv").Skip(1).ToList();
         //Act
-
         //Assert
         Assert.IsNotNull(sampleData);
         Assert.IsNotNull(expectedValues);
         Assert.AreEqual(expectedValues.Count, sampleData.CsvRows.Count());
         Assert.IsTrue(sampleData.CsvRows.Any());
-
         Assert.AreEqual('1', sampleData.CsvRows.First().First());
-
         int counter = 0;
         foreach (string value in sampleData.CsvRows)
         {
@@ -67,7 +59,6 @@ public class SampleDataTests
         }
     }
 
-
     [TestMethod]
     public void CsvRows_StringEVC_ContainsAllRows()
     {
@@ -75,13 +66,11 @@ public class SampleDataTests
         SampleData sampleData = new("People.csv");
         List<string> expectedValues = File.ReadAllLines("People.csv").Skip(1).ToList();
         //Act
-
         //Assert
         Assert.IsNotNull(sampleData);
         Assert.IsNotNull(expectedValues);
         Assert.AreEqual(expectedValues.Count, sampleData.CsvRows.Count());
         Assert.IsTrue(sampleData.CsvRows.Any());
-
         Assert.AreEqual('1', sampleData.CsvRows.First().First());
 
         int counter = 0;
@@ -123,14 +112,10 @@ public class SampleDataTests
             .Distinct()
             .OrderBy(state => state);
         List<string> expectedResults = expectedResult.ToList();
-
-
         //Act
         IEnumerable<string> resultEnumerable = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
-
         //Assert
         Assert.AreEqual(expectedResults.Count, resultEnumerable.Count());
-
         int counter = 0;
         foreach (string state in resultEnumerable)
         {
@@ -164,7 +149,6 @@ public class SampleDataTests
             ThenBy(city => city[5]).
             ThenBy(zip => zip[7]).ToList();
 
-
         int counter = 0;
         string[] expectedValues;
         string expectedFirstName;
@@ -175,8 +159,6 @@ public class SampleDataTests
         string expectedState;
         string expectedZip;
         //Act
-
-
         //Assert
         Assert.IsNotNull(peopleResult);
         Assert.IsNotNull(sortedStrings);
@@ -201,9 +183,6 @@ public class SampleDataTests
             Assert.AreEqual(expectedZip, person.Address.Zip);
             counter++;
         }
-
-
-
     }
 
     [TestMethod]
@@ -220,13 +199,11 @@ public class SampleDataTests
         //Act
         IEnumerable<(string first, string last)> resultEnumerable =
             sampleData.FilterByEmailAddress(predicate);
-
         //Assert
         Assert.IsNotNull(resultEnumerable);
         Assert.AreEqual(1, resultEnumerable.Count());
         Assert.AreEqual(expectedName, resultEnumerable.First());
     }
-
 
     [TestMethod]
     public void FilterByEmailAddress_EduValue_ReturnsList()
@@ -241,11 +218,9 @@ public class SampleDataTests
         {
             return value.Contains(searchValue);
         }
-
         //Act
         IEnumerable<(string first, string last)> resultEnumerable =
             sampleData.FilterByEmailAddress(predicate);
-
         //Assert
         Assert.IsNotNull(resultEnumerable);
         Assert.AreEqual(resultEnumerable.Count(), expectedNames.Count);
@@ -257,6 +232,7 @@ public class SampleDataTests
             counter++;
         }
     }
+
     [TestMethod]
     public void GetAggregateListOfStatesGivenPeopleCollection_ValidPeopleEnumerable_ReturnsExpected()
     {
@@ -265,12 +241,9 @@ public class SampleDataTests
         IEnumerable<IPerson> people = sample.People;
         string expected = sample.GetAggregateSortedListOfStatesUsingCsvRows();
         //Act
-
         string result = sample.GetAggregateListOfStatesGivenPeopleCollection(people);
         //Assert
         Assert.IsNotNull(result);
         Assert.AreEqual(expected, result);
-
     }
-
 }
