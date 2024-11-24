@@ -94,7 +94,7 @@ Chapter 14: Events
 
 ## Extra Credit
 
-- Implement the homework using async/await and multi-threading by defining a new `SampleDataAsync` class that implements `IAsyncSampleData`). Refactor your `SampleData` and `SampleDataAsync` classes with minimal duplication. Be sure to refactor your tests to re-use a significant amount of the test code for both implementations. ❌✔
+- Implement the homework using async/await and multi-threading by defining a new `SampleDataAsync` class that implements `IAsyncSampleData`). Refactor your `SampleData` and `SampleDataAsync` classes with minimal duplication. Be sure to refactor your tests to re-use a significant amount of the test code for both implementations. ✔
 
 ## Fundamentals
 
