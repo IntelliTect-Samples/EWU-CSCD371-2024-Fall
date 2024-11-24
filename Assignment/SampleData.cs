@@ -56,8 +56,6 @@ public class SampleData : ISampleData
         return states.Aggregate((accumlateList, states) =>
         $"{accumlateList}, {states}"); ;
     }
-    //TODO: Ask about readme about ToArray()
-    //TODO: Ask about string.Join()
 
     // 5.
     public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(
