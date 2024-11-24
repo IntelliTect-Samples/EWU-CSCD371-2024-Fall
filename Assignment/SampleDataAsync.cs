@@ -24,7 +24,7 @@ public class SampleDataAsync : IAsyncSampleData
     //2
     public IAsyncEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
     {
-        throw new NotImplementedException();
+        return CsvRows.Select(row => row.Split(',')[6]).Distinct().OrderBy(state => state);
     }
     //3
     public string GetAggregateSortedListOfStatesUsingCsvRows()
