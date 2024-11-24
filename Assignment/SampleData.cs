@@ -14,13 +14,10 @@ public class SampleData : ISampleData
         CsvRows = File.ReadAllLines(filePath);
     }
 
-
     public SampleData(IEnumerable<string> csvValues)
     {
         CsvRows = csvValues;
     }
-
-
 
     private IEnumerable<string>? _csvRows;
     // 1.
@@ -73,6 +70,5 @@ public class SampleData : ISampleData
         return people.Select(people => people.Address.State)
             .Distinct().OrderBy(state => state)
             .Aggregate((oldStates, newState) => $"{oldStates}, {newState}");
-
     }
 }
