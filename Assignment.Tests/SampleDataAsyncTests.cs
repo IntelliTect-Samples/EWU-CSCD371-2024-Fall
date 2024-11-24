@@ -27,4 +27,23 @@ public class SampleDataAsyncTests
             counter++;
         }
     }
+    [TestMethod]
+    public async Task GetUniqueSortedListOfStatesGivenCsvRows_HardcodedValues_ReturnsUniqueSortedList()
+    {
+        //Arrange
+        SampleDataAsync sampleData = new();
+        List<string> expectedResult = ["AL", "AZ", "CA", "DC", "FL", "GA", "IN", "KS", "LA", "MD", "MN", "MO", "MT", "NC", "NE", "NH", "NV", "NY", "OR", "PA", "SC", "TN", "TX", "UT", "VA", "WA", "WV"];
+        //Act
+        IAsyncEnumerable<string> resultEnumerable = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+        //Assert
+        Assert.IsNotNull(sampleData);
+        Assert.AreEqual(expectedResult.Count, await resultEnumerable.CountAsync());
+
+        int counter = 0;
+        await foreach (string state in resultEnumerable)
+        {
+            Assert.AreEqual(expectedResult[counter], state);
+            counter++;
+        }
+    }
 }
