@@ -147,7 +147,6 @@ public class SampleDataAsyncTests
         //Act
         IAsyncEnumerable<(string first, string last)> resultEnumerable =
             sampleData.FilterByEmailAddress(predicate);
-
         //Assert
         Assert.IsNotNull(resultEnumerable);
         Assert.AreEqual(expectedNames.Count, await resultEnumerable.CountAsync());
