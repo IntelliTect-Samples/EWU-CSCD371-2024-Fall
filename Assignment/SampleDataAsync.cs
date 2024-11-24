@@ -29,9 +29,13 @@ public class SampleDataAsync : IAsyncSampleData
     //3
     public string GetAggregateSortedListOfStatesUsingCsvRows()
     {
-        throw new NotImplementedException();
+        //Local function to do async work
+        static async Task<string> GetAggregate(IAsyncEnumerable<string> states)
+        {
+            return await states.AggregateAsync((old, newval) => $"{old}, {newval}");
+        }
+        return GetAggregate(GetUniqueSortedListOfStatesGivenCsvRows()).Result;
     }
-
 
     //4
     public IAsyncEnumerable<IPerson> People => throw new NotImplementedException();
