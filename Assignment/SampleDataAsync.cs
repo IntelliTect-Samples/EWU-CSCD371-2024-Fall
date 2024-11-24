@@ -29,12 +29,15 @@ public class SampleDataAsync : IAsyncSampleData
     //3
     public string GetAggregateSortedListOfStatesUsingCsvRows()
     {
+        IAsyncEnumerable<string> states = GetUniqueSortedListOfStatesGivenCsvRows();
+
         //Local function to do async work
-        static async Task<string> GetAggregate(IAsyncEnumerable<string> states)
+        async Task<string> GetAggregate()
         {
             return await states.AggregateAsync((old, newval) => $"{old}, {newval}");
         }
-        return GetAggregate(GetUniqueSortedListOfStatesGivenCsvRows()).Result;
+
+        return GetAggregate().Result;
     }
 
     //4
