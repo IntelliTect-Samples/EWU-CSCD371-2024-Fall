@@ -69,6 +69,21 @@ public class SampleDataTests
         Assert.IsTrue(sampleData.GetUniqueSortedListOfStatesGivenCsvRows().First()[0] < sampleData.GetUniqueSortedListOfStatesGivenCsvRows().Last()[0]);
     }
 
+    //[TestMethod]
+    //public void GetUniqueSortedListOfStates_Called_LinqVerifiesSorted()
+    //{
+    //    // Arrange
+    //    SampleData sampleData = new();
+
+    //    // Act
+    //    IEnumerable<string> sortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+    //    IEnumerable<string> test = from state in sortedStates
+    //                               where sortedStates.ElementAt(0)
+    //                               select state;
+    //    // Assert
+    //    Assert.IsTrue(sampleData.GetUniqueSortedListOfStatesGivenCsvRows().First()[0] < sampleData.GetUniqueSortedListOfStatesGivenCsvRows().Last()[0]);
+    //}
+
     [TestMethod]
     public void GetAggregateSortedListOfStates_Called_ReturnsCorrectly()
     {
