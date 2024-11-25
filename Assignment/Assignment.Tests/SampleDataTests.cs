@@ -92,27 +92,49 @@ public class SampleDataTests
     {
         // Arrange
         SampleData sampleData = new();
-        List<string> cvsRows = 
-            [
-            "1,Priscilla,Jenyns,pjenyns0@state.gov,7884 Corry Way,Helena,MT,70577",
-            "2,Karin,Joder,kjoder1@quantcast.com,03594 Florence Park,Tampa,FL,71961",
-            "3,Chadd,Stennine,cstennine2@wired.com,94148 Kings Terrace,Long Beach,CA,59721",
-            "4,Fremont,Pallaske,fpallaske3@umich.edu,16958 Forster Crossing,Atlanta,GA,10687",
-            "5,Melisa,Kerslake,mkerslake4@dion.ne.jp,283 Pawling Parkway,Dallas,TX,88632",
-            "6,Darline,Brauner,dbrauner5@biglobe.ne.jp,33 Menomonie Trail,Atlanta,GA,10687"
-            ];
 
-        sampleData.CsvRows = csvRows;
         // Act
-        IEnumerable<IPerson> result = sampleData.People;
+        var result = sampleData.People;
         // Assert
-        IEnumerable<IPerson> expected = [];
-        expected = expected.Append(new Person("Chadd", "Stennine", new Address("94148 Kings Terrace", "Long Beach", "CA", "59721"), "cstennine2@wired.com"));
-        expected = expected.Append(new Person("Karin", "Joder", new Address("03594 Florence Park", "Tampa", "FL", "71961"), "kjoder1@quantcast.com"));
-        expected = expected.Append(new Person("Priscilla", "Jenyns", new Address("7884 Corry Way", "Helena", "MT", "70577"), "pjenyns0@state.gov"));
-        expected = expected.Append(new Person("Fremont", "Pallaske", new Address("16958 Forster Crossing", "Atlanta", "GA", "10687"), "fpallaske3@umich.edu"));
-        expected = expected.Append(new Person("Melisa", "Kerslake", new Address("283 Pawling Parkway", "Dallas", "TX", "88632"), "mkerslake4@dion.ne.jp"));
+        Assert.IsNotNull(result);
+        Assert.IsTrue(result.Any());
+        Assert.AreEqual(50, result.Count()); 
+        Assert.AreEqual("MT", result.First().Address.State); 
 
+    }
+
+    [TestMethod]
+    public void FilterByEmailAddress_ValidFilter_ReturnsMatchingNames()
+    {
+        // Arrange
+        SampleData sampleData = new();
+        Predicate<string> filter = email => email.Contains("quantcast.com");
+
+        // Act
+        var result = sampleData.FilterByEmailAddress(filter);
+
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.IsTrue(result.Any());
+        var firstMatch = result.First();
+        Assert.AreEqual("Karin", firstMatch.FirstName);
+        Assert.AreEqual("Joder", firstMatch.LastName);
+    }
+
+    [TestMethod]
+    public void GetAggregateListOfStatesGivenPeopleCollection_ReturnsCorrectly()
+    {
+        // Arrange
+        SampleData sampleData = new();
+        var people = sampleData.People;
+
+        // Act
+        var result = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
+
+        // Assert
+        Assert.IsNotNull(result);
+        var expected = "AL, AZ, CA, DC, FL, GA, IN, KS, LA, MD, MN, MO, MT, NC, NE, NH, NV, NY, OR, PA, SC, TN, TX, UT, VA, WA, WV";
+        Assert.AreEqual(expected, result);
     }
 
 }

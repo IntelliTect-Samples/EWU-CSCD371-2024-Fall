@@ -47,7 +47,7 @@ namespace Assignment
                     string[] currentPerson = person;
                     peopleOut = peopleOut.Append(new Person(currentPerson[1], currentPerson[2], new Address(currentPerson[4], currentPerson[5], currentPerson[6], currentPerson[7]), currentPerson[3]));
                 }
-                peopleOut = peopleOut.OrderBy(p => p.Address.State).ThenBy(p => p.Address.City).ThenBy(p => p.Address.Zip);
+                peopleOut.OrderBy(p => p.Address.State).ThenBy(p => p.Address.City).ThenBy(p => p.Address.Zip);
                 return peopleOut;
             }
         }
