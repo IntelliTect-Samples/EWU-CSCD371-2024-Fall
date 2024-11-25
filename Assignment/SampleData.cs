@@ -6,12 +6,7 @@ namespace Assignment;
 public class SampleData : ISampleData
 {
     // 1.
-    public IEnumerable<string> CsvRows
-    {
-        get {
-            return File.Exists("People.csv") ? File.ReadAllLines("People.csv").Skip(1) : [];
-        }
-    }
+    public IEnumerable<string> CsvRows { get; set; } = File.ReadAllLines("People.csv").Skip(1);
 
     // 2.
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
