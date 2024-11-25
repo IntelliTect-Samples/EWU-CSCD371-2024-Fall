@@ -61,11 +61,11 @@ public class Node<T> : IEnumerable<T>
     public IEnumerator<T> GetEnumerator()
     {
         Node<T> node = this;
-        while (node != this)
+        do
         {
             yield return node.Value;
             node = node.Next;
-        } 
+        } while (node != this);
     }
 
     IEnumerator IEnumerable.GetEnumerator()
