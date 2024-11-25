@@ -90,7 +90,7 @@ public class NodeTests
     public void GetEnumerator_GetListItems_Success()
     {
         // Arrange
-        Node<int> node = new Node<int>(1);
+        Node<int> node = new(1);
         node.Append(2);
         node.Append(3);
         node.Append(4);
@@ -109,7 +109,7 @@ public class NodeTests
     public void ChildItems_GetRemainingItemLessThanMaximum_Success()
     {
         // Arrange
-        Node<int> node = new Node<int>(1);
+        Node<int> node = new(1);
         node.Append(2);
         node.Append(3);
         node.Append(4);

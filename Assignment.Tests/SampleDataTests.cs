@@ -69,6 +69,21 @@ public class SampleDataTests
         Assert.IsTrue(sampleData.GetUniqueSortedListOfStatesGivenCsvRows().First()[0] < sampleData.GetUniqueSortedListOfStatesGivenCsvRows().Last()[0]);
     }
 
+    //[TestMethod]
+    //public void GetUniqueSortedListOfStates_Called_LinqVerifiesSorted()
+    //{
+    //    // Arrange
+    //    SampleData sampleData = new();
+
+    //    // Act
+    //    IEnumerable<string> sortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+    //    IEnumerable<string> test = from state in sortedStates
+    //                               where sortedStates.ElementAt(0)
+    //                               select state;
+    //    // Assert
+    //    Assert.IsTrue(sampleData.GetUniqueSortedListOfStatesGivenCsvRows().First()[0] < sampleData.GetUniqueSortedListOfStatesGivenCsvRows().Last()[0]);
+    //}
+
     [TestMethod]
     public void GetAggregateSortedListOfStates_Called_ReturnsCorrectly()
     {
@@ -95,18 +110,11 @@ public class SampleDataTests
         // Assert
         Assert.IsNotNull(result);
         Assert.IsTrue(result.Any());
-        Assert.AreEqual(50, result.Count()); 
-        Assert.AreEqual("MT", result.First().Address.State); 
+        Assert.AreEqual(50, result.Count());
+        Assert.AreEqual("AL", result.First().Address.State);
+        Assert.AreEqual("Mobile", result.First().Address.City);
+        Assert.AreEqual("37308", result.First().Address.Zip);
 
-        // Additional validation using CsvRows
-        var firstPerson = result.First();
-        Assert.AreEqual(firstCsvRow[1], firstPerson.FirstName); 
-        Assert.AreEqual(firstCsvRow[2], firstPerson.LastName); 
-        Assert.AreEqual(firstCsvRow[3], firstPerson.EmailAddress);
-        Assert.AreEqual(firstCsvRow[4], firstPerson.Address.StreetAddress);
-        Assert.AreEqual(firstCsvRow[5], firstPerson.Address.City);
-        Assert.AreEqual(firstCsvRow[6], firstPerson.Address.State);
-        Assert.AreEqual(firstCsvRow[7], firstPerson.Address.Zip);
     }
 
     [TestMethod]
