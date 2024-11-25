@@ -1,14 +1,48 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using Assignment;
-using System.Globalization;
-using System.Collections;
-
+﻿
 namespace Assignment.Tests;
 
 [TestClass]
 public class NodeTests
 {
+    [TestMethod]
+    public void Constructor_ValidValue_CreatesNode()
+    {
+        // Arrange & Act
+        Node<int> node = new(1);
+
+        // Assert
+        Assert.IsNotNull(node);
+        Assert.AreEqual(1, node.Value);
+        Assert.AreEqual(node, node.Next);
+    }
+
+        [TestMethod]
+    public void Exists_ValueExists_ReturnsTrue()
+    {
+        // Arrange
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+
+        // Act
+        bool exists = node.Exists(2);
+
+        // Assert
+        Assert.IsTrue(exists);
+    }
+
+    [TestMethod]
+    public void Exists_ValueDoesNotExist_ReturnsFalse()
+    {
+        // Arrange
+        Node<int> node = new(1);
+
+        // Act
+        bool exists = node.Exists(2);
+
+        // Assert
+        Assert.IsFalse(exists);
+    }
 
     [TestMethod]
     public void Clear_list_RemovesNodes()
@@ -43,6 +77,21 @@ public class NodeTests
         Assert.AreEqual(11, node.Next.Value);
         Assert.AreEqual(23, node.Next.Next.Value);
         Assert.AreEqual(node, node.Next.Next.Next);
+    }
+
+    [TestMethod]
+    public void ChildItems_ValidNumber_ReturnsCorrectItems()
+    {
+        // Arrange
+        Node<int> node = new(1);
+        node.Append(2);
+        node.Append(3);
+
+        // Act
+        List<int> items = node.ChildItems(2).ToList();
+
+        // Assert
+        CollectionAssert.AreEqual(new List<int> { 1, 2 }, items);
     }
 
 
