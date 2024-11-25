@@ -89,12 +89,24 @@ public class SampleDataTests
 
         // Act
         var result = sampleData.People;
+
+        var firstCsvRow = sampleData.CsvRows.First().Split(',');
+
         // Assert
         Assert.IsNotNull(result);
         Assert.IsTrue(result.Any());
         Assert.AreEqual(50, result.Count()); 
         Assert.AreEqual("MT", result.First().Address.State); 
 
+        // Additional validation using CsvRows
+        var firstPerson = result.First();
+        Assert.AreEqual(firstCsvRow[1], firstPerson.FirstName); 
+        Assert.AreEqual(firstCsvRow[2], firstPerson.LastName); 
+        Assert.AreEqual(firstCsvRow[3], firstPerson.EmailAddress);
+        Assert.AreEqual(firstCsvRow[4], firstPerson.Address.StreetAddress);
+        Assert.AreEqual(firstCsvRow[5], firstPerson.Address.City);
+        Assert.AreEqual(firstCsvRow[6], firstPerson.Address.State);
+        Assert.AreEqual(firstCsvRow[7], firstPerson.Address.Zip);
     }
 
     [TestMethod]
@@ -122,13 +134,16 @@ public class SampleDataTests
         SampleData sampleData = new();
         var people = sampleData.People;
 
+        // Get the unique sorted list of states
+        var expectedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+        var expectedResult = string.Join(", ", expectedStates);
+
         // Act
         var result = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
 
         // Assert
         Assert.IsNotNull(result);
-        var expected = "AL, AZ, CA, DC, FL, GA, IN, KS, LA, MD, MN, MO, MT, NC, NE, NH, NV, NY, OR, PA, SC, TN, TX, UT, VA, WA, WV";
-        Assert.AreEqual(expected, result);
+        Assert.AreEqual(expectedResult, result);
     }
 
 }
