@@ -22,7 +22,7 @@
     <Using Include="Xunit" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Assignment\People.csv" />
+    <None Include="..\Assignment\People.csv">
         <Link>People.csv</Link>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
