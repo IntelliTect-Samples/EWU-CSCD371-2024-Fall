@@ -3,6 +3,8 @@
   <PropertyGroup>
     <IsPackable>false</IsPackable>
     <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
@@ -20,9 +22,10 @@
     <Using Include="Xunit" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="...\Assignment\People.csv" />
+    <None Include="..\Assignment\People.csv" />
         <Link>People.csv</Link>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
   </ItemGroup>
 
 </Project>
