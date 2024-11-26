@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Assignment
-{
+namespace Assignment;
+
     public interface IPerson
     {
         string FirstName { get; }
@@ -12,4 +12,4 @@ namespace Assignment
 
         string EmailAddress { get; }
     }
-}
+
