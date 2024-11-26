@@ -87,7 +87,7 @@ public class Node<T> : IEnumerable<T>
         Node<T> head = this;
         do
         {
-            yield return current.Value;
+            yield return current.Data;
             current = current.Next;
             count++;
         } while (current != head && count < num);
