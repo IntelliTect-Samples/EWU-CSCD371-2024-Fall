@@ -21,7 +21,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetUniqueSortedListOfStatesGivenCsvRows_ReturnsUniqueSortedStates_Success()
+    public void GetUniqueSortedListOfStatesGivenCsvRows_ReturnsUniqueSortedStates()
     {
         // Arrange
         SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
@@ -35,7 +35,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetUniqueSortedListOfStatesGivenCsvRows_Linq_ReturnsUniqueSortedStates_Success()
+    public void GetUniqueSortedListOfStatesGivenCsvRows_Linq_ReturnsUniqueSortedStates()
     {
         // Arrange
         SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
@@ -49,7 +49,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetAggregateSortedListOfStatesUsingCsvRows_ReturnsAggregateSortedStates_Success()
+    public void GetAggregateSortedListOfStatesUsingCsvRows_ReturnsAggregateSortedStates()
     {
         // Arrange
         SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
@@ -60,7 +60,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void People_ShouldReturnCorrectNumOfPeople_Success()
+    public void People_ShouldReturnCorrectNumOfPeople()
     {
         // Arrange
         SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
@@ -71,7 +71,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void People_ShouldReturnCorrectPeople_Success()
+    public void People_ShouldReturnCorrectPeople()
     {
         // Arrange
         SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
@@ -88,7 +88,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void FilterByEmailAddress_ShouldReturnCorrectPeople_Success()
+    public void FilterByEmailAddress_ShouldReturnCorrectPeople()
     {
         // Arrange
         SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
@@ -101,7 +101,7 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetAggregateListOfStatesGivenPeopleCollection_ReturnsAggregateListOfStates_Success()
+    public void GetAggregateListOfStatesGivenPeopleCollection_ReturnsAggregateListOfStates()
     {
         // Arrange
         SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
