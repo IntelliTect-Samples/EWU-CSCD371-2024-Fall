@@ -25,7 +25,7 @@
     <None Include="..\Assignment\People.csv" />
         <Link>People.csv</Link>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
+    </None>
   </ItemGroup>
 
 </Project>
