@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 
 namespace Assignment;
-{
+
     public interface ISampleData
+    {
     
         // 1.
         IEnumerable<string> CsvRows { get; }
@@ -22,6 +23,5 @@ namespace Assignment;
 
         // 6.
         string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people);
-
     }
 
