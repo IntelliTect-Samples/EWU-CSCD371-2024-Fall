@@ -1,4 +1,4 @@
-//using System.Collections;
+using System.Collections;
 
 namespace Assignment;
 
@@ -56,9 +56,9 @@ public class Node<T> : IEnumerable<T>
         while (current != this)
         {
             Node<T> temp = current;
-            current = current.Next;      // we should not worry about Garbage Collection because the reference to the next node is removed, so the node will be collected. 
-            temp.Next = temp;            // the list is circular, so we can assign the next node to itself to remove the reference. 
-        }                                // then we can assign the next node to this to make the list circular again.
+            current = current.Next;      
+            temp.Next = temp;            
+        }                              
         this.Next = this;
     }
 
