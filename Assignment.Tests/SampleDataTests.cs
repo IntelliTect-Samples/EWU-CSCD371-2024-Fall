@@ -24,10 +24,10 @@ public class SampleDataTests
     public void GetUniqueSortedListOfStatesGivenCsvRows_ReturnsUniqueSortedStates_Success()
     {
         // Arrange
-        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
 
         // Act
-        var uniqueSortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+        IEnumerable<string> uniqueSortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
 
         // Assert
         var expectedStates = new List<string> { "CA", "FL", "GA", "MT", "TX" };
@@ -38,24 +38,23 @@ public class SampleDataTests
     public void GetUniqueSortedListOfStatesGivenCsvRows_Linq_ReturnsUniqueSortedStates_Success()
     {
         // Arrange
-        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
 
         // Act
-        var uniqueSortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+        IEnumerable<string> uniqueSortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
 
         // Assert
-        var isSorted = uniqueSortedStates.SequenceEqual(uniqueSortedStates.OrderBy(state => state));
+        bool isSorted = uniqueSortedStates.SequenceEqual(uniqueSortedStates.OrderBy(state => state));
         Assert.IsTrue(isSorted, "States aren't sorted alphabetically.");
     }
 
-    //TODO: Add a test for GetAggregateSortedListOfStatesUsingCsvRows
     [TestMethod]
     public void GetAggregateSortedListOfStatesUsingCsvRows_ReturnsAggregateSortedStates_Success()
     {
         // Arrange
-        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
         // Act
-        var aggregateSortedStates = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+        string aggregateSortedStates = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
         // Assert
         Assert.AreEqual("CA, FL, GA, MT, TX", aggregateSortedStates);
     }
@@ -64,9 +63,9 @@ public class SampleDataTests
     public void People_ShouldReturnCorrectNumOfPeople_Success()
     {
         // Arrange
-        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
         // Act
-        var people = sampleData.People.ToList();
+        List<IPerson> people = sampleData.People.ToList();
         // Assert
         Assert.AreEqual(5, people.Count);
     }
@@ -75,9 +74,9 @@ public class SampleDataTests
     public void People_ShouldReturnCorrectPeople_Success()
     {
         // Arrange
-        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
         // Act
-        var people = sampleData.People.ToList();
+        List<IPerson> people = sampleData.People.ToList();
         // Assert
         Assert.AreEqual("Chadd", people[0].FirstName);
         Assert.AreEqual("Stennine", people[0].LastName);
@@ -92,9 +91,9 @@ public class SampleDataTests
     public void FilterByEmailAddress_ShouldReturnCorrectPeople_Success()
     {
         // Arrange
-        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
         // Act
-        var people = sampleData.FilterByEmailAddress(email => email.Contains("state.gov")).ToList();
+        List<(string FirstName, string LastName)> people = sampleData.FilterByEmailAddress(email => email.Contains("state.gov")).ToList();
         // Assert
         Assert.AreEqual(1, people.Count);
         Assert.AreEqual("Priscilla", people[0].FirstName);
@@ -105,11 +104,11 @@ public class SampleDataTests
     public void GetAggregateListOfStatesGivenPeopleCollection_ReturnsAggregateListOfStates_Success()
     {
         // Arrange
-        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
-        var people = sampleData.People;
+        SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        IEnumerable<IPerson> people = sampleData.People;
         // Act
-        var aggregateListOfStates = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
-        var expectedStates = String.Join(", ", sampleData.GetUniqueSortedListOfStatesGivenCsvRows());
+        string aggregateListOfStates = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
+        string expectedStates = String.Join(", ", sampleData.GetUniqueSortedListOfStatesGivenCsvRows());
         // Assert
         Assert.AreEqual(expectedStates, aggregateListOfStates);
     }
