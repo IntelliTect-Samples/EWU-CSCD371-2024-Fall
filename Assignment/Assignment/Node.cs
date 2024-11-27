@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment
+namespace Assignment;
+
+public class Node
 {
-    internal class Class1
-    {
-    }
 }
