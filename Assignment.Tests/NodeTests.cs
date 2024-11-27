@@ -8,7 +8,7 @@ namespace Assignment.Tests;
 public class NodeTests
 {
     [Fact]
-    public void Node_SetValue_newNodeEqualtoValue()
+    public void NodeSetValueNewNodeEqualtoValue()
     {
         // Arrange
         int value = 5;
@@ -22,7 +22,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void NodeConstructor_AllowsHomogenousTypes_ValuesEqual()
+    public void NodeConstructorAllowsHomogenousTypesValuesEqual()
     {
         // Arrange & Act
         Node<int> intNode = new(10);
@@ -34,7 +34,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void ToString_OverrideToString_ExistsIsEqual()
+    public void ToStringOverrideToStringExistsIsEqual()
     {
         // Arrange
         Node<int> intNode = new(10);
@@ -44,7 +44,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void Next_RefersNextNode_ReturnsNextNodeValue()
+    public void NextRefersNextNodeReturnsNextNodeValue()
     {
         // Arrange
         Node<int> intNode = new(10);
@@ -57,7 +57,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void Append_NextPointsBackOriginal_ReturnsIntNodeValue()
+    public void AppendNextPointsBackOriginalReturnsIntNodeValue()
     {
         // Arrange
         Node<int> intNode = new(10);
@@ -71,7 +71,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void Clear_ResetsNext_NextValueThis()
+    public void ClearResetsNextNextValueThis()
     {
         // Arrange
         Node<int> nodeOne = new(10);
@@ -86,7 +86,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void Exists_SearchForValue_ReturnsValueIfExists()
+    public void ExistsSearchForValueReturnsValueIfExists()
     {
         // Arrange
         Node<string> nodeOne = new("one");
@@ -102,7 +102,7 @@ public class NodeTests
     }
 
     [Fact]
-    public void Append_DuplicateValue_ThrowsInvalidOperationsError()
+    public void AppendDuplicateValueThrowsInvalidOperationsError()
     {
         // Arrange
         Node<int> intNode = new(10);
