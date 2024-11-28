@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.VisualBasic;
 
 namespace Assignment
 {
     public class SampleData : ISampleData
     {
         // 1.
-        public IEnumerable<string> CsvRows => File.Exists("People.csv") ? File.ReadAllLines("People.csv").Skip(1) : throw new FileNotFoundException("The file People.csv was not found.");
+        public IEnumerable<string> CsvRows {get; set;} = File.Exists("People.csv") ? File.ReadAllLines("People.csv").Skip(1) : throw new FileNotFoundException("The file People.csv was not found.");
 
         // 2.
         public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() => CsvRows
@@ -23,7 +24,7 @@ namespace Assignment
         // 4.
         public IEnumerable<IPerson> People => CsvRows
             .Select(row => row.Split(','))
-            .Select(row => new Person(row[0], row[1], new Address(row[2], row[3], row[4], row[5]), row[6]))
+            .Select(row => new Person(row[1].Trim(), row[2].Trim(), new Address(row[4].Trim(), row[5].Trim(), row[6].Trim(), row[7].Trim()), row[3].Trim()))
             .OrderBy(person => person.Address.State)
             .ThenBy(person => person.Address.City)
             .ThenBy(person => person.Address.Zip);
