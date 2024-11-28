@@ -24,7 +24,7 @@ public class SampleDataTests
     public void GetUniqueSortedListOfStatesGivenCsvRows_ReturnsUniqueSortedStates()
     {
         // Arrange
-        SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
 
         // Act
         IEnumerable<string> uniqueSortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
@@ -38,7 +38,7 @@ public class SampleDataTests
     public void GetUniqueSortedListOfStatesGivenCsvRows_Linq_ReturnsUniqueSortedStates()
     {
         // Arrange
-        SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
 
         // Act
         IEnumerable<string> uniqueSortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
@@ -52,7 +52,7 @@ public class SampleDataTests
     public void GetAggregateSortedListOfStatesUsingCsvRows_ReturnsAggregateSortedStates()
     {
         // Arrange
-        SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
         // Act
         string aggregateSortedStates = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
         // Assert
@@ -63,7 +63,7 @@ public class SampleDataTests
     public void People_ShouldReturnCorrectNumOfPeople()
     {
         // Arrange
-        SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
         // Act
         List<IPerson> people = sampleData.People.ToList();
         // Assert
@@ -74,7 +74,7 @@ public class SampleDataTests
     public void People_ShouldReturnCorrectPeople()
     {
         // Arrange
-        SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
         // Act
         List<IPerson> people = sampleData.People.ToList();
         // Assert
@@ -91,7 +91,7 @@ public class SampleDataTests
     public void FilterByEmailAddress_ShouldReturnCorrectPeople()
     {
         // Arrange
-        SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
         // Act
         List<(string FirstName, string LastName)> people = sampleData.FilterByEmailAddress(email => email.Contains("state.gov")).ToList();
         // Assert
@@ -104,7 +104,7 @@ public class SampleDataTests
     public void GetAggregateListOfStatesGivenPeopleCollection_ReturnsAggregateListOfStates()
     {
         // Arrange
-        SampleDataForTesting sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
+        var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
         IEnumerable<IPerson> people = sampleData.People;
         // Act
         string aggregateListOfStates = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
