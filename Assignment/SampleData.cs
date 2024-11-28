@@ -12,9 +12,7 @@ namespace Assignment;
 public class SampleData : ISampleData
 {
     // 1.
-    public IEnumerable<string> CsvRows { get; } = from line in File.ReadAllLines("People.csv")
-                                                  where !line.Contains("Id,FirstName,LastName,Email,StreetAddress,City,State,Zip")
-                                                  select line;
+    public IEnumerable<string> CsvRows { get; set; } = File.ReadLines("People.csv").Skip(1);
 
     // 2.
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
