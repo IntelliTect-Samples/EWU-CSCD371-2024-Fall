@@ -54,8 +54,10 @@ public class SampleDataAsync : SampleDataBase, IAsyncSampleData
         {
             states.Add(state);
         }
-        states.Sort();
-        return string.Join(", ", states);
+
+        return states
+            .OrderBy(state => state)
+            .Aggregate(string.Empty, (current, next) => string.IsNullOrEmpty(current) ? next : $"{current}, {next}");
     }
 
     public async IAsyncEnumerable<IPerson> GetPeopleAsync()
@@ -99,6 +101,9 @@ public class SampleDataAsync : SampleDataBase, IAsyncSampleData
             states.Add(person.Address.State);
         }
 
-        return string.Join(", ", states.OrderBy(state => state));
+        return states.Count == 0
+            ? string.Empty
+            : states.OrderBy(state => state)
+                    .Aggregate((current, next) => $"{current}, {next}");
     }
 }

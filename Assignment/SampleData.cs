@@ -19,7 +19,8 @@ public class SampleData : SampleDataBase, ISampleData
 
     public string GetAggregateSortedListOfStatesUsingCsvRows()
     {
-        return string.Join(", ", GetUniqueSortedListOfStatesGivenCsvRows());
+        return GetUniqueSortedListOfStatesGivenCsvRows()
+            .Aggregate((current, next) => current + ", " + next);
     }
 
     public IEnumerable<IPerson> People => CsvRows

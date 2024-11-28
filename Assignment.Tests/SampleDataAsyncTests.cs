@@ -25,7 +25,7 @@ public class SampleDataAsyncTests
     }
 
     [TestMethod]
-    public async Task GetUniqueSortedListOfStatesGivenCsvRows_ShouldReturnUniqueSortedListOfStates()
+    public async Task GetUniqueSortedListOfStates_GivenCsvRows_ShouldReturnUniqueSortedListOfStates()
     {
         // Arrange
         SampleDataAsync sampleData = new("People.csv");
@@ -41,7 +41,7 @@ public class SampleDataAsyncTests
     }
 
     [TestMethod]
-    public async Task GetAggregateSortedListOfStatesUsingCsvRows_ShouldReturnCommaSeparatedSortedStates()
+    public async Task GetAggregateSortedListOfStatesUsingCsvRows_Given_ShouldReturnCommaSeparatedSortedStates()
     {
         // Arrange
         SampleDataAsync sampleData = new("People.csv");
@@ -110,7 +110,7 @@ public class SampleDataAsyncTests
     }
 
     [TestMethod]
-    public async Task GetAggregateListOfStatesGivenPeopleCollection_ValidPeopleCollection_ShouldReturnCommaSeparatedStates()
+    public async Task GetAggregateListOfStates_GivenPeopleCollection_ValidPeopleCollection_ShouldReturnCommaSeparatedStates()
     {
         // Arrange
         SampleDataAsync sampleData = new("People.csv");
@@ -124,7 +124,7 @@ public class SampleDataAsyncTests
     }
 
     [TestMethod]
-    public async Task GetAggregateListOfStatesGivenPeopleCollection_EmptyPeopleCollection_ShouldReturnEmptyString()
+    public async Task GetAggregateListOfStates_GivenPeopleCollection_EmptyPeopleCollection_ShouldReturnEmptyString()
     {
         // Arrange
         SampleDataAsync sampleData = new("People.csv");
