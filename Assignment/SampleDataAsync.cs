@@ -37,7 +37,7 @@ public class SampleDataAsync : SampleDataBase, IAsyncSampleData
 
         await foreach (string row in GetCsvRowsAsync())
         {
-            string state = CsvHelper.ParseRow(row)[6];
+            string state = row.Split(',')[6];
             states.Add(state);
         }
 
@@ -64,7 +64,7 @@ public class SampleDataAsync : SampleDataBase, IAsyncSampleData
 
         await foreach (string row in GetCsvRowsAsync())
         {
-            string[] columns = CsvHelper.ParseRow(row);
+            string[] columns = row.Split(',');
             Address address = new(columns[4], columns[5], columns[6], columns[7]);
             people.Add(new Person(columns[1], columns[2], address, columns[3]));
         }

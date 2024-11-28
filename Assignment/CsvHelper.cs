@@ -4,11 +4,6 @@ public static class CsvHelper
 {
     public const string ExpectedHeader = "Id,FirstName,LastName,Email,StreetAddress,City,State,Zip";
 
-    public static string[] ParseRow(string row)
-    {
-        return row.Split(',');
-    }
-
     public static void ValidateHeader(string header)
     {
         if (header is null or not ExpectedHeader)

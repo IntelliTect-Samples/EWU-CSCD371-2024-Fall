@@ -12,7 +12,7 @@ public class SampleData : SampleDataBase, ISampleData
     public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
     {
         return CsvRows
-            .Select(row => CsvHelper.ParseRow(row)[6])
+            .Select(row => row.Split(',')[6])
             .Distinct()
             .OrderBy(state => state);
     }
@@ -23,7 +23,7 @@ public class SampleData : SampleDataBase, ISampleData
     }
 
     public IEnumerable<IPerson> People => CsvRows
-        .Select(row => CsvHelper.CreatePerson(CsvHelper.ParseRow(row)))
+        .Select(row => CsvHelper.CreatePerson(row.Split(',')))
         .OrderBy(person => person.Address.State)
         .ThenBy(person => person.Address.City)
         .ThenBy(person => person.Address.Zip);
