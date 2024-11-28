@@ -64,9 +64,12 @@ public class SampleDataTests
         SampleData sampleData = new();
 
         // Act
+        var result = sampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
+        var expectedSortedStates = result.OrderBy(state => state).ToList();
+
 
         // Assert
-        Assert.IsTrue(sampleData.GetUniqueSortedListOfStatesGivenCsvRows().First()[0] < sampleData.GetUniqueSortedListOfStatesGivenCsvRows().Last()[0]);
+        Assert.IsTrue(result.SequenceEqual(expectedSortedStates));
     }
 
     [TestMethod]
