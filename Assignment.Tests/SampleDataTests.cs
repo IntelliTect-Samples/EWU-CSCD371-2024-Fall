@@ -69,20 +69,27 @@ public class SampleDataTests
         Assert.IsTrue(sampleData.GetUniqueSortedListOfStatesGivenCsvRows().First()[0] < sampleData.GetUniqueSortedListOfStatesGivenCsvRows().Last()[0]);
     }
 
-    //[TestMethod]
-    //public void GetUniqueSortedListOfStates_Called_LinqVerifiesSorted()
-    //{
-    //    // Arrange
-    //    SampleData sampleData = new();
+    [TestMethod]
+    public void GetUniqueSortedListOfStates_Called_HardCodedVerifiesSorted()
+    {
+        // Arrange
+        SampleData sampleData = new();
+        List<string> csvRows =
+    [
+        "1,Priscilla,Jenyns,pjenyns0@state.gov,7884 Corry Way,Helena,MT,70577",
+        "2,Karin,Joder,kjoder1@quantcast.com,03594 Florence Park,Tampa,FL,71961",
+        "3,Chadd,Stennine,cstennine2@wired.com,94148 Kings Terrace,Long Beach,CA,59721"
+    ];
+        sampleData.CsvRows = csvRows;
 
-    //    // Act
-    //    IEnumerable<string> sortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
-    //    IEnumerable<string> test = from state in sortedStates
-    //                               where sortedStates.ElementAt(0)
-    //                               select state;
-    //    // Assert
-    //    Assert.IsTrue(sampleData.GetUniqueSortedListOfStatesGivenCsvRows().First()[0] < sampleData.GetUniqueSortedListOfStatesGivenCsvRows().Last()[0]);
-    //}
+        // Act
+        var result = sampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToList();  // Ensure it's a List
+        var expectedStates = new List<string> { "CA", "FL", "MT" };
+
+
+        // Assert the lists are equal
+        CollectionAssert.AreEqual(expectedStates, result);
+    }
 
     [TestMethod]
     public void GetAggregateSortedListOfStates_Called_ReturnsCorrectly()
