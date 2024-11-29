@@ -9,7 +9,7 @@ namespace Assignment.Tests;
 public class SampleDataTests
 {
     [Fact]
-    public void SkipFirstRow_CsvRows_Sucess()
+    public void SkipFirstRowCsvRowsSucess()
     {
         //Arrange
         SampleData sampleData = new();
@@ -22,7 +22,7 @@ public class SampleDataTests
     }
 
     [Fact]
-    public void GetSortedListOfStates_GivenCsvRow_Sucess()
+    public void GetSortedListOfStatesGivenCsvRowSucess()
     {
         //Arrange
         SampleData sampleData = new();
@@ -32,7 +32,7 @@ public class SampleDataTests
     }
 
     [Fact]
-    public void GetAggergateSortedListOfStates_UseingCsvRows_Sucess()
+    public void GetAggergateSortedListOfStatesUseingCsvRowsSucess()
     {
         //Arrange
         SampleData sampleDate = new();
@@ -46,7 +46,7 @@ public class SampleDataTests
     }
 
     [Fact]
-    public void MakePersonList_People_ReturnsPersonCollection()
+    public void MakePersonListPeopleReturnsPersonCollection()
     {
         //Arrange
         SampleData sampleData = new();
@@ -62,7 +62,7 @@ public class SampleDataTests
         Assert.AreEqual("69152", people.ElementAt(3).Address.Zip);
     }
     [Fact]
-    public void filterByEmail_EmailAddress_Sucess()
+    public void filterByEmailEmailAddressSucess()
     {
         //Arrange
         SampleData sampleData = new();
@@ -80,7 +80,7 @@ public class SampleDataTests
     }
 
     [Fact]
-    public void GetAggregateListOfStates_GivenPeopleCollection_ReturnSucessfuly()
+    public void GetAggregateListOfStatesGivenPeopleCollectionReturnSucessfuly()
     {
         //Arrange
         SampleData sampleData = new();
@@ -97,7 +97,7 @@ public class SampleDataTests
     }
 
     [Fact]
-    public void GetUniqueSortedListOfStatesGivenHarcodeData_GivenCsvRoew_Success()
+    public void GetUniqueSortedListOfStatesGivenHarcodeDataGivenCsvRoewSuccess()
     {
         //Arrange
         SampleData sampleData = new();
