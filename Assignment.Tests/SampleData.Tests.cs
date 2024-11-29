@@ -40,7 +40,6 @@ namespace Assignment.Tests;
             var expected = sampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToList();
             var result = sampleData.GetAggregateListOfStatesGivenPeopleCollection(people);
             var resultStates = result.Split(",").ToList();
-
             // Assert
             Assert.Equal(expected, resultStates);
         }
