@@ -28,7 +28,7 @@ public class SampleDataTests
         SampleData sampleData = new();
 
         //Assert
-        Assert.AreEqual(27, sampleData.GetAggregateSortedListOfStatesUsingCsvRows().Length);
+        Assert.AreEqual(27, sampleData.GetUniqueSortedListOfStatesGivenCsvRows().Count());
     }
 
     [Fact]
