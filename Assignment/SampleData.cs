@@ -17,7 +17,6 @@ public class SampleData : ISampleData
     // 3. Get Aggregate Sorted List Of States Using CsvRows
     public string GetAggregateSortedListOfStatesUsingCsvRows() 
     {
-        String A = string.Join(",", GetUniqueSortedListOfStatesGivenCsvRows());
 
         return string.Join(",", GetUniqueSortedListOfStatesGivenCsvRows());
 
