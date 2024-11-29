@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Assignment.Tests;
@@ -35,17 +36,36 @@ public class SampleDataTests
     }
 
     [TestMethod]
-    public void GetUniqueSortedListOfStatesGivenCsvRows_Linq_ReturnsUniqueSortedStates()
+    public void GetUniqueSortedListOfStatesGivenCsvRows_LinqSampleData_ReturnsUniqueSortedStates()
     {
         // Arrange
         var sampleData = new SampleDataForTesting(GetHardcodedCsvRows());
 
         // Act
         IEnumerable<string> uniqueSortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+        bool isSorted = uniqueSortedStates.SequenceEqual(uniqueSortedStates.OrderBy(state => state));
 
         // Assert
-        bool isSorted = uniqueSortedStates.SequenceEqual(uniqueSortedStates.OrderBy(state => state));
         Assert.IsTrue(isSorted, "States aren't sorted alphabetically.");
+    }
+
+    [TestMethod]
+    public void GetUniqueSortedListOfStatesGivenCsvRows_LinqPeopleCollection_ReturnsUniqueSortedStates()
+    {
+        // Arrange
+        SampleData sampleData = new();
+        IEnumerable<string> people = File.ReadAllLines("People.csv").Skip(1);
+        
+        // Act
+        List<string> expectedResult = people
+            .Select(row => row.Split(',')[6])
+            .Distinct()
+            .OrderBy(state => state)
+            .ToList();
+        IEnumerable<string> result = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+
+        // Assert
+        CollectionAssert.AreEqual(expectedResult, result.ToList(), "The unique sorted list of states is incorrect.");
     }
 
     [TestMethod]
