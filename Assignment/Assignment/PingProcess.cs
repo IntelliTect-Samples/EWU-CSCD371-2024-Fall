@@ -42,22 +42,9 @@ public class PingProcess
         Task<PingResult> task = Task<PingResult>.Run(() =>
             
                 {
+                    PingResult result = Run(hostNameOrAddress);
                     cancellationToken.ThrowIfCancellationRequested();
-
-                    StartInfo.Arguments = hostNameOrAddress;
-                    cancellationToken.ThrowIfCancellationRequested();
-                    StringBuilder? stringBuilder = null;
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                    void updateStdOutput(string? line) =>
-                        (stringBuilder ??= new StringBuilder()).AppendLine(line);
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                    Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                    return new PingResult(process.ExitCode, stringBuilder?.ToString());
-
+                    return result;
                     }
             , cancellationToken
             );
