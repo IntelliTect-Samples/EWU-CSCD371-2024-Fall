@@ -43,7 +43,7 @@ public class PingProcess
         return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
-    public async Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
+    public static async Task<PingResult> RunAsync(params string[] hostNameOrAddresses) //TODO: Implement this method, remove static modifier
     {
         StringBuilder? stringBuilder = null;
         ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
