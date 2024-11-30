@@ -27,15 +27,28 @@ public class PingProcess
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        throw new NotImplementedException();
+        Task<PingResult> task = Task.Run<PingResult>(() =>
+        
+            Run(hostNameOrAddress)
+        );
+
+        return task;
+
     }
 
     async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        Task task = null!;
+        Task<PingResult> task = Task.Run<PingResult>(() =>
+
+            Run(hostNameOrAddress)
+        );
         await task;
-        throw new NotImplementedException();
+        return task.Result;
+
+        //PingResult result = await RunTaskAsync(hostNameOrAddress);
+        
+        //return result;
     }
 
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
