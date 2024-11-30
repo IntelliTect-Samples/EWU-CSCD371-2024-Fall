@@ -30,12 +30,17 @@ public class PingProcess
         throw new NotImplementedException();
     }
 
-    public async Task<PingResult> RunAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+    public async Task<PingResult> RunAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        StartInfo.Arguments = hostNameOrAddress;
+        StringBuilder? stringBuilder = null;
+        void updateStdOutput(string? line) =>
+            (stringBuilder ??= new StringBuilder()).AppendLine(line);
+
+        Process process = RunProcessInternal(StartInfo, updateStdOutput, null, cancellationToken);
+        await Task.Run(process.WaitForExit, cancellationToken);
+
+        return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
     public async Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
@@ -55,12 +60,17 @@ public class PingProcess
         return new PingResult(total, stringBuilder?.ToString());
     }
 
-    public async Task<PingResult> RunLongRunningAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+    public async Task<PingResult> RunLongRunningAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        StartInfo.Arguments = hostNameOrAddress;
+        StringBuilder? stringBuilder = null;
+        void updateStdOutput(string? line) =>
+            (stringBuilder ??= new StringBuilder()).AppendLine(line);
+
+        Process process = RunProcessInternal(StartInfo, updateStdOutput, null, cancellationToken);
+        await Task.Run(process.WaitForExit, cancellationToken);
+
+        return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
     private Process RunProcessInternal(
@@ -69,7 +79,7 @@ public class PingProcess
         Action<string?>? progressError,
         CancellationToken token)
     {
-        var process = new Process
+        Process process = new()
         {
             StartInfo = UpdateProcessStartInfo(startInfo)
         };
