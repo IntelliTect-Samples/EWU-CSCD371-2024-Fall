@@ -15,19 +15,18 @@ public class SampleData : ISampleData
     public IEnumerable<string> CsvRows { get; set; } = File.ReadLines("People.csv").Skip(1);
 
     // 2.
-    public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
-    {
-        /*
+
+    /*
             Process each row, splitting it into columns and extracting the state (7th column, index 6).
             The Trim method ensures no leading or trailing whitespace in the state names.
             The Distinct method removes duplicate state entries.
             The OrderBy method sorts the states alphabetically.
         */
+    public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() => CsvRows
+    .Select(row => row.Split(",")[6].Trim())
+    .Distinct()
+    .OrderBy(state => state);
 
-        return CsvRows.Select(row => row.Split(",")[6].Trim())
-            .Distinct()
-            .OrderBy(state => state);
-    }
 
     // 3.
     public string GetAggregateSortedListOfStatesUsingCsvRows()
