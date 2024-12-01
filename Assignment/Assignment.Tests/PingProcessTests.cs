@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Assignment.Tests;
@@ -59,42 +60,67 @@ public class PingProcessTests
     {
         // Do NOT use async/await in this test.
         // Test Sut.RunTaskAsync("localhost");
+        Task<PingResult> result = Sut.RunTaskAsync("localhost");
+        //result.Wait();
+
+        AssertValidPingOutput(result.Result);
     }
 
     [TestMethod]
     public void RunAsync_UsingTaskReturn_Success()
     {
         // Do NOT use async/await in this test.
-        PingResult result = default;
+        PingResult result = Sut.RunAsync("localhost").Result;
         // Test Sut.RunAsync("localhost");
         AssertValidPingOutput(result);
     }
 
     [TestMethod]
-#pragma warning disable CS1998 // Remove this
     async public Task RunAsync_UsingTpl_Success()
     {
         // DO use async/await in this test.
-        PingResult result = default;
+        PingResult result = await Sut.RunAsync("localhost");
 
         // Test Sut.RunAsync("localhost");
         AssertValidPingOutput(result);
     }
-#pragma warning restore CS1998 // Remove this
 
 
     [TestMethod]
     [ExpectedException(typeof(AggregateException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
-        
+
+        CancellationTokenSource cts = new CancellationTokenSource();
+        var token = cts.Token;
+        Task<PingResult> pr = Sut.RunAsync("localhost", token);
+        cts.Cancel();
+        PingResult asdf = pr.Result;
+
+
     }
 
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
-        // Use exception.Flatten()
+        try
+        {
+
+            CancellationTokenSource cts = new CancellationTokenSource();
+            Task<PingResult> pr = Sut.RunAsync("localhost", cts.Token);
+            cts.Cancel();
+            PingResult asdf = pr.Result;
+        }
+        catch (AggregateException ex)
+        {
+            foreach (var e in ex.Flatten().InnerExceptions)
+            {
+                throw e;
+            }
+        }
+
+
     }
 
     [TestMethod]

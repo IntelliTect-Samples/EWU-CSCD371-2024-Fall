@@ -27,31 +27,51 @@ public class PingProcess
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        throw new NotImplementedException();
+        Task<PingResult> task = Task.Run<PingResult>(() =>
+        
+            Run(hostNameOrAddress)
+        );
+
+        return task;
+
     }
 
     async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        Task<PingResult> task = Task.Run(() =>
+            
+                {
+                    PingResult result = Run(hostNameOrAddress);
+                    cancellationToken.ThrowIfCancellationRequested();
+                    return result;
+                    }
+            , cancellationToken
+            );
+        return await task;
+
+
     }
 
-    async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
+    async public Task<PingResult> RunAsync(string[] hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
-        StringBuilder? stringBuilder = null;
-        ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
+        StringBuilder? stringBuilder = new();
+        ParallelQuery<Task<PingResult>>? all = hostNameOrAddresses.AsParallel().WithCancellation(cancellationToken).Select(async item =>
         {
-            Task<PingResult> task = null!;
-            // ...
 
-            await task.WaitAsync(default(CancellationToken));
-            return task.Result.ExitCode;
+            Task<PingResult> task = Task<PingResult>.Run(() => Run(item),cancellationToken);
+            
+            await task.WaitAsync(cancellationToken);
+            return task.Result;
         });
 
         await Task.WhenAll(all);
-        int total = all.Aggregate(0, (total, item) => total + item.Result);
+        int total = all.Aggregate(0, (total, item) => total + item.Result.ExitCode);
+        foreach (var item in all)
+        {
+            stringBuilder.Append(item.Result.StdOutput);
+        }
+
         return new PingResult(total, stringBuilder?.ToString());
     }
 
