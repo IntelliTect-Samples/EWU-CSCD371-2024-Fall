@@ -53,34 +53,47 @@ public class PingProcess
 
     }
 
-    async public Task<PingResult> RunAsync(string[] hostNameOrAddresses, CancellationToken cancellationToken = default)
+    // #4
+    async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
         StringBuilder? stringBuilder = new();
-        ParallelQuery<Task<PingResult>>? all = hostNameOrAddresses.AsParallel().WithCancellation(cancellationToken).Select(async item =>
-        {
 
-            Task<PingResult> task = Task<PingResult>.Run(() => Run(item),cancellationToken);
-            
-            await task.WaitAsync(cancellationToken);
-            return task.Result;
+        var sema = new SemaphoreSlim(1);
+        var tasks = hostNameOrAddresses.Select(async item =>
+        {
+            try
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                PingResult result = await RunAsync(item, cancellationToken);
+                if (result.StdOutput != null)
+                {
+                    await sema.WaitAsync(cancellationToken);
+                    stringBuilder.Append(result.StdOutput);
+                    sema.Release();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                await sema.WaitAsync(cancellationToken);
+                try { stringBuilder.AppendLine(ex.Message); }
+                finally
+                { sema.Release(); }
+            }
         });
-
-        await Task.WhenAll(all);
-        int total = all.Aggregate(0, (total, item) => total + item.Result.ExitCode);
-        foreach (var item in all)
-        {
-            stringBuilder.Append(item.Result.StdOutput);
-        }
-
-        return new PingResult(total, stringBuilder?.ToString());
+        await Task.WhenAll(tasks);
+        return new PingResult(0, stringBuilder?.ToString());
     }
 
-    async public Task<PingResult> RunLongRunningAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+    // #5
+    public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        return Task.Factory.StartNew(() =>
+        {
+            Process process = new() { StartInfo = UpdateProcessStartInfo(startInfo) };
+            RunProcessInternal(process, progressOutput, progressError, token);
+            return process.ExitCode;
+        }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
     }
 
     private Process RunProcessInternal(
