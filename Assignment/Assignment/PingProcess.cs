@@ -70,7 +70,7 @@ public class PingProcess
                 if (result.StdOutput != null)
                 {
                     await sema.WaitAsync(cancellationToken);
-                    stringBuilder.Append(result.StdOutput);
+                    stringBuilder.AppendLine(result.StdOutput.Trim());
                     sema.Release();
                 }
 
