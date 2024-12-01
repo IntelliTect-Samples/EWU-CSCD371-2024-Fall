@@ -25,6 +25,7 @@ public class PingProcess
         return new PingResult( process.ExitCode, stringBuilder?.ToString());
     }
 
+    // #1
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
         Task<PingResult> task = Task.Run<PingResult>(() =>
@@ -36,6 +37,7 @@ public class PingProcess
 
     }
 
+    // #2 & 3
     async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
