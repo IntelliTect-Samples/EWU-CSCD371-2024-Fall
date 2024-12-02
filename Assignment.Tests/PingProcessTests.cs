@@ -129,7 +129,7 @@ public class PingProcessTests
     //}
 
     [TestMethod]
-    public async Task RunAsync_MultipleHostAddresses_True(PingProcess sut)
+    public async Task RunAsync_MultipleHostAddresses_True() // Deleted Parameter because we were no longer using it. This may or may not work in the future.
     {
         // Arrange
         string[] hostNames = ["localhost", "localhost", "localhost", "localhost"];
