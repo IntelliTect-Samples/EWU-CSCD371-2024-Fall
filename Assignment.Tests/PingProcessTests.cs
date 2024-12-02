@@ -56,6 +56,22 @@ public class PingProcessTests
     [TestMethod]
     public void RunTaskAsync_Success()
     {
+        // Messin Around
+
+        // Arrange
+        PingProcess pp = new();
+
+        // Act
+        Task<PingResult> task = pp.RunTaskAsync("localhost");
+        PingResult result = task.Result;
+
+        // Assert
+        AssertValidPingOutput(result); //This might work, need to look more into it.
+        Assert.AreEqual(0, result.ExitCode);
+        Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
+
+        // Messin Around
+
         // Do NOT use async/await in this test.
         // Test Sut.RunTaskAsync("localhost");
     }
