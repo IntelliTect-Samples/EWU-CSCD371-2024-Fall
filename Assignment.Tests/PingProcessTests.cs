@@ -112,13 +112,33 @@ public class PingProcessTests
         // Use exception.Flatten()
     }
 
-    [TestMethod]
-    public async Task RunAsync_MultipleHostAddresses_True()
+    public PingProcess GetSut()
     {
-        // Pseudo Code - don't trust it!!!
+        return Sut;
+    }
+
+    //[TestMethod]
+    //public async Task RunAsync_MultipleHostAddresses_True()
+    //{
+    //    // Pseudo Code - don't trust it!!!
+    //    string[] hostNames = ["localhost", "localhost", "localhost", "localhost"];
+    //    int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
+    //    PingResult result = await Sut.RunAsync(hostNames);
+    //    int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
+    //    Assert.AreEqual(expectedLineCount, lineCount);
+    //}
+
+    [TestMethod]
+    public async Task RunAsync_MultipleHostAddresses_True(PingProcess sut)
+    {
+        // Arrange
         string[] hostNames = ["localhost", "localhost", "localhost", "localhost"];
         int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
-        PingResult result = await Sut.RunAsync(hostNames);
+
+        // Act
+        PingResult result = await PingProcess.RunAsync(hostNames);  // Changed this to make pass because we changed method to static
+
+        // Assert
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
         Assert.AreEqual(expectedLineCount, lineCount);
     }
