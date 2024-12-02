@@ -177,16 +177,16 @@ public class PingProcessTests
     }
 
     private readonly string PingOutputLikeExpression = @"
-        Pinging * with 32 bytes of data:
-        Reply from ::1: time<*
-        Reply from ::1: time<*
-        Reply from ::1: time<*
-        Reply from ::1: time<*
+Pinging * with 32 bytes of data:
+Reply from ::1: time<*
+Reply from ::1: time<*
+Reply from ::1: time<*
+Reply from ::1: time<*
 
-        Ping statistics for ::1:
-        Packets: Sent = *, Received = *, Lost = 0 (0% loss),
-        Approximate round trip times in milli-seconds:
-        Minimum = *, Maximum = *, Average = *".Trim();
+Ping statistics for ::1:
+    Packets: Sent = *, Received = *, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = *, Maximum = *, Average = *".Trim();
 
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
