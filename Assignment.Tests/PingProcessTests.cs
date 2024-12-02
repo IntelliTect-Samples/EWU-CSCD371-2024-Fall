@@ -46,12 +46,12 @@ public class PingProcessTests
         Assert.AreEqual<int>(1, exitCode);
     }
 
-    //[TestMethod]
-    //public void Run_CaptureStdOutput_Success()
-    //{
-    //    PingResult result = Sut.Run("localhost");
-    //    AssertValidPingOutput(result);
-    //}
+    [TestMethod]
+    public void Run_CaptureStdOutput_Success()
+    {
+        PingResult result = Sut.Run("localhost");
+        AssertValidPingOutput(result);
+    }
 
     [TestMethod]
     public void RunTaskAsync_Success()
@@ -66,9 +66,8 @@ public class PingProcessTests
         PingResult result = task.Result;
 
         // Assert
-        //AssertValidPingOutput(result); //This might work, need to look more into it.
+        AssertValidPingOutput(result);
         Assert.AreEqual(0, result.ExitCode);
-        //Assert.AreEqual("", result.StdOutput);
         Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
 
         // Messin Around
@@ -88,10 +87,9 @@ public class PingProcessTests
         task.Wait();
 
         // Test Sut.RunAsync("localhost");
-        AssertValidPingOutput(result);
         // Assert
+        AssertValidPingOutput(result);
         Assert.AreEqual(0, result.ExitCode);
-        Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
     }
 
     [TestMethod]
@@ -103,8 +101,8 @@ public class PingProcessTests
         PingResult result = await Sut.RunAsync("localhost");
 
         // Test Sut.RunAsync("localhost");
-        //AssertValidPingOutput(result);
 
+        AssertValidPingOutput(result);
         Assert.AreEqual(0, result.ExitCode);
         Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
     }
@@ -115,7 +113,20 @@ public class PingProcessTests
     [ExpectedException(typeof(AggregateException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
+        string[] hostNames = ["localhost", "localhost", "localhost", "localhost"];
+        CancellationTokenSource cts = new();
+
+        Task task = Task.Run(() =>
+        {
+            Task<PingResult> result = Sut.RunAsync(hostNames, cts.Token);
+            cts.Cancel();
+            return result;
+        });
+
+        task.Wait();
     }
+
+    // FOR TYLER -- THIS IS WHERE I STOPPED, I NEED TO WRITE THAT NEXT TEST BELOW THIS NOTE.
 
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]

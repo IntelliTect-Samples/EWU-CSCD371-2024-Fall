@@ -43,21 +43,37 @@ public class PingProcess
         return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
-    public static async Task<PingResult> RunAsync(params string[] hostNameOrAddresses) //TODO: Implement this method, remove static modifier
+    public async Task<PingResult> RunAsync(string[] hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
         StringBuilder? stringBuilder = null;
-        ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
+        ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async hostName =>
         {
-            Task<PingResult> task = null!;
-            // ...
+            cancellationToken.ThrowIfCancellationRequested();
 
-            await task.WaitAsync(default(CancellationToken));
-            return task.Result.ExitCode;
+            Task<PingResult> pingTask = Task.Run(() => Run(hostName), cancellationToken);
+
+            PingResult result = await pingTask.WaitAsync(cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return result.ExitCode;
         });
 
-        await Task.WhenAll(all);
-        int total = all.Aggregate(0, (total, item) => total + item.Result);
+        try
+        {
+            await Task.WhenAll(all);
+        }
+        catch (OperationCanceledException)
+        {
+            throw new AggregateException("Task was canceled.", new TaskCanceledException());
+        }
+
+        // Aggregate results (if not canceled)
+        int total = all.Aggregate(0, (sum, task) => sum + task.Result);
         return new PingResult(total, stringBuilder?.ToString());
+
+        //await Task.WhenAll(all);
+        //int total = all.Aggregate(0, (total, item) => total + item.Result);
+        //return new PingResult(total, stringBuilder?.ToString());
     }
 
     public async Task<PingResult> RunLongRunningAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
