@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Assignment.Tests;
-
 [TestClass]
 public class PingProcessTests
 {
@@ -55,10 +54,18 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    public void RunTaskAsync_Success()
+    [DataRow("www.google.com")]
+    [DataRow("localhost")]
+    [DataRow("8.8.8.8")]
+    [DataRow("facebook.com")]
+    public void RunTaskAsync_Success(string address)
     {
-        // Do NOT use async/await in this test.
-        // Test Sut.RunTaskAsync("localhost");
+
+        //Act
+        Task<PingResult> task= Sut.RunTaskAsync(address);
+        task.Wait();
+        //Assert
+        Assert.AreEqual(0, task.Result.ExitCode);
     }
 
     [TestMethod]
