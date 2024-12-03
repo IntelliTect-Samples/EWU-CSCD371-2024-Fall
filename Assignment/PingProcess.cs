@@ -27,18 +27,34 @@ public class PingProcess
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        throw new NotImplementedException();
+        return Task.Run(() => Run(hostNameOrAddress));
     }
 
-    async public Task<PingResult> RunAsync(
+
+    public async Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        try
+        {
+            // Throw if cancellation is requested before starting the task
+            cancellationToken.ThrowIfCancellationRequested();
+
+            // Runs the ping operation in a separate task, passing the cancellation token
+            PingResult result = await Task.Run(() => Run(hostNameOrAddress), cancellationToken);
+
+            return result;
+        }
+        catch (OperationCanceledException)
+        {
+            // Wraps the cancellation exception into an AggregateException as required
+            TaskCanceledException taskCanceledException = new();
+            AggregateException aggregateException = new(taskCanceledException);
+            throw aggregateException;
+        }
     }
 
-    async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
+
+    public async Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
         StringBuilder? stringBuilder = null;
         ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
@@ -55,7 +71,7 @@ public class PingProcess
         return new PingResult(total, stringBuilder?.ToString());
     }
 
-    async public Task<PingResult> RunLongRunningAsync(
+    public async Task<PingResult> RunLongRunningAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         Task task = null!;
