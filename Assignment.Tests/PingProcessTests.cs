@@ -59,11 +59,10 @@ public class PingProcessTests
     public void RunTaskAsync_Success()
     {
         // Arrange
-        PingProcess pingProcess = new();
         string expectedHost = "localhost";
 
         // Act
-        Task<PingResult> task = pingProcess.RunTaskAsync(expectedHost); // Calls the method under test
+        Task<PingResult> task = Sut.RunTaskAsync(expectedHost); // Calls the method under test
         PingResult result = task.Result; // Waits for the task to complete synchronously
 
         // Assert
@@ -78,11 +77,10 @@ public class PingProcessTests
         // Do NOT use async/await in this test.
 
         // Arrange
-        PingProcess pingProcess = new ();
         string expectedHost = "localhost";
 
         // Act
-        Task<PingResult> task = pingProcess.RunAsync(expectedHost);
+        Task<PingResult> task = Sut.RunAsync(expectedHost);
         PingResult result = task.Result; // Block synchronously for task completion
 
         // Assert
@@ -95,11 +93,10 @@ public class PingProcessTests
         // DO use async/await in this test.
 
         // Arrange
-        PingProcess pingProcess = new ();
         string expectedHost = "localhost";
 
         // Act
-        PingResult result = await pingProcess.RunAsync(expectedHost);
+        PingResult result = await Sut.RunAsync(expectedHost);
 
         // Assert
         AssertValidPingOutput(result);
@@ -110,23 +107,24 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
         // Arrange
-        PingProcess pingProcess = new ();
         string expectedHost = "localhost";
-        CancellationTokenSource cts = new ();
+        CancellationTokenSource cts = new();
         cts.Cancel(); // Immediately cancel the token
 
         // Act
         try
         {
-            Task<PingResult> task = pingProcess.RunAsync(expectedHost, cts.Token);
-            PingResult result = task.Result; // This should throw
+            // Accessing task.Result triggers the AggregateException due to task cancellation
+            Sut.RunAsync(expectedHost, cts.Token).Wait();
         }
         catch (AggregateException ex)
         {
+            // Assert that the inner exception is a TaskCanceledException
             Assert.IsTrue(ex.InnerException is TaskCanceledException);
             throw; // Re-throw to satisfy ExpectedException attribute
         }
     }
+
 
 
 
@@ -167,16 +165,15 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
         // Arrange
-        PingProcess pingProcess = new ();
         string expectedHost = "localhost";
-        CancellationTokenSource cts = new ();
+        CancellationTokenSource cts = new();
         cts.Cancel(); // Immediately cancel the token
 
         // Act
         try
         {
-            Task<PingResult> task = pingProcess.RunAsync(expectedHost, cts.Token);
-            PingResult result = task.Result; // This should throw
+            // Accessing task.Result triggers the AggregateException due to task cancellation
+            Sut.RunAsync(expectedHost, cts.Token).Wait();
         }
         catch (AggregateException ex)
         {
@@ -187,9 +184,10 @@ public class PingProcessTests
                 .FirstOrDefault();
 
             Assert.IsNotNull(taskCanceledEx);
-            throw taskCanceledEx; // Re-throw to satisfy ExpectedException attribute
+            throw taskCanceledEx; // Re-throws the TaskCanceledException to satisfy ExpectedException attribute
         }
     }
+
 
     
     [TestMethod]
