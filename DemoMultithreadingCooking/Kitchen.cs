@@ -1,4 +1,4 @@
-﻿
+
 using System.Diagnostics;
 
 namespace DemoMultithreadingCooking;
@@ -6,8 +6,13 @@ namespace DemoMultithreadingCooking;
 public class Kitchen
 {
     private Stopwatch _stopwatch = new();
-    public async Task CookBreakfast()
+    public async Task CookBreakfast(CancellationToken token = default)
     {
+        if (token.IsCancellationRequested)
+        {
+            Console.WriteLine("Cancellation requested");
+            return;
+        }
         _stopwatch.Start();
         Console.WriteLine(nameof(CookEggs) + "Before Task.Run" + " Thread ID: " + Environment.CurrentManagedThreadId);
         Task cookEggsTask = CookEggs();
