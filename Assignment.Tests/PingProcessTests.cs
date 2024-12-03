@@ -95,7 +95,7 @@ public class PingProcessTests
         // DO use async/await in this test.
 
         // Arrange
-        PingProcess pingProcess = new PingProcess();
+        PingProcess pingProcess = new ();
         string expectedHost = "localhost";
 
         // Act
@@ -110,9 +110,9 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
         // Arrange
-        PingProcess pingProcess = new PingProcess();
+        PingProcess pingProcess = new ();
         string expectedHost = "localhost";
-        CancellationTokenSource cts = new CancellationTokenSource();
+        CancellationTokenSource cts = new ();
         cts.Cancel(); // Immediately cancel the token
 
         // Act
@@ -167,9 +167,9 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
         // Arrange
-        PingProcess pingProcess = new PingProcess();
+        PingProcess pingProcess = new ();
         string expectedHost = "localhost";
-        CancellationTokenSource cts = new CancellationTokenSource();
+        CancellationTokenSource cts = new ();
         cts.Cancel(); // Immediately cancel the token
 
         // Act
