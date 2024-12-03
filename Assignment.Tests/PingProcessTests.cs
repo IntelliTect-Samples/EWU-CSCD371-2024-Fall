@@ -58,7 +58,7 @@ public class PingProcessTests
     public void RunTaskAsync_Success()
     {
         // Arrange
-        PingProcess pingProcess = new PingProcess();
+        PingProcess pingProcess = new();
         string expectedHost = "localhost";
 
         // Act
