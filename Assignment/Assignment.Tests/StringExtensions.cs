@@ -6,6 +6,7 @@ namespace IntelliTect.TestTools;
 /// <summary>
 /// Useful string extensions for performing assertions.
 /// </summary>
+
 public static class StringExtensions
 {
     /// <summary>
@@ -24,8 +25,7 @@ public static class StringExtensions
     // even though a default escapeCharacter is provided as it
     // is hopefully simpler to use this one because no thinking 
     // about escapeCharacter is required.  
-    public static bool IsLike(this string text, string pattern) =>
-        new WildcardPattern(pattern).IsMatch(text);
+    public static bool IsLike(this string text, string pattern) => new WildcardPattern(pattern).IsMatch(text);
 
     /// <summary>
     /// Implement's VB's Like operator logic.
