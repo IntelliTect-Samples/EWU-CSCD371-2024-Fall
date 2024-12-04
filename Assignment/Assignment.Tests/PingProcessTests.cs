@@ -1,4 +1,4 @@
-﻿using IntelliTect.TestTools;
+using IntelliTect.TestTools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -137,12 +137,12 @@ public class PingProcessTests
 
     readonly string PingOutputLikeExpression = @"
 Pinging * with 32 bytes of data:
-Reply from ::1: time<*
-Reply from ::1: time<*
-Reply from ::1: time<*
-Reply from ::1: time<*
+Reply from *
+Reply from *
+Reply from *
+Reply from *
 
-Ping statistics for ::1:
+Ping statistics for *
     Packets: Sent = *, Received = *, Lost = 0 (0% loss),
 Approximate round trip times in milli-seconds:
     Minimum = *, Maximum = *, Average = *".Trim();
