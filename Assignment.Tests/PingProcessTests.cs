@@ -11,7 +11,7 @@ namespace Assignment.Tests;
 [TestClass]
 public class PingProcessTests
 {
-    PingProcess Sut { get; set; } = new();
+    public PingProcess Sut { get; set; } = new();
 
     [TestInitialize]
     public void TestInitialize()
@@ -91,11 +91,11 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
 
-        CancellationTokenSource cts = new CancellationTokenSource();
+        CancellationTokenSource cts = new();
         var token = cts.Token;
         Task<PingResult> pr = Sut.RunAsync("localhost", token);
         cts.Cancel();
-        PingResult asdf = pr.Result;
+        PingResult temp = pr.Result;
 
 
     }
@@ -107,7 +107,7 @@ public class PingProcessTests
         try
         {
 
-            CancellationTokenSource cts = new CancellationTokenSource();
+            CancellationTokenSource cts = new();
             Task<PingResult> pr = Sut.RunAsync("localhost", cts.Token);
             cts.Cancel();
             PingResult asdf = pr.Result;
@@ -151,7 +151,7 @@ public class PingProcessTests
         Assert.AreNotEqual(lineCount, numbers.Count()+1);
     }
 
-    readonly string PingOutputLikeExpression = @"
+    private readonly string PingOutputLikeExpression = @"
 Pinging * with 32 bytes of data:
 Reply from ::1: time<*
 Reply from ::1: time<*
