@@ -91,17 +91,24 @@ public class PingProcessTests
     }
 
     [TestMethod]
-#pragma warning disable CS1998 // Remove this
-    async public Task RunAsync_UsingTpl_Success()
+    [DataRow("www.google.com")]
+    [DataRow("localhost")]
+    [DataRow("8.8.8.8")]
+    [DataRow("facebook.com")]
+    async public Task RunAsync_UsingTpl_Success(string hostName)
     {
+        // Arrange
         // DO use async/await in this test.
         PingResult result = default;
 
+        // Act
+        Task<PingResult> pingResult = Sut.RunAsync(hostName);
+        result = await pingResult;
+
+        //Assert
         // Test Sut.RunAsync("localhost");
         AssertValidPingOutput(result);
     }
-#pragma warning restore CS1998 // Remove this
-
 
     [TestMethod]
     [ExpectedException(typeof(AggregateException))]
