@@ -150,19 +150,19 @@ public class PingProcessTests
         return Sut;
     }
 
-    // FOR TYLER -- THIS IS WHERE I STOPPED, I NEED TO WRITE THAT NEXT TEST BELOW THIS NOTE.
-    // I already "accidently" implemented the method lol. I just need to write the test for it.
+    // FOR TYLER -- THIS IS WHERE I STOPPED, I NEED TO WRITE THE NEXT TEST BELOW THIS NOTE.
+    // I already started working on implemented the method, but it is not right at all lol.
 
-    //[TestMethod]
-    //public async Task RunAsync_MultipleHostAddresses_True()
-    //{
-    //    // Pseudo Code - don't trust it!!!
-    //    string[] hostNames = ["localhost", "localhost", "localhost", "localhost"];
-    //    int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
-    //    PingResult result = await Sut.RunAsync(hostNames);
-    //    int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
-    //    Assert.AreEqual(expectedLineCount, lineCount);
-    //}
+    [TestMethod]
+    public async Task RunAsync_MultipleHostAddresses_True()
+    {
+        // Pseudo Code - don't trust it!!!
+        string[] hostNames = ["localhost", "localhost", "localhost", "localhost"];
+        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
+        PingResult result = await Sut.RunAsync(hostNames);
+        int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
+        Assert.AreEqual(expectedLineCount, lineCount);
+    }
 
     //[TestMethod]
     //public async Task RunAsync_MultipleHostAddresses_True() // Deleted Parameter because we were no longer using it. This may or may not work in the future.
