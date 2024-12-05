@@ -56,8 +56,6 @@ public class PingProcessTests
     [TestMethod]
     public void RunTaskAsync_Success()
     {
-        // Messin Around
-
         // Arrange
         PingProcess pp = new();
 
@@ -69,8 +67,6 @@ public class PingProcessTests
         AssertValidPingOutput(result);
         Assert.AreEqual(0, result.ExitCode);
         Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
-
-        // Messin Around
 
         // Do NOT use async/await in this test.
         // Test Sut.RunTaskAsync("localhost");
@@ -113,7 +109,7 @@ public class PingProcessTests
     [ExpectedException(typeof(AggregateException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
-        string[] hostNames = ["localhost", "localhost", "localhost", "localhost"];
+        string hostNames = "localhost";
         CancellationTokenSource cts = new();
 
         Task task = Task.Run(() =>
@@ -126,12 +122,26 @@ public class PingProcessTests
         task.Wait();
     }
 
-    // FOR TYLER -- THIS IS WHERE I STOPPED, I NEED TO WRITE THAT NEXT TEST BELOW THIS NOTE.
-
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
+        // Arrange
+        PingProcess sut = new();
+        string hostNames = "localhost";
+        CancellationTokenSource cts = new();
+
+        // Act
+        try
+        {
+            Task task = sut.RunAsync(hostNames, cts.Token);
+            cts.Cancel(); // Request cancellation
+            task.Wait(); // Wait for the task to throw
+        }
+        catch (AggregateException ex)
+        {
+            throw ex.Flatten().InnerExceptions.First(e => e is TaskCanceledException); // Rethrow the TaskCanceledException
+        }
         // Use exception.Flatten()
     }
 
@@ -139,6 +149,9 @@ public class PingProcessTests
     {
         return Sut;
     }
+
+    // FOR TYLER -- THIS IS WHERE I STOPPED, I NEED TO WRITE THAT NEXT TEST BELOW THIS NOTE.
+    // I already "accidently" implemented the method lol. I just need to write the test for it.
 
     //[TestMethod]
     //public async Task RunAsync_MultipleHostAddresses_True()
