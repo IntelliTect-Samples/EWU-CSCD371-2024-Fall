@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Assignment.Tests;
@@ -92,8 +94,6 @@ public class PingProcessTests
     public async Task RunAsync_UsingTpl_Success()
     {
         // DO use async/await in this test.
-
-        //PingResult result = default;
         PingResult result = await Sut.RunAsync("localhost");
 
         // Test Sut.RunAsync("localhost");
@@ -123,26 +123,43 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(TaskCanceledException))]
-    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
+    public void RunAsync_UsingTplWithCancellation_CatchTaskCanceledException()
     {
         // Arrange
         PingProcess sut = new();
-        string hostNames = "localhost";
+        string hostName = "localhost";
         CancellationTokenSource cts = new();
 
         // Act
+        Task task = Task.Run(() => sut.RunAsync(hostName, cts.Token));
+        cts.Cancel(); // Request cancellation
+
         try
         {
-            Task task = sut.RunAsync(hostNames, cts.Token);
-            cts.Cancel(); // Request cancellation
-            task.Wait(); // Wait for the task to throw
+            task.Wait(); // Wait wraps exceptions in AggregateException
+            Assert.Fail("Expected TaskCanceledException but no exception was thrown.");
         }
         catch (AggregateException ex)
         {
-            throw ex.Flatten().InnerExceptions.First(e => e is TaskCanceledException); // Rethrow the TaskCanceledException
+            // Flatten and validate TaskCanceledException
+            AggregateException flattened = ex.Flatten();
+            Assert.IsTrue(flattened.InnerExceptions.Any(e => e is TaskCanceledException),
+                          "Expected TaskCanceledException in AggregateException.");
         }
-        // Use exception.Flatten()
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(TaskCanceledException))]
+    public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
+    {
+        // Arrange
+        PingProcess sut = new();
+        string hostName = "localhost";
+        CancellationTokenSource cts = new();
+
+        // Act
+        cts.Cancel();
+        await sut.RunAsync(hostName, cts.Token);
     }
 
     public PingProcess GetSut()
@@ -156,49 +173,73 @@ public class PingProcessTests
     [TestMethod]
     public async Task RunAsync_MultipleHostAddresses_True()
     {
-        // Pseudo Code - don't trust it!!!
-        string[] hostNames = ["localhost", "localhost", "localhost", "localhost"];
-        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
+        // Arrange
+        string[] hostNames = ["localhost", "localhost", "localhost", "localhost"]; // Correct array syntax
+        int expectedLineCount = hostNames.Length * PingOutputLikeExpression.Split(Environment.NewLine).Length;
+
+        // Act
         PingResult result = await Sut.RunAsync(hostNames);
-        int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
-        Assert.AreEqual(expectedLineCount, lineCount);
+
+        // Assert
+        // Split the StdOutput and count the number of lines
+        int actualLineCount = result.StdOutput?.Split(Environment.NewLine).Length ?? 0;
+
+        // Validate that the line count matches the expected number of lines
+        Assert.AreEqual(expectedLineCount, actualLineCount, "The number of lines in StdOutput does not match the expected count.");
     }
-
-    //[TestMethod]
-    //public async Task RunAsync_MultipleHostAddresses_True() // Deleted Parameter because we were no longer using it. This may or may not work in the future.
-    //{
-    //    // Arrange
-    //    string[] hostNames = ["localhost", "localhost", "localhost", "localhost"];
-    //    int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
-
-    //    // Act
-    //    PingResult result = await PingProcess.RunAsync(hostNames);  // Changed this to make pass because we changed method to static
-
-    //    // Assert
-    //    int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
-    //    Assert.AreEqual(expectedLineCount, lineCount);
-    //}
 
     [TestMethod]
     public async Task RunLongRunningAsync_UsingTpl_Success()
     {
-        //PingResult result = default;
-        PingResult result = await Sut.RunLongRunningAsync("localhost");
-        // Test Sut.RunLongRunningAsync("localhost");
+        // Arrange
+        string hostName = "localhost";
+        CancellationTokenSource cts = new();
+
+        // Act
+        PingResult result = await Sut.RunLongRunningAsync(hostName, cts.Token);
+
+        // Assert
+        AssertValidPingOutput(result);
+    }
+
+    [TestMethod]
+    public async Task RunLongRunningAsync_ReturnsPingResult()
+    {
+        // Arrange
+        PingProcess sut = new();
+        ProcessStartInfo startInfo = new("ping")
+        {
+            Arguments = "localhost",
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+        };
+
+        StringBuilder capturedOutput = new();
+        void progressOutput(string? line) => capturedOutput.AppendLine(line);
+
+        CancellationTokenSource cts = new();
+
+        // Act
+        PingResult result = await sut.RunLongRunningAsync(startInfo, progressOutput, null, cts.Token);
+
+        // Assert
         AssertValidPingOutput(result);
     }
 
 #pragma warning restore CS1998 // Remove this
 
-    [TestMethod]
-    public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
-    {
-        IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
-        System.Text.StringBuilder stringBuilder = new();
-        numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
-        int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
-        Assert.AreNotEqual(lineCount, numbers.Count() + 1);
-    }
+    //Commenting this out because it is not testing anything in PingProcess
+
+    //[TestMethod]
+    //public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
+    //{
+    //    IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
+    //    System.Text.StringBuilder stringBuilder = new();
+    //    numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
+    //    int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
+    //    Assert.AreNotEqual(lineCount, numbers.Count() + 1);
+    //}
 
     private readonly string PingOutputLikeExpression = @"
 Pinging * with 32 bytes of data:
