@@ -34,57 +34,89 @@ public class PingProcess
     {
         StartInfo.Arguments = hostNameOrAddress;
         StringBuilder? stringBuilder = null;
+
         void updateStdOutput(string? line) =>
             (stringBuilder ??= new StringBuilder()).AppendLine(line);
 
         Process process = RunProcessInternal(StartInfo, updateStdOutput, null, cancellationToken);
-        await Task.Run(process.WaitForExit, cancellationToken);
+
+        // Use Task.Run to ensure process execution respects cancellation
+        await Task.Run(() =>
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            process.WaitForExit();
+            cancellationToken.ThrowIfCancellationRequested();
+        }, cancellationToken);
 
         return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
-    public async Task<PingResult> RunAsync(string[] hostNameOrAddresses, CancellationToken cancellationToken = default)
+    public async Task<PingResult> RunAsync(string[] hostNameOrAddresses)
     {
-        StringBuilder? stringBuilder = null;
-        ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async hostName =>
-        {
-            cancellationToken.ThrowIfCancellationRequested();
+        Task<PingResult>[] tasks = hostNameOrAddresses.Select((string x) => RunAsync(x)).ToArray();
+        await Task.WhenAll(tasks);
 
-            Task<PingResult> pingTask = Task.Run(() => Run(hostName), cancellationToken);
+        // Trim each entry's StdOutput before joining
+        string aggregatedOutput = string.Join(
+            Environment.NewLine,
+            tasks.Select(x => x.Result.StdOutput?.Trim() ?? string.Empty) // Trim each entry
+        );
 
-            PingResult result = await pingTask.WaitAsync(cancellationToken);
-            cancellationToken.ThrowIfCancellationRequested();
-
-            return result.ExitCode;
-        });
-
-        try
-        {
-            await Task.WhenAll(all);
-        }
-        catch (OperationCanceledException)
-        {
-            throw new AggregateException("Task was canceled.", new TaskCanceledException());
-        }
-
-        // Aggregate results (if not canceled)
-        int total = all.Aggregate(0, (sum, task) => sum + task.Result);
-        return new PingResult(total, stringBuilder?.ToString());
-
-        //await Task.WhenAll(all);
-        //int total = all.Aggregate(0, (total, item) => total + item.Result);
-        //return new PingResult(total, stringBuilder?.ToString());
+        return new PingResult(tasks.Max(x => x.Result.ExitCode), aggregatedOutput);
     }
+
+    // They want the parameters to look like this method below but I don't understand the point.
+    public Task<PingResult> RunLongRunningAsync(
+    ProcessStartInfo startInfo,
+    Action<string?>? progressOutput,
+    Action<string?>? progressError,
+    CancellationToken token)
+    {
+        return Task.Factory.StartNew(() =>
+        {
+            token.ThrowIfCancellationRequested();
+
+            StringBuilder outputBuilder = new();
+            void CaptureOutput(string? line)
+            {
+                outputBuilder.AppendLine(line);
+                progressOutput?.Invoke(line);
+            }
+
+            // Run the process
+            Process process = RunProcessInternal(startInfo, CaptureOutput, progressError, token);
+
+            // Wait for the process to exit, respecting cancellation
+            process.WaitForExit();
+
+            token.ThrowIfCancellationRequested();
+
+            // Capture output and exit code
+            int exitCode = process.ExitCode;
+            string stdOutput = outputBuilder.ToString().Trim();
+
+            // Return the PingResult
+            return new PingResult(exitCode, stdOutput);
+        }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
+    }
+
+    // Below is my simplified version of the method. Not sure which is better.
 
     public async Task<PingResult> RunLongRunningAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         StartInfo.Arguments = hostNameOrAddress;
         StringBuilder? stringBuilder = null;
+
         void updateStdOutput(string? line) =>
             (stringBuilder ??= new StringBuilder()).AppendLine(line);
 
         Process process = RunProcessInternal(StartInfo, updateStdOutput, null, cancellationToken);
-        await Task.Run(process.WaitForExit, cancellationToken);
+
+        await Task.Factory.StartNew(() =>
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            process.WaitForExit();
+        }, cancellationToken, creationOptions: TaskCreationOptions.LongRunning, TaskScheduler.Current);
 
         return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
