@@ -8,7 +8,7 @@ namespace Assignment.Tests;
 [TestClass]
 public class PingProcessTests
 {
-    PingProcess Sut { get; set; } = new();
+    private PingProcess Sut { get; set; } = new();
 
     [TestInitialize]
     public void TestInitialize()
@@ -91,7 +91,7 @@ public class PingProcessTests
     [DataRow("localhost")]
     [DataRow("8.8.8.8")]
     [DataRow("facebook.com")]
-    async public Task RunAsync_UsingTpl_Success(string hostName)
+    public async Task RunAsync_UsingTpl_Success(string hostName)
     {
         // Arrange & Act
         Task<PingResult> pingResult = Sut.RunAsync(hostName);
@@ -123,16 +123,16 @@ public class PingProcessTests
         Task<PingResult> pingResult = Sut.RunAsync("localhost", cancellationToken);
 
         // Assert
-        Assert.ThrowsException<AggregateException>(() => pingResult.Wait()).Flatten().Handle((exception) => throw exception);
+        Assert.ThrowsException<AggregateException>(pingResult.Wait).Flatten().Handle((exception) => throw exception);
     }
 
     [TestMethod]
-    async public Task RunAsync_MultipleHostAddresses_True()
+    public async Task RunAsync_MultipleHostAddresses_True()
     {
         // Pseudo Code - don't trust it!!!
 
         // Arrange
-        string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
+        string[] hostNames = ["localhost", "localhost", "localhost", "localhost"];
         int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
 
@@ -146,7 +146,7 @@ public class PingProcessTests
 
     [TestMethod]
 
-    async public Task RunLongRunningAsync_UsingTpl_Success()
+    public async Task RunLongRunningAsync_UsingTpl_Success()
     {
         PingResult result = await Sut.RunLongRunningAsync("localhost");
         AssertValidPingOutput(result);
@@ -163,7 +163,7 @@ public class PingProcessTests
     //    Assert.AreNotEqual(lineCount, numbers.Count() + 1);
     //}
 
-    readonly string PingOutputLikeExpression = @"
+    private readonly string PingOutputLikeExpression = @"
 Pinging * with 32 bytes of data:
 Reply from *
 Reply from *
@@ -182,6 +182,8 @@ Approximate round trip times in milli-seconds:
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
     }
-    private void AssertValidPingOutput(PingResult result) =>
+    private void AssertValidPingOutput(PingResult result)
+    {
         AssertValidPingOutput(result.ExitCode, result.StdOutput);
+    }
 }

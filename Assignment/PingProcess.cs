@@ -18,8 +18,11 @@ public class PingProcess
     {
         StartInfo.Arguments = hostNameOrAddress;
         StringBuilder? stringBuilder = null;
-        void updateStdOutput(string? line) =>
+        void updateStdOutput(string? line)
+        {
             (stringBuilder ??= new StringBuilder()).AppendLine(line);
+        }
+
         Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
         return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
@@ -29,15 +32,17 @@ public class PingProcess
         return Task.Run(() => Run(hostNameOrAddress));
     }
 
-    async public Task<PingResult> RunAsync(
+    public async Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         //This feels like extra code, doesn't Task.Run check cancelation token right away and then begin polling IsCancellationRequested after?
         cancellationToken.ThrowIfCancellationRequested();
-        return await Task.Run(() => Run(hostNameOrAddress), cancellationToken);
+        Task<PingResult> task = Task.Run(() => Run(hostNameOrAddress), cancellationToken);
+        cancellationToken.ThrowIfCancellationRequested();
+        return await task;
     }
 
-    async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
+    public async Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
         Task<PingResult>[] tasks = hostNameOrAddresses.Select((string x) => RunAsync(x)).ToArray();
 
@@ -53,10 +58,9 @@ public class PingProcess
         {
             Task<PingResult> result = RunAsync(hostNameOrAddress);
             result.Wait();
+            cancellationToken.ThrowIfCancellationRequested();
             return result.Result;
         }, creationOptions: TaskCreationOptions.LongRunning);
-
-
     }
 
     private Process RunProcessInternal(
@@ -65,7 +69,7 @@ public class PingProcess
         Action<string?>? progressError,
         CancellationToken token)
     {
-        Process process = new Process
+        Process process = new()
         {
             StartInfo = UpdateProcessStartInfo(startInfo)
         };
