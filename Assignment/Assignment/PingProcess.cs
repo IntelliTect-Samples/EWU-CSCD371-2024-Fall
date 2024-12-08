@@ -1,12 +1,16 @@
-﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
+using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Assignment;
 
@@ -34,26 +38,19 @@ public class PingProcess
     async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
+        //This feels like extra code, doesn't Task.Run check cancelation token right away and then begin polling IsCancellationRequested after?
+        cancellationToken.ThrowIfCancellationRequested();
         return await Task.Run(() => Run(hostNameOrAddress),cancellationToken);
     }
 
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
         StringBuilder? stringBuilder = null;
-        ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
-        {
-            Task<PingResult> task = null!;
-            // ...
 
             await task.WaitAsync(default(CancellationToken));
             return task.Result.ExitCode;
-        });
 
-        await Task.WhenAll(all);
-        int total = all.Aggregate(0, (total, item) => total + item.Result);
-        return new PingResult(total, stringBuilder?.ToString());
     }
-
     async public Task<PingResult> RunLongRunningAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
