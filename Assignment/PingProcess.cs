@@ -98,6 +98,7 @@ public class PingProcess
     {
         return Task.Factory.StartNew(() =>
         {
+
             token.ThrowIfCancellationRequested();
 
             Process process = RunProcessInternal(startInfo, progressOutput, progressError, token);

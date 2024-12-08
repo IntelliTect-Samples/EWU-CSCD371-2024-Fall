@@ -173,17 +173,28 @@ public class PingProcessTests
         }
     }
 
-
-    
     [TestMethod]
     public async Task RunAsync_MultipleHostAddresses_True()
     {
-        // Pseudo Code - don't trust it!!!
+        // Arrange
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
-        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length*hostNames.Length;
+
+        // Dynamically calculate the expected lines per host using actual output
+        PingResult singleHostResult = await Sut.RunAsync(new[] { "localhost" });
+        int linesPerHost = singleHostResult.StdOutput?
+            .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+            .Length ?? 0;
+
+        int expectedLineCount = linesPerHost * hostNames.Length;
+
+        // Act
         PingResult result = await Sut.RunAsync(hostNames);
-        int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
-        Assert.AreEqual(expectedLineCount, lineCount);
+        int? actualLineCount = result.StdOutput?
+            .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+            .Length;
+
+        // Assert
+        Assert.AreEqual(expectedLineCount, actualLineCount, $"Expected {expectedLineCount} lines, but found {actualLineCount}.");
     }
 
     [TestMethod]
