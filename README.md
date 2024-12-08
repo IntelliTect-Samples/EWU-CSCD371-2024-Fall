@@ -29,15 +29,15 @@ Previously Assigned
 1. Implement `PingProcess`' `public Task<PingResult> RunTaskAsync(string hostNameOrAddress)` ✔
    - First implement `public void RunTaskAsync_Success()` test method to test `PingProcess.RunTaskAsync()` using `"localhost"`. ✔
    - Do NOT use async/await in this implementation. ✔
-2. Implement `PingProcess`' `async public Task<PingResult> RunAsync(string hostNameOrAddress)` ❌✔
-   - First implement the `public void RunAsync_UsingTaskReturn_Success()` test method to test `PingProcess.RunAsync()` using `"localhost"` **without** using async/await. ❌✔
-   - Also implement the `async public Task RunAsync_UsingTpl_Success()` test method to test `PingProcess.RunAsync()` using `"localhost"` but this time **DO** using async/await. ❌✔
-3. Add support for an optional cancellation token to the `PingProcess.RunAsync()` signature. ❌✔
-- Inside the `PingProcess.RunAsync()` invoke the token's `ThrowIfCancellationRequested()` method so an exception is thrown. ❌✔
-- Test that, when cancelled from the test method, the exception thrown is an `AggregateException` ❌✔ 
-  - with a `TaskCanceledException` inner exception ❌✔ 
-  - using the test methods `RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping` ❌✔
-  - and `RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException` ❌✔ respectively.
+2. Implement `PingProcess`' `async public Task<PingResult> RunAsync(string hostNameOrAddress)` ✔
+   - First implement the `public void RunAsync_UsingTaskReturn_Success()` test method to test `PingProcess.RunAsync()` using `"localhost"` **without** using async/await. ✔
+   - Also implement the `async public Task RunAsync_UsingTpl_Success()` test method to test `PingProcess.RunAsync()` using `"localhost"` but this time **DO** using async/await. ✔
+3. Add support for an optional cancellation token to the `PingProcess.RunAsync()` signature. ✔
+- Inside the `PingProcess.RunAsync()` invoke the token's `ThrowIfCancellationRequested()` method so an exception is thrown. ✔
+- Test that, when cancelled from the test method, the exception thrown is an `AggregateException` ✔ 
+  - with a `TaskCanceledException` inner exception ✔ 
+  - using the test methods `RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping` ✔
+  - and `RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException` ✔ respectively.
 
 4. Complete/fix **AND test** `async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)` which executes ping for an array of hostNameOrAddresses (which can all be "localhost") **in parallel**, adding synchronization if needed. ❌✔
    NOTE:
