@@ -77,16 +77,13 @@ public class PingProcessTests
     public void RunAsync_UsingTaskReturn_Success(string address)
     {
         //Arrange
-        PingResult result = default;
 
         //Act
 
         Task<PingResult> pingResult = Sut.RunAsync(address);
         pingResult.Wait();
-        result = pingResult.Result;
         //Assert
-        Assert.IsNotNull(result);
-        AssertValidPingOutput(result);
+        AssertValidPingOutput(pingResult.Result);
 
     }
 
@@ -99,7 +96,6 @@ public class PingProcessTests
     {
         // Arrange & Act
         Task<PingResult> pingResult = Sut.RunAsync(hostName);
-        
         //Assert
         AssertValidPingOutput(await pingResult);
     }
