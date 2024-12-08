@@ -232,14 +232,24 @@ public class PingProcessTests
     }
 
     [TestMethod]
-#pragma warning disable CS1998 // Remove this
     public async Task RunLongRunningAsync_UsingTpl_Success()
     {
-        PingResult result = default;
-        // Test Sut.RunLongRunningAsync("localhost");
-        AssertValidPingOutput(result);
+        // Arrange
+        var startInfo = new ProcessStartInfo("ping", "localhost")
+        {
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+        var cancellationToken = new CancellationTokenSource().Token;
+
+        // Act
+        int exitCode = await Sut.RunLongRunningAsync(startInfo, null, null, cancellationToken);
+
+        // Assert
+        Assert.AreEqual(0, exitCode, "Expected the exit code to be 0 for successful execution.");
     }
-#pragma warning restore CS1998 // Remove this
 
     [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
