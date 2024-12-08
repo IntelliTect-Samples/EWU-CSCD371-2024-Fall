@@ -70,6 +70,7 @@ public class PingProcessTests
     }
 
     [TestMethod]
+
     [DataRow("www.google.com")]
     [DataRow("localhost")]
     [DataRow("8.8.8.8")]
@@ -106,20 +107,18 @@ public class PingProcessTests
 
     [TestMethod]
     [ExpectedException(typeof(AggregateException))]
-    public async void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
+    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
         // Arrange
-        // CancellationToken cancellationToken = new(true);
         CancellationTokenSource cancellationTokenSource = new();
-        
+
         // Act
         Task<PingResult> pingResult = Sut.RunAsync("localhost", cancellationTokenSource.Token);
         cancellationTokenSource.Cancel();
-        await pingResult;
-        
+        pingResult.Wait();
 
         // Assert
-        Assert.ThrowsException<AggregateException>(() => pingResult.Result);
+        //Assert.ThrowsException<AggregateException>(() => pingResult.Result);
     }
 
     [TestMethod]
@@ -128,17 +127,14 @@ public class PingProcessTests
     {
         // Use exception.Flatten()
         // Arrange
-        CancellationTokenSource cancellationTokenSource = new();
+        CancellationToken cancellationToken = new(true);
 
         // Act
-        Task<PingResult> pingResult = Sut.RunAsync("localhost", cancellationTokenSource.Token);
-        cancellationTokenSource.Cancel();
-        #TODO: Finish this test
-
+        Task<PingResult> pingResult = Sut.RunAsync("localhost", cancellationToken);
+        pingResult.Wait();
 
         // Assert
-        AggregateException exception = Assert.ThrowsException<AggregateException>(() => pingResult.Result);
-        //exception.Flatten();
+        Assert.ThrowsException<AggregateException>(() => pingResult.Result);
     }
 
     [TestMethod]
