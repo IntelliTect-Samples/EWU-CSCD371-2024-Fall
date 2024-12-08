@@ -145,38 +145,6 @@ public class PingProcessTests
         });
     }
 
-    /*[TestMethod]
-    [ExpectedException(typeof(TaskCanceledException))]
-    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
-    {
-        // Arrange
-        PingProcess pingProcess = new PingProcess();
-        string expectedHost = "localhost";
-        CancellationTokenSource cts = new CancellationTokenSource();
-        cts.Cancel(); // Immediately cancel the token
-
-        // Act
-        try
-        {
-            Task<PingResult> task = pingProcess.RunAsync(expectedHost, cts.Token);
-            PingResult result = task.Result; // This should throw
-        }
-        catch (AggregateException ex)
-        {
-            // Flatten the AggregateException to access inner exceptions
-            ex.Flatten();
-            TaskCanceledException? taskCanceledException = ex.InnerException as TaskCanceledException;
-            if (taskCanceledException != null)
-            {
-                throw taskCanceledException; // Re-throw to satisfy ExpectedException attribute
-            }
-            throw; // Re-throw if no TaskCanceledException
-        }
-    }*/
-
-
-
-
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
