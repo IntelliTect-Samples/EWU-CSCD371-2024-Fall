@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -45,10 +45,10 @@ public class PingProcess
 
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
-        StringBuilder? stringBuilder = null;
+        Task<PingResult>[] tasks = hostNameOrAddresses.Select((string x) => RunAsync(x)).ToArray();
 
-            await task.WaitAsync(default(CancellationToken));
-            return task.Result.ExitCode;
+        await Task.WhenAll(tasks);
+        return new PingResult(ExitCode: tasks.Max(x => x.Result.ExitCode), StdOutput: string.Join(Environment.NewLine,tasks.Select(outputStringResult => outputStringResult.Result.StdOutput?.Trim() ?? "")));
 
     }
     async public Task<PingResult> RunLongRunningAsync(
