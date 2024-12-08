@@ -127,7 +127,6 @@ public class PingProcessTests
 
 
 
-
     /*[TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
@@ -157,9 +156,9 @@ public class PingProcessTests
         }
     }*/
 
-    
-    
-    
+
+
+
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
