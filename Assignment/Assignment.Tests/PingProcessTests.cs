@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Assignment.Tests;
@@ -69,7 +70,6 @@ public class PingProcessTests
     }
 
     [TestMethod]
-
     [DataRow("www.google.com")]
     [DataRow("localhost")]
     [DataRow("8.8.8.8")]
@@ -106,9 +106,20 @@ public class PingProcessTests
 
     [TestMethod]
     [ExpectedException(typeof(AggregateException))]
-    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
+    public async void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
+        // Arrange
+        // CancellationToken cancellationToken = new(true);
+        CancellationTokenSource cancellationTokenSource = new();
+        
+        // Act
+        Task<PingResult> pingResult = Sut.RunAsync("localhost", cancellationTokenSource.Token);
+        cancellationTokenSource.Cancel();
+        await pingResult;
+        
 
+        // Assert
+        Assert.ThrowsException<AggregateException>(() => pingResult.Result);
     }
 
     [TestMethod]
@@ -116,6 +127,18 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
         // Use exception.Flatten()
+        // Arrange
+        CancellationTokenSource cancellationTokenSource = new();
+
+        // Act
+        Task<PingResult> pingResult = Sut.RunAsync("localhost", cancellationTokenSource.Token);
+        cancellationTokenSource.Cancel();
+        #TODO: Finish this test
+
+
+        // Assert
+        AggregateException exception = Assert.ThrowsException<AggregateException>(() => pingResult.Result);
+        //exception.Flatten();
     }
 
     [TestMethod]
