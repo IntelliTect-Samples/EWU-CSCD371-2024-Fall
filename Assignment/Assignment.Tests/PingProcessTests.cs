@@ -97,17 +97,11 @@ public class PingProcessTests
     [DataRow("facebook.com")]
     async public Task RunAsync_UsingTpl_Success(string hostName)
     {
-        // Arrange
-        // DO use async/await in this test.
-        PingResult result = default;
-
-        // Act
+        // Arrange & Act
         Task<PingResult> pingResult = Sut.RunAsync(hostName);
-        result = await pingResult;
-
+        
         //Assert
-        // Test Sut.RunAsync("localhost");
-        AssertValidPingOutput(result);
+        AssertValidPingOutput(await pingResult);
     }
 
     [TestMethod]
@@ -128,10 +122,16 @@ public class PingProcessTests
     async public Task RunAsync_MultipleHostAddresses_True()
     {
         // Pseudo Code - don't trust it!!!
+
+        // Arrange
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
         int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
+        
+        // Act
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
+        
+        // Assert
         Assert.AreEqual(expectedLineCount, lineCount);
     }
 
