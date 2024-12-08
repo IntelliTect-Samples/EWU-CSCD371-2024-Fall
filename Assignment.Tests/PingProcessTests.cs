@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Assignment.Tests;
-
+#pragma warning disable CA1707 // Identifiers should not contain underscores
 [TestClass]
 public class PingProcessTests
 {
