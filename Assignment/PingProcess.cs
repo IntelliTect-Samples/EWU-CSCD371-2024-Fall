@@ -16,8 +16,8 @@ public class PingProcess
 
     public PingResult Run(string hostNameOrAddress)
     {
-        string arguments = hostNameOrAddress + "-c 4";
-        StartInfo.Arguments = hostNameOrAddress;
+        string arguments = hostNameOrAddress + " -c 6";
+        StartInfo.Arguments = arguments;
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line)
         {
