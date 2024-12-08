@@ -146,7 +146,7 @@ public class PingProcessTests
     public async Task RunAsync_WithCancellation_ThrowsOperationCanceledException()
     {
         // Arrange
-        var pingProcess = new PingProcess();
+        PingProcess newPingProcess = new();
         var hostNames = new List<string> { "localhost", "127.0.0.1", "google.com" };
         var cts = new CancellationTokenSource();
         cts.Cancel(); // Cancel immediately
@@ -154,16 +154,9 @@ public class PingProcessTests
         // Act & Assert
         await Assert.ThrowsExceptionAsync<AggregateException>(async () =>
         {
-            await pingProcess.RunAsync(hostNames, cts.Token);
+            await newPingProcess.RunAsync(hostNames, cts.Token);
         });
     }
-
-
-
-
-
-
-
 
     /*[TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
