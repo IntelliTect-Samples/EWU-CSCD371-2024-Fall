@@ -40,7 +40,7 @@ public class PingProcess
     {
         //This feels like extra code, doesn't Task.Run check cancelation token right away and then begin polling IsCancellationRequested after?
         cancellationToken.ThrowIfCancellationRequested();
-        return await Task.Run(() => Run(hostNameOrAddress),cancellationToken);
+        return await Task.Run(() => Run(hostNameOrAddress), cancellationToken);
     }
 
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
@@ -48,7 +48,7 @@ public class PingProcess
         Task<PingResult>[] tasks = hostNameOrAddresses.Select((string x) => RunAsync(x)).ToArray();
 
         await Task.WhenAll(tasks);
-        return new PingResult(ExitCode: tasks.Max(x => x.Result.ExitCode), StdOutput: string.Join(Environment.NewLine,tasks.Select(outputStringResult => outputStringResult.Result.StdOutput?.Trim() ?? "")));
+        return new PingResult(ExitCode: tasks.Max(x => x.Result.ExitCode), StdOutput: string.Join(Environment.NewLine, tasks.Select(outputStringResult => outputStringResult.Result.StdOutput?.Trim() ?? "")));
 
     }
     public Task<PingResult> RunLongRunningAsync(
@@ -60,7 +60,7 @@ public class PingProcess
             Task<PingResult> result = RunAsync(hostNameOrAddress);
             result.Wait();
             return result.Result;
-      }, creationOptions: TaskCreationOptions.LongRunning);
+        }, creationOptions: TaskCreationOptions.LongRunning);
 
 
     }
