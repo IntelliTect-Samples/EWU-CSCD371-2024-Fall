@@ -125,6 +125,26 @@ public class PingProcessTests
         }
     }
 
+    [TestMethod]
+    public async Task RunAsync_MultipleHosts_ReturnsCombinedResults()
+    {
+        // Arrange
+        PingProcess newPingProcess = new ();
+        var hostNames = new List<string> { "localhost", "127.0.0.1", "google.com" };
+        var cancellationToken = new CancellationTokenSource().Token;
+
+        // Act
+        PingResult result = await newPingProcess.RunAsync(hostNames, cancellationToken);
+
+        // Assert
+        Assert.IsTrue(result.ExitCode >= 0, "Exit code should be non-negative.");
+        Assert.IsFalse(string.IsNullOrEmpty(result.StdOutput), "StdOutput should not be empty.");
+        Assert.IsTrue(result.StdOutput.Contains("Reply"), "StdOutput should contain expected ping output.");
+    }
+
+
+
+
 
 
     /*[TestMethod]

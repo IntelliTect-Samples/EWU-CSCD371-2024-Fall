@@ -53,7 +53,6 @@ public class PingProcess
         }
     }
 
-
     public async Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
         StringBuilder? stringBuilder = null;
