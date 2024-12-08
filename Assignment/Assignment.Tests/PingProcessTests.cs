@@ -140,8 +140,9 @@ public class PingProcessTests
         
         // Act
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
-        
+
         // Assert
+        Assert.AreEqual(0, result.ExitCode);
         Assert.AreEqual(expectedLineCount, lineCount);
     }
 
