@@ -39,7 +39,7 @@ Previously Assigned
   - using the test methods `RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping` ✔
   - and `RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException` ✔ respectively.
 
-4. Complete/fix **AND test** `async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)` which executes ping for an array of hostNameOrAddresses (which can all be "localhost") **in parallel**, adding synchronization if needed. ❌✔
+4. Complete/fix **AND test** `async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)` which executes ping for an array of hostNameOrAddresses (which can all be "localhost") **in parallel**, adding synchronization if needed. ✔
    NOTE:
       - The order of the items in the stdOutput is irrelevant and expected to be intermingled.
       - StdOutput must have all the ping output returned (no lines can be missing) even though intermingled. ❌✔
