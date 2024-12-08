@@ -61,14 +61,13 @@ public class PingProcessTests
 
         // Act
         var resultTask = Sut.RunTaskAsync("localhost");
-        resultTask.Wait(); // Wait for the task to complete synchronously
+        resultTask.Wait();
 
-        // Get the result after the task has completed
         var result = resultTask.Result;
 
         // Assert
         Assert.IsNotNull(result);
-        Assert.IsTrue(result.ExitCode == 0); // Assuming 0 indicates success
+        Assert.IsTrue(result.ExitCode == 0);
         Assert.IsNotNull(result.StdOutput);
     }
 
