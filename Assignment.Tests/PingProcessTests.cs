@@ -214,6 +214,7 @@ public class PingProcessTests
         int exitCode = await Sut.RunLongRunningAsync(startInfo, null, null, cancellationToken);
 
         // Assert
+        Console.WriteLine($"Exit Code: {exitCode}");
         Assert.AreEqual(0, exitCode, "Expected the exit code to be 0 for successful execution.");
     }
 
