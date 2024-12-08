@@ -106,15 +106,11 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
         // Arrange
-        CancellationTokenSource cancellationTokenSource = new();
+        CancellationToken cancellationToken = new(true);
 
         // Act
-        Task<PingResult> pingResult = Sut.RunAsync("localhost", cancellationTokenSource.Token);
-        cancellationTokenSource.Cancel();
+        Task<PingResult> pingResult = Sut.RunAsync("localhost", cancellationToken);
         pingResult.Wait();
-
-        // Assert
-        //Assert.ThrowsException<AggregateException>(() => pingResult.Result);
     }
 
     [TestMethod]
