@@ -6,168 +6,169 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Assignment;
-
-public record struct PingResult(int ExitCode, string? StdOutput);
-
-public class PingProcess
+namespace Assignment
 {
-    private ProcessStartInfo StartInfo { get; } = new("ping");
+    public record struct PingResult(int ExitCode, string? StdOutput);
 
-    public PingResult Run(string hostNameOrAddress)
+    public class PingProcess
     {
-        StartInfo.Arguments = hostNameOrAddress;
-        StringBuilder? stringBuilder = null;
-        void updateStdOutput(string? line)
+        private ProcessStartInfo StartInfo { get; } = new("ping");
+
+        public PingResult Run(string hostNameOrAddress)
         {
-            (stringBuilder ??= new StringBuilder()).AppendLine(line);
+            StartInfo.Arguments = hostNameOrAddress;
+            StringBuilder? stringBuilder = null;
+            void updateStdOutput(string? line)
+            {
+                (stringBuilder ??= new StringBuilder()).AppendLine(line);
+            }
+
+            Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
+            return new PingResult(process.ExitCode, stringBuilder?.ToString());
         }
 
-        Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-        return new PingResult(process.ExitCode, stringBuilder?.ToString());
-    }
-
-    public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
-    {
-        return Task.Run(() => Run(hostNameOrAddress));
-    }
-
-    public async Task<PingResult> RunAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
-    {
-        //This feels like extra code, doesn't Task.Run check cancelation token right away and then begin polling IsCancellationRequested after?
-        cancellationToken.ThrowIfCancellationRequested();
-        Task<PingResult> task = Task.Run(() => Run(hostNameOrAddress), cancellationToken);
-        cancellationToken.ThrowIfCancellationRequested();
-        return await task;
-    }
-
-    public async Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
-    {
-        Task<PingResult>[] tasks = hostNameOrAddresses.Select((string x) => RunAsync(x)).ToArray();
-
-        await Task.WhenAll(tasks);
-        return new PingResult(ExitCode: tasks.Max(x => x.Result.ExitCode), StdOutput: string.Join(Environment.NewLine, tasks.Select(outputStringResult => outputStringResult.Result.StdOutput?.Trim() ?? "")));
-
-    }
-    public Task<PingResult> RunLongRunningAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
-    {
-        return Task.Factory.StartNew(
-            () =>
+        public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
         {
-            Task<PingResult> result = RunAsync(hostNameOrAddress);
-            result.Wait();
+            return Task.Run(() => Run(hostNameOrAddress));
+        }
+
+        public async Task<PingResult> RunAsync(
+            string hostNameOrAddress, CancellationToken cancellationToken = default)
+        {
+            //This feels like extra code, doesn't Task.Run check cancelation token right away and then begin polling IsCancellationRequested after?
             cancellationToken.ThrowIfCancellationRequested();
-            return result.Result;
-        }, creationOptions: TaskCreationOptions.LongRunning);
-    }
+            Task<PingResult> task = Task.Run(() => Run(hostNameOrAddress), cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+            return await task;
+        }
 
-    private Process RunProcessInternal(
-        ProcessStartInfo startInfo,
-        Action<string?>? progressOutput,
-        Action<string?>? progressError,
-        CancellationToken token)
-    {
-        Process process = new()
+        public async Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
         {
-            StartInfo = UpdateProcessStartInfo(startInfo)
-        };
-        return RunProcessInternal(process, progressOutput, progressError, token);
-    }
+            Task<PingResult>[] tasks = hostNameOrAddresses.Select((string x) => RunAsync(x)).ToArray();
 
-    private Process RunProcessInternal(
-        Process process,
-        Action<string?>? progressOutput,
-        Action<string?>? progressError,
-        CancellationToken token)
-    {
-        process.EnableRaisingEvents = true;
-        process.OutputDataReceived += OutputHandler;
-        process.ErrorDataReceived += ErrorHandler;
+            await Task.WhenAll(tasks);
+            return new PingResult(ExitCode: tasks.Max(x => x.Result.ExitCode), StdOutput: string.Join(Environment.NewLine, tasks.Select(outputStringResult => outputStringResult.Result.StdOutput?.Trim() ?? "")));
 
-        try
+        }
+        public Task<PingResult> RunLongRunningAsync(
+            string hostNameOrAddress, CancellationToken cancellationToken = default)
         {
-            if (!process.Start())
+            return Task.Factory.StartNew(
+                () =>
             {
-                return process;
-            }
+                Task<PingResult> result = RunAsync(hostNameOrAddress);
+                result.Wait();
+                cancellationToken.ThrowIfCancellationRequested();
+                return result.Result;
+            }, creationOptions: TaskCreationOptions.LongRunning);
+        }
 
-            token.Register(obj =>
+        private Process RunProcessInternal(
+            ProcessStartInfo startInfo,
+            Action<string?>? progressOutput,
+            Action<string?>? progressError,
+            CancellationToken token)
+        {
+            Process process = new()
             {
-                if (obj is Process p && !p.HasExited)
+                StartInfo = UpdateProcessStartInfo(startInfo)
+            };
+            return RunProcessInternal(process, progressOutput, progressError, token);
+        }
+
+        private Process RunProcessInternal(
+            Process process,
+            Action<string?>? progressOutput,
+            Action<string?>? progressError,
+            CancellationToken token)
+        {
+            process.EnableRaisingEvents = true;
+            process.OutputDataReceived += OutputHandler;
+            process.ErrorDataReceived += ErrorHandler;
+
+            try
+            {
+                if (!process.Start())
                 {
-                    try
-                    {
-                        p.Kill();
-                    }
-                    catch (Win32Exception ex)
-                    {
-                        throw new InvalidOperationException($"Error cancelling process{Environment.NewLine}{ex}");
-                    }
+                    return process;
                 }
-            }, process);
+
+                token.Register(obj =>
+                {
+                    if (obj is Process p && !p.HasExited)
+                    {
+                        try
+                        {
+                            p.Kill();
+                        }
+                        catch (Win32Exception ex)
+                        {
+                            throw new InvalidOperationException($"Error cancelling process{Environment.NewLine}{ex}");
+                        }
+                    }
+                }, process);
 
 
-            if (process.StartInfo.RedirectStandardOutput)
-            {
-                process.BeginOutputReadLine();
+                if (process.StartInfo.RedirectStandardOutput)
+                {
+                    process.BeginOutputReadLine();
+                }
+                if (process.StartInfo.RedirectStandardError)
+                {
+                    process.BeginErrorReadLine();
+                }
+
+                if (process.HasExited)
+                {
+                    return process;
+                }
+                process.WaitForExit();
             }
-            if (process.StartInfo.RedirectStandardError)
+            catch (Exception e)
             {
-                process.BeginErrorReadLine();
+                throw new InvalidOperationException($"Error running '{process.StartInfo.FileName} {process.StartInfo.Arguments}'{Environment.NewLine}{e}");
+            }
+            finally
+            {
+                if (process.StartInfo.RedirectStandardError)
+                {
+                    process.CancelErrorRead();
+                }
+                if (process.StartInfo.RedirectStandardOutput)
+                {
+                    process.CancelOutputRead();
+                }
+                process.OutputDataReceived -= OutputHandler;
+                process.ErrorDataReceived -= ErrorHandler;
+
+                if (!process.HasExited)
+                {
+                    process.Kill();
+                }
+
+            }
+            return process;
+
+            void OutputHandler(object s, DataReceivedEventArgs e)
+            {
+                progressOutput?.Invoke(e.Data);
             }
 
-            if (process.HasExited)
+            void ErrorHandler(object s, DataReceivedEventArgs e)
             {
-                return process;
+                progressError?.Invoke(e.Data);
             }
-            process.WaitForExit();
         }
-        catch (Exception e)
+
+        private static ProcessStartInfo UpdateProcessStartInfo(ProcessStartInfo startInfo)
         {
-            throw new InvalidOperationException($"Error running '{process.StartInfo.FileName} {process.StartInfo.Arguments}'{Environment.NewLine}{e}");
+            startInfo.CreateNoWindow = true;
+            startInfo.RedirectStandardError = true;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.UseShellExecute = false;
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+
+            return startInfo;
         }
-        finally
-        {
-            if (process.StartInfo.RedirectStandardError)
-            {
-                process.CancelErrorRead();
-            }
-            if (process.StartInfo.RedirectStandardOutput)
-            {
-                process.CancelOutputRead();
-            }
-            process.OutputDataReceived -= OutputHandler;
-            process.ErrorDataReceived -= ErrorHandler;
-
-            if (!process.HasExited)
-            {
-                process.Kill();
-            }
-
-        }
-        return process;
-
-        void OutputHandler(object s, DataReceivedEventArgs e)
-        {
-            progressOutput?.Invoke(e.Data);
-        }
-
-        void ErrorHandler(object s, DataReceivedEventArgs e)
-        {
-            progressError?.Invoke(e.Data);
-        }
-    }
-
-    private static ProcessStartInfo UpdateProcessStartInfo(ProcessStartInfo startInfo)
-    {
-        startInfo.CreateNoWindow = true;
-        startInfo.RedirectStandardError = true;
-        startInfo.RedirectStandardOutput = true;
-        startInfo.UseShellExecute = false;
-        startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-
-        return startInfo;
     }
 }

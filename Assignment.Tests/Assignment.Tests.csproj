@@ -3,7 +3,6 @@
 	<PropertyGroup>
 		<IsPackable>false</IsPackable>
 
-		<NoWarn>EnableGenerateDocumentationFile, CA1707, IDE0160, IDE0057, CA1711, CA1852</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>

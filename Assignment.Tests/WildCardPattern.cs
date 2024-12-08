@@ -379,7 +379,7 @@ namespace IntelliTect.TestTools
 
             if (trimTrailingNewline && input.EndsWith(Environment.NewLine, StringComparison.OrdinalIgnoreCase))
             {
-                input = input.Substring(0, input.Length - Environment.NewLine.Length);
+                input = input[..^Environment.NewLine.Length];
             }
 
             return input;
@@ -622,7 +622,7 @@ namespace IntelliTect.TestTools
     ///
     /// for a more cases see the unit-test file RegexTest.cs
     /// </remarks>
-    internal class WildcardPatternToRegexParser : WildcardPatternParser
+    internal sealed class WildcardPatternToRegexParser : WildcardPatternParser
     {
         private StringBuilder _regexPattern;
         private RegexOptions _regexOptions;
@@ -791,7 +791,7 @@ namespace IntelliTect.TestTools
         }
     }
 
-    internal class WildcardPatternMatcher
+    internal sealed class WildcardPatternMatcher
     {
         private readonly PatternElement[] _patternElements;
         private readonly CharacterNormalizer _characterNormalizer;
@@ -861,7 +861,7 @@ namespace IntelliTect.TestTools
             return patternPositionsForCurrentStringPosition.ReachedEndOfPattern;
         }
 
-        private class PatternPositionsVisitor
+        private sealed class PatternPositionsVisitor
         {
             private readonly int _lengthOfPattern;
 
@@ -983,7 +983,7 @@ namespace IntelliTect.TestTools
             }
         }
 
-        private class LiteralCharacterElement(char literalCharacter) : QuestionMarkElement
+        private sealed class LiteralCharacterElement(char literalCharacter) : QuestionMarkElement
         {
             private readonly char _literalCharacter = literalCharacter;
 
@@ -1004,7 +1004,7 @@ namespace IntelliTect.TestTools
             }
         }
 
-        private class BracketExpressionElement(Regex regex) : QuestionMarkElement
+        private sealed class BracketExpressionElement(Regex regex) : QuestionMarkElement
         {
             private readonly Regex _Regex = regex ?? throw new ArgumentNullException(nameof(regex));
 
@@ -1023,7 +1023,7 @@ namespace IntelliTect.TestTools
             }
         }
 
-        private class AsterixElement : PatternElement
+        private sealed class AsterixElement : PatternElement
         {
             public override void ProcessStringCharacter(
                             char currentStringCharacter,
@@ -1047,7 +1047,7 @@ namespace IntelliTect.TestTools
             }
         }
 
-        private class MyWildcardPatternParser : WildcardPatternParser
+        private sealed class MyWildcardPatternParser : WildcardPatternParser
         {
             private readonly List<PatternElement> _patternElements = [];
             private CharacterNormalizer _characterNormalizer;
@@ -1145,7 +1145,7 @@ namespace IntelliTect.TestTools
     /// <summary>
     /// Translates a <see cref="WildcardPattern"/> into a DOS wildcard
     /// </summary>
-    internal class WildcardPatternToDosWildcardParser : WildcardPatternParser
+    internal sealed class WildcardPatternToDosWildcardParser : WildcardPatternParser
     {
         private readonly StringBuilder _result = new();
 
