@@ -19,14 +19,14 @@ public class PingProcess
         string arguments = "-n 4 " + hostNameOrAddress;
         StartInfo.Arguments = arguments;
 
-        //ProcessStartInfo startInfo2 = new ("Ping", hostNameOrAddress);
+        ProcessStartInfo startInfo2 = new("Ping", arguments);
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line)
         {
             (stringBuilder ??= new StringBuilder()).AppendLine(line);
         }
 
-        Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
+        Process process = RunProcessInternal(startInfo2, updateStdOutput, default, default);
         return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
