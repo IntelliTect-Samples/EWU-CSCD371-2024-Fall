@@ -123,10 +123,9 @@ public class PingProcessTests
 
         // Act
         Task<PingResult> pingResult = Sut.RunAsync("localhost", cancellationToken);
-        pingResult.Wait();
 
         // Assert
-        Assert.ThrowsException<AggregateException>(() => pingResult.Result);
+        Assert.ThrowsException<AggregateException>(() => pingResult.Wait()).Flatten().Handle((exception) => throw exception);
     }
 
     [TestMethod]
