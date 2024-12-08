@@ -142,6 +142,24 @@ public class PingProcessTests
         Assert.IsTrue(result.StdOutput.Contains("Reply"), "StdOutput should contain expected ping output.");
     }
 
+    [TestMethod]
+    public async Task RunAsync_WithCancellation_ThrowsOperationCanceledException()
+    {
+        // Arrange
+        var pingProcess = new PingProcess();
+        var hostNames = new List<string> { "localhost", "127.0.0.1", "google.com" };
+        var cts = new CancellationTokenSource();
+        cts.Cancel(); // Cancel immediately
+
+        // Act & Assert
+        await Assert.ThrowsExceptionAsync<AggregateException>(async () =>
+        {
+            await pingProcess.RunAsync(hostNames, cts.Token);
+        });
+    }
+
+
+
 
 
 
