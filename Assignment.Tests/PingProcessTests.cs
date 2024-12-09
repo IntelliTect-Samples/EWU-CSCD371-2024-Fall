@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -33,57 +32,28 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        int exitCode = Sut.Run("-c 4 google.com").ExitCode;
+        int exitCode = Sut.Run("google.com").ExitCode;
         Assert.AreEqual<int>(0, exitCode);
     }
 
 
-    /*
     [TestMethod]
     public void Run_InvalidAddressOutput_Success()
     {
-        // Arrange
-        string invalidHostName = "badaddress";
-        int expectedExitCode = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? 1 : 68;
-
-        // Expected output based on the platform
-        string expectedOutput = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-            ? "Ping request could not find host badaddress. Please check the name and try again.".Trim()
-            : "ping: badaddress: Name or service not known".Trim();
-
-        // Act
-        var result = Sut.Run(invalidHostName);
-
-        // Normalize and prepare output for assertion
-        string actualOutput = WildcardPattern.NormalizeLineEndings(result.StdOutput?.Trim() ?? string.Empty);
-
-        // Debugging: Log outputs for inspection
-        Console.WriteLine($"Expected Output: {expectedOutput}");
-        Console.WriteLine($"Actual Output: {actualOutput}");
-        Console.WriteLine($"Exit Code: {result.ExitCode}");
-
-        // Assert for exit code
-        Assert.AreEqual(expectedExitCode, result.ExitCode, $"Exit code is unexpected: {result.ExitCode}");
-
-        // Assert for output: Allow for empty or unexpected output fallback
-        if (string.IsNullOrWhiteSpace(actualOutput))
-        {
-            Assert.Fail("Actual output is empty or null, which is unexpected.");
-        }
-        else if (!actualOutput.Contains(expectedOutput))
-        {
-            Assert.Fail($"Output does not contain expected text. Actual: {actualOutput}");
-        }
+        (int exitCode, string? stdOutput) = Sut.Run("badaddress");
+        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
+        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        Assert.AreEqual<string?>(
+            "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
+            stdOutput,
+            $"Output is unexpected: {stdOutput}");
+        Assert.AreEqual<int>(1, exitCode);
     }
-    */
-
-
-
 
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run(" -c 4 localhost");
+        PingResult result = Sut.Run("-c 4 localhost");
         AssertValidPingOutput(result);
     }
 
@@ -92,15 +62,15 @@ public class PingProcessTests
     {
 
         // Act
-        var resultTask = Sut.RunTaskAsync("-c 4 localhost");
+        var resultTask = Sut.RunTaskAsync("localhost");
         resultTask.Wait();
-
+        
         var result = resultTask.Result;
 
         // Assert
         Assert.IsNotNull(result);
         Assert.IsTrue(result.ExitCode == 0);
-        Assert.IsTrue(result.ExitCode == 0);
+        Assert.IsTrue(result.ExitCode == 0); 
         Assert.IsNotNull(result.StdOutput);
     }
 
@@ -110,7 +80,7 @@ public class PingProcessTests
         // Do NOT use async/await in this test.
 
         // Arrange
-        string expectedHost = "-c 4 localhost";
+        string expectedHost = "localhost";
 
         // Act
         Task<PingResult> task = Sut.RunAsync(expectedHost);
@@ -126,7 +96,7 @@ public class PingProcessTests
         // DO use async/await in this test.
 
         // Arrange
-        string expectedHost = "-c 4 localhost";
+        string expectedHost = "localhost";
 
         // Act
         PingResult result = await Sut.RunAsync(expectedHost);
@@ -141,15 +111,15 @@ public class PingProcessTests
     {
         CancellationTokenSource cancellationTokenSource = new();
         cancellationTokenSource.Cancel();
-        Sut.RunAsync("-c 4 localhost", cancellationTokenSource.Token).Wait();
+        Sut.RunAsync("localhost", cancellationTokenSource.Token).Wait();
     }
 
     [TestMethod]
     public async Task RunAsync_MultipleHosts_ReturnsCombinedResults()
     {
         // Arrange
-        PingProcess newPingProcess = new();
-        var hostNames = new List<string> { "-c 4 localhost", "-c 4 127.0.0.1", "-c 4 google.com" };
+        PingProcess newPingProcess = new ();
+        var hostNames = new List<string> { "localhost", "127.0.0.1", "google.com" };
         var cancellationToken = new CancellationTokenSource().Token;
 
         // Act
@@ -166,7 +136,7 @@ public class PingProcessTests
     {
         // Arrange
         PingProcess newPingProcess = new();
-        var hostNames = new List<string> { "-c 4 localhost", "-c 4 127.0.0.1", "-c 4 google.com" };
+        var hostNames = new List<string> { "localhost", "127.0.0.1", "google.com" };
         var cts = new CancellationTokenSource();
         cts.Cancel(); // Cancel immediately
 
@@ -182,7 +152,7 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
         // Arrange
-        string expectedHost = "-c 4 localhost";
+        string expectedHost = "localhost";
         CancellationTokenSource cts = new();
         cts.Cancel(); // Immediately cancel the token
 
@@ -204,14 +174,13 @@ public class PingProcessTests
             throw taskCanceledEx; // Re-throws the TaskCanceledException to satisfy ExpectedException attribute
         }
     }
-
+    
     private static readonly string[] LocalhostArray = { "localhost" };
-
     [TestMethod]
     public async Task RunAsync_MultipleHostAddresses_True()
     {
         // Arrange
-        string[] hostNames = { "-c 4 localhost", "-c 4 localhost", "-c 4 localhost", "-c 4 localhost" };
+        string[] hostNames = { "localhost", "localhost", "localhost", "localhost" };
 
         // Dynamically calculate the expected lines per host using actual output
         PingResult singleHostResult = await Sut.RunAsync(LocalhostArray);
@@ -228,15 +197,14 @@ public class PingProcessTests
             .Length;
 
         // Assert
-        Assert.AreEqual(expectedLineCount, actualLineCount,
-            $"Expected {expectedLineCount} lines, but found {actualLineCount}.");
+        Assert.AreEqual(expectedLineCount, actualLineCount, $"Expected {expectedLineCount} lines, but found {actualLineCount}.");
     }
 
     [TestMethod]
     public async Task RunLongRunningAsync_UsingTpl_Success()
     {
         // Arrange
-        var startInfo = new ProcessStartInfo("ping", " -c 4 localhost")
+        var startInfo = new ProcessStartInfo("ping", "localhost")
         {
             RedirectStandardOutput = true,
             RedirectStandardError = true,
@@ -260,39 +228,29 @@ public class PingProcessTests
         System.Text.StringBuilder stringBuilder = new();
         numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
         int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
-        Assert.AreNotEqual(lineCount, numbers.Count() + 1);
+        Assert.AreNotEqual(lineCount, numbers.Count()+1);
     }
 
 
     private readonly string PingOutputLikeExpression = @"
-PING * (* (*)) * data bytes
-* bytes from * (*): icmp_seq=* ttl=* time=*
-* bytes from * (*): icmp_seq=* ttl=* time=*
-* bytes from * (*): icmp_seq=* ttl=* time=*
-* bytes from * (*): icmp_seq=* ttl=* time=*
+Pinging * with 32 bytes of data:
+Reply from ::1: time<*
+Reply from ::1: time<*
+Reply from ::1: time<*
+Reply from ::1: time<*
 
---- * ping statistics ---
-* packets transmitted, * received, *% packet loss, time *ms
-rtt min/avg/max/mdev = */*/*/* ms".Trim();
-
+Ping statistics for ::1:
+    Packets: Sent = *, Received = *, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = *, Maximum = *, Average = *".Trim();
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
-        // Ensure standard output is not null or empty
-        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput), "Standard output is null or empty.");
-
-        // Normalize line endings and trim the standard output
+        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-
-        // Validate output against the expected pattern
-        bool matchesPattern = stdOutput?.IsLike(PingOutputLikeExpression) ?? false;
-        Assert.IsTrue(matchesPattern, $"Output is unexpected: {stdOutput}");
-
-        // Validate the exit code is zero
-        Assert.AreEqual(0, exitCode, "Exit code is not zero.");
+        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression)??false,
+            $"Output is unexpected: {stdOutput}");
+        Assert.AreEqual<int>(0, exitCode);
     }
-
-// Overloaded method for convenience with PingResult
     private void AssertValidPingOutput(PingResult result) =>
         AssertValidPingOutput(result.ExitCode, result.StdOutput);
-
 }
