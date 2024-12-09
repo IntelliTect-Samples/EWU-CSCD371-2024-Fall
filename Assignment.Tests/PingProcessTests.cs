@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,7 +25,7 @@ public class PingProcessTests
     [TestMethod]
     public void Start_PingProcess_Success()
     {
-        Process process = Process.Start("ping", "localhost");
+        Process process = Process.Start("ping", "-c 4 localhost");
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }
@@ -32,7 +33,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        int exitCode = Sut.Run("google.com").ExitCode;
+        int exitCode = Sut.Run("-c 4 google.com").ExitCode;
         Assert.AreEqual<int>(0, exitCode);
     }
 
@@ -40,20 +41,37 @@ public class PingProcessTests
     [TestMethod]
     public void Run_InvalidAddressOutput_Success()
     {
-        (int exitCode, string? stdOutput) = Sut.Run("badaddress");
-        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        Assert.AreEqual<string?>(
-            "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
-            stdOutput,
-            $"Output is unexpected: {stdOutput}");
-        Assert.AreEqual<int>(1, exitCode);
+        // Arrange
+        string invalidHostName = "badaddress";
+        int expectedExitCode = 1;
+
+        // Determine expected output based on the operating system
+        string expectedOutput = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+            ? "Ping request could not find host badaddress. Please check the name and try again.".Trim()
+            : "ping: cannot resolve badaddress: Unknown host".Trim();
+
+        // Act
+        var result = Sut.Run(invalidHostName);
+
+        // Normalize and prepare output for assertion
+        string actualOutput = WildcardPattern.NormalizeLineEndings(result.StdOutput!.Trim());
+
+        // Debugging: Output the actual result to console for inspection
+        Console.WriteLine($"Actual Output: {actualOutput}");
+        Console.WriteLine($"Exit Code: {result.ExitCode}");
+
+        // Assert
+        Assert.AreEqual(expectedOutput, actualOutput, $"Output is unexpected: {actualOutput}");
+        Assert.AreEqual(expectedExitCode, result.ExitCode, $"Exit code is unexpected: {result.ExitCode}");
     }
+
+
+
 
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run("localhost");
+        PingResult result = Sut.Run(" -c 4 localhost");
         AssertValidPingOutput(result);
     }
 
@@ -62,7 +80,7 @@ public class PingProcessTests
     {
 
         // Act
-        var resultTask = Sut.RunTaskAsync("localhost");
+        var resultTask = Sut.RunTaskAsync("-c 4 localhost");
         resultTask.Wait();
         
         var result = resultTask.Result;
@@ -80,7 +98,7 @@ public class PingProcessTests
         // Do NOT use async/await in this test.
 
         // Arrange
-        string expectedHost = "localhost";
+        string expectedHost = "-c 4 localhost";
 
         // Act
         Task<PingResult> task = Sut.RunAsync(expectedHost);
@@ -96,7 +114,7 @@ public class PingProcessTests
         // DO use async/await in this test.
 
         // Arrange
-        string expectedHost = "localhost";
+        string expectedHost = "-c 4 localhost";
 
         // Act
         PingResult result = await Sut.RunAsync(expectedHost);
@@ -111,7 +129,7 @@ public class PingProcessTests
     {
         CancellationTokenSource cancellationTokenSource = new();
         cancellationTokenSource.Cancel();
-        Sut.RunAsync("localhost", cancellationTokenSource.Token).Wait();
+        Sut.RunAsync("-c 4 localhost", cancellationTokenSource.Token).Wait();
     }
 
     [TestMethod]
@@ -119,7 +137,7 @@ public class PingProcessTests
     {
         // Arrange
         PingProcess newPingProcess = new ();
-        var hostNames = new List<string> { "localhost", "127.0.0.1", "google.com" };
+        var hostNames = new List<string> { "-c 4 localhost", "-c 4 127.0.0.1", "-c 4 google.com" };
         var cancellationToken = new CancellationTokenSource().Token;
 
         // Act
@@ -136,7 +154,7 @@ public class PingProcessTests
     {
         // Arrange
         PingProcess newPingProcess = new();
-        var hostNames = new List<string> { "localhost", "127.0.0.1", "google.com" };
+        var hostNames = new List<string> { "-c 4 localhost", "-c 4 127.0.0.1", "-c 4 google.com" };
         var cts = new CancellationTokenSource();
         cts.Cancel(); // Cancel immediately
 
@@ -152,7 +170,7 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
         // Arrange
-        string expectedHost = "localhost";
+        string expectedHost = "-c 4 localhost";
         CancellationTokenSource cts = new();
         cts.Cancel(); // Immediately cancel the token
 
@@ -180,7 +198,7 @@ public class PingProcessTests
     public async Task RunAsync_MultipleHostAddresses_True()
     {
         // Arrange
-        string[] hostNames = { "localhost", "localhost", "localhost", "localhost" };
+        string[] hostNames = { "-c 4 localhost", "-c 4 localhost", "-c 4 localhost", "-c 4 localhost" };
 
         // Dynamically calculate the expected lines per host using actual output
         PingResult singleHostResult = await Sut.RunAsync(LocalhostArray);
@@ -204,7 +222,7 @@ public class PingProcessTests
     public async Task RunLongRunningAsync_UsingTpl_Success()
     {
         // Arrange
-        var startInfo = new ProcessStartInfo("ping", "localhost")
+        var startInfo = new ProcessStartInfo("ping", " -c 4 localhost")
         {
             RedirectStandardOutput = true,
             RedirectStandardError = true,
