@@ -62,7 +62,7 @@ public class PingProcessTests
     {
 
         // Act
-        var resultTask = Sut.RunTaskAsync("localhost");
+        var resultTask = Sut.RunTaskAsync("-c 4 localhost");
         resultTask.Wait();
         
         var result = resultTask.Result;
@@ -80,7 +80,7 @@ public class PingProcessTests
         // Do NOT use async/await in this test.
 
         // Arrange
-        string expectedHost = "localhost";
+        string expectedHost = "-c 4 localhost";
 
         // Act
         Task<PingResult> task = Sut.RunAsync(expectedHost);
@@ -96,7 +96,7 @@ public class PingProcessTests
         // DO use async/await in this test.
 
         // Arrange
-        string expectedHost = "localhost";
+        string expectedHost = "-c 4 localhost";
 
         // Act
         PingResult result = await Sut.RunAsync(expectedHost);
@@ -111,7 +111,7 @@ public class PingProcessTests
     {
         CancellationTokenSource cancellationTokenSource = new();
         cancellationTokenSource.Cancel();
-        Sut.RunAsync("localhost", cancellationTokenSource.Token).Wait();
+        Sut.RunAsync("-c 4 localhost", cancellationTokenSource.Token).Wait();
     }
 
     [TestMethod]
@@ -119,7 +119,7 @@ public class PingProcessTests
     {
         // Arrange
         PingProcess newPingProcess = new ();
-        var hostNames = new List<string> { "localhost", "127.0.0.1", "google.com" };
+        var hostNames = new List<string> { "-c 4 localhost", "-c 4 127.0.0.1" };
         var cancellationToken = new CancellationTokenSource().Token;
 
         // Act
@@ -136,7 +136,7 @@ public class PingProcessTests
     {
         // Arrange
         PingProcess newPingProcess = new();
-        var hostNames = new List<string> { "localhost", "127.0.0.1", "google.com" };
+        var hostNames = new List<string> { "-c 4 localhost", "-c 4 127.0.0.1" };
         var cts = new CancellationTokenSource();
         cts.Cancel(); // Cancel immediately
 
@@ -152,7 +152,7 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
         // Arrange
-        string expectedHost = "localhost";
+        string expectedHost = "-c 4 localhost";
         CancellationTokenSource cts = new();
         cts.Cancel(); // Immediately cancel the token
 
@@ -175,12 +175,12 @@ public class PingProcessTests
         }
     }
     
-    private static readonly string[] LocalhostArray = { "localhost" };
+    private static readonly string[] LocalhostArray = { "-c 4 localhost" };
     [TestMethod]
     public async Task RunAsync_MultipleHostAddresses_True()
     {
         // Arrange
-        string[] hostNames = { "localhost", "localhost", "localhost", "localhost" };
+        string[] hostNames = { "-c 4 localhost", "-c 4 localhost", "-c 4localhost", "-c 4 localhost" };
 
         // Dynamically calculate the expected lines per host using actual output
         PingResult singleHostResult = await Sut.RunAsync(LocalhostArray);
@@ -204,7 +204,7 @@ public class PingProcessTests
     public async Task RunLongRunningAsync_UsingTpl_Success()
     {
         // Arrange
-        var startInfo = new ProcessStartInfo("ping", "localhost")
+        var startInfo = new ProcessStartInfo("ping", "-c 4 localhost")
         {
             RedirectStandardOutput = true,
             RedirectStandardError = true,
