@@ -284,8 +284,8 @@ rtt min/avg/max/mdev = */*/*/* ms".Trim();
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
 
         // Validate output against the expected pattern
-        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
-            $"Output is unexpected: {stdOutput}");
+        bool matchesPattern = stdOutput?.IsLike(PingOutputLikeExpression) ?? false;
+        Assert.IsTrue(matchesPattern, $"Output is unexpected: {stdOutput}");
 
         // Validate the exit code is zero
         Assert.AreEqual(0, exitCode, "Exit code is not zero.");
@@ -294,4 +294,5 @@ rtt min/avg/max/mdev = */*/*/* ms".Trim();
 // Overloaded method for convenience with PingResult
     private void AssertValidPingOutput(PingResult result) =>
         AssertValidPingOutput(result.ExitCode, result.StdOutput);
+
 }
