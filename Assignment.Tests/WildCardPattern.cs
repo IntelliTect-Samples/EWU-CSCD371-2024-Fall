@@ -1088,7 +1088,7 @@ namespace IntelliTect.TestTools;
             }
         }
 
-        private class MyWildcardPatternParser : WildcardPatternParser
+        private sealed class MyWildcardPatternParser : WildcardPatternParser
         {
             private readonly List<PatternElement> _patternElements = new();
             private CharacterNormalizer _characterNormalizer;
