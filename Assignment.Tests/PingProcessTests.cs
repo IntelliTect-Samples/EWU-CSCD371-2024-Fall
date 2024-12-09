@@ -24,7 +24,7 @@ public class PingProcessTests
     [TestMethod]
     public void Start_PingProcess_Success()
     {
-        Process process = Process.Start("ping", "-c 4 localhost");
+        Process process = Process.Start("ping", "localhost");
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }
@@ -32,7 +32,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        int exitCode = Sut.Run("-c 4 google.com").ExitCode;
+        int exitCode = Sut.Run("google.com").ExitCode;
         Assert.AreEqual<int>(0, exitCode);
     }
 
