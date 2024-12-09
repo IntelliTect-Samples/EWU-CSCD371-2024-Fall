@@ -41,7 +41,7 @@ public class PingProcessTests
     public void Run_InvalidAddressOutput_Success()
     {
         (int exitCode, string? stdOutput) = Sut.Run("badaddress");
-        Assert.IsFalse(!string.IsNullOrWhiteSpace(stdOutput));
+        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
         Assert.AreEqual<string?>(
             "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
@@ -179,13 +179,14 @@ public class PingProcessTests
     [TestMethod]
     public async Task RunAsync_MultipleHostAddresses_True()
     {
-        string[] hostNames = new string[] { "-c 4 localhost", "-c 4 localhost", "-c 4 localhost", "-c 4 localhost" };
-        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length*hostNames.Length;
-        PingResult result = await Sut.RunAsync(hostNames);
-        int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
-        Assert.AreEqual(expectedLineCount+1, lineCount);
-        //One difference, unsure why
+        string[] pingArguments = { "-c 4 localhost", "-c 4 localhost", "-c 4 localhost", "-c 4 localhost" };
+        int expectedOutputLines = PingOutputLikeExpression.Split(Environment.NewLine).Length * pingArguments.Length;
+        PingResult pingResult = await Sut.RunAsync(pingArguments);
+        int? actualOutputLines = pingResult.StdOutput?.Split(Environment.NewLine).Length;
+        Assert.AreEqual(expectedOutputLines + 1, actualOutputLines);
     }
+
+
 
     [TestMethod]
     public async Task RunLongRunningAsync_UsingTpl_Success()
