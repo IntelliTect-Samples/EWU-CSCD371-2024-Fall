@@ -20,10 +20,18 @@ public class PingProcess
         StartInfo.Arguments = hostNameOrAddress;
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line) =>
-            (stringBuilder??=new StringBuilder()).AppendLine(line);
+            (stringBuilder ??= new StringBuilder()).AppendLine(line);
         Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-        return new PingResult( process.ExitCode, stringBuilder?.ToString());
+
+        string output = stringBuilder?.ToString() ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(output))
+        {
+            output = $"No output captured for host: {hostNameOrAddress}";
+        }
+
+        return new PingResult(process.ExitCode, output);
     }
+
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
@@ -86,7 +94,7 @@ public class PingProcess
     }
 
 
-    /*public Task<int> RunLongRunningAsync(
+    public Task<int> RunLongRunningAsync(
         ProcessStartInfo startInfo,
         Action<string?>? progressOutput,
         Action<string?>? progressError,
@@ -105,20 +113,8 @@ public class PingProcess
         TaskCreationOptions.LongRunning,
         TaskScheduler.Current
         );
-    }*/
-    
-    
-    public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
-    {
-        //using Task.Factory.StartNew() and invoking RunProcessInternal with a TaskCreation value of TaskCreationOptions.LongRunning and a TaskScheduler value of TaskScheduler.Current.
-        return Task.Factory.StartNew(() =>
-        {
-            var process = new Process{StartInfo = UpdateProcessStartInfo(startInfo)};
-            RunProcessInternal(process, progressOutput, progressError, token);
-            return process.ExitCode;
-        }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
     }
-
+    
 
     private Process RunProcessInternal(
         ProcessStartInfo startInfo,
