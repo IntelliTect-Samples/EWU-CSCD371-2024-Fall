@@ -13,6 +13,8 @@ public class PingProcessTests
 {
     public PingProcess Sut { get; set; } = new();
 
+    private static readonly string[] NewLineArray = { Environment.NewLine };
+
     [TestInitialize]
     public void TestInitialize()
     {
@@ -182,7 +184,7 @@ public class PingProcessTests
         // Dynamically calculate the expected lines per host using actual output
         PingResult singleHostResult = await Sut.RunAsync(new[] { "localhost" });
         int linesPerHost = singleHostResult.StdOutput?
-            .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+            .Split(NewLineArray, StringSplitOptions.RemoveEmptyEntries)
             .Length ?? 0;
 
         int expectedLineCount = linesPerHost * hostNames.Length;
@@ -190,7 +192,7 @@ public class PingProcessTests
         // Act
         PingResult result = await Sut.RunAsync(hostNames);
         int? actualLineCount = result.StdOutput?
-            .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+            .Split(NewLineArray, StringSplitOptions.RemoveEmptyEntries)
             .Length;
 
         // Assert
