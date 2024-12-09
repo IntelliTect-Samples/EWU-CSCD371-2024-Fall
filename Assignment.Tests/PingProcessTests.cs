@@ -78,7 +78,7 @@ public class PingProcessTests
     */
 
 
-    
+
 
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
@@ -94,13 +94,13 @@ public class PingProcessTests
         // Act
         var resultTask = Sut.RunTaskAsync("-c 4 localhost");
         resultTask.Wait();
-        
+
         var result = resultTask.Result;
 
         // Assert
         Assert.IsNotNull(result);
         Assert.IsTrue(result.ExitCode == 0);
-        Assert.IsTrue(result.ExitCode == 0); 
+        Assert.IsTrue(result.ExitCode == 0);
         Assert.IsNotNull(result.StdOutput);
     }
 
@@ -148,7 +148,7 @@ public class PingProcessTests
     public async Task RunAsync_MultipleHosts_ReturnsCombinedResults()
     {
         // Arrange
-        PingProcess newPingProcess = new ();
+        PingProcess newPingProcess = new();
         var hostNames = new List<string> { "-c 4 localhost", "-c 4 127.0.0.1", "-c 4 google.com" };
         var cancellationToken = new CancellationTokenSource().Token;
 
@@ -204,8 +204,9 @@ public class PingProcessTests
             throw taskCanceledEx; // Re-throws the TaskCanceledException to satisfy ExpectedException attribute
         }
     }
-    
+
     private static readonly string[] LocalhostArray = { "localhost" };
+
     [TestMethod]
     public async Task RunAsync_MultipleHostAddresses_True()
     {
@@ -227,7 +228,8 @@ public class PingProcessTests
             .Length;
 
         // Assert
-        Assert.AreEqual(expectedLineCount, actualLineCount, $"Expected {expectedLineCount} lines, but found {actualLineCount}.");
+        Assert.AreEqual(expectedLineCount, actualLineCount,
+            $"Expected {expectedLineCount} lines, but found {actualLineCount}.");
     }
 
     [TestMethod]
@@ -258,7 +260,7 @@ public class PingProcessTests
         System.Text.StringBuilder stringBuilder = new();
         numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
         int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
-        Assert.AreNotEqual(lineCount, numbers.Count()+1);
+        Assert.AreNotEqual(lineCount, numbers.Count() + 1);
     }
 
 
@@ -275,12 +277,21 @@ rtt min/avg/max/mdev = */*/*/* ms".Trim();
 
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
-        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
+        // Ensure standard output is not null or empty
+        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput), "Standard output is null or empty.");
+
+        // Normalize line endings and trim the standard output
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression)??false,
+
+        // Validate output against the expected pattern
+        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
             $"Output is unexpected: {stdOutput}");
-        Assert.AreEqual<int>(0, exitCode);
+
+        // Validate the exit code is zero
+        Assert.AreEqual(0, exitCode, "Exit code is not zero.");
     }
+
+// Overloaded method for convenience with PingResult
     private void AssertValidPingOutput(PingResult result) =>
         AssertValidPingOutput(result.ExitCode, result.StdOutput);
 }
