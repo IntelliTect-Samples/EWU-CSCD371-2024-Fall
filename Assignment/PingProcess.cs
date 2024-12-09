@@ -86,7 +86,7 @@ public class PingProcess
     }
 
 
-    public Task<int> RunLongRunningAsync(
+    /*public Task<int> RunLongRunningAsync(
         ProcessStartInfo startInfo,
         Action<string?>? progressOutput,
         Action<string?>? progressError,
@@ -105,7 +105,20 @@ public class PingProcess
         TaskCreationOptions.LongRunning,
         TaskScheduler.Current
         );
+    }*/
+    
+    
+    public Task<int> RunLongRunningAsync(ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
+    {
+        //using Task.Factory.StartNew() and invoking RunProcessInternal with a TaskCreation value of TaskCreationOptions.LongRunning and a TaskScheduler value of TaskScheduler.Current.
+        return Task.Factory.StartNew(() =>
+        {
+            var process = new Process{StartInfo = UpdateProcessStartInfo(startInfo)};
+            RunProcessInternal(process, progressOutput, progressError, token);
+            return process.ExitCode;
+        }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
     }
+
 
     private Process RunProcessInternal(
         ProcessStartInfo startInfo,
