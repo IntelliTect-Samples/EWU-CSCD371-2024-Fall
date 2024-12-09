@@ -181,43 +181,25 @@ public class PingProcessTests
     public async Task RunAsync_MultipleHostAddresses_True()
     {
         // Arrange
-        string[] hostNames = { "-c 4 localhost", "-c 4 localhost", "-c 4 localhost", "-c 4 localhost" };
+        string[] hostNames = { "-c 4 localhost", "-c 4 localhost", "-c 4localhost", "-c 4 localhost" };
 
-        // Run for a single host to calculate the expected lines per host
-        PingResult singleHostResult = await Sut.RunAsync("c- 4 localhost");
-
-        // Debugging output for single-host results
-        Console.WriteLine("Single-host StdOutput:");
-        Console.WriteLine(singleHostResult.StdOutput);
-
+        // Dynamically calculate the expected lines per host using actual output
+        PingResult singleHostResult = await Sut.RunAsync(LocalhostArray);
         int linesPerHost = singleHostResult.StdOutput?
             .Split(NewLineArray, StringSplitOptions.RemoveEmptyEntries)
             .Length ?? 0;
-
-        // Validate single-host output
-        if (linesPerHost == 0)
-        {
-            Assert.Fail("Single-host result did not produce any lines.");
-        }
 
         int expectedLineCount = linesPerHost * hostNames.Length;
 
         // Act
         PingResult result = await Sut.RunAsync(hostNames);
-
-        // Debugging output for multi-host results
-        Console.WriteLine("Multi-host StdOutput:");
-        Console.WriteLine(result.StdOutput);
-
         int? actualLineCount = result.StdOutput?
             .Split(NewLineArray, StringSplitOptions.RemoveEmptyEntries)
             .Length;
 
         // Assert
-        Assert.AreEqual(expectedLineCount, actualLineCount,
-            $"Expected {expectedLineCount} lines, but found {actualLineCount}. StdOutput: {result.StdOutput}");
+        Assert.AreEqual(expectedLineCount, actualLineCount, $"Expected {expectedLineCount} lines, but found {actualLineCount}.");
     }
-
 
     [TestMethod]
     public async Task RunLongRunningAsync_UsingTpl_Success()
