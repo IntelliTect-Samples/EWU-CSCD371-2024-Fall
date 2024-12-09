@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace IntelliTect.TestTools
+namespace IntelliTect.TestTools;
 
     /// <summary>
     /// Provides enumerated values to use to set wildcard pattern
