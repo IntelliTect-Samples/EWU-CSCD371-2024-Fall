@@ -389,26 +389,26 @@ namespace IntelliTect.TestTools;
 
         public const string WildCardCharacters = "*?[]";
 
-        /// <summary>
-        /// Normalizes all line endings of the input string into <see cref="Environment.NewLine" />
-        /// </summary>
-        /// <param name="input">The input to normalize</param>
-        /// <param name="trimTrailingNewline">True if trailing newlines should be trimmed.</param>
-        /// <returns>The normalized input.</returns>
-        public static string NormalizeLineEndings(string input, bool trimTrailingNewline = false)
+    /// <summary>
+    /// Normalizes all line endings of the input string into <see cref="Environment.NewLine" />
+    /// </summary>
+    /// <param name="input">The input to normalize</param>
+    /// <param name="trimTrailingNewline">True if trailing newlines should be trimmed.</param>
+    /// <returns>The normalized input.</returns>
+    public static string NormalizeLineEndings(string input, bool trimTrailingNewline = false)
+    {
+        // Normalize all newlines to Environment.NewLine
+        input = NormalizeNewLines().Replace(input, Environment.NewLine);
+
+        if (trimTrailingNewline && input.EndsWith(Environment.NewLine, StringComparison.Ordinal)) // Fixed here
         {
-            // https://stackoverflow.com/questions/140926/normalize-newlines-in-c-sharp
-            input = NormalizeNewLines().Replace(input, Environment.NewLine);
-
-            if (trimTrailingNewline && input.EndsWith(Environment.NewLine))
-            {
-                input = input.Substring(0, input.Length - Environment.NewLine.Length);
-            }
-
-            return input;
+            input = input.Substring(0, input.Length - Environment.NewLine.Length);
         }
 
-        [GeneratedRegex(@"\r\n|\n\r|\n|\r")]
+        return input;
+    }
+
+    [GeneratedRegex(@"\r\n|\n\r|\n|\r")]
         private static partial Regex NormalizeNewLines();
     }
 
@@ -625,10 +625,10 @@ namespace IntelliTect.TestTools;
 
         internal static Exception NewWildcardPatternException(string invalidPattern)
         {
-            return new Exception(
-                    $"The wildcard pattern, '{invalidPattern}', is invalid.");
+            return new ArgumentException(
+                $"The wildcard pattern, '{invalidPattern}', is invalid.", nameof(invalidPattern));
         }
-    };
+};
 
     /// <summary>
     /// Convert a string with wild cards into its equivalent regex
