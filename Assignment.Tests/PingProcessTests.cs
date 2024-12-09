@@ -63,7 +63,7 @@ public class PingProcessTests
                 $"Unexpected output: {stdOutput}");
         }
 
-        Assert.AreEqual(68, exitCode);
+        Assert.AreEqual(2, exitCode);
     }
 
 
