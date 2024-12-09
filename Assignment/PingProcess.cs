@@ -36,7 +36,6 @@ public class PingProcess
     {
         try
         {
-            // Run the ping operation in a separate task
             return await Task.Run(() =>
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -45,16 +44,14 @@ public class PingProcess
         }
         catch (OperationCanceledException ex)
         {
-            throw new TaskCanceledException("Task was canceled.", ex);
+            throw new AggregateException(new TaskCanceledException("Task was canceled.", ex));
         }
     }
 
-
     public async Task<PingResult> RunAsync(
-        IEnumerable<string> hostNameOrAddresses,
-        CancellationToken cancellationToken = default)
+        IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
-        StringBuilder? stringBuilder = new();
+        StringBuilder stringBuilder = new();
         var lockObject = new object();
 
         try
@@ -63,13 +60,13 @@ public class PingProcess
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                PingResult result = await RunTaskAsync(host);
+                PingResult result = await RunAsync(host, cancellationToken);
 
                 lock (lockObject)
                 {
                     if (!string.IsNullOrEmpty(result.StdOutput))
                     {
-                        stringBuilder.AppendLine(result.StdOutput);
+                        stringBuilder.AppendLine(result.StdOutput.Trim());
                     }
                 }
 
@@ -87,6 +84,7 @@ public class PingProcess
             throw new AggregateException(new TaskCanceledException("Operation canceled", ex));
         }
     }
+
 
     public Task<int> RunLongRunningAsync(
         ProcessStartInfo startInfo,
