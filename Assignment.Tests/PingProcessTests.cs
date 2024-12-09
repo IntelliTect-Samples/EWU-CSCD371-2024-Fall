@@ -232,7 +232,7 @@ public class PingProcessTests
     }
 
 
-    readonly string PingOutputLikeExpression = @"
+    private readonly string PingOutputLikeExpression = @"
 PING * 56 data bytes
 64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
 64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
