@@ -27,15 +27,53 @@ public class PingProcess
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        throw new NotImplementedException();
+        var tcs = new TaskCompletionSource<PingResult>();
+
+        StartInfo.Arguments = hostNameOrAddress;
+        StringBuilder? stringBuilder = null;
+
+        void updateStdOutput(string? line) => (stringBuilder ??= new StringBuilder()).AppendLine(line);
+        var process = RunProcessInternal(StartInfo, updateStdOutput, null, CancellationToken.None);
+
+        process.Exited += (sender, args) =>
+        {
+            tcs.SetResult(new PingResult(process.ExitCode, stringBuilder?.ToString()));
+        };
+
+        process.Start();
+        return tcs.Task;
     }
 
-    async public Task<PingResult> RunAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+    async public Task<PingResult> RunAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        var taskCompletionSource = new TaskCompletionSource<PingResult>();
+        StringBuilder? stringBuilder = null;
+        Process? process = null;
+
+        Action<string?> updateStdOutput = line => {
+            (stringBuilder ??= new StringBuilder()).AppendLine(line);
+        };
+
+        process = RunProcessInternal(
+            new ProcessStartInfo("ping", hostNameOrAddress),
+            updateStdOutput,
+            progressError: null,
+            token: cancellationToken);
+
+        cancellationToken.ThrowIfCancellationRequested();
+
+        process.Exited += (sender, e) => {
+            taskCompletionSource.SetResult(new PingResult(process.ExitCode, stringBuilder?.ToString()));
+        };
+
+        if (!process.HasExited)
+        {
+            process.BeginOutputReadLine();
+        }
+
+        cancellationToken.ThrowIfCancellationRequested();
+
+        return await taskCompletionSource.Task;
     }
 
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
