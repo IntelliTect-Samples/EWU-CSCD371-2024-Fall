@@ -130,88 +130,92 @@ public class PingProcess
     }
 
     private Process RunProcessInternal(
-        Process process,
-        Action<string?>? progressOutput,
-        Action<string?>? progressError,
-        CancellationToken token)
+    Process process,
+    Action<string?>? progressOutput,
+    Action<string?>? progressError,
+    CancellationToken token)
+{
+    process.EnableRaisingEvents = true;
+    process.OutputDataReceived += OutputHandler;
+    process.ErrorDataReceived += ErrorHandler;
+
+    bool outputReadStarted = false;
+    bool errorReadStarted = false;
+
+    try
     {
-        process.EnableRaisingEvents = true;
-        process.OutputDataReceived += OutputHandler;
-        process.ErrorDataReceived += ErrorHandler;
-
-        try
+        if (!process.Start())
         {
-            if (!process.Start())
-            {
-                return process;
-            }
+            return process;
+        }
 
-            token.Register(obj =>
+        token.Register(obj =>
+        {
+            if (obj is Process p && !p.HasExited)
             {
-                if (obj is Process p && !p.HasExited)
+                try
                 {
-                    try
-                    {
-                        p.Kill();
-                    }
-                    catch (Win32Exception ex)
-                    {
-                        throw new InvalidOperationException($"Error cancelling process{Environment.NewLine}{ex}");
-                    }
+                    p.Kill();
                 }
-            }, process);
-
-
-            if (process.StartInfo.RedirectStandardOutput)
-            {
-                process.BeginOutputReadLine();
+                catch (Win32Exception ex)
+                {
+                    throw new InvalidOperationException($"Error cancelling process{Environment.NewLine}{ex}");
+                }
             }
-            if (process.StartInfo.RedirectStandardError)
-            {
-                process.BeginErrorReadLine();
-            }
+        }, process);
 
-            if (process.HasExited)
-            {
-                return process;
-            }
-            process.WaitForExit();
-        }
-        catch (Exception e)
+        if (process.StartInfo.RedirectStandardOutput)
         {
-            throw new InvalidOperationException($"Error running '{process.StartInfo.FileName} {process.StartInfo.Arguments}'{Environment.NewLine}{e}");
+            process.BeginOutputReadLine();
+            outputReadStarted = true; // Track if output read has started
         }
-        finally
+        if (process.StartInfo.RedirectStandardError)
         {
-            if (process.StartInfo.RedirectStandardError)
-            {
-                process.CancelErrorRead();
-            }
-            if (process.StartInfo.RedirectStandardOutput)
-            {
-                process.CancelOutputRead();
-            }
-            process.OutputDataReceived -= OutputHandler;
-            process.ErrorDataReceived -= ErrorHandler;
-
-            if (!process.HasExited)
-            {
-                process.Kill();
-            }
-
-        }
-        return process;
-
-        void OutputHandler(object s, DataReceivedEventArgs e)
-        {
-            progressOutput?.Invoke(e.Data);
+            process.BeginErrorReadLine();
+            errorReadStarted = true; // Track if error read has started
         }
 
-        void ErrorHandler(object s, DataReceivedEventArgs e)
+        if (process.HasExited)
         {
-            progressError?.Invoke(e.Data);
+            return process;
+        }
+        process.WaitForExit();
+    }
+    catch (Exception e)
+    {
+        throw new InvalidOperationException($"Error running '{process.StartInfo.FileName} {process.StartInfo.Arguments}'{Environment.NewLine}{e}");
+    }
+    finally
+    {
+        if (outputReadStarted)
+        {
+            process.CancelOutputRead(); // Only call if BeginOutputReadLine was invoked
+        }
+        if (errorReadStarted)
+        {
+            process.CancelErrorRead(); // Only call if BeginErrorReadLine was invoked
+        }
+        process.OutputDataReceived -= OutputHandler;
+        process.ErrorDataReceived -= ErrorHandler;
+
+        if (!process.HasExited)
+        {
+            process.Kill();
         }
     }
+    return process;
+
+    void OutputHandler(object s, DataReceivedEventArgs e)
+    {
+        progressOutput?.Invoke(e.Data);
+    }
+
+    void ErrorHandler(object s, DataReceivedEventArgs e)
+    {
+        progressError?.Invoke(e.Data);
+    }
+}
+
 
     private static ProcessStartInfo UpdateProcessStartInfo(ProcessStartInfo startInfo)
     {
