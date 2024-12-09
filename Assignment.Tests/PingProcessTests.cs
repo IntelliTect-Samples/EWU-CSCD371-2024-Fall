@@ -222,13 +222,24 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
+    public void StringBuilderAppendLine_InParallel_IsThreadSafe()
     {
+        // Arrange
         IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
+        IEnumerable<string> lines = numbers.AsParallel().Select(_ => "");
         System.Text.StringBuilder stringBuilder = new();
-        numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
+
+        // Aggregate lines into the StringBuilder sequentially
+        foreach (string line in lines)
+        {
+            stringBuilder.AppendLine(line);
+        }
+
+        // Act
         int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
-        Assert.AreNotEqual(lineCount, numbers.Count()+1);
+
+        // Assert
+        Assert.AreEqual(numbers.Count() + 1, lineCount, $"Expected {numbers.Count() + 1} lines, but found {lineCount}.");
     }
 
     private readonly string PingOutputLikeExpression = @"
