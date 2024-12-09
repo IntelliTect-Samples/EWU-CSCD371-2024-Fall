@@ -57,30 +57,48 @@ public class PingProcessTests
     [TestMethod]
     public void RunTaskAsync_Success()
     {
-        // Do NOT use async/await in this test.
-        // Test Sut.RunTaskAsync("localhost");
+        // Arrange
+        var pingProcess = new PingProcess();
+
+        // Act
+        Task<PingResult> task = pingProcess.RunTaskAsync("localhost");
+        task.Wait();
+
+        PingResult result = task.Result;
+
+        // Assert
+        Assert.AreEqual(0, result.ExitCode);
+        Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
     }
 
     [TestMethod]
     public void RunAsync_UsingTaskReturn_Success()
     {
-        // Do NOT use async/await in this test.
-        PingResult result = default;
-        // Test Sut.RunAsync("localhost");
-        AssertValidPingOutput(result);
+        // Arrange
+        var pingProcess = new PingProcess();
+
+        // Act
+        Task<PingResult> task = pingProcess.RunAsync("localhost");
+        task.Wait();
+        PingResult result = task.Result;
+
+        // Assert
+        Assert.AreEqual(0, result.ExitCode);
+        Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
     }
 
     [TestMethod]
-#pragma warning disable CS1998 // Remove this
-    async public Task RunAsync_UsingTpl_Success()
+    public async Task RunAsync_UsingTpl_Success()
     {
-        // DO use async/await in this test.
-        PingResult result = default;
+        // Arrange
+        var pingProcess = new PingProcess();
 
-        // Test Sut.RunAsync("localhost");
-        AssertValidPingOutput(result);
+        // Act
+        PingResult result = await pingProcess.RunAsync("localhost");
+
+        // Assert
+        Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
     }
-#pragma warning restore CS1998 // Remove this
 
 
     [TestMethod]
