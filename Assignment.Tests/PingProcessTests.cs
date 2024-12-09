@@ -32,7 +32,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        int exitCode = Sut.Run("-c 4 google.com").ExitCode;
+        int exitCode = Sut.Run("-c 4 8.8.8.8").ExitCode;
         Assert.AreEqual<int>(1, exitCode); // since github actions doesn't have internet access
     }
 
