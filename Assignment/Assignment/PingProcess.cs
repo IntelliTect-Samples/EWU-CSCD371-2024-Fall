@@ -22,20 +22,31 @@ public class PingProcess
         void updateStdOutput(string? line) =>
             (stringBuilder??=new StringBuilder()).AppendLine(line);
         Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-        return new PingResult( process.ExitCode, stringBuilder?.ToString());
+        return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        throw new NotImplementedException();
+        return Task.Run(() => Run(hostNameOrAddress));
     }
 
     async public Task<PingResult> RunAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        cancellationToken.ThrowIfCancellationRequested();
+
+        try
+        {
+
+            PingResult result = await RunTaskAsync(hostNameOrAddress).ConfigureAwait(false);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return result;
+        }
+        catch (OperationCanceledException)
+        {
+            throw new AggregateException(new TaskCanceledException("ping operation was canceled."));
+        }
     }
 
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
