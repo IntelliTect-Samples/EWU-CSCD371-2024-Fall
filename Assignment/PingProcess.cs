@@ -39,18 +39,16 @@ public class PingProcess
             // Run the ping operation in a separate task
             return await Task.Run(() =>
             {
-                // Throw if cancellation is requested
                 cancellationToken.ThrowIfCancellationRequested();
                 return Run(hostNameOrAddress);
             }, cancellationToken);
         }
         catch (OperationCanceledException ex)
         {
-            // Wrap the cancellation exception into an AggregateException with a TaskCanceledException
-            var taskCanceledException = new TaskCanceledException("Task was canceled.", ex);
-            throw new AggregateException(taskCanceledException);
+            throw new TaskCanceledException("Task was canceled.", ex);
         }
     }
+
 
     public async Task<PingResult> RunAsync(
         IEnumerable<string> hostNameOrAddresses,
