@@ -57,11 +57,8 @@ public class PingProcessTests
     [TestMethod]
     public void RunTaskAsync_Success()
     {
-        // Arrange
-        var pingProcess = new PingProcess();
-
         // Act
-        Task<PingResult> task = pingProcess.RunTaskAsync("localhost");
+        Task<PingResult> task = Sut.RunTaskAsync("localhost");
         task.Wait();
 
         PingResult result = task.Result;
@@ -74,11 +71,8 @@ public class PingProcessTests
     [TestMethod]
     public void RunAsync_UsingTaskReturn_Success()
     {
-        // Arrange
-        var pingProcess = new PingProcess();
-
         // Act
-        Task<PingResult> task = pingProcess.RunAsync("localhost");
+        Task<PingResult> task = Sut.RunAsync("localhost");
         task.Wait();
         PingResult result = task.Result;
 
@@ -90,11 +84,8 @@ public class PingProcessTests
     [TestMethod]
     public async Task RunAsync_UsingTpl_Success()
     {
-        // Arrange
-        var pingProcess = new PingProcess();
-
         // Act
-        PingResult result = await pingProcess.RunAsync("localhost");
+        PingResult result = await Sut.RunAsync("localhost");
 
         // Assert
         Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
