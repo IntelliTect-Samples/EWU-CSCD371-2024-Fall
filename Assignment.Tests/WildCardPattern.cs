@@ -625,10 +625,10 @@ namespace IntelliTect.TestTools;
 
         internal static Exception NewWildcardPatternException(string invalidPattern)
         {
-            return new Exception(
-                    $"The wildcard pattern, '{invalidPattern}', is invalid.");
+            return new ArgumentException(
+                $"The wildcard pattern, '{invalidPattern}', is invalid.", nameof(invalidPattern));
         }
-    };
+};
 
     /// <summary>
     /// Convert a string with wild cards into its equivalent regex
