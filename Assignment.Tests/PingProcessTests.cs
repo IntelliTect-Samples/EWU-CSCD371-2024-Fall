@@ -184,7 +184,7 @@ public class PingProcessTests
         string[] hostNames = { "-c 4 localhost", "-c 4 localhost", "-c 4 localhost", "-c 4 localhost" };
 
         // Run for a single host to calculate the expected lines per host
-        PingResult singleHostResult = await Sut.RunAsync("localhost");
+        PingResult singleHostResult = await Sut.RunAsync("c- 4 localhost");
 
         // Debugging output for single-host results
         Console.WriteLine("Single-host StdOutput:");
