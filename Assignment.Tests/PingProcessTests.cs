@@ -174,15 +174,16 @@ public class PingProcessTests
             throw taskCanceledEx; // Re-throws the TaskCanceledException to satisfy ExpectedException attribute
         }
     }
-
+    
+    private static readonly string[] LocalhostArray = { "localhost" };
     [TestMethod]
     public async Task RunAsync_MultipleHostAddresses_True()
     {
         // Arrange
-        string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
+        string[] hostNames = { "localhost", "localhost", "localhost", "localhost" };
 
         // Dynamically calculate the expected lines per host using actual output
-        PingResult singleHostResult = await Sut.RunAsync(new[] { "localhost" });
+        PingResult singleHostResult = await Sut.RunAsync(LocalhostArray);
         int linesPerHost = singleHostResult.StdOutput?
             .Split(NewLineArray, StringSplitOptions.RemoveEmptyEntries)
             .Length ?? 0;
