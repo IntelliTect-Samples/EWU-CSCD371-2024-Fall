@@ -1014,7 +1014,7 @@ namespace IntelliTect.TestTools;
             }
         }
 
-        private class LiteralCharacterElement : QuestionMarkElement
+        private sealed class LiteralCharacterElement : QuestionMarkElement
         {
             private readonly char _literalCharacter;
 
@@ -1064,7 +1064,7 @@ namespace IntelliTect.TestTools;
             }
         }
 
-        private class AsterixElement : PatternElement
+        private sealed class AsterixElement : PatternElement
         {
             public override void ProcessStringCharacter(
                             char currentStringCharacter,
@@ -1191,7 +1191,7 @@ namespace IntelliTect.TestTools;
     /// <summary>
     /// Translates a <see cref="WildcardPattern"/> into a DOS wildcard
     /// </summary>
-    internal class WildcardPatternToDosWildcardParser : WildcardPatternParser
+    internal sealed class WildcardPatternToDosWildcardParser : WildcardPatternParser
     {
         private readonly StringBuilder _result = new();
 
