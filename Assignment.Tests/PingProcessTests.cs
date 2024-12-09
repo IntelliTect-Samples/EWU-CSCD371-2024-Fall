@@ -24,7 +24,7 @@ public class PingProcessTests
     [TestMethod]
     public void Start_PingProcess_Success()
     {
-        Process process = Process.Start("ping", "localhost");
+        Process process = Process.Start("ping", "-c 4 localhost");
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }
@@ -222,25 +222,15 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    public void StringBuilderAppendLine_InParallel_IsThreadSafe()
+    public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
     {
-        // Arrange
         IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
-        IEnumerable<string> lines = numbers.AsParallel().Select(_ => "");
         System.Text.StringBuilder stringBuilder = new();
-
-        // Aggregate lines into the StringBuilder sequentially
-        foreach (string line in lines)
-        {
-            stringBuilder.AppendLine(line);
-        }
-
-        // Act
+        numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
         int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
-
-        // Assert
-        Assert.AreEqual(numbers.Count() + 1, lineCount, $"Expected {numbers.Count() + 1} lines, but found {lineCount}.");
+        Assert.AreNotEqual(lineCount, numbers.Count()+1);
     }
+
 
     private readonly string PingOutputLikeExpression = @"
 Pinging * with 32 bytes of data:
