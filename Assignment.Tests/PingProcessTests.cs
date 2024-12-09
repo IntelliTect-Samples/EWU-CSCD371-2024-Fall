@@ -228,7 +228,7 @@ public class PingProcessTests
         Assert.AreNotEqual(lineCount, numbers.Count()+1);
     }
 
-    readonly string PingOutputLikeExpression = @"
+    private readonly string PingOutputLikeExpression = @"
 Pinging * with 32 bytes of data:
 Reply from ::1: time<*
 Reply from ::1: time<*

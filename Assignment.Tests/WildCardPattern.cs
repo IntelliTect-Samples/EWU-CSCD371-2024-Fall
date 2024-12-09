@@ -10,7 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 
 namespace IntelliTect.TestTools
-{
+
     /// <summary>
     /// Provides enumerated values to use to set wildcard pattern
     /// matching options.
@@ -1237,4 +1237,4 @@ namespace IntelliTect.TestTools
             return parser._result.ToString();
         }
     }
-}
+
