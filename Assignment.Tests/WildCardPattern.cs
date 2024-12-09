@@ -645,7 +645,7 @@ namespace IntelliTect.TestTools;
     ///
     /// for a more cases see the unit-test file RegexTest.cs
     /// </remarks>
-    internal class WildcardPatternToRegexParser : WildcardPatternParser
+    internal sealed class WildcardPatternToRegexParser : WildcardPatternParser
     {
         private StringBuilder _regexPattern;
         private RegexOptions _regexOptions;
@@ -814,7 +814,7 @@ namespace IntelliTect.TestTools;
         }
     }
 
-    internal class WildcardPatternMatcher
+    internal sealed class WildcardPatternMatcher
     {
         private readonly PatternElement[] _patternElements;
         private readonly CharacterNormalizer _characterNormalizer;
@@ -886,7 +886,7 @@ namespace IntelliTect.TestTools;
             return patternPositionsForCurrentStringPosition.ReachedEndOfPattern;
         }
 
-        private class PatternPositionsVisitor
+        private sealed class PatternPositionsVisitor
         {
             private readonly int _lengthOfPattern;
 
@@ -1040,7 +1040,7 @@ namespace IntelliTect.TestTools;
             }
         }
 
-        private class BracketExpressionElement : QuestionMarkElement
+        private sealed class BracketExpressionElement : QuestionMarkElement
         {
             private readonly Regex _Regex;
 
