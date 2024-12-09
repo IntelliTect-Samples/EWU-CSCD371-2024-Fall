@@ -38,7 +38,6 @@ public class PingProcessTests
 
 
     [TestMethod]
-    [TestMethod]
     public void Run_InvalidAddressOutput_Success()
     {
         // Act
