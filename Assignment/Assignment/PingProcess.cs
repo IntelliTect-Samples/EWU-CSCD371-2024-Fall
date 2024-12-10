@@ -30,36 +30,64 @@ public class PingProcess
         return Task.Run(() => Run(hostNameOrAddress));
     }
 
-    async public Task<PingResult> RunAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
+    public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        var taskCompletionSource = new TaskCompletionSource<PingResult>();
-        StringBuilder? stringBuilder = null;
-        Process? process = null;
+        return Task.Run(() => Run(hostNameOrAddress));
+    }
 
-        Action<string?> updateStdOutput = line => {
-            (stringBuilder ??= new StringBuilder()).AppendLine(line);
-        };
+    async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
+    {
+        var outputBuilder = new StringBuilder();
+        var tasks = new List<Task>();
 
-        process = RunProcessInternal(
-            new ProcessStartInfo("ping", hostNameOrAddress),
-            updateStdOutput,
-            progressError: null,
-            token: cancellationToken);
+        var outputLock = new object();
 
-        cancellationToken.ThrowIfCancellationRequested();
-
-        process.Exited += (sender, e) => {
-            taskCompletionSource.SetResult(new PingResult(process.ExitCode, stringBuilder?.ToString()));
-        };
-
-        if (!process.HasExited)
+        foreach (var hostNameOrAddress in hostNameOrAddresses)
         {
-            process.BeginOutputReadLine();
+            tasks.Add(Task.Run(async () =>
+            {
+                var processStartInfo = new ProcessStartInfo
+                {
+                    FileName = "ping",
+                    Arguments = hostNameOrAddress,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                using var process = new Process { StartInfo = processStartInfo };
+
+                try
+                {
+                    process.Start();
+
+                    var output = await process.StandardOutput.ReadToEndAsync();
+                    var error = await process.StandardError.ReadToEndAsync();
+
+                    await process.WaitForExitAsync(cancellationToken);
+
+                    lock (outputLock)
+                    {
+                        outputBuilder.AppendLine(output);
+                        if (!string.IsNullOrWhiteSpace(error))
+                        {
+                            outputBuilder.AppendLine(error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lock (outputLock)
+                    {
+                        outputBuilder.AppendLine($"Error pinging {hostNameOrAddress}: {ex.Message}");
+                    }
+                }
+            }, cancellationToken));
         }
 
-        cancellationToken.ThrowIfCancellationRequested();
-
-        return await taskCompletionSource.Task;
+        await Task.WhenAll(tasks);
+        return new PingResult(0, outputBuilder.ToString());
     }
 
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
