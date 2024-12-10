@@ -53,7 +53,7 @@ public class PingProcess
 
     public async Task<PingResult> RunAsync(string[] hostNameOrAddresses)
     {
-        Task<PingResult>[] tasks = hostNameOrAddresses.Select((string x) => RunAsync(x)).ToArray();
+        /*Task<PingResult>[] tasks = hostNameOrAddresses.Select((string x) => RunAsync(x)).ToArray();
         await Task.WhenAll(tasks);
 
         string aggregatedOutput = string.Join(
@@ -62,6 +62,49 @@ public class PingProcess
         );
 
         return new PingResult(tasks.Max(x => x.Result.ExitCode), aggregatedOutput);
+
+        FOR AUSTIN:
+        This is commented out in case you want to use the original RunAsync method that has a string return type
+         */
+        return await RunAsync(hostNameOrAddresses.AsEnumerable());
+    }
+
+    public async Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
+    {
+        List<PingResult> results = new();
+        object lockObj = new();
+
+        IEnumerable<Task> tasks = hostNameOrAddresses.Select(async hostNameOrAddress =>
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            try
+            {
+                // Run each ping task
+                PingResult result = await RunAsync(hostNameOrAddress, cancellationToken);
+
+                // Safely aggregate results
+                lock (lockObj)
+                {
+                    results.Add(result);
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                // Handle cancellation gracefully
+            }
+        });
+
+        await Task.WhenAll(tasks);
+
+        string aggregatedOutput = string.Join(
+            Environment.NewLine,
+            results.Select(r => r.StdOutput?.Trim() ?? string.Empty)
+        );
+
+        int maxExitCode = results.Max(r => r.ExitCode);
+
+        return new PingResult(maxExitCode, aggregatedOutput);
     }
 
     // They want the parameters to look like this method below but I don't understand the point.
