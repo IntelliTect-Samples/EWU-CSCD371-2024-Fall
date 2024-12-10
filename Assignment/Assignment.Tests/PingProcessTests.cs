@@ -39,7 +39,7 @@ public class PingProcessTests
     {
         (int exitCode, string? stdOutput) = Sut.Run("badaddress");
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-        stdOutput = WildCardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
         Assert.AreEqual<string?>(
             "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
             stdOutput,
@@ -94,7 +94,7 @@ async public Task RunAsync_UsingTpl_Success()
     [ExpectedException(typeof(TaskCanceledException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
-        using (var cts = new CancellationTokenSource())
+        using (var cts = new System.Threading.CancellationTokenSource())
         {
             cts.Cancel();
             Task<PingResult> task = Sut.RunAsync("localhost", cts.Token);
@@ -113,16 +113,18 @@ async public Task RunAsync_UsingTpl_Success()
     {
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
         int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
-        PingResult result = await Sut.RunAsync(hostNames);
-        int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
+        List<Task<PingResult>> tasks = hostNames.Select(host => Sut.RunAsync(host)).ToList();
+        PingResult[] results = await Task.WhenAll(tasks);
+        int lineCount = results.Sum(result => result.StdOutput?.Split(Environment.NewLine).Length ?? 0);
         Assert.AreEqual(expectedLineCount, lineCount);
     }
 
     [TestMethod]
     async public Task RunLongRunningAsync_UsingTpl_Success()
     {
-        // Test Sut.RunLongRunningAsync("localhost");
-        PingResult result = await Sut.RunLongRunningAsync("localhost");
+        // Test Sut.RunLongRunningAsync("localhost");  
+        ProcessStartInfo startInfo = new ProcessStartInfo("ping", "localhost");
+        PingResult result = await Sut.RunLongRunningAsync(startInfo, null, null, default);
         AssertValidPingOutput(result);
     }
     [TestMethod]
@@ -149,7 +151,7 @@ Approximate round trip times in milli-seconds:
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-        stdOutput = WildCardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
         Assert.IsTrue(stdOutput?.Contains(PingOutputLikeExpression)??false,
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
