@@ -42,7 +42,7 @@ public class PingProcessTests
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
         StringAssert.Contains( //I don't have a linux machine to test the exact output
-            "No output captured for host: badaddress".Trim(),
+            "No output captured for host: badaddress",
             stdOutput,
             $"Unexpected output: {stdOutput}");
         Assert.AreEqual<int>(2, exitCode);
