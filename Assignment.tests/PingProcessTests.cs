@@ -10,7 +10,7 @@ namespace Assignment.Tests;
 [TestClass]
 public class PingProcessTests
 {
-    PingProcess Sut { get; set; } = new();
+    private PingProcess Sut { get; set; } = new();
 
     [TestInitialize]
     public void TestInitialize()
@@ -123,7 +123,7 @@ async public Task RunAsync_UsingTpl_Success()
     async public Task RunLongRunningAsync_UsingTpl_Success()
     {
         // Test Sut.RunLongRunningAsync("localhost");  
-        ProcessStartInfo startInfo = new ProcessStartInfo("ping", "localhost");
+        ProcessStartInfo startInfo = new("ping", "localhost");
         PingResult result = await Sut.RunLongRunningAsync(startInfo, null, null, default);
         AssertValidPingOutput(result);
     }
@@ -137,17 +137,17 @@ async public Task RunAsync_UsingTpl_Success()
         Assert.AreNotEqual(lineCount, numbers.Count()+1);
     }
 
-    readonly string PingOutputLikeExpression = @"
-Pinging * with 32 bytes of data:
-Reply from ::1: time<*
-Reply from ::1: time<*
-Reply from ::1: time<*
-Reply from ::1: time<*
+    private readonly string PingOutputLikeExpression = @"
+    Pinging * with 32 bytes of data:
+    Reply from ::1: time<*
+    Reply from ::1: time<*
+    Reply from ::1: time<*
+    Reply from ::1: time<*
 
-Ping statistics for ::1:
-    Packets: Sent = *, Received = *, Lost = 0 (0% loss),
-Approximate round trip times in milli-seconds:
-    Minimum = *, Maximum = *, Average = *".Trim();
+    Ping statistics for ::1:
+        Packets: Sent = *, Received = *, Lost = 0 (0% loss),
+    Approximate round trip times in milli-seconds:
+        Minimum = *, Maximum = *, Average = *".Trim();
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
