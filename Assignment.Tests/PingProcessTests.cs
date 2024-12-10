@@ -22,7 +22,7 @@ public class PingProcessTests
     [TestMethod]
     public void Start_PingProcess_Success()
     {
-        Process process = Process.Start("ping", "localhost");
+        Process process = Process.Start("ping", "-c 4 localhost");
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }
@@ -30,7 +30,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        int exitCode = Sut.Run("google.com").ExitCode;
+        int exitCode = Sut.Run("-c 8.8.8.8").ExitCode;
         Assert.AreEqual<int>(0, exitCode);
     }
 
@@ -51,7 +51,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run("localhost");
+        PingResult result = Sut.Run("-c 4 localhost");
         AssertValidPingOutput(result);
     }
 
@@ -59,7 +59,7 @@ public class PingProcessTests
     public void RunTaskAsync_Success()
     {
         // Arrange
-        string host = "localhost";
+        string host = "-c 4 localhost";
 
         // Act
         Task<PingResult> pingTask = Sut.RunTaskAsync(host);
@@ -77,7 +77,7 @@ public class PingProcessTests
     {
         {
             // Arrange
-            string host = "localhost";
+            string host = "-c 4 localhost";
 
             // Act
             Task<PingResult> pingTask = Sut.RunAsync(host);
@@ -95,7 +95,7 @@ public class PingProcessTests
     async public Task RunAsync_UsingTpl_Success()
     {
         // Arrange
-        string host = "localhost";
+        string host = "-c 4 localhost";
 
         // Act
         PingResult result = await Sut.RunAsync(host);
@@ -113,7 +113,7 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
         // Arrange
-        string host = "localhost";
+        string host = "-c 4 localhost";
         var cts = new CancellationTokenSource();
         cts.Cancel();
 
@@ -127,7 +127,7 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
         // Arrange
-        string host = "localhost";
+        string host = "-c 4 localhost";
         var cts = new CancellationTokenSource();
         cts.Cancel(); 
         try
@@ -156,7 +156,7 @@ public class PingProcessTests
     async public Task RunAsync_MultipleHostAddresses_True()
     {
         // Pseudo Code - don't trust it!!!
-        string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
+        string[] hostNames = new string[] { "-c 4 localhost", "-c 4 localhost", "-c 4 localhost", "-c 4 localhost" };
         int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length*hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
@@ -166,7 +166,7 @@ public class PingProcessTests
     [TestMethod]
     async public Task RunLongRunningAsync_UsingTpl_Success()
     {
-        ProcessStartInfo startInfo = new("ping", "localhost");
+        ProcessStartInfo startInfo = new("ping", "-c 4 localhost");
         int exitCode = await Sut.RunLongRunningAsync(startInfo, null, null, default);
         Assert.AreEqual(0, exitCode);
     }
