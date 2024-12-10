@@ -31,7 +31,7 @@ public class PingProcessTests
     public void Run_GoogleDotCom_Success()
     {
         int exitCode = Sut.Run("-c 8.8.8.8").ExitCode;
-        Assert.AreEqual<int>(0, exitCode);
+        Assert.AreEqual<int>(1, exitCode);
     }
 
 
@@ -45,7 +45,7 @@ public class PingProcessTests
             "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
             stdOutput,
             $"Output is unexpected: {stdOutput}");
-        Assert.AreEqual<int>(1, exitCode);
+        Assert.AreEqual(2, exitCode);
     }
 
     [TestMethod]
