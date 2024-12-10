@@ -27,21 +27,7 @@ public class PingProcess
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
-        var tcs = new TaskCompletionSource<PingResult>();
-
-        StartInfo.Arguments = hostNameOrAddress;
-        StringBuilder? stringBuilder = null;
-
-        void updateStdOutput(string? line) => (stringBuilder ??= new StringBuilder()).AppendLine(line);
-        var process = RunProcessInternal(StartInfo, updateStdOutput, null, CancellationToken.None);
-
-        process.Exited += (sender, args) =>
-        {
-            tcs.SetResult(new PingResult(process.ExitCode, stringBuilder?.ToString()));
-        };
-
-        process.Start();
-        return tcs.Task;
+        return Task.Run(() => Run(hostNameOrAddress));
     }
 
     async public Task<PingResult> RunAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)

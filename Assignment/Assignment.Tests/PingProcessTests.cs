@@ -74,6 +74,7 @@ public class PingProcessTests
         // Act
         Task<PingResult> task = Sut.RunAsync("localhost");
         task.Wait();
+
         PingResult result = task.Result;
 
         // Assert
