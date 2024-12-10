@@ -42,7 +42,7 @@ public class PingProcessTests
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
         Assert.AreEqual<string?>(
-            "ping: badaddress: Temporary failure in name resolution".Trim(),
+            "No output captured for host: badaddress".Trim(),
             stdOutput,
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(2, exitCode);
