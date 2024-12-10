@@ -44,7 +44,7 @@ public class PingProcessTests
         StringAssert.Contains( //I don't have a linux machine to test the exact output
             "No output captured for host: badaddress".Trim(),
             stdOutput,
-            $"Output is unexpected: {stdOutput}");
+            $"Unexpected output: {stdOutput}");
         Assert.AreEqual<int>(2, exitCode);
     }
 
