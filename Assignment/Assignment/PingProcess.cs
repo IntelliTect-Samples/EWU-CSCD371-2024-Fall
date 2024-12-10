@@ -49,29 +49,61 @@ public class PingProcess
         }
     }
 
-    async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
+    async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
-        StringBuilder? stringBuilder = null;
-        ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
+        StringBuilder? stringBuilder = new();
+
+        SemaphoreSlim thread = new(1);
+
+        try
         {
-            Task<PingResult> task = null!;
-            // ....
+            var pingTasks = hostNameOrAddresses.Select(async host =>
+            {
+                try
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
 
-            await task.WaitAsync(default(CancellationToken));
-            return task.Result.ExitCode;
-        });
+                    PingResult result = await RunAsync(host, cancellationToken);
 
-        await Task.WhenAll(all);
-        int total = all.Aggregate(0, (total, item) => total + item.Result);
-        return new PingResult(total, stringBuilder?.ToString());
+                    if (!string.IsNullOrWhiteSpace(result.StdOutput))
+                    {
+                        stringBuilder.AppendLine(result.StdOutput.Trim());
+                        thread.Release();
+                    }
+                }
+                catch (ArgumentException e)
+                {
+                    stringBuilder.AppendLine(e.Message);
+                    thread.Release();
+                }
+            });
+
+            await Task.WhenAll(pingTasks);
+            return new PingResult(0, stringBuilder?.ToString().Trim());
+        }
+        catch (OperationCanceledException)
+        {
+            throw new AggregateException(new TaskCanceledException("ping operation was canceled."));
+        }
+        finally
+        {
+            thread.Dispose();
+        }
     }
 
-    async public Task<PingResult> RunLongRunningAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+    public Task<int> RunLongRunningAsync(
+        ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        return Task.Factory.StartNew(() =>
+        {
+            token.ThrowIfCancellationRequested();
+
+            Process process = RunProcessInternal(startInfo, progressOutput, progressError, token);
+
+            return process.ExitCode;
+        },
+        token, TaskCreationOptions.LongRunning, TaskScheduler.Current
+        );
     }
 
     private Process RunProcessInternal(
