@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace Assignment;
+//TEST FOR SLN
 
 public record struct PingResult(int ExitCode, string? StdOutput);
 
