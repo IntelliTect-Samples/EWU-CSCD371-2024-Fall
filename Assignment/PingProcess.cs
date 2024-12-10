@@ -56,10 +56,9 @@ public class PingProcess
         Task<PingResult>[] tasks = hostNameOrAddresses.Select((string x) => RunAsync(x)).ToArray();
         await Task.WhenAll(tasks);
 
-        // Trim each entry's StdOutput before joining
         string aggregatedOutput = string.Join(
             Environment.NewLine,
-            tasks.Select(x => x.Result.StdOutput?.Trim() ?? string.Empty) // Trim each entry
+            tasks.Select(x => x.Result.StdOutput?.Trim() ?? string.Empty)
         );
 
         return new PingResult(tasks.Max(x => x.Result.ExitCode), aggregatedOutput);
