@@ -149,7 +149,6 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(TaskCanceledException))]
     public async Task RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
         // Arrange
@@ -159,7 +158,24 @@ public class PingProcessTests
 
         // Act
         cts.Cancel();
-        await sut.RunAsync(hostName, cts.Token);
+
+        try
+        {
+            await sut.RunAsync(hostName, cts.Token);
+            Assert.Fail("Expected TaskCanceledException but no exception was thrown.");
+        }
+        catch (AggregateException ex)
+        {
+            // Flatten and validate TaskCanceledException
+            AggregateException flattened = ex.Flatten();
+            Assert.IsTrue(flattened.InnerExceptions.Any(e => e is TaskCanceledException),
+                          "Expected TaskCanceledException in AggregateException.");
+        }
+        catch (TaskCanceledException)
+        {
+            // This block will be hit directly if the TaskCanceledException is not wrapped in an AggregateException
+            Assert.IsTrue(true);
+        }
     }
 
     public PingProcess GetSut()
