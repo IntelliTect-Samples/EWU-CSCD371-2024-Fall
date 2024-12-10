@@ -39,7 +39,7 @@ public class PingProcessTests
     {
         (int exitCode, string? stdOutput) = Sut.Run("badaddress");
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        stdOutput = WildCardPattern.NormalizeLineEndings(stdOutput!.Trim());
         Assert.AreEqual<string?>(
             "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
             stdOutput,
@@ -58,66 +58,73 @@ public class PingProcessTests
     public void RunTaskAsync_Success()
     {
         // Do NOT use async/await in this test.
-        // Test Sut.RunTaskAsync("localhost");
+        Task<PingResult> task = Sut.RunTaskAsync("localhost");
+        task.Wait();
+        PingResult result = task.Result;
+        AssertValidPingOutput(result);
     }
 
     [TestMethod]
-    public void RunAsync_UsingTaskReturn_Success()
+    public Task RunAsync_UsingTaskReturn_Success()
     {
         // Do NOT use async/await in this test.
-        PingResult result = default;
-        // Test Sut.RunAsync("localhost");
+        Task<PingResult> task = Sut.RunAsync("localhost");
+        task.Wait();
+        PingResult result = task.Result;
         AssertValidPingOutput(result);
+        return Task.CompletedTask;
     }
 
-    [TestMethod]
-#pragma warning disable CS1998 // Remove this
-    async public Task RunAsync_UsingTpl_Success()
-    {
-        // DO use async/await in this test.
-        PingResult result = default;
+[TestMethod]
+async public Task RunAsync_UsingTpl_Success()
+{
+    // DO use async/await in this test.
+    PingResult result = await Sut.RunAsync("localhost");
 
-        // Test Sut.RunAsync("localhost");
-        AssertValidPingOutput(result);
-    }
-#pragma warning restore CS1998 // Remove this
-
-
+    // Test Sut.RunAsync("localhost");
+    AssertValidPingOutput(result);
+}
     [TestMethod]
     [ExpectedException(typeof(AggregateException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
         
     }
-
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
-        // Use exception.Flatten()
+        using (var cts = new CancellationTokenSource())
+        {
+            cts.Cancel();
+            Task<PingResult> task = Sut.RunAsync("localhost", cts.Token);
+            try
+            {
+                task.Wait();
+            }
+            catch (AggregateException ex)
+            {
+                throw ex.Flatten().InnerException ?? ex;
+            }
+        }
     }
-
     [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
     {
-        // Pseudo Code - don't trust it!!!
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
-        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length*hostNames.Length;
+        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
         Assert.AreEqual(expectedLineCount, lineCount);
     }
 
     [TestMethod]
-#pragma warning disable CS1998 // Remove this
     async public Task RunLongRunningAsync_UsingTpl_Success()
     {
-        PingResult result = default;
         // Test Sut.RunLongRunningAsync("localhost");
+        PingResult result = await Sut.RunLongRunningAsync("localhost");
         AssertValidPingOutput(result);
     }
-#pragma warning restore CS1998 // Remove this
-
     [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
     {
@@ -142,8 +149,8 @@ Approximate round trip times in milli-seconds:
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression)??false,
+        stdOutput = WildCardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        Assert.IsTrue(stdOutput?.Contains(PingOutputLikeExpression)??false,
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
     }
