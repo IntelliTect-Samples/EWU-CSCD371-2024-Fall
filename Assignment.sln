@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment.tests", "Assignment.tests\Assignment.tests.csproj", "{D093C6E1-5E4C-40AE-B7E7-DACD5B08FBFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment.tests", "Assignment.Tests\Assignment.Tests.csproj", "{D093C6E1-5E4C-40AE-B7E7-DACD5B08FBFC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment", "Assignment\Assignment.csproj", "{1052D0D3-5D78-4226-BA08-966119B36C99}"
 EndProject
