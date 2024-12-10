@@ -22,7 +22,7 @@ public class PingProcessTests
     [TestMethod]
     public void Start_PingProcess_Success()
     {
-        Process process = Process.Start("ping", "localhost");
+        Process process = Process.Start("ping", "-n 4 localhost");
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }
@@ -51,7 +51,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run("localhost");
+        PingResult result = Sut.Run("-n 4 localhost");
         AssertValidPingOutput(result);
     }
 
@@ -59,8 +59,8 @@ public class PingProcessTests
     public void RunTaskAsync_Success()
     {
         // Do NOT use async/await in this test.
-        // Test Sut.RunTaskAsync("localhost");
-        Task<PingResult> result = Sut.RunTaskAsync("localhost");
+        // Test Sut.RunTaskAsync("-n 4 localhost");
+        Task<PingResult> result = Sut.RunTaskAsync("-n 4 localhost");
         //result.Wait();
 
         AssertValidPingOutput(result.Result);
@@ -70,8 +70,8 @@ public class PingProcessTests
     public void RunAsync_UsingTaskReturn_Success()
     {
         // Do NOT use async/await in this test.
-        PingResult result = Sut.RunAsync("localhost").Result;
-        // Test Sut.RunAsync("localhost");
+        PingResult result = Sut.RunAsync("-n 4 localhost").Result;
+        // Test Sut.RunAsync("-n 4 localhost");
         AssertValidPingOutput(result);
     }
 
@@ -79,9 +79,9 @@ public class PingProcessTests
     async public Task RunAsync_UsingTpl_Success()
     {
         // DO use async/await in this test.
-        PingResult result = await Sut.RunAsync("localhost");
+        PingResult result = await Sut.RunAsync("-n 4 localhost");
 
-        // Test Sut.RunAsync("localhost");
+        // Test Sut.RunAsync("-n 4 localhost");
         AssertValidPingOutput(result);
     }
 
@@ -93,7 +93,7 @@ public class PingProcessTests
 
         CancellationTokenSource cts = new();
         var token = cts.Token;
-        Task<PingResult> pr = Sut.RunAsync("localhost", token);
+        Task<PingResult> pr = Sut.RunAsync("-n 4 localhost", token);
         cts.Cancel();
         PingResult temp = pr.Result;
 
@@ -108,7 +108,7 @@ public class PingProcessTests
         {
 
             CancellationTokenSource cts = new();
-            Task<PingResult> pr = Sut.RunAsync("localhost", cts.Token);
+            Task<PingResult> pr = Sut.RunAsync("-n 4 localhost", cts.Token);
             cts.Cancel();
             PingResult asdf = pr.Result;
         }
@@ -126,7 +126,7 @@ public class PingProcessTests
     [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
     {
-        string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
+        string[] hostNames = new string[] { "-n 4 localhost", "-n 4 localhost", "-n 4 localhost", "-n 4 localhost" };
         int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length*hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
         int? lineCount = result.StdOutput?.TrimEnd().Split(Environment.NewLine).Length;
@@ -136,7 +136,7 @@ public class PingProcessTests
     [TestMethod]
     async public Task RunLongRunningAsync_UsingTpl_Success()
     {
-        var startInfo = new ProcessStartInfo("ping", "localhost");
+        var startInfo = new ProcessStartInfo("ping", "-n 4 localhost");
         int exitCode = await Sut.RunLongRunningAsync(startInfo, null, null, default);
         Assert.AreEqual(0, exitCode);
     }
