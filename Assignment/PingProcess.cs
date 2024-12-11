@@ -45,7 +45,7 @@ public class PingProcess
 
     async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
-        StringBuilder? stringBuilder = new StringBuilder();
+        StringBuilder? stringBuilder = new();
         var objectlock = new object();
 
         try
@@ -79,7 +79,7 @@ public class PingProcess
     }
 
 
-    async public Task<PingResult> RunLongRunningAsync(
+    async public static Task<PingResult> RunLongRunningAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
         Task task = null!;
