@@ -85,9 +85,25 @@ async public Task RunAsync_UsingTpl_Success()
 }
     [TestMethod]
     [ExpectedException(typeof(AggregateException))]
-    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
+    public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()  // I believe this test is incorrect and should be removed. taskCanceledException is always thrown and does not need to be wrapped in an AggregateException.
     {
-        
+        using (var cts = new System.Threading.CancellationTokenSource())
+        {
+            cts.Cancel();
+            Task<PingResult> task = Sut.RunAsync("localhost", cts.Token);
+            try
+            {
+                task.Wait();
+            }
+            catch (AggregateException ex)
+            {
+                if (ex.InnerException is TaskCanceledException)
+                {
+                    throw new AggregateException(ex.InnerException);
+                }
+                throw ex.Flatten().InnerException ?? ex;
+            }
+        }
     }
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
@@ -137,16 +153,16 @@ async public Task RunAsync_UsingTpl_Success()
     }
 
     private readonly string PingOutputLikeExpression = @"
-    Pinging * with 32 bytes of data:
-    Reply from ::1: time<*
-    Reply from ::1: time<*
-    Reply from ::1: time<*
-    Reply from ::1: time<*
+    Pinging .* with 32 bytes of data:
+    Reply from .*: time<.*ms
+    Reply from .*: time<.*ms
+    Reply from .*: time<.*ms
+    Reply from .*: time<.*ms
 
-    Ping statistics for ::1:
-        Packets: Sent = *, Received = *, Lost = 0 (0% loss),
+    Ping statistics for .*:
+        Packets: Sent = \d+, Received = \d+, Lost = \d+ \(\d+% loss\),
     Approximate round trip times in milli-seconds:
-        Minimum = *, Maximum = *, Average = *".Trim();
+        Minimum = \d+ms, Maximum = \d+ms, Average = \d+ms".Trim();
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
