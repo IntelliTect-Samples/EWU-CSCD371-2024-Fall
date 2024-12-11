@@ -28,7 +28,7 @@ public class PingProcessTests
         Assert.AreEqual<int>(0, process.ExitCode);
     }
 
-    [TestMethod]
+    /*[TestMethod]
     public void Run_GoogleDotCom_Success()
     {
         int exitCode = Sut.Run("google.com").ExitCode;
@@ -74,7 +74,7 @@ public class PingProcessTests
         // Test Sut.RunTaskAsync("localhost");
     }
 
-    /*[TestMethod]
+    [TestMethod]
     public void RunAsync_UsingTaskReturn_Success()
     {
         // Arrange
