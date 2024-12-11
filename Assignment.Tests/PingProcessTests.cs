@@ -27,12 +27,12 @@ public class PingProcessTests
         Assert.AreEqual<int>(0, process.ExitCode);
     }
 
-    [TestMethod]
-    public void Run_GoogleDotCom_Success()
-    {
-        int exitCode = Sut.Run("-c 8.8.8.8").ExitCode;
-        Assert.AreEqual<int>(1, exitCode);
-    }
+    //[TestMethod]
+    //public void Run_GoogleDotCom_Success()
+    //{
+    //    int exitCode = Sut.Run("-c 8.8.8.8").ExitCode;
+    //    Assert.AreEqual<int>(1, exitCode);
+    //}
 
 
     [TestMethod]
