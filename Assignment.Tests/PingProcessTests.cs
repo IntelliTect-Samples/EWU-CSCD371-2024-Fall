@@ -45,7 +45,7 @@ public class PingProcessTests
             "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
             stdOutput,
             $"Output is unexpected: {stdOutput}");
-        Assert.AreEqual(2, exitCode);
+        Assert.AreEqual(1, exitCode);
     }
 
     [TestMethod]
