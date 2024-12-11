@@ -22,14 +22,7 @@ public class PingProcess
         void updateStdOutput(string? line) =>
             (stringBuilder ??= new StringBuilder()).AppendLine(line);
         Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-
-        string output = stringBuilder?.ToString() ?? string.Empty;
-        if (string.IsNullOrWhiteSpace(output))
-        {
-            output = $"No output captured for host: {hostNameOrAddress}";
-        }
-
-        return new PingResult(process.ExitCode, output);
+        return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
@@ -114,17 +107,14 @@ public class PingProcess
     }
 
     private Process RunProcessInternal(
-    Process process,
-    Action<string?>? progressOutput,
-    Action<string?>? progressError,
-    CancellationToken token)
+        Process process,
+        Action<string?>? progressOutput,
+        Action<string?>? progressError,
+        CancellationToken token)
     {
         process.EnableRaisingEvents = true;
         process.OutputDataReceived += OutputHandler;
         process.ErrorDataReceived += ErrorHandler;
-
-        bool outputReadStarted = false;
-        bool errorReadStarted = false;
 
         try
         {
@@ -151,12 +141,10 @@ public class PingProcess
             if (process.StartInfo.RedirectStandardOutput)
             {
                 process.BeginOutputReadLine();
-                outputReadStarted = true;
             }
             if (process.StartInfo.RedirectStandardError)
             {
                 process.BeginErrorReadLine();
-                errorReadStarted = true;
             }
 
             if (process.HasExited)
@@ -171,13 +159,13 @@ public class PingProcess
         }
         finally
         {
-            if (outputReadStarted)
-            {
-                process.CancelOutputRead();
-            }
-            if (errorReadStarted)
+            if (process.StartInfo.RedirectStandardError)
             {
                 process.CancelErrorRead();
+            }
+            if (process.StartInfo.RedirectStandardOutput)
+            {
+                process.CancelOutputRead();
             }
             process.OutputDataReceived -= OutputHandler;
             process.ErrorDataReceived -= ErrorHandler;
