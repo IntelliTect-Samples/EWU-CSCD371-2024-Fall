@@ -133,16 +133,15 @@ public class PingProcessTests
 
         // Act
         Task task = Task.Run(() => sut.RunAsync(hostName, cts.Token));
-        cts.Cancel(); // Request cancellation
+        cts.Cancel();
 
         try
         {
-            task.Wait(); // Wait wraps exceptions in AggregateException
+            task.Wait();
             Assert.Fail("Expected TaskCanceledException but no exception was thrown.");
         }
         catch (AggregateException ex)
         {
-            // Flatten and validate TaskCanceledException
             AggregateException flattened = ex.Flatten();
             Assert.IsTrue(flattened.InnerExceptions.Any(e => e is TaskCanceledException),
                           "Expected TaskCanceledException in AggregateException.");
@@ -167,14 +166,12 @@ public class PingProcessTests
         }
         catch (AggregateException ex)
         {
-            // Flatten and validate TaskCanceledException
             AggregateException flattened = ex.Flatten();
             Assert.IsTrue(flattened.InnerExceptions.Any(e => e is TaskCanceledException),
                           "Expected TaskCanceledException in AggregateException.");
         }
         catch (TaskCanceledException)
         {
-            // This block will be hit directly if the TaskCanceledException is not wrapped in an AggregateException
             Assert.IsTrue(true);
         }
     }
@@ -184,27 +181,18 @@ public class PingProcessTests
         return Sut;
     }
 
-    // FOR TYLER -- THIS IS WHERE I STOPPED, I NEED TO WRITE THE NEXT TEST BELOW THIS NOTE.
-    // I already started working on implemented the method, but it is not right at all lol.
-
     [TestMethod]
     public async Task RunAsync_MultipleHostAddresses_True()
     {
         // Arrange
         string[] hostNames = ["localhost -c 4", "localhost -c 4", "localhost -c 4", "localhost -c 4"]; // Correct array syntax
-        //int expectedLineCount = hostNames.Length * PingOutputLikeExpression.Split(Environment.NewLine).Length;
 
         // Act
         PingResult result = await Sut.RunAsync(hostNames);
 
         // Assert
-        // Split the StdOutput and count the number of lines
-        //int actualLineCount = result.StdOutput?.Split(Environment.NewLine).Length ?? 0;
 
         Assert.AreEqual(0, result.ExitCode);
-
-        // Validate that the line count matches the expected number of lines
-        //Assert.AreEqual(expectedLineCount, actualLineCount, "The number of lines in StdOutput does not match the expected count.");
     }
 
     [TestMethod]
