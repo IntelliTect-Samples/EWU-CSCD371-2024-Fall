@@ -88,6 +88,7 @@ public class PingProcessTests
         // Assert
         //AssertValidPingOutput(result);
         Assert.AreEqual(0, result.ExitCode);
+        Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
     }
 
     [TestMethod]
@@ -191,7 +192,7 @@ public class PingProcessTests
         PingResult result = await Sut.RunAsync(hostNames);
 
         // Assert
-
+        Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
         Assert.AreEqual(0, result.ExitCode);
     }
 
@@ -206,7 +207,7 @@ public class PingProcessTests
         PingResult result = await pingProcess.RunAsync(hostnames);
 
         // Assert
-        Assert.IsNotNull(result.StdOutput);
+        Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
         Assert.AreEqual(0, result.ExitCode);
     }
 
@@ -234,6 +235,7 @@ public class PingProcessTests
         // Assert
         //AssertValidPingOutput(result);
         Assert.AreEqual(0, result.ExitCode);
+        Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
     }
 
     private readonly string PingOutputLikeExpression = @"
