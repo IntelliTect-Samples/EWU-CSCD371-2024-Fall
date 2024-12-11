@@ -40,7 +40,6 @@ public class PingProcess
 
         Process process = RunProcessInternal(StartInfo, updateStdOutput, null, cancellationToken);
 
-        // Use Task.Run to ensure process execution respects cancellation
         await Task.Run(() =>
         {
             cancellationToken.ThrowIfCancellationRequested();
@@ -64,7 +63,6 @@ public class PingProcess
         return new PingResult(tasks.Max(x => x.Result.ExitCode), aggregatedOutput);
     }
 
-    // They want the parameters to look like this method below but I don't understand the point.
     public Task<PingResult> RunLongRunningAsync(
     ProcessStartInfo startInfo,
     Action<string?>? progressOutput,
@@ -82,43 +80,18 @@ public class PingProcess
                 progressOutput?.Invoke(line);
             }
 
-            // Run the process
             Process process = RunProcessInternal(startInfo, CaptureOutput, progressError, token);
 
-            // Wait for the process to exit, respecting cancellation
             process.WaitForExit();
 
             token.ThrowIfCancellationRequested();
 
-            // Capture output and exit code
             int exitCode = process.ExitCode;
             string stdOutput = outputBuilder.ToString().Trim();
 
-            // Return the PingResult
             return new PingResult(exitCode, stdOutput);
         }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
     }
-
-    // Below is my simplified version of the method. Not sure which is better.
-
-    //public async Task<PingResult> RunLongRunningAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
-    //{
-    //    StartInfo.Arguments = hostNameOrAddress;
-    //    StringBuilder? stringBuilder = null;
-
-    //    void updateStdOutput(string? line) =>
-    //        (stringBuilder ??= new StringBuilder()).AppendLine(line);
-
-    //    Process process = RunProcessInternal(StartInfo, updateStdOutput, null, cancellationToken);
-
-    //    await Task.Factory.StartNew(() =>
-    //    {
-    //        cancellationToken.ThrowIfCancellationRequested();
-    //        process.WaitForExit();
-    //    }, cancellationToken, creationOptions: TaskCreationOptions.LongRunning, TaskScheduler.Current);
-
-    //    return new PingResult(process.ExitCode, stringBuilder?.ToString());
-    //}
 
     private Process RunProcessInternal(
         ProcessStartInfo startInfo,
