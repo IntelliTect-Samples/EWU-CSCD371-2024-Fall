@@ -22,7 +22,14 @@ public class PingProcess
         void updateStdOutput(string? line) =>
             (stringBuilder ??= new StringBuilder()).AppendLine(line);
         Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-        return new PingResult(process.ExitCode, stringBuilder?.ToString());
+
+        string output = stringBuilder?.ToString() ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(output))
+        {
+            output = $"No output captured for host: {hostNameOrAddress}";
+        }
+
+        return new PingResult(process.ExitCode, output);
     }
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
@@ -144,12 +151,12 @@ public class PingProcess
             if (process.StartInfo.RedirectStandardOutput)
             {
                 process.BeginOutputReadLine();
-                outputReadStarted = true; // Track if output read has started
+                outputReadStarted = true;
             }
             if (process.StartInfo.RedirectStandardError)
             {
                 process.BeginErrorReadLine();
-                errorReadStarted = true; // Track if error read has started
+                errorReadStarted = true;
             }
 
             if (process.HasExited)
