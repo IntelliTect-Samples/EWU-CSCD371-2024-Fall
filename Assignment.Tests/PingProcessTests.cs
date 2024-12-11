@@ -56,7 +56,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run("-c 4 localhost");
+        PingResult result = Sut.Run("localhost -c 4");
         //Assert.AreEqual(0, result.ExitCode);
         AssertValidPingOutput(result);
     }
@@ -256,22 +256,11 @@ rtt min/avg/max/mdev = */*/*/* ms
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-
-        // Add debug logging for mismatches
-        if (!(stdOutput?.IsLike(PingOutputLikeExpression) ?? false))
-        {
-            Console.WriteLine("Expected Output Pattern:");
-            Console.WriteLine(PingOutputLikeExpression);
-            Console.WriteLine("Actual Output:");
-            Console.WriteLine(stdOutput);
-            Assert.Fail("Output does not match the expected pattern.");
-        }
-
+        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
+            $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
     }
 
-    private void AssertValidPingOutput(PingResult result)
-    {
+    private void AssertValidPingOutput(PingResult result) =>
         AssertValidPingOutput(result.ExitCode, result.StdOutput);
-    }
 }
