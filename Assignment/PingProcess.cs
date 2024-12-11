@@ -55,40 +55,29 @@ public class PingProcess
 
         SemaphoreSlim thread = new(1);
 
-        try
+        var pingTasks = hostNameOrAddresses.Select(async host =>
         {
-            var pingTasks = hostNameOrAddresses.Select(async host =>
+            try
             {
-                try
+                cancellationToken.ThrowIfCancellationRequested();
+                PingResult result = await RunAsync(host, cancellationToken);
+                if (!string.IsNullOrWhiteSpace(result.StdOutput))
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                    PingResult result = await RunAsync(host, cancellationToken);
-
-                    if (!string.IsNullOrWhiteSpace(result.StdOutput))
-                    {
-                        stringBuilder.AppendLine(result.StdOutput.Trim());
-                        thread.Release();
-                    }
-                }
-                catch (ArgumentException e)
-                {
-                    stringBuilder.AppendLine(e.Message);
+                    await thread.WaitAsync(cancellationToken);
+                    stringBuilder.AppendLine(result.StdOutput.Trim());
                     thread.Release();
                 }
-            });
+            }
+            catch (ArgumentException e)
+            {
+                await thread.WaitAsync(cancellationToken);
+                stringBuilder.AppendLine(e.Message);
+                thread.Release();
+            }
+        });
 
-            await Task.WhenAll(pingTasks);
-            return new PingResult(0, stringBuilder?.ToString().Trim());
-        }
-        catch (OperationCanceledException)
-        {
-            throw new AggregateException(new TaskCanceledException("ping operation was canceled."));
-        }
-        finally
-        {
-            thread.Dispose();
-        }
+        await Task.WhenAll(pingTasks);
+        return new PingResult(0, stringBuilder?.ToString());
     }
 
     public Task<int> RunLongRunningAsync(
