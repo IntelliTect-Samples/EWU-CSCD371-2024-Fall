@@ -22,14 +22,7 @@ public class PingProcess
         void updateStdOutput(string? line) =>
             (stringBuilder ??= new StringBuilder()).AppendLine(line);
         Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-
-        string output = stringBuilder?.ToString() ?? string.Empty;
-        if (string.IsNullOrWhiteSpace(output))
-        {
-            output = $"No output captured for host: {hostNameOrAddress}";
-        }
-
-        return new PingResult(process.ExitCode, output);
+        return new PingResult(process.ExitCode, stringBuilder?.ToString());
     }
 
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
