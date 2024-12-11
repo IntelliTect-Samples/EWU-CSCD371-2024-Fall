@@ -68,7 +68,7 @@ public class PingProcess
                     thread.Release();
                 }
             }
-            catch (ArgumentException e)
+            catch (Exception e)
             {
                 await thread.WaitAsync(cancellationToken);
                 stringBuilder.AppendLine(e.Message);
