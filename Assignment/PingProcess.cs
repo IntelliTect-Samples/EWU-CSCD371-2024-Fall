@@ -61,14 +61,14 @@ public class PingProcess
             {
                 cancellationToken.ThrowIfCancellationRequested();
                 PingResult result = await RunAsync(host, cancellationToken);
-                if (!string.IsNullOrWhiteSpace(result.StdOutput))
+                if (result.StdOutput != null)
                 {
                     await thread.WaitAsync(cancellationToken);
                     stringBuilder.AppendLine(result.StdOutput.Trim());
                     thread.Release();
                 }
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
                 await thread.WaitAsync(cancellationToken);
                 stringBuilder.AppendLine(e.Message);
