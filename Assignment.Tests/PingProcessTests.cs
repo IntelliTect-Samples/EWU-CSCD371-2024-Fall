@@ -127,16 +127,6 @@ public class PingProcessTests
         }
     }
 
-    //[TestMethod]
-    //[ExpectedException(typeof(TaskCanceledException))]
-    //public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
-    //{
-    //    // Use exception.Flatten()
-    //    // Act
-    //    Task<PingResult> task = Sut.RunAsync("localhost", new CancellationToken(true));
-    //    task.Wait();
-    //}
-
     [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
     {
