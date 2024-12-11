@@ -12,6 +12,11 @@ namespace Assignment.Tests;
 [TestClass]
 public class PingProcessTests
 {
+    /*
+     * NOTE TO ANY COMMENTORS:
+     * This isn't complete yet. I'm working on making it so that it uses the wildcard pattern,
+     * and doesn't just check for error codes.
+     */
     private PingProcess Sut { get; set; } = new();
 
     [TestInitialize]
