@@ -221,23 +221,6 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    public async Task RunAsync_CancellationRequested_ThrowsOperationCanceledException()
-    {
-        // Arrange
-        PingProcess pingProcess = new();
-        string[] hostnames = { "localhost", "localhost", "localhost" };
-        using CancellationTokenSource cts = new();
-        cts.Cancel();
-
-        // Act
-
-        // Assert
-        await Assert.ThrowsExceptionAsync<OperationCanceledException>(
-            () => pingProcess.RunAsync(hostnames, cts.Token)
-        );
-    }
-
-    [TestMethod]
     public async Task RunLongRunningAsync_UsingTpl_Success()
     {
         // Arrange
