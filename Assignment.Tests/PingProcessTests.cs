@@ -258,8 +258,17 @@ rtt min/avg/max/mdev = */*/*/* ms
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
-            $"Output is unexpected: {stdOutput}");
+
+        // Add debug logging for mismatches
+        if (!(stdOutput?.IsLike(PingOutputLikeExpression) ?? false))
+        {
+            Console.WriteLine("Expected Output Pattern:");
+            Console.WriteLine(PingOutputLikeExpression);
+            Console.WriteLine("Actual Output:");
+            Console.WriteLine(stdOutput);
+            Assert.Fail("Output does not match the expected pattern.");
+        }
+
         Assert.AreEqual<int>(0, exitCode);
     }
 
