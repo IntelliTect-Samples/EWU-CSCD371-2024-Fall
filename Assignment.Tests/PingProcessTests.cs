@@ -41,8 +41,8 @@ public class PingProcessTests
         (int exitCode, string? stdOutput) = Sut.Run("badaddress");
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        StringAssert.Contains( //I don't have a linux machine to test the exact output
-            "No output captured for host: badaddress",
+        Assert.AreEqual<string?>(
+            "No output captured for host: badaddress".Trim(),
             stdOutput,
             $"Unexpected output: {stdOutput}");
         Assert.AreEqual<int>(2, exitCode);
