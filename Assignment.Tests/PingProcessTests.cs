@@ -41,7 +41,7 @@ public class PingProcessTests
         (int exitCode, string? stdOutput) = Sut.Run("badaddress");
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        StringAssert.Contains( //I don't have a linux machine to test the exact output
+        Assert.AreEqual<string?>(
             "No output captured for host: badaddress",
             stdOutput,
             $"Unexpected output: {stdOutput}");
@@ -144,20 +144,18 @@ public class PingProcessTests
     [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
     {
-
-        IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
-        System.Text.StringBuilder stringBuilder = new();
-        object lockObj = new(); 
-
-        numbers.AsParallel().ForAll(item =>
+        try
         {
-            lock (lockObj)
-            {
-                stringBuilder.AppendLine("");
-            }
-        });
-        int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
-        Assert.AreNotEqual(lineCount, numbers.Count());
+            IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
+            System.Text.StringBuilder stringBuilder = new();
+            numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
+            int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
+            Assert.AreNotEqual(lineCount, numbers.Count() + 1);
+        }
+        catch (AggregateException)
+        {
+            //Ignore Destination too short
+        }
     }
 
     private readonly string PingOutputLikeExpression = @"
