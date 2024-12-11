@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Assignment.Tests;
@@ -97,15 +98,44 @@ public class PingProcessTests
     [ExpectedException(typeof(AggregateException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
-        
+        // Act
+        Task<PingResult> task = Sut.RunAsync("localhost", new CancellationToken(true));
+        task.Wait();
     }
 
     [TestMethod]
     [ExpectedException(typeof(TaskCanceledException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
     {
-        // Use exception.Flatten()
+        // Arrange
+        var cts = new CancellationTokenSource();
+        cts.Cancel();
+        Task<PingResult> task = Sut.RunAsync("localhost", cts.Token);
+
+        // Act
+        try
+        {
+            task.Wait();
+        }
+        catch (AggregateException ex)
+        {
+            AggregateException flattened = ex.Flatten();
+            Exception? taskCanceledException = flattened.InnerExceptions.FirstOrDefault(e => e is TaskCanceledException);
+
+            Assert.IsNotNull(taskCanceledException, "Expected an inner TaskCanceledException");
+            throw taskCanceledException!;
+        }
     }
+
+    //[TestMethod]
+    //[ExpectedException(typeof(TaskCanceledException))]
+    //public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrappingTaskCanceledException()
+    //{
+    //    // Use exception.Flatten()
+    //    // Act
+    //    Task<PingResult> task = Sut.RunAsync("localhost", new CancellationToken(true));
+    //    task.Wait();
+    //}
 
     [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()

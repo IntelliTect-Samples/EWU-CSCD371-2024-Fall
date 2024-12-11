@@ -30,65 +30,74 @@ public class PingProcess
         return Task.Run(() => Run(hostNameOrAddress));
     }
 
-    public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
+    async public Task<PingResult> RunAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
     {
-        return Task.Run(() => Run(hostNameOrAddress));
-    }
-
-    async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
-    {
-        var outputBuilder = new StringBuilder();
-        var tasks = new List<Task>();
-
-        var outputLock = new object();
-
-        foreach (var hostNameOrAddress in hostNameOrAddresses)
+        cancellationToken.ThrowIfCancellationRequested();
+        try
         {
-            tasks.Add(Task.Run(async () =>
-            {
-                var processStartInfo = new ProcessStartInfo
-                {
-                    FileName = "ping",
-                    Arguments = hostNameOrAddress,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
-
-                using var process = new Process { StartInfo = processStartInfo };
-
-                try
-                {
-                    process.Start();
-
-                    var output = await process.StandardOutput.ReadToEndAsync();
-                    var error = await process.StandardError.ReadToEndAsync();
-
-                    await process.WaitForExitAsync(cancellationToken);
-
-                    lock (outputLock)
-                    {
-                        outputBuilder.AppendLine(output);
-                        if (!string.IsNullOrWhiteSpace(error))
-                        {
-                            outputBuilder.AppendLine(error);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    lock (outputLock)
-                    {
-                        outputBuilder.AppendLine($"Error pinging {hostNameOrAddress}: {ex.Message}");
-                    }
-                }
-            }, cancellationToken));
+            Task<PingResult> task = Task.Run(() => Run(hostNameOrAddress), cancellationToken);
+            return await task;
         }
-
-        await Task.WhenAll(tasks);
-        return new PingResult(0, outputBuilder.ToString());
+        catch (OperationCanceledException ex)
+        {
+            throw new AggregateException(new TaskCanceledException("Task was canceled.", ex));
+        }
     }
+
+    //async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
+    //{
+    //    var outputBuilder = new StringBuilder();
+    //    var tasks = new List<Task>();
+
+    //    var outputLock = new object();
+
+    //    foreach (var hostNameOrAddress in hostNameOrAddresses)
+    //    {
+    //        tasks.Add(Task.Run(async () =>
+    //        {
+    //            var processStartInfo = new ProcessStartInfo
+    //            {
+    //                FileName = "ping",
+    //                Arguments = hostNameOrAddress,
+    //                RedirectStandardOutput = true,
+    //                RedirectStandardError = true,
+    //                UseShellExecute = false,
+    //                CreateNoWindow = true
+    //            };
+
+    //            using var process = new Process { StartInfo = processStartInfo };
+
+    //            try
+    //            {
+    //                process.Start();
+
+    //                var output = await process.StandardOutput.ReadToEndAsync();
+    //                var error = await process.StandardError.ReadToEndAsync();
+
+    //                await process.WaitForExitAsync(cancellationToken);
+
+    //                lock (outputLock)
+    //                {
+    //                    outputBuilder.AppendLine(output);
+    //                    if (!string.IsNullOrWhiteSpace(error))
+    //                    {
+    //                        outputBuilder.AppendLine(error);
+    //                    }
+    //                }
+    //            }
+    //            catch (Exception ex)
+    //            {
+    //                lock (outputLock)
+    //                {
+    //                    outputBuilder.AppendLine($"Error pinging {hostNameOrAddress}: {ex.Message}");
+    //                }
+    //            }
+    //        }, cancellationToken));
+    //    }
+
+    //    await Task.WhenAll(tasks);
+    //    return new PingResult(0, outputBuilder.ToString());
+    //}
 
     async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
