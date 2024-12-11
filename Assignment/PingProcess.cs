@@ -53,7 +53,7 @@ public class PingProcess
 
     public async Task<PingResult> RunAsync(string[] hostNameOrAddresses)
     {
-        /*Task<PingResult>[] tasks = hostNameOrAddresses.Select((string x) => RunAsync(x)).ToArray();
+        Task<PingResult>[] tasks = hostNameOrAddresses.Select((string x) => RunAsync(x)).ToArray();
         await Task.WhenAll(tasks);
 
         string aggregatedOutput = string.Join(
@@ -62,54 +62,6 @@ public class PingProcess
         );
 
         return new PingResult(tasks.Max(x => x.Result.ExitCode), aggregatedOutput);
-
-        FOR AUSTIN:
-        This is commented out in case you want to use the original RunAsync method that has a string return type
-         */
-        return await RunAsync(hostNameOrAddresses.AsEnumerable());
-    }
-
-    public async Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
-    {
-        // Use a thread-safe StringBuilder for output aggregation
-        StringBuilder stringBuilder = new();
-        object lockObj = new();
-
-        // Create and execute tasks for each hostname
-        IEnumerable<Task<PingResult>> tasks = hostNameOrAddresses.Select(async hostNameOrAddress =>
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            try
-            {
-                // Execute the ping for a single hostname
-                PingResult result = await RunAsync(hostNameOrAddress, cancellationToken);
-
-                // Safely append to the shared output
-                lock (lockObj)
-                {
-                    if (!string.IsNullOrEmpty(result.StdOutput))
-                    {
-                        stringBuilder.AppendLine(result.StdOutput);
-                    }
-                }
-
-                return result;
-            }
-            catch (OperationCanceledException)
-            {
-                return new PingResult(-1, $"Ping to {hostNameOrAddress} was canceled.");
-            }
-        });
-
-        // Wait for all tasks to complete
-        PingResult[] results = await Task.WhenAll(tasks);
-
-        // Return the aggregated output and the maximum exit code
-        return new PingResult(
-            results.Max(r => r.ExitCode),
-            stringBuilder.ToString().Trim()
-        );
     }
 
     // They want the parameters to look like this method below but I don't understand the point.
