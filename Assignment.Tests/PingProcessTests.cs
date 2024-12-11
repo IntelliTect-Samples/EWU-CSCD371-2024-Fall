@@ -42,11 +42,8 @@ public class PingProcessTests
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
 
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        bool indicatesFailure = stdOutput.Contains("find host", StringComparison.OrdinalIgnoreCase)
-                                || stdOutput.Contains("not known", StringComparison.OrdinalIgnoreCase);
-
-        Assert.IsTrue(indicatesFailure);
-        Assert.AreEqual(1, exitCode);
+        Assert.AreEqual("No output captured for host: badaddress", stdOutput);
+        Assert.AreEqual(2, exitCode);
     }
 
 
@@ -158,7 +155,7 @@ public class PingProcessTests
     async public Task RunAsync_MultipleHostAddresses_True()
     {
         // Use same hosts, but don't rely on exact line counts.
-        string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
+        string[] hostNames = new string[] { "-c 4 localhost", "-c 4 localhost", "-c 4 localhost", "-c 4 localhost" };
         PingResult result = await Sut.RunAsync(hostNames);
 
         Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
