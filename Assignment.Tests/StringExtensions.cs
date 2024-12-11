@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Assignment.Tests;
+namespace Assignment.TestTools;
 
 /// <summary>
 /// Useful string extensions for performing assertions.
