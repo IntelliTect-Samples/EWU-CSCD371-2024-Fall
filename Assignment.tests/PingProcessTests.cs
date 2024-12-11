@@ -20,7 +20,7 @@ public class PingProcessTests
     [TestMethod]
     public void Start_PingProcess_Success()
     {
-        Process process = Process.Start("ping", "-n 4 localhost");
+        Process process = Process.Start("ping", "-c 4 localhost");
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }
@@ -28,7 +28,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        int exitCode = Sut.Run("google.com").ExitCode;
+        int exitCode = Sut.Run("-c 4 8.8.8.8").ExitCode;
         Assert.AreEqual<int>(0, exitCode);
     }
 
@@ -49,7 +49,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run("-n 4 localhost");
+        PingResult result = Sut.Run("-c 4 localhost");
         AssertValidPingOutput(result);
     }
 
@@ -57,7 +57,7 @@ public class PingProcessTests
     public void RunTaskAsync_Success()
     {
         // Do NOT use async/await in this test.
-        Task<PingResult> task = Sut.RunTaskAsync("-n 4 localhost");
+        Task<PingResult> task = Sut.RunTaskAsync("-c 4 localhost");
         task.Wait();
         PingResult result = task.Result;
         AssertValidPingOutput(result);
@@ -67,7 +67,7 @@ public class PingProcessTests
     public Task RunAsync_UsingTaskReturn_Success()
     {
         // Do NOT use async/await in this test.
-        Task<PingResult> task = Sut.RunAsync("-n 4 localhost");
+        Task<PingResult> task = Sut.RunAsync("-c 4 localhost");
         task.Wait();
         PingResult result = task.Result;
         AssertValidPingOutput(result);
@@ -78,7 +78,7 @@ public class PingProcessTests
 async public Task RunAsync_UsingTpl_Success()
 {
     // DO use async/await in this test.
-    PingResult result = await Sut.RunAsync("-n 4 localhost");
+    PingResult result = await Sut.RunAsync("-c 4 localhost");
 
     // Test Sut.RunAsync("localhost");
     AssertValidPingOutput(result);
@@ -90,7 +90,7 @@ async public Task RunAsync_UsingTpl_Success()
         using (var cts = new System.Threading.CancellationTokenSource())
         {
             cts.Cancel();
-            Task<PingResult> task = Sut.RunAsync("-n 4 localhost", cts.Token);
+            Task<PingResult> task = Sut.RunAsync("-c 4 localhost", cts.Token);
             try
             {
                 task.Wait();
@@ -112,7 +112,7 @@ async public Task RunAsync_UsingTpl_Success()
         using (var cts = new System.Threading.CancellationTokenSource())
         {
             cts.Cancel();
-            Task<PingResult> task = Sut.RunAsync("-n 4 localhost", cts.Token);
+            Task<PingResult> task = Sut.RunAsync("-c 4 localhost", cts.Token);
             try
             {
                 task.Wait();
@@ -128,7 +128,7 @@ async public Task RunAsync_UsingTpl_Success()
     {
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
         int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Length * hostNames.Length;
-        List<Task<PingResult>> tasks = hostNames.Select(host => Sut.RunAsync($"-n 4 {host}")).ToList();
+        List<Task<PingResult>> tasks = hostNames.Select(host => Sut.RunAsync($"-c 4 {host}")).ToList();
         PingResult[] results = await Task.WhenAll(tasks);
         int lineCount = results.Sum(result => result.StdOutput?.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Length ?? 0);
         Assert.AreEqual(expectedLineCount, lineCount);
@@ -138,7 +138,7 @@ async public Task RunAsync_UsingTpl_Success()
     async public Task RunLongRunningAsync_UsingTpl_Success()
     {
         // Test Sut.RunLongRunningAsync("localhost");  
-        ProcessStartInfo startInfo = new("ping", "-n 4 localhost");
+        ProcessStartInfo startInfo = new("ping", "-c 4 localhost");
         PingResult result = await Sut.RunLongRunningAsync(startInfo, null, null, default);
         AssertValidPingOutput(result);
     }
