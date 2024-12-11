@@ -71,40 +71,45 @@ public class PingProcess
 
     public async Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
-        List<PingResult> results = new();
+        // Use a thread-safe StringBuilder for output aggregation
+        StringBuilder stringBuilder = new();
         object lockObj = new();
 
-        IEnumerable<Task> tasks = hostNameOrAddresses.Select(async hostNameOrAddress =>
+        // Create and execute tasks for each hostname
+        IEnumerable<Task<PingResult>> tasks = hostNameOrAddresses.Select(async hostNameOrAddress =>
         {
             cancellationToken.ThrowIfCancellationRequested();
 
             try
             {
-                // Run each ping task
+                // Execute the ping for a single hostname
                 PingResult result = await RunAsync(hostNameOrAddress, cancellationToken);
 
-                // Safely aggregate results
+                // Safely append to the shared output
                 lock (lockObj)
                 {
-                    results.Add(result);
+                    if (!string.IsNullOrEmpty(result.StdOutput))
+                    {
+                        stringBuilder.AppendLine(result.StdOutput);
+                    }
                 }
+
+                return result;
             }
             catch (OperationCanceledException)
             {
-                // Handle cancellation gracefully
+                return new PingResult(-1, $"Ping to {hostNameOrAddress} was canceled.");
             }
         });
 
-        await Task.WhenAll(tasks);
+        // Wait for all tasks to complete
+        PingResult[] results = await Task.WhenAll(tasks);
 
-        string aggregatedOutput = string.Join(
-            Environment.NewLine,
-            results.Select(r => r.StdOutput?.Trim() ?? string.Empty)
+        // Return the aggregated output and the maximum exit code
+        return new PingResult(
+            results.Max(r => r.ExitCode),
+            stringBuilder.ToString().Trim()
         );
-
-        int maxExitCode = results.Max(r => r.ExitCode);
-
-        return new PingResult(maxExitCode, aggregatedOutput);
     }
 
     // They want the parameters to look like this method below but I don't understand the point.
