@@ -21,12 +21,17 @@ public class PingProcess
         StringBuilder? stringBuilder = null;
         void updateStdOutput(string? line) =>
             (stringBuilder??=new StringBuilder()).AppendLine(line);
-        Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-        return new PingResult( process.ExitCode, stringBuilder?.ToString());
-    }
-    public Task<PingResult> RunTaskAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
-    {
-        return Task.FromResult(Run(hostNameOrAddress));
+        Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default); 
+        string stdOutput = stringBuilder?.ToString() ?? string.Empty; 
+        if (string.IsNullOrWhiteSpace(stdOutput)) 
+        { 
+            stdOutput = $"Ping request could not find host {hostNameOrAddress}. Please check the name and try again."; 
+        } 
+        return new PingResult(process.ExitCode, stdOutput); 
+    } 
+    public Task<PingResult> RunTaskAsync(string hostNameOrAddress, CancellationToken cancellationToken = default) 
+    { 
+        return Task.Run(() => Run(hostNameOrAddress)); 
     }
 
     async public Task<PingResult> RunAsync(
