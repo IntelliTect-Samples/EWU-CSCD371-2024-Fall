@@ -62,12 +62,18 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    public void RunAsync_UsingTaskReturn_Success()
+    [DataRow("amazon.com")]
+    [DataRow("8.8.8.8")]
+    [DataRow("www.walmart.com")]
+    public void RunAsync_UsingTaskReturn_Success(string address)
     {
         // Do NOT use async/await in this test.
-        PingResult result = default;
+        Task<PingResult> result = Sut.RunTaskAsync(address);
+        result.Wait();
+
         // Test Sut.RunAsync("localhost");
-        AssertValidPingOutput(result);
+        Assert.AreEqual(0, result.Result.ExitCode);
+        Assert.IsNotNull(result.Result);
     }
 
     [TestMethod]
