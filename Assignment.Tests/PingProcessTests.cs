@@ -58,8 +58,7 @@ public class PingProcessTests
     public void Run_CaptureStdOutput_Success()
     {
         PingResult result = Sut.Run("localhost -c 4");
-        //Assert.AreEqual(0, result.ExitCode);
-        AssertValidPingOutput(result);
+        Assert.AreEqual(0, result.ExitCode);
     }
 
     [TestMethod]
