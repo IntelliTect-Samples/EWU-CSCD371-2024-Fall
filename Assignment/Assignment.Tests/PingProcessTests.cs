@@ -55,10 +55,22 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    public void RunTaskAsync_Success()
+    [DataRow("amazon.com")]
+    [DataRow("8.8.8.8")]
+    [DataRow("www.walmart.com")]
+    public void RunTaskAsync_Success(string address)
     {
         // Do NOT use async/await in this test.
         // Test Sut.RunTaskAsync("localhost");
+
+        //Act
+        Task<PingResult> result = Sut.RunTaskAsync(address);
+        result.Wait();
+
+        //Assert
+        Assert.AreEqual(0, result.Result.ExitCode);
+        Assert.IsNotNull(result.Result);
+
     }
 
     [TestMethod]
@@ -68,12 +80,14 @@ public class PingProcessTests
     public void RunAsync_UsingTaskReturn_Success(string address)
     {
         // Do NOT use async/await in this test.
-        Task<PingResult> result = Sut.RunTaskAsync(address);
-        result.Wait();
-
         // Test Sut.RunAsync("localhost");
-        Assert.AreEqual(0, result.Result.ExitCode);
-        Assert.IsNotNull(result.Result);
+
+        //Act
+        Task<PingResult> pingResult = Sut.RunAsync(address);
+        pingResult.Wait();
+        
+        //Assert
+        Assert.AreEqual(0, pingResult.Result.ExitCode);
     }
 
     [TestMethod]
