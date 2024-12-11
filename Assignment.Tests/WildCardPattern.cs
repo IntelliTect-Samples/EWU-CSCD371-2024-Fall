@@ -43,16 +43,7 @@ public enum WildcardOptions
 /// <summary>
 /// Represents a wildcard pattern.
 /// </summary>
-/// <remarks>
-/// Initializes an instance of the WildcardPattern class for
-/// the specified wildcard pattern expression, with options
-/// that modify the pattern.
-/// </remarks>
-/// <param name="pattern">The wildcard pattern to match.</param>
-/// <param name="options">Wildcard options</param>
-/// <returns>The constructed WildcardPattern object</returns>
-/// <remarks> if wildCardType == None, the pattern does not have wild cards  </remarks>
-public sealed partial class WildcardPattern(string pattern, WildcardOptions options)
+public sealed partial class WildcardPattern
 {
     //
     // char that escapes special chars
@@ -67,12 +58,12 @@ public sealed partial class WildcardPattern(string pattern, WildcardOptions opti
     //
     // wildcard pattern
     //
-    internal string Pattern { get; } = pattern ?? throw new ArgumentNullException(nameof(pattern));
+    internal string Pattern { get; }
 
     //
     // options that control match behavior
     //
-    internal WildcardOptions Options { get; } = options;
+    internal WildcardOptions Options { get; } = WildcardOptions.None;
 
     /// <summary>
     /// wildcard pattern converted to regex pattern.
@@ -81,7 +72,7 @@ public sealed partial class WildcardPattern(string pattern, WildcardOptions opti
     {
         get
         {
-            Regex patternRegex = WildcardPatternToRegexParser.Parse(this);
+            var patternRegex = WildcardPatternToRegexParser.Parse(this);
             return patternRegex.ToString();
         }
     }
@@ -109,6 +100,21 @@ public sealed partial class WildcardPattern(string pattern, WildcardOptions opti
     public WildcardPattern(string pattern, char escapeCharacter) :
         this(pattern, escapeCharacter, WildcardOptions.None)
     { }
+
+    /// <summary>
+    /// Initializes an instance of the WildcardPattern class for
+    /// the specified wildcard pattern expression, with options
+    /// that modify the pattern.
+    /// </summary>
+    /// <param name="pattern">The wildcard pattern to match.</param>
+    /// <param name="options">Wildcard options</param>
+    /// <returns>The constructed WildcardPattern object</returns>
+    /// <remarks> if wildCardType == None, the pattern does not have wild cards  </remarks>
+    public WildcardPattern(string pattern, WildcardOptions options)
+    {
+        Pattern = pattern ?? throw new ArgumentNullException(nameof(pattern));
+        Options = options;
+    }
 
     /// <summary>
     /// Initializes an instance of the WildcardPattern class for
@@ -160,7 +166,10 @@ public sealed partial class WildcardPattern(string pattern, WildcardOptions opti
     {
         ArgumentNullException.ThrowIfNull(pattern);
 
-        return pattern.Length == 1 && pattern[0] == '*' ? s_matchAllIgnoreCasePattern : new WildcardPattern(pattern, options);
+        if (pattern.Length == 1 && pattern[0] == '*')
+            return s_matchAllIgnoreCasePattern;
+
+        return new WildcardPattern(pattern, options);
     }
 
     /// <summary>
@@ -181,7 +190,7 @@ public sealed partial class WildcardPattern(string pattern, WildcardOptions opti
             }
             else
             {
-                WildcardPatternMatcher matcher = new(this);
+                var matcher = new WildcardPatternMatcher(this);
                 _isMatch = matcher.IsMatch;
             }
         }
@@ -235,7 +244,14 @@ public sealed partial class WildcardPattern(string pattern, WildcardOptions opti
             temp[tempIndex++] = ch;
         }
 
-        return tempIndex > 0 ? new string(temp, 0, tempIndex) : string.Empty;
+        if (tempIndex > 0)
+        {
+            return new string(temp, 0, tempIndex);
+        }
+        else
+        {
+            return String.Empty;
+        }
 
 #pragma warning restore 56506
     }
@@ -251,7 +267,7 @@ public sealed partial class WildcardPattern(string pattern, WildcardOptions opti
     public static string Escape(
         string pattern, char escapeCharacter)
     {
-        return Escape(pattern, [], escapeCharacter);
+        return Escape(pattern, Array.Empty<char>(), escapeCharacter);
     }
 
     /// <summary>
@@ -356,7 +372,14 @@ public sealed partial class WildcardPattern(string pattern, WildcardOptions opti
             temp[tempIndex++] = escapeCharacter;
         }
 
-        return tempIndex > 0 ? new string(temp, 0, tempIndex) : string.Empty;
+        if (tempIndex > 0)
+        {
+            return new string(temp, 0, tempIndex);
+        }
+        else
+        {
+            return String.Empty;
+        }
     } // Unescape
 
     public static bool IsWildcardChar(char ch)
@@ -374,12 +397,12 @@ public sealed partial class WildcardPattern(string pattern, WildcardOptions opti
     /// <returns>The normalized input.</returns>
     public static string NormalizeLineEndings(string input, bool trimTrailingNewline = false)
     {
-        // https://stackoverflow.com/questions/140926/normalize-newlines-in-c-sharp
+        // Normalize all newlines to Environment.NewLine
         input = NormalizeNewLines().Replace(input, Environment.NewLine);
 
-        if (trimTrailingNewline && input.EndsWith(Environment.NewLine, StringComparison.OrdinalIgnoreCase))
+        if (trimTrailingNewline && input.EndsWith(Environment.NewLine, StringComparison.Ordinal)) // Fixed here
         {
-            input = input[..^Environment.NewLine.Length];
+            input = input.Substring(0, input.Length - Environment.NewLine.Length);
         }
 
         return input;
@@ -593,7 +616,7 @@ internal abstract class WildcardPatternParser
         {
             if (!pattern.Pattern.Equals($"{pattern.EscapeCharacter}", StringComparison.Ordinal)) // Win7 backcompatibility requires treating '`' pattern as '' pattern when this code was used with PowerShell.
             {
-                parser.AppendLiteralCharacter(pattern.Pattern[^1]);
+                parser.AppendLiteralCharacter(pattern.Pattern[pattern.Pattern.Length - 1]);
             }
         }
 
@@ -603,7 +626,7 @@ internal abstract class WildcardPatternParser
     internal static Exception NewWildcardPatternException(string invalidPattern)
     {
         return new ArgumentException(
-                $"The wildcard pattern, '{invalidPattern}', is invalid.");
+            $"The wildcard pattern, '{invalidPattern}', is invalid.", nameof(invalidPattern));
     }
 };
 
@@ -822,12 +845,12 @@ internal sealed class WildcardPatternMatcher
         //  - Wikipedia calls this algorithm the "NFA" algorithm at
         //    http://en.wikipedia.org/wiki/Regular_expression#Implementations_and_running_times
 
-        PatternPositionsVisitor patternPositionsForCurrentStringPosition =
-                new(_patternElements.Length);
+        var patternPositionsForCurrentStringPosition =
+                new PatternPositionsVisitor(_patternElements.Length);
         patternPositionsForCurrentStringPosition.Add(0);
 
-        PatternPositionsVisitor patternPositionsForNextStringPosition =
-                new(_patternElements.Length);
+        var patternPositionsForNextStringPosition =
+                new PatternPositionsVisitor(_patternElements.Length);
 
         for (int currentStringPosition = 0;
              currentStringPosition < str.Length;
@@ -848,7 +871,9 @@ internal sealed class WildcardPatternMatcher
 
             // swap patternPositionsForCurrentStringPosition
             // with patternPositionsForNextStringPosition
-            (patternPositionsForNextStringPosition, patternPositionsForCurrentStringPosition) = (patternPositionsForCurrentStringPosition, patternPositionsForNextStringPosition);
+            var tmp = patternPositionsForCurrentStringPosition;
+            patternPositionsForCurrentStringPosition = patternPositionsForNextStringPosition;
+            patternPositionsForNextStringPosition = tmp;
         }
 
         while (patternPositionsForCurrentStringPosition.MoveNext(out int patternPosition2))
@@ -927,7 +952,13 @@ internal sealed class WildcardPatternMatcher
             }
         }
 
-        public bool ReachedEndOfPattern => _isPatternPositionVisitedMarker[_lengthOfPattern] >= this.StringPosition;
+        public bool ReachedEndOfPattern
+        {
+            get
+            {
+                return _isPatternPositionVisitedMarker[_lengthOfPattern] >= this.StringPosition;
+            }
+        }
 
         // non-virtual MoveNext is more performant
         // than implementing IEnumerable / virtual MoveNext
@@ -983,9 +1014,14 @@ internal sealed class WildcardPatternMatcher
         }
     }
 
-    private sealed class LiteralCharacterElement(char literalCharacter) : QuestionMarkElement
+    private sealed class LiteralCharacterElement : QuestionMarkElement
     {
-        private readonly char _literalCharacter = literalCharacter;
+        private readonly char _literalCharacter;
+
+        public LiteralCharacterElement(char literalCharacter)
+        {
+            _literalCharacter = literalCharacter;
+        }
 
         public override void ProcessStringCharacter(
                         char currentStringCharacter,
@@ -1004,9 +1040,14 @@ internal sealed class WildcardPatternMatcher
         }
     }
 
-    private sealed class BracketExpressionElement(Regex regex) : QuestionMarkElement
+    private sealed class BracketExpressionElement : QuestionMarkElement
     {
-        private readonly Regex _Regex = regex ?? throw new ArgumentNullException(nameof(regex));
+        private readonly Regex _Regex;
+
+        public BracketExpressionElement(Regex regex)
+        {
+            _Regex = regex ?? throw new ArgumentNullException(nameof(regex));
+        }
 
         public override void ProcessStringCharacter(
                         char currentStringCharacter,
@@ -1049,7 +1090,7 @@ internal sealed class WildcardPatternMatcher
 
     private sealed class MyWildcardPatternParser : WildcardPatternParser
     {
-        private readonly List<PatternElement> _patternElements = [];
+        private readonly List<PatternElement> _patternElements = new();
         private CharacterNormalizer _characterNormalizer;
         private RegexOptions _regexOptions;
         private StringBuilder _bracketExpressionBuilder;
@@ -1058,13 +1099,13 @@ internal sealed class WildcardPatternMatcher
                         WildcardPattern pattern,
                         CharacterNormalizer characterNormalizer)
         {
-            MyWildcardPatternParser parser = new()
+            var parser = new MyWildcardPatternParser
             {
                 _characterNormalizer = characterNormalizer,
                 _regexOptions = WildcardPatternToRegexParser.TranslateWildcardOptionsIntoRegexOptions(pattern.Options),
             };
             WildcardPatternParser.Parse(pattern, parser);
-            return [.. parser._patternElements];
+            return parser._patternElements.ToArray();
         }
 
         protected override void AppendLiteralCharacter(char c)
@@ -1114,7 +1155,7 @@ internal sealed class WildcardPatternMatcher
         }
     }
 
-    private readonly struct CharacterNormalizer
+    private struct CharacterNormalizer
     {
         private readonly CultureInfo _cultureInfo;
         private readonly bool _caseInsensitive;
@@ -1137,7 +1178,12 @@ internal sealed class WildcardPatternMatcher
 
         public char Normalize(char x)
         {
-            return _caseInsensitive ? _cultureInfo.TextInfo.ToLower(x) : x;
+            if (_caseInsensitive)
+            {
+                return _cultureInfo.TextInfo.ToLower(x);
+            }
+
+            return x;
         }
     }
 }
@@ -1186,7 +1232,7 @@ internal sealed class WildcardPatternToDosWildcardParser : WildcardPatternParser
     /// </summary>
     internal static string Parse(WildcardPattern wildcardPattern)
     {
-        WildcardPatternToDosWildcardParser parser = new();
+        var parser = new WildcardPatternToDosWildcardParser();
         WildcardPatternParser.Parse(wildcardPattern, parser);
         return parser._result.ToString();
     }
