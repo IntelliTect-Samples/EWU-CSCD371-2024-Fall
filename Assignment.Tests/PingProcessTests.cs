@@ -209,10 +209,10 @@ public class PingProcessTests
     {
         // Arrange
         PingProcess pingProcess = new();
-        string[] hostnames = { "localhost", "localhost", "localhost" };
+        string[] hostnames = ["localhost", "localhost", "localhost"];
 
         // Act
-        var result = await pingProcess.RunAsync(hostnames);
+        PingResult result = await pingProcess.RunAsync(hostnames);
 
         // Assert
         Assert.IsNotNull(result.StdOutput);
