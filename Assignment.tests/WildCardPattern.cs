@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace IntelliTect.TestTools
+namespace Assignment.Tests
 {
     /// <summary>
     /// Provides enumerated values to use to set wildcard pattern
@@ -400,7 +400,7 @@ namespace IntelliTect.TestTools
             // https://stackoverflow.com/questions/140926/normalize-newlines-in-c-sharp
             input = NormalizeNewLines().Replace(input, Environment.NewLine);
 
-            if (trimTrailingNewline && input.EndsWith(Environment.NewLine))
+            if (trimTrailingNewline && input.EndsWith(Environment.NewLine, StringComparison.Ordinal))
             {
                 input = input.Substring(0, input.Length - Environment.NewLine.Length);
             }
@@ -886,7 +886,7 @@ namespace IntelliTect.TestTools
             return patternPositionsForCurrentStringPosition.ReachedEndOfPattern;
         }
 
-        private class PatternPositionsVisitor
+        private sealed class PatternPositionsVisitor
         {
             private readonly int _lengthOfPattern;
 
@@ -1014,7 +1014,7 @@ namespace IntelliTect.TestTools
             }
         }
 
-        private class LiteralCharacterElement : QuestionMarkElement
+        private sealed class LiteralCharacterElement : QuestionMarkElement
         {
             private readonly char _literalCharacter;
 
@@ -1040,7 +1040,7 @@ namespace IntelliTect.TestTools
             }
         }
 
-        private class BracketExpressionElement : QuestionMarkElement
+        private sealed class BracketExpressionElement : QuestionMarkElement
         {
             private readonly Regex _Regex;
 
@@ -1064,7 +1064,7 @@ namespace IntelliTect.TestTools
             }
         }
 
-        private class AsterixElement : PatternElement
+        private sealed class AsterixElement : PatternElement
         {
             public override void ProcessStringCharacter(
                             char currentStringCharacter,
@@ -1088,7 +1088,7 @@ namespace IntelliTect.TestTools
             }
         }
 
-        private class MyWildcardPatternParser : WildcardPatternParser
+        private sealed class MyWildcardPatternParser : WildcardPatternParser
         {
             private readonly List<PatternElement> _patternElements = new();
             private CharacterNormalizer _characterNormalizer;
@@ -1191,7 +1191,7 @@ namespace IntelliTect.TestTools
     /// <summary>
     /// Translates a <see cref="WildcardPattern"/> into a DOS wildcard
     /// </summary>
-    internal class WildcardPatternToDosWildcardParser : WildcardPatternParser
+    internal sealed class WildcardPatternToDosWildcardParser : WildcardPatternParser
     {
         private readonly StringBuilder _result = new();
 
