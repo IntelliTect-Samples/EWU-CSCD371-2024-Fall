@@ -52,30 +52,28 @@ public class PingProcess
     async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
         StringBuilder? stringBuilder = new();
+        Object obj = new();
 
-        SemaphoreSlim thread = new(1);
-
-        var pingTasks = hostNameOrAddresses.Select(async host =>
+        var pingTasks = hostNameOrAddresses.Select(async hostNameOrAddress =>
         {
             try
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                PingResult result = await RunAsync(host, cancellationToken);
-                if (result.StdOutput != null)
+                PingResult result = await RunAsync(hostNameOrAddress, cancellationToken);
+                lock (obj)
                 {
-                    await thread.WaitAsync(cancellationToken);
-                    stringBuilder.AppendLine(result.StdOutput.Trim());
-                    thread.Release();
+                    if(result.StdOutput != null)
+                    {
+                        stringBuilder?.AppendLine(result.StdOutput.Trim());
+                    }
                 }
+                return result;
             }
-            catch (ArgumentException e)
+            catch (OperationCanceledException)
             {
-                await thread.WaitAsync(cancellationToken);
-                stringBuilder.AppendLine(e.Message);
-                thread.Release();
+                throw new TaskCanceledException("ping operation was canceled.");
             }
         });
-
         await Task.WhenAll(pingTasks);
         return new PingResult(0, stringBuilder?.ToString());
     }
