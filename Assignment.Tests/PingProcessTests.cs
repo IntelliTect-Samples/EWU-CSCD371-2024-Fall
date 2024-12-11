@@ -45,7 +45,7 @@ public class PingProcessTests
         bool indicatesFailure = stdOutput.Contains("find host", StringComparison.OrdinalIgnoreCase)
                                 || stdOutput.Contains("not known", StringComparison.OrdinalIgnoreCase);
 
-        Assert.IsTrue(indicatesFailure,);
+        Assert.IsTrue(indicatesFailure);
         Assert.AreEqual(1, exitCode);
     }
 
