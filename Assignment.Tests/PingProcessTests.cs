@@ -220,19 +220,19 @@ public class PingProcessTests
         Assert.AreEqual(0, result.ExitCode);
     }
 
-    [TestMethod]
-    public async Task RunLongRunningAsync_UsingTpl_Success()
-    {
-        // Arrange
-        string hostName = "localhost";
-        CancellationTokenSource cts = new();
+    //[TestMethod]
+    //public async Task RunLongRunningAsync_UsingTpl_Success()
+    //{
+    //    // Arrange
+    //    string hostName = "localhost";
+    //    CancellationTokenSource cts = new();
 
-        // Act
-        PingResult result = await Sut.RunLongRunningAsync(hostName, cts.Token);
+    //    // Act
+    //    PingResult result = await Sut.RunLongRunningAsync(hostName, cts.Token);
 
-        // Assert
-        AssertValidPingOutput(result);
-    }
+    //    // Assert
+    //    AssertValidPingOutput(result);
+    //}
 
     [TestMethod]
     public async Task RunLongRunningAsync_ReturnsPingResult()
@@ -258,20 +258,6 @@ public class PingProcessTests
         // Assert
         AssertValidPingOutput(result);
     }
-
-#pragma warning restore CS1998 // Remove this
-
-    //Commenting this out because it is not testing anything in PingProcess
-
-    //[TestMethod]
-    //public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
-    //{
-    //    IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
-    //    System.Text.StringBuilder stringBuilder = new();
-    //    numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
-    //    int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
-    //    Assert.AreNotEqual(lineCount, numbers.Count() + 1);
-    //}
 
     private readonly string PingOutputLikeExpression = @"
 Pinging * with 32 bytes of data:

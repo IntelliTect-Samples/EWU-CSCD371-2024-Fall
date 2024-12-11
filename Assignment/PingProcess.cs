@@ -101,24 +101,24 @@ public class PingProcess
 
     // Below is my simplified version of the method. Not sure which is better.
 
-    public async Task<PingResult> RunLongRunningAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
-    {
-        StartInfo.Arguments = hostNameOrAddress;
-        StringBuilder? stringBuilder = null;
+    //public async Task<PingResult> RunLongRunningAsync(string hostNameOrAddress, CancellationToken cancellationToken = default)
+    //{
+    //    StartInfo.Arguments = hostNameOrAddress;
+    //    StringBuilder? stringBuilder = null;
 
-        void updateStdOutput(string? line) =>
-            (stringBuilder ??= new StringBuilder()).AppendLine(line);
+    //    void updateStdOutput(string? line) =>
+    //        (stringBuilder ??= new StringBuilder()).AppendLine(line);
 
-        Process process = RunProcessInternal(StartInfo, updateStdOutput, null, cancellationToken);
+    //    Process process = RunProcessInternal(StartInfo, updateStdOutput, null, cancellationToken);
 
-        await Task.Factory.StartNew(() =>
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-            process.WaitForExit();
-        }, cancellationToken, creationOptions: TaskCreationOptions.LongRunning, TaskScheduler.Current);
+    //    await Task.Factory.StartNew(() =>
+    //    {
+    //        cancellationToken.ThrowIfCancellationRequested();
+    //        process.WaitForExit();
+    //    }, cancellationToken, creationOptions: TaskCreationOptions.LongRunning, TaskScheduler.Current);
 
-        return new PingResult(process.ExitCode, stringBuilder?.ToString());
-    }
+    //    return new PingResult(process.ExitCode, stringBuilder?.ToString());
+    //}
 
     private Process RunProcessInternal(
         ProcessStartInfo startInfo,
