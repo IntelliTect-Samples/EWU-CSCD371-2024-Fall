@@ -107,14 +107,17 @@ public class PingProcess
     }
 
     private Process RunProcessInternal(
-        Process process,
-        Action<string?>? progressOutput,
-        Action<string?>? progressError,
-        CancellationToken token)
+    Process process,
+    Action<string?>? progressOutput,
+    Action<string?>? progressError,
+    CancellationToken token)
     {
         process.EnableRaisingEvents = true;
         process.OutputDataReceived += OutputHandler;
         process.ErrorDataReceived += ErrorHandler;
+
+        bool outputReadStarted = false;
+        bool errorReadStarted = false;
 
         try
         {
@@ -141,10 +144,12 @@ public class PingProcess
             if (process.StartInfo.RedirectStandardOutput)
             {
                 process.BeginOutputReadLine();
+                outputReadStarted = true; // Track if output read has started
             }
             if (process.StartInfo.RedirectStandardError)
             {
                 process.BeginErrorReadLine();
+                errorReadStarted = true; // Track if error read has started
             }
 
             if (process.HasExited)
@@ -159,13 +164,13 @@ public class PingProcess
         }
         finally
         {
-            if (process.StartInfo.RedirectStandardError)
-            {
-                process.CancelErrorRead();
-            }
-            if (process.StartInfo.RedirectStandardOutput)
+            if (outputReadStarted)
             {
                 process.CancelOutputRead();
+            }
+            if (errorReadStarted)
+            {
+                process.CancelErrorRead();
             }
             process.OutputDataReceived -= OutputHandler;
             process.ErrorDataReceived -= ErrorHandler;
