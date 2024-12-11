@@ -126,11 +126,11 @@ async public Task RunAsync_UsingTpl_Success()
     [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
     {
-        string[] hostNames = new string[] { "-n 4 localhost", "-n 4 localhost", "-n 4 localhost", "-n 4 localhost" };
-        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
-        List<Task<PingResult>> tasks = hostNames.Select(host => Sut.RunAsync(host)).ToList();
+        string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
+        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Length * hostNames.Length;
+        List<Task<PingResult>> tasks = hostNames.Select(host => Sut.RunAsync($"-n 4 {host}")).ToList();
         PingResult[] results = await Task.WhenAll(tasks);
-        int lineCount = results.Sum(result => result.StdOutput?.Split(Environment.NewLine).Length ?? 0);
+        int lineCount = results.Sum(result => result.StdOutput?.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Length ?? 0);
         Assert.AreEqual(expectedLineCount, lineCount);
     }
 
