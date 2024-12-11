@@ -12,7 +12,7 @@ namespace Assignment.Tests;
 [TestClass]
 public class PingProcessTests
 {
-    /*private PingProcess Sut { get; set; } = new();
+    private PingProcess Sut { get; set; } = new();
 
     [TestInitialize]
     public void TestInitialize()
@@ -20,7 +20,7 @@ public class PingProcessTests
         Sut = new();
     }
 
-    [TestMethod]
+    /*[TestMethod]
     public void Start_PingProcess_Success()
     {
         Process process = Process.Start("ping", "localhost");
