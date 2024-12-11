@@ -261,6 +261,8 @@ rtt min/avg/max/mdev = */*/*/* ms
         Assert.AreEqual<int>(0, exitCode);
     }
 
-    private void AssertValidPingOutput(PingResult result) =>
+    private void AssertValidPingOutput(PingResult result)
+    {
         AssertValidPingOutput(result.ExitCode, result.StdOutput);
+    }
 }
