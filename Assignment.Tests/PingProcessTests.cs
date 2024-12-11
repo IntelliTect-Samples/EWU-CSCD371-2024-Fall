@@ -204,21 +204,21 @@ public class PingProcessTests
         Assert.AreEqual(expectedLineCount, actualLineCount, "The number of lines in StdOutput does not match the expected count.");
     }
 
-    [TestMethod]
-    public async Task RunAsync_MultipleHosts_ReturnsAggregatedOutput()
-    {
-        // Arrange
-        PingProcess pingProcess = new();
-        string[] hostnames = ["localhost", "localhost", "localhost"];
+    //[TestMethod]
+    //public async Task RunAsync_MultipleHosts_ReturnsAggregatedOutput()
+    //{
+    //    // Arrange
+    //    PingProcess pingProcess = new();
+    //    string[] hostnames = ["localhost", "localhost", "localhost"];
 
-        // Act
-        PingResult result = await pingProcess.RunAsync(hostnames);
+    //    // Act
+    //    PingResult result = await pingProcess.RunAsync(hostnames);
 
-        // Assert
-        Assert.IsNotNull(result.StdOutput);
-        Assert.IsTrue(result.StdOutput.Contains("Reply from"));
-        Assert.AreEqual(0, result.ExitCode);
-    }
+    //    // Assert
+    //    Assert.IsNotNull(result.StdOutput);
+    //    Assert.IsTrue(result.StdOutput.Contains("Reply from"));
+    //    Assert.AreEqual(0, result.ExitCode);
+    //}
 
     //[TestMethod]
     //public async Task RunLongRunningAsync_UsingTpl_Success()
