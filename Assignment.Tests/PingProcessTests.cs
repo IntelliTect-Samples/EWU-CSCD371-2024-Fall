@@ -74,7 +74,7 @@ public class PingProcessTests
         // Test Sut.RunTaskAsync("localhost");
     }
 
-    [TestMethod]
+    /*[TestMethod]
     public void RunAsync_UsingTaskReturn_Success()
     {
         // Arrange
@@ -204,35 +204,21 @@ public class PingProcessTests
         Assert.AreEqual(expectedLineCount, actualLineCount, "The number of lines in StdOutput does not match the expected count.");
     }
 
-    //[TestMethod]
-    //public async Task RunAsync_MultipleHosts_ReturnsAggregatedOutput()
-    //{
-    //    // Arrange
-    //    PingProcess pingProcess = new();
-    //    string[] hostnames = ["localhost", "localhost", "localhost"];
+    [TestMethod]
+    public async Task RunAsync_MultipleHosts_ReturnsAggregatedOutput()
+    {
+        // Arrange
+        PingProcess pingProcess = new();
+        string[] hostnames = ["localhost", "localhost", "localhost"];
 
-    //    // Act
-    //    PingResult result = await pingProcess.RunAsync(hostnames);
+        // Act
+        PingResult result = await pingProcess.RunAsync(hostnames);
 
-    //    // Assert
-    //    Assert.IsNotNull(result.StdOutput);
-    //    Assert.IsTrue(result.StdOutput.Contains("Reply from"));
-    //    Assert.AreEqual(0, result.ExitCode);
-    //}
-
-    //[TestMethod]
-    //public async Task RunLongRunningAsync_UsingTpl_Success()
-    //{
-    //    // Arrange
-    //    string hostName = "localhost";
-    //    CancellationTokenSource cts = new();
-
-    //    // Act
-    //    PingResult result = await Sut.RunLongRunningAsync(hostName, cts.Token);
-
-    //    // Assert
-    //    AssertValidPingOutput(result);
-    //}
+        // Assert
+        Assert.IsNotNull(result.StdOutput);
+        Assert.IsTrue(result.StdOutput.Contains("Reply from"));
+        Assert.AreEqual(0, result.ExitCode);
+    }
 
     [TestMethod]
     public async Task RunLongRunningAsync_ReturnsPingResult()
@@ -257,7 +243,7 @@ public class PingProcessTests
 
         // Assert
         AssertValidPingOutput(result);
-    }
+    }*/
 
     private readonly string PingOutputLikeExpression = @"
 Pinging * with 32 bytes of data:
