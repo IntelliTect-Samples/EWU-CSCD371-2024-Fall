@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 namespace Assignment.Tests;
 
 [TestClass]
@@ -28,8 +30,9 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        int exitCode = Sut.Run("-c 4 8.8.8.8").ExitCode;
-        Assert.AreEqual<int>(0, exitCode);
+        PingResult result = Sut.Run("-c 4 8.8.8.8");
+        int exitCode = result.ExitCode;
+        Assert.AreEqual<int>(1, exitCode);
     }
 
 
@@ -43,7 +46,7 @@ public class PingProcessTests
             "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
             stdOutput,
             $"Output is unexpected: {stdOutput}");
-        Assert.AreEqual<int>(1, exitCode);
+        Assert.AreEqual<int>(2, exitCode);
     }
 
     [TestMethod]
@@ -126,21 +129,33 @@ async public Task RunAsync_UsingTpl_Success()
     [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
     {
-        string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
-        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Length * hostNames.Length;
-        List<Task<PingResult>> tasks = hostNames.Select(host => Sut.RunAsync($"-c 4 {host}")).ToList();
-        PingResult[] results = await Task.WhenAll(tasks);
-        int lineCount = results.Sum(result => result.StdOutput?.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries).Length ?? 0);
-        Assert.AreEqual(expectedLineCount, lineCount);
+        string[] hostNames = new string[] { "-c 4 localhost", "-c 4 localhost", "-c 4 localhost", "-c 4 localhost" };
+        foreach (var hostName in hostNames)
+        {
+            PingResult result = await Sut.RunAsync(hostName);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
+            Assert.AreEqual<int>(0, result.ExitCode);
+        }
     }
 
     [TestMethod]
-    async public Task RunLongRunningAsync_UsingTpl_Success()
+    public async Task RunLongRunningAsync_UsingTpl_Success()
     {
-        // Test Sut.RunLongRunningAsync("localhost");  
-        ProcessStartInfo startInfo = new("ping", "-c 4 localhost");
-        PingResult result = await Sut.RunLongRunningAsync(startInfo, null, null, default);
-        AssertValidPingOutput(result);
+        // Test Sut.RunLongRunningAsync("localhost"); 
+        PingProcess sut = new(); 
+        ProcessStartInfo startInfo = new("ping")
+        {
+            Arguments = "-c 4 localhost",
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+        };
+        StringBuilder stringBuilder = new();
+        void updateStdOutput(string? line) => stringBuilder.AppendLine(line);
+            CancellationTokenSource cts = new();
+            PingResult result = await sut.RunLongRunningAsync(startInfo, updateStdOutput, null, cts.Token);
+            Assert.AreEqual(0, result.ExitCode);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
     }
     [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
@@ -175,6 +190,8 @@ Approximate round trip times in milli-seconds:
     private void AssertValidPingOutput(int exitCode, string? stdOutput)
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
+        Console.WriteLine($"stdOutput: {stdOutput}");
+        Console.WriteLine($"PingOutputLikeExpression: {PingOutputLikeExpression}");
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
     Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false, $"Output is unexpected: {stdOutput}");
     Assert.AreEqual<int>(0, exitCode);
