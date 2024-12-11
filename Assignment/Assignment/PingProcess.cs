@@ -43,10 +43,46 @@ public class PingProcess
         return await task;
     }
 
-    async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
+    async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
-        StringBuilder? stringBuilder = null;
-        ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
+        StringBuilder? stringBuilder = new StringBuilder();
+        var objectlock = new object();
+
+        try
+        {
+            var task = hostNameOrAddresses.Select(async hostOrAddress =>
+            {
+
+                cancellationToken.ThrowIfCancellationRequested();
+                PingResult result = await RunAsync(hostOrAddress, cancellationToken);
+
+                lock (objectlock)
+                {
+                    if (!string.IsNullOrEmpty(result.StdOutput))
+                    {
+                        stringBuilder.AppendLine(result.StdOutput.Trim());
+                    }
+                }
+                return result.ExitCode;
+
+            });
+
+            int[] exitCodes = await Task.WhenAll(task);
+
+            int combinedExitCode = exitCodes.Sum();
+
+            return new PingResult(combinedExitCode, stringBuilder.ToString());
+        }
+        catch (OperationCanceledException ex)
+        {
+            throw new AggregateException(new TaskCanceledException("Task Ended", ex));
+        }
+    }
+
+            
+        
+
+        /*ParallelQuery<Task<int>>? all = hostNameOrAddresses.AsParallel().Select(async item =>
         {
             Task<PingResult> task = null!;
             // ...
@@ -58,7 +94,7 @@ public class PingProcess
         await Task.WhenAll(all);
         int total = all.Aggregate(0, (total, item) => total + item.Result);
         return new PingResult(total, stringBuilder?.ToString());
-    }
+    }*/
 
     async public Task<PingResult> RunLongRunningAsync(
         string hostNameOrAddress, CancellationToken cancellationToken = default)
