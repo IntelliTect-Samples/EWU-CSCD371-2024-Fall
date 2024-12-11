@@ -1,8 +1,7 @@
-﻿using IntelliTect.TestTools;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Assignment.Tests;
+namespace IntelliTect.TestTools;
 
 /// <summary>
 /// Useful string extensions for performing assertions.
