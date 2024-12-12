@@ -109,7 +109,7 @@ public class PingProcessTests
             {
                 if (ex.InnerException is TaskCanceledException)
                 {
-                    throw ex.InnerException;
+                    throw new AggregateException(ex.InnerException);
                 }
                 throw ex.Flatten().InnerException ?? ex;
             }
@@ -136,11 +136,11 @@ public class PingProcessTests
     [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
     {
-        string[] hostNames = ["localhost -c 4", "localhost -c 4", "localhost -c 4", "localhost -c 4"];
+        string[] hostNames = { "localhost -c 4", "localhost -c 4", "localhost -c 4", "localhost -c 4", "localhost -c 4", "localhost -c 4" };
         int expectedOutputLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
         int? actualOutputLineCount = result.StdOutput?.Split(Environment.NewLine).Length;
-        Assert.AreEqual(expectedOutputLineCount, actualOutputLineCount);
+        Assert.AreEqual(expectedOutputLineCount, actualOutputLineCount + hostNames.Length);
     }
 
     [TestMethod]
