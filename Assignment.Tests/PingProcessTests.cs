@@ -13,11 +13,6 @@ namespace Assignment.Tests;
 [TestClass]
 public class PingProcessTests
 {
-    /*
-     * NOTE TO ANY COMMENTORS:
-     * This isn't complete yet. I'm working on making it so that it uses the wildcard pattern,
-     * and doesn't just check for error codes.
-     */
     private PingProcess Sut { get; set; } = new();
 
     [TestInitialize]
@@ -59,6 +54,7 @@ public class PingProcessTests
     {
         PingResult result = Sut.Run("localhost -c 4");
         Assert.AreEqual(0, result.ExitCode);
+        AssertValidPingOutput(result);
     }
 
     [TestMethod]
@@ -232,6 +228,7 @@ PING * 56 data bytes
 64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
 64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
 64 bytes from * (::1): icmp_seq=* ttl=* time=* ms
+
 --- * ping statistics ---
 * packets transmitted, * received, *% packet loss, time *ms
 rtt min/avg/max/mdev = */*/*/* ms
