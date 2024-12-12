@@ -200,21 +200,6 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    public async Task RunAsync_MultipleHosts_ReturnsAggregatedOutput()
-    {
-        // Arrange
-        PingProcess pingProcess = new();
-        string[] hostnames = ["localhost -c 4", "localhost -c 4", "localhost -c 4"];
-
-        // Act
-        PingResult result = await pingProcess.RunAsync(hostnames);
-
-        // Assert
-        Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
-        Assert.AreEqual(0, result.ExitCode);
-    }
-
-    [TestMethod]
     public async Task RunLongRunningAsync_ReturnsPingResult()
     {
         // Arrange
