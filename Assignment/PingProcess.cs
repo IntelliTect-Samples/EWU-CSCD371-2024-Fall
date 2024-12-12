@@ -44,35 +44,21 @@ public class PingProcess
         }, cancellationToken);
     }
 
-    async public Task<PingResult> RunAsync(CancellationToken cancellationToken = default, params string[] hostNameOrAddresses)
+    async public Task<PingResult> RunAsync(params string[] hostNameOrAddresses)
     {
-        StringBuilder? stringBuilder = null;
-        IEnumerable<Task<PingResult>> all = hostNameOrAddresses.Select(async item =>
-        {
-            Task<PingResult> task = RunTaskAsync(item, cancellationToken);
-            PingResult result = await task;
-            return result;
-        });
-
-        PingResult[] results = await Task.WhenAll(all);
-        int total = results.Aggregate(0, (total, result) => total + result.ExitCode);
-        return new PingResult(total, stringBuilder?.ToString());
+        Task<PingResult>[] tasks = hostNameOrAddresses.Select((string x) => RunAsync(x)).ToArray();
+        await Task.WhenAll(tasks);
+        return new PingResult(ExitCode: tasks.Max(x => x.Result.ExitCode), StdOutput: string.Join(Environment.NewLine, tasks.Select(OutputStringResult => OutputStringResult.Result.StdOutput?.Trim() ?? "")));
     }
-    async public Task<PingResult> RunLongRunningAsync(
-        ProcessStartInfo startInfo,
-        Action<string?>? progressOutput,
-        Action<string?>? progressError,
-        CancellationToken token)
+    public Task<PingResult> RunLongRunningAsync( string hostNameOrAddress, CancellationToken token)
     {
-        StringBuilder? stringBuilder = null;
-        void updateStdOutput(string? line) =>
-            (stringBuilder ??= new StringBuilder()).AppendLine(line);
-
-        Process process = RunProcessInternal(startInfo, updateStdOutput, progressError, token);
-
-        await Task.Run(() => process.WaitForExit(), token);
-
-        return new PingResult(process.ExitCode, stringBuilder?.ToString());
+       return Task.Factory.StartNew(() =>
+       {
+        Task<PingResult> task = RunAsync(hostNameOrAddress);
+        task.Wait();
+        token.ThrowIfCancellationRequested();
+        return task.Result;
+       }, creationOptions: TaskCreationOptions.LongRunning);
     }
 
     private Process RunProcessInternal(

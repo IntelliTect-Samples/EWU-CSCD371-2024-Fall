@@ -82,17 +82,17 @@ public class PingProcessTests
         //AssertValidPingOutput(result);
     }
 
-[TestMethod]
-async public Task RunAsync_UsingTpl_Success()
-{
-    // DO use async/await in this test.
-    PingResult result = await Sut.RunAsync("-c 4 localhost");
+    [TestMethod]
+    async public Task RunAsync_UsingTpl_Success()
+    {
+        // DO use async/await in this test.
+        PingResult result = await Sut.RunAsync("-c 4 localhost");
 
-    // Test Sut.RunAsync("localhost");
-    Assert.AreEqual(0, result.ExitCode);
-    Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
-    //AssertValidPingOutput(result);
-}
+        // Test Sut.RunAsync("localhost");
+        Assert.AreEqual(0, result.ExitCode);
+        Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
+        //AssertValidPingOutput(result);
+    }
     [TestMethod]
     [ExpectedException(typeof(AggregateException))]
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()  // I believe this test is incorrect and should be removed. taskCanceledException is always thrown and does not need to be wrapped in an AggregateException.
@@ -109,7 +109,7 @@ async public Task RunAsync_UsingTpl_Success()
             {
                 if (ex.InnerException is TaskCanceledException)
                 {
-                    throw new AggregateException(ex.InnerException);
+                    throw ex.InnerException;
                 }
                 throw ex.Flatten().InnerException ?? ex;
             }
@@ -136,31 +136,17 @@ async public Task RunAsync_UsingTpl_Success()
     [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
     {
-        string[] hostNames = new string[] { "-c 4 localhost", "-c 4 localhost", "-c 4 localhost", "-c 4 localhost" };
-        foreach (var hostName in hostNames)
-        {
-            PingResult result = await Sut.RunAsync(hostName);
-            Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
-            Assert.AreEqual<int>(0, result.ExitCode);
-        }
+        string[] hostNames = ["localhost -c 4", "localhost -c 4", "localhost -c 4", "localhost -c 4"];
+        int expectedOutputLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
+        PingResult result = await Sut.RunAsync(hostNames);
+        int? actualOutputLineCount = result.StdOutput?.Split(Environment.NewLine).Length;
+        Assert.AreEqual(expectedOutputLineCount, actualOutputLineCount);
     }
 
     [TestMethod]
     public async Task RunLongRunningAsync_UsingTpl_Success()
     {
-        // Test Sut.RunLongRunningAsync("localhost"); 
-        PingProcess sut = new(); 
-        ProcessStartInfo startInfo = new("ping")
-        {
-            Arguments = "-c 4 localhost",
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            UseShellExecute = false,
-        };
-        StringBuilder stringBuilder = new();
-        void updateStdOutput(string? line) => stringBuilder.AppendLine(line);
-            CancellationTokenSource cts = new();
-            PingResult result = await sut.RunLongRunningAsync(startInfo, updateStdOutput, null, cts.Token);
+            PingResult result = await Sut.RunLongRunningAsync("-c 4 localhost", CancellationToken.None);
             Assert.AreEqual(0, result.ExitCode);
             Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
     }
@@ -183,17 +169,17 @@ async public Task RunAsync_UsingTpl_Success()
         Assert.AreEqual(numbers.Count() + 1, lineCount);
     }
 
-//     private readonly string PingOutputLikeExpression = @"
-// Pinging * with 32 bytes of data:
-// Reply from ::1: time<*
-// Reply from ::1: time<*
-// Reply from ::1: time<*
-// Reply from ::1: time<*
+     private readonly string PingOutputLikeExpression = @"
+ Pinging * with * bytes of data:
+ Reply from *
+ Reply from *
+ Reply from *
+ Reply from *
 
-// Ping statistics for ::1:
-//     Packets: Sent = *, Received = *, Lost = 0 (0% loss),
-// Approximate round trip times in milli-seconds:
-//     Minimum = *, Maximum = *, Average = *".Trim();
+ Ping statistics for ::1:
+    Packets: Sent = *, Received = *, Lost = 0 (0% loss),
+ Approximate round trip times in milli-seconds:
+    Minimum = *, Maximum = *, Average = *".Trim();
 //     private void AssertValidPingOutput(int exitCode, string? stdOutput)
 //     {
 //         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
