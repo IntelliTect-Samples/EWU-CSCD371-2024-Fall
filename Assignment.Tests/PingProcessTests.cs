@@ -124,7 +124,7 @@ public class PingProcessTests
             return result;
         });
 
-        task.Wait();
+        task.Wait(); // Throws AggregateException
     }
 
     [TestMethod]
