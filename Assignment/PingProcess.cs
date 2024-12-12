@@ -50,16 +50,16 @@ public class PingProcess
         await Task.WhenAll(tasks);
         return new PingResult(ExitCode: tasks.Max(x => x.Result.ExitCode), StdOutput: string.Join(Environment.NewLine, tasks.Select(OutputStringResult => OutputStringResult.Result.StdOutput?.Trim() ?? "")));
     }
-    public Task<PingResult> RunLongRunningAsync( string hostNameOrAddress, CancellationToken token)
+    public Task<int> RunLongRunningAsync( ProcessStartInfo startInfo, Action<string?>? progressOutput, Action<string?>? progressError, CancellationToken token)
     {
-       return Task.Factory.StartNew(() =>
-       {
-        Task<PingResult> task = RunAsync(hostNameOrAddress);
-        task.Wait();
-        token.ThrowIfCancellationRequested();
-        return task.Result;
-       }, creationOptions: TaskCreationOptions.LongRunning);
+        return Task.Factory.StartNew(() =>
+        {
+            token.ThrowIfCancellationRequested();
+            Process process = RunProcessInternal(startInfo, progressOutput, progressError, token);
+            return process.ExitCode;
+        }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
     }
+    
 
     private Process RunProcessInternal(
         ProcessStartInfo startInfo,

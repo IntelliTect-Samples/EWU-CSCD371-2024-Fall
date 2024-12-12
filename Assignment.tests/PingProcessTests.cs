@@ -146,9 +146,15 @@ public class PingProcessTests
     [TestMethod]
     public async Task RunLongRunningAsync_UsingTpl_Success()
     {
-            PingResult result = await Sut.RunLongRunningAsync("-c 4 localhost", CancellationToken.None);
-            Assert.AreEqual(0, result.ExitCode);
-            Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
+        var startInfo = new ProcessStartInfo("ping", "-c 4 localhost")
+        {
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            UseShellExecute = false,
+            CreateNoWindow = true,
+        };
+        int exitCode = await Sut.RunLongRunningAsync(startInfo, null, null, CancellationToken.None);
+        Assert.AreEqual(0, exitCode);
     }
     [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
