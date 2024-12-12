@@ -176,11 +176,6 @@ public class PingProcessTests
         }
     }
 
-    public PingProcess GetSut()
-    {
-        return Sut;
-    }
-
     [TestMethod]
     public async Task RunAsync_MultipleHostAddresses_True()
     {
