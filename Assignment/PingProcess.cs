@@ -58,43 +58,30 @@ public class PingProcess
     async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
         StringBuilder? stringBuilder = new();
+        Object obj = new();
 
-        SemaphoreSlim thread = new(1);
-
-        try
+        var pingTasks = hostNameOrAddresses.Select(async hostNameOrAddress =>
         {
-            var pingTasks = hostNameOrAddresses.Select(async host =>
+            try
             {
-                try
+                cancellationToken.ThrowIfCancellationRequested();
+                PingResult result = await RunAsync(hostNameOrAddress, cancellationToken);
+                lock (obj)
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                    PingResult result = await RunAsync(host, cancellationToken);
-
-                    if (!string.IsNullOrWhiteSpace(result.StdOutput))
+                    if(result.StdOutput != null)
                     {
-                        stringBuilder.AppendLine(result.StdOutput.Trim());
-                        thread.Release();
+                        stringBuilder?.AppendLine(result.StdOutput.Trim());
                     }
                 }
-                catch (ArgumentException e)
-                {
-                    stringBuilder.AppendLine(e.Message);
-                    thread.Release();
-                }
-            });
-
-            await Task.WhenAll(pingTasks);
-            return new PingResult(0, stringBuilder?.ToString().Trim());
-        }
-        catch (OperationCanceledException)
-        {
-            throw new AggregateException(new TaskCanceledException("ping operation was canceled."));
-        }
-        finally
-        {
-            thread.Dispose();
-        }
+                return result;
+            }
+            catch (OperationCanceledException)
+            {
+                throw new TaskCanceledException("ping operation was canceled.");
+            }
+        });
+        await Task.WhenAll(pingTasks);
+        return new PingResult(0, stringBuilder?.ToString());
     }
 
     public Task<int> RunLongRunningAsync(
