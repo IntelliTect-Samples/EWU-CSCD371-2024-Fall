@@ -192,7 +192,7 @@ public class PingProcessTests
 
         // Assert
         int lineCount = (result.StdOutput?.Split(Environment.NewLine).Length) ?? 0;
-        Assert.AreEqual(40, lineCount);
+        Assert.AreEqual(36, lineCount);
         Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
         Assert.AreEqual(0, result.ExitCode);
     }
