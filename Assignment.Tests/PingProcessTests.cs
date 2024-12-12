@@ -185,7 +185,7 @@ public class PingProcessTests
     public async Task RunAsync_MultipleHostAddresses_True()
     {
         // Arrange
-        string[] hostNames = ["localhost -c 4", "localhost -c 4", "localhost -c 4", "localhost -c 4"]; // Correct array syntax
+        string[] hostNames = ["localhost -c 4", "localhost -c 4", "localhost -c 4", "localhost -c 4"];
 
         // Act
         PingResult result = await Sut.RunAsync(hostNames);
@@ -219,7 +219,7 @@ public class PingProcessTests
         PingResult result = await sut.RunLongRunningAsync(startInfo, progressOutput, null, cts.Token);
 
         // Assert
-        //AssertValidPingOutput(result);
+        AssertValidPingOutput(result);
         Assert.AreEqual(0, result.ExitCode);
         Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
     }
