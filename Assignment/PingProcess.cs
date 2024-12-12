@@ -58,30 +58,43 @@ public class PingProcess
     async public Task<PingResult> RunAsync(IEnumerable<string> hostNameOrAddresses, CancellationToken cancellationToken = default)
     {
         StringBuilder? stringBuilder = new();
-        Object obj = new();
 
-        var pingTasks = hostNameOrAddresses.Select(async hostNameOrAddress =>
+        SemaphoreSlim thread = new(1);
+
+        try
         {
-            try
+            var pingTasks = hostNameOrAddresses.Select(async host =>
             {
-                cancellationToken.ThrowIfCancellationRequested();
-                PingResult result = await RunAsync(hostNameOrAddress, cancellationToken);
-                lock (obj)
+                try
                 {
-                    if(result.StdOutput != null)
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    PingResult result = await RunAsync(host, cancellationToken);
+
+                    if (!string.IsNullOrWhiteSpace(result.StdOutput))
                     {
-                        stringBuilder?.AppendLine(result.StdOutput.Trim());
+                        stringBuilder.AppendLine(result.StdOutput.Trim());
+                        thread.Release();
                     }
                 }
-                return result;
-            }
-            catch (OperationCanceledException)
-            {
-                throw new TaskCanceledException("ping operation was canceled.");
-            }
-        });
-        await Task.WhenAll(pingTasks);
-        return new PingResult(0, stringBuilder?.ToString());
+                catch (ArgumentException e)
+                {
+                    stringBuilder.AppendLine(e.Message);
+                    thread.Release();
+                }
+            });
+
+            await Task.WhenAll(pingTasks);
+            return new PingResult(0, stringBuilder?.ToString().Trim());
+        }
+        catch (OperationCanceledException)
+        {
+            throw new AggregateException(new TaskCanceledException("ping operation was canceled."));
+        }
+        finally
+        {
+            thread.Dispose();
+        }
     }
 
     public Task<int> RunLongRunningAsync(
