@@ -42,7 +42,6 @@ public class PingProcess
 
         await Task.Run(() =>
         {
-            cancellationToken.ThrowIfCancellationRequested();
             process.WaitForExit();
             cancellationToken.ThrowIfCancellationRequested();
         }, cancellationToken);
