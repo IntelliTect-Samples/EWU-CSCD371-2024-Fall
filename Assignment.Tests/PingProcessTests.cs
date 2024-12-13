@@ -27,7 +27,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        int exitCode = Sut.Run("google.com -c 4").ExitCode;
+        int exitCode = Sut.Run("8.8.8.8 -c 4").ExitCode;
         Assert.AreEqual<int>(0, exitCode);
 
     }
@@ -46,9 +46,10 @@ public class PingProcessTests
         Assert.AreEqual<int>(1, exitCode);
     }
 
+    [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run("8.8.8.8 -c 4");
+        PingResult result = Sut.Run("localhost -c 4");
         int exitCode = result.ExitCode;
         Assert.AreEqual<int>(1, exitCode);
     }
