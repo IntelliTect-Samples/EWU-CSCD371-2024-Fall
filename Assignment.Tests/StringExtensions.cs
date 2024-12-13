@@ -14,7 +14,9 @@ public static class StringExtensions
     /// <param name="s">The string to match</param>
     /// <param name="pattern">The pattern to match it against.</param>
     /// <returns></returns>
+#pragma warning disable CA1711
     public static bool IsLikeRegEx(this string s, string pattern) =>
+#pragma warning restore CA1711
         new Regex(pattern, RegexOptions.IgnoreCase).IsMatch(s);
 
     /// <summary>

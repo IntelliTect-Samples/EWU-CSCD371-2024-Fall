@@ -400,7 +400,7 @@ public sealed partial class WildcardPattern
         // https://stackoverflow.com/questions/140926/normalize-newlines-in-c-sharp
         input = NormalizeNewLines().Replace(input, Environment.NewLine);
 
-        if (trimTrailingNewline && input.EndsWith(Environment.NewLine))
+        if (trimTrailingNewline && input.EndsWith(Environment.NewLine, StringComparison.Ordinal))
         {
             input = input.Substring(0, input.Length - Environment.NewLine.Length);
         }
@@ -625,7 +625,7 @@ internal abstract class WildcardPatternParser
 
     internal static Exception NewWildcardPatternException(string invalidPattern)
     {
-        return new Exception(
+        return new ArgumentException(
                 $"The wildcard pattern, '{invalidPattern}', is invalid.");
     }
 };
