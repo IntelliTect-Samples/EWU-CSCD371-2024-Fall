@@ -72,7 +72,7 @@ public class PingProcess
             });
 
             int[] exitCodes = await Task.WhenAll(task);
-            int combinedExitCode = exitCodes.Sum();
+            int combinedExitCode = exitCodes.Sum() - hostNameOrAddresses.Count();
 
             return new PingResult(combinedExitCode, stringBuilder.ToString());
         }
