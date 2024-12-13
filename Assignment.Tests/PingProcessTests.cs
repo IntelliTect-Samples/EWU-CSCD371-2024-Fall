@@ -27,8 +27,9 @@ public class PingProcessTests
     [TestMethod]
     public void Run_GoogleDotCom_Success()
     {
-        int exitCode = Sut.Run("google.com").ExitCode;
+        int exitCode = Sut.Run("google.com -c 4").ExitCode;
         Assert.AreEqual<int>(0, exitCode);
+
     }
 
 
