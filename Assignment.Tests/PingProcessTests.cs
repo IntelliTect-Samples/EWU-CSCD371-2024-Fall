@@ -49,6 +49,7 @@ public class PingProcessTests
     public void Run_CaptureStdOutput_Success()
     {
         PingResult result = Sut.Run("localhost -c 4");
+        Assert.AreEqual(0, result.ExitCode);
         AssertValidPingOutput(result);
     }
 
@@ -162,17 +163,6 @@ public class PingProcessTests
         //Assert.AreEqual(0, result.ExitCode);
         //AssertValidPingOutput(result);
     }
-#pragma warning restore CS1998 // Remove this
-
-    /*[TestMethod]
-    public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
-    {
-        IEnumerable<int> numbers = Enumerable.Range(0, short.MaxValue);
-        System.Text.StringBuilder stringBuilder = new();
-        numbers.AsParallel().ForAll(item => stringBuilder.AppendLine(""));
-        int lineCount = stringBuilder.ToString().Split(Environment.NewLine).Length;
-        Assert.AreNotEqual(lineCount, numbers.Count());
-    }*/
 
     private readonly string PingOutputLikeExpression = @"
 Pinging * with 32 bytes of data:
