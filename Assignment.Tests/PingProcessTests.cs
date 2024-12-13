@@ -51,9 +51,6 @@ public class PingProcessTests
         AssertValidPingOutput(result);
         Assert.AreEqual(0, result.ExitCode);
         Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
-
-        // Do NOT use async/await in this test.
-        // Test Sut.RunTaskAsync("localhost");
     }
 
     [TestMethod]
@@ -63,8 +60,9 @@ public class PingProcessTests
         PingResult result = default;
 
         // Act
-        Task task = Sut.RunAsync("localhost -c 4").ContinueWith(t => result = t.Result);
+        Task<PingResult> task = Sut.RunAsync("localhost -c 4");
         task.Wait();
+        result = task.Result;
 
         // Assert
         AssertValidPingOutput(result);
