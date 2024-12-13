@@ -7,5 +7,6 @@
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <LangVersion>12.0</LangVersion>
 	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	<AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 </Project>
