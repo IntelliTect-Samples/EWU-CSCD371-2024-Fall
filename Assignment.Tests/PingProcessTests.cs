@@ -28,72 +28,70 @@ public class PingProcessTests
         Assert.AreEqual<int>(0, process.ExitCode);
     }
 
-    // [TestMethod]
-    // public void Run_GoogleDotCom_Success()
-    // {
-    //     int exitCode = Sut.Run("-c 8.8.8.8").ExitCode;
-    //     Assert.AreEqual<int>(1, exitCode);
-    // }
+    [TestMethod]
+    public void Run_GoogleDotCom_Success()
+    {
+        int exitCode = Sut.Run("-c 8.8.8.8").ExitCode;
+        Assert.AreEqual<int>(1, exitCode);
+    }
 
+    [TestMethod]
+    public void Run_InvalidAddressOutput_Success()
+    {
+       (int exitCode, string? stdOutput) = Sut.Run("badaddress");
+       Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
+       stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+       Assert.AreEqual<string?>(
+           "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
+           stdOutput,
+           $"Output is unexpected: {stdOutput}");
+       Assert.AreEqual<int>(1, exitCode);
+    }
 
-    //[TestMethod]
-    //public void Run_InvalidAddressOutput_Success()
-    //{
-    //    (int exitCode, string? stdOutput) = Sut.Run("badaddress");
-    //    Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-    //    stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-    //    Assert.AreEqual<string?>(
-    //        "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
-    //        stdOutput,
-    //        $"Output is unexpected: {stdOutput}");
-    //    Assert.AreEqual<int>(1, exitCode);
-    //}
+    [TestMethod]
+    public void Run_CaptureStdOutput_Success()
+    {
+        PingResult result = Sut.Run("localhost");
+        AssertValidPingOutput(result);
+    }
 
-    // [TestMethod]
-    // public void Run_CaptureStdOutput_Success()
-    // {
-    //     PingResult result = Sut.Run("localhost");
-    //     AssertValidPingOutput(result);
-    // }
+    [TestMethod]
+    public void RunTaskAsync_Success()
+    {
+        // Act
+        Task<PingResult> task = Sut.RunTaskAsync("localhost");
+        task.Wait();
 
-    // [TestMethod]
-    // public void RunTaskAsync_Success()
-    // {
-    //     // Act
-    //     Task<PingResult> task = Sut.RunTaskAsync("localhost");
-    //     task.Wait();
+        PingResult result = task.Result;
 
-    //     PingResult result = task.Result;
+        // Assert
+        Assert.AreEqual(0, result.ExitCode);
+        Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
+    }
 
-    //     // Assert
-    //     Assert.AreEqual(0, result.ExitCode);
-    //     Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
-    // }
+    [TestMethod]
+    public void RunAsync_UsingTaskReturn_Success()
+    {
+        // Act
+        Task<PingResult> task = Sut.RunAsync("localhost");
+        task.Wait();
 
-    // [TestMethod]
-    // public void RunAsync_UsingTaskReturn_Success()
-    // {
-    //     // Act
-    //     Task<PingResult> task = Sut.RunAsync("localhost");
-    //     task.Wait();
+        PingResult result = task.Result;
 
-    //     PingResult result = task.Result;
+        // Assert
+        Assert.AreEqual(0, result.ExitCode);
+        Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
+    }
 
-    //     // Assert
-    //     Assert.AreEqual(0, result.ExitCode);
-    //     Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
-    // }
+    [TestMethod]
+    public async Task RunAsync_UsingTpl_Success()
+    {
+        // Act
+        PingResult result = await Sut.RunAsync("localhost");
 
-    // [TestMethod]
-    // public async Task RunAsync_UsingTpl_Success()
-    // {
-    //     // Act
-    //     PingResult result = await Sut.RunAsync("localhost");
-
-    //     // Assert
-    //     Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
-    // }
-
+        // Assert
+        Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
+    }
 
     [TestMethod]
     [ExpectedException(typeof(AggregateException))]
