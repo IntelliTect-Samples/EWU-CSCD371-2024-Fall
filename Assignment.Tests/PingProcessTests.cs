@@ -29,26 +29,6 @@ public class PingProcessTests
         Assert.AreEqual<int>(0, process.ExitCode);
     }
 
-    //[TestMethod]
-    //public void Run_GoogleDotCom_Success()
-    //{
-    //    int exitCode = Sut.Run("google.com -c 4").ExitCode;
-    //    Assert.AreEqual<int>(0, exitCode);
-    //}
-
-    //[TestMethod]
-    //public void Run_InvalidAddressOutput_Success()
-    //{
-    //    (int exitCode, string? stdOutput) = Sut.Run("badaddress");
-    //    Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-    //    stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-    //    Assert.AreEqual<string?>(
-    //        "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
-    //        stdOutput,
-    //        $"Output is unexpected: {stdOutput}");
-    //    Assert.AreEqual<int>(1, exitCode);
-    //}
-
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
@@ -68,7 +48,7 @@ public class PingProcessTests
         PingResult result = task.Result;
 
         // Assert
-        //AssertValidPingOutput(result);
+        AssertValidPingOutput(result);
         Assert.AreEqual(0, result.ExitCode);
         Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
 
@@ -87,7 +67,7 @@ public class PingProcessTests
         task.Wait();
 
         // Assert
-        //AssertValidPingOutput(result);
+        AssertValidPingOutput(result);
         Assert.AreEqual(0, result.ExitCode);
         Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
     }
@@ -101,7 +81,7 @@ public class PingProcessTests
         // Act
 
         // Assert
-        //AssertValidPingOutput(result);
+        AssertValidPingOutput(result);
         Assert.AreEqual(0, result.ExitCode);
         Assert.IsFalse(string.IsNullOrWhiteSpace(result.StdOutput));
     }
