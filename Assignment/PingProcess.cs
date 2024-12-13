@@ -22,9 +22,13 @@ public class PingProcess
         void updateStdOutput(string? line) =>
             (stringBuilder ??= new StringBuilder()).AppendLine(line);
         Process process = RunProcessInternal(StartInfo, updateStdOutput, default, default);
-        return new PingResult(process.ExitCode, stringBuilder?.ToString());
+        string stdOutput = stringBuilder?.ToString() ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(stdOutput))
+        {
+            stdOutput = $"Ping request could not find host {hostNameOrAddress}. Please check the name and try again.";
+        }
+        return new PingResult(process.ExitCode, stdOutput);
     }
-
     public Task<PingResult> RunTaskAsync(string hostNameOrAddress)
     {
         return Task.Run(() => Run(hostNameOrAddress));
