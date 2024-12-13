@@ -74,9 +74,9 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    [DataRow("amazon.com")]
-    [DataRow("8.8.8.8")]
-    [DataRow("www.walmart.com")]
+    [DataRow("amazon.com -c 4")]
+    [DataRow("8.8.8.8 -c 4")]
+    [DataRow("www.walmart.com -c 4")]
     public void RunAsync_UsingTaskReturn_Success(string address)
     {
         // Do NOT use async/await in this test.
