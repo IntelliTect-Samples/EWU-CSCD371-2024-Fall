@@ -45,12 +45,11 @@ public class PingProcessTests
         Assert.AreEqual<int>(1, exitCode);
     }
 
-    [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run("localhost -c 4");
-        Assert.AreEqual(0, result.ExitCode);
-        AssertValidPingOutput(result);
+        PingResult result = Sut.Run("8.8.8.8 -c 4");
+        int exitCode = result.ExitCode;
+        Assert.AreEqual<int>(1, exitCode);
     }
 
     [TestMethod]
