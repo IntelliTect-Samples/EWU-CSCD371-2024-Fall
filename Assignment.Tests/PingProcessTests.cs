@@ -30,7 +30,7 @@ public class PingProcessTests
     }
 
     [TestMethod]
-    public void Run_GoogleDotCom_Success()
+    public void Run_GoogleDNS_unsuccessful()
     {
         int exitCode = Sut.Run("-c 4 8.8.8.8").ExitCode;
         Assert.AreEqual<int>(1, exitCode); // since github actions doesn't have internet access
