@@ -49,7 +49,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run("localhost -c 4");
+        PingResult result = Sut.Run("-c 4 localhost");
         Assert.AreEqual(0, result.ExitCode);
         AssertValidPingOutput(result);
     }
@@ -95,7 +95,7 @@ public class PingProcessTests
     async public Task RunAsync_UsingTpl_Success()
     {
         // DO use async/await in this test.
-        PingResult result = await Sut.RunAsync("localhost -c 4");
+        PingResult result = await Sut.RunAsync("-c 4 localhost");
 
         // Test Sut.RunAsync("localhost");
         AssertValidPingOutput(result);
@@ -148,7 +148,7 @@ public class PingProcessTests
     [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
     {
-        string[] hostNames = new string[] { "localhost -c 4", "localhost -c 4", "localhost -c 4", "localhost -c 4" };
+        string[] hostNames = new string[] { "localhost -c 4", "localhost -c 4", "localhost -c 4" };
         int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
