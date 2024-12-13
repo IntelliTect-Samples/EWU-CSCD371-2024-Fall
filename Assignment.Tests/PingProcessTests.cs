@@ -1,8 +1,6 @@
 ﻿using IntelliTect.TestTools;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -86,7 +84,7 @@ public class PingProcessTests
         //Act
         Task<PingResult> pingResult = Sut.RunAsync(address);
         pingResult.Wait();
-        
+
         //Assert
         Assert.AreEqual(0, pingResult.Result.ExitCode);
     }
@@ -117,7 +115,7 @@ public class PingProcessTests
 
         //Assert
         Assert.AreEqual(0, results.Result.ExitCode);
-        
+
     }
 
     [TestMethod]
@@ -139,8 +137,8 @@ public class PingProcessTests
         {
             var flat = ex.Flatten();
             if (flat.InnerException is TaskCanceledException)
-            { 
-                throw flat.InnerException; 
+            {
+                throw flat.InnerException;
             }
             else { throw; }
         }
@@ -150,7 +148,7 @@ public class PingProcessTests
     async public Task RunAsync_MultipleHostAddresses_True()
     {
         string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
-        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length*hostNames.Length;
+        int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
         Assert.AreEqual(expectedLineCount + 1, lineCount);
@@ -192,7 +190,7 @@ Approximate round trip times in milli-seconds:
     {
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression)??false,
+        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
     }
