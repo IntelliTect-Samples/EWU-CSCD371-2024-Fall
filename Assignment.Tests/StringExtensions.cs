@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace IntelliTect.TestTools;
+namespace Assignment.Tests;
 
 /// <summary>
 /// Useful string extensions for performing assertions.
