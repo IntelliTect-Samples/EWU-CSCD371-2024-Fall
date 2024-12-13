@@ -50,14 +50,14 @@ public class PingProcessTests
     public void Run_CaptureStdOutput_Success()
     {
         PingResult result = Sut.Run("localhost -c 4");
-        int exitCode = result.ExitCode;
-        Assert.AreEqual<int>(1, exitCode);
+        Assert.AreEqual(0, result.ExitCode);
+        AssertValidPingOutput(result);
     }
 
     [TestMethod]
-    [DataRow("amazon.com")]
-    [DataRow("8.8.8.8")]
-    [DataRow("www.walmart.com")]
+    [DataRow("amazon.com -c 4")]
+    [DataRow("8.8.8.8 -c 4")]
+    [DataRow("www.walmart.com -c 4")]
     public void RunTaskAsync_Success(string address)
     {
         // Do NOT use async/await in this test.
