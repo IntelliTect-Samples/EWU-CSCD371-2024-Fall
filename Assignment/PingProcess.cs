@@ -75,12 +75,18 @@ public class PingProcess
     }
 
 
-    async public Task<PingResult> RunLongRunningAsync(
-        string hostNameOrAddress, CancellationToken cancellationToken = default)
+    public Task<int> RunLongRunningAsync(
+        ProcessStartInfo startInfo,
+        Action<string?>? progressOutput,
+        Action<string?>? progressError,
+        CancellationToken token)
     {
-        Task task = null!;
-        await task;
-        throw new NotImplementedException();
+        return Task.Factory.StartNew(() =>
+        { 
+            token.ThrowIfCancellationRequested();
+            var process = RunProcessInternal(startInfo, progressOutput, progressError, token);
+            return process.ExitCode;
+        }, token, TaskCreationOptions.LongRunning, TaskScheduler.Current);
     }
 
     private Process RunProcessInternal(

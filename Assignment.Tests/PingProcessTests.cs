@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -148,14 +149,25 @@ public class PingProcessTests
 
 
     [TestMethod]
-#pragma warning disable CS1998 // Remove this
-    async public Task RunLongRunningAsync_UsingTpl_Success()
+    public async Task RunLongRunningAsync_UsingTpl_Success()
     {
-        PingResult result = default;
-        // Test Sut.RunLongRunningAsync("localhost");
-        AssertValidPingOutput(result);
+        // Arrange
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = "ping",
+            Arguments = "-c 4 localhost",
+        };
+
+        var tokenSource = new CancellationTokenSource();
+        CancellationToken token = tokenSource.Token;
+
+        // Act
+        int result = await Sut.RunLongRunningAsync(startInfo, null, null, token);
+
+        // Assert
+        Assert.AreEqual(0, result, "The process should exit successfully.");
     }
-#pragma warning restore CS1998 // Remove this
+
 
     [TestMethod]
     public void StringBuilderAppendLine_InParallel_IsNotThreadSafe()
@@ -167,7 +179,7 @@ public class PingProcessTests
         Assert.AreNotEqual(lineCount, numbers.Count()+1);
     }
 
-    readonly string PingOutputLikeExpression = @"
+    private readonly string PingOutputLikeExpression = @"
 Pinging * with 32 bytes of data:
 Reply from ::1: time<*
 Reply from ::1: time<*
