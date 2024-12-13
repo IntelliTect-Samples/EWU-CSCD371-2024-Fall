@@ -400,7 +400,7 @@ namespace Assignment.Tests;
             // https://stackoverflow.com/questions/140926/normalize-newlines-in-c-sharp
             input = NormalizeNewLines().Replace(input, Environment.NewLine);
 
-            if (trimTrailingNewline && input.EndsWith(Environment.NewLine))
+            if (trimTrailingNewline && input.EndsWith(Environment.NewLine, StringComparison.Ordinal))
             {
                 input = input.Substring(0, input.Length - Environment.NewLine.Length);
             }
@@ -625,7 +625,7 @@ namespace Assignment.Tests;
 
         internal static Exception NewWildcardPatternException(string invalidPattern)
         {
-            return new Exception(
+            return new ArgumentException(
                     $"The wildcard pattern, '{invalidPattern}', is invalid.");
         }
     };
@@ -645,7 +645,7 @@ namespace Assignment.Tests;
     ///
     /// for a more cases see the unit-test file RegexTest.cs
     /// </remarks>
-    internal class WildcardPatternToRegexParser : WildcardPatternParser
+    internal sealed class WildcardPatternToRegexParser : WildcardPatternParser
     {
         private StringBuilder _regexPattern;
         private RegexOptions _regexOptions;
@@ -814,7 +814,7 @@ namespace Assignment.Tests;
         }
     }
 
-    internal class WildcardPatternMatcher
+    internal sealed class WildcardPatternMatcher
     {
         private readonly PatternElement[] _patternElements;
         private readonly CharacterNormalizer _characterNormalizer;
@@ -886,7 +886,7 @@ namespace Assignment.Tests;
             return patternPositionsForCurrentStringPosition.ReachedEndOfPattern;
         }
 
-        private class PatternPositionsVisitor
+        private sealed class PatternPositionsVisitor
         {
             private readonly int _lengthOfPattern;
 
@@ -1014,7 +1014,7 @@ namespace Assignment.Tests;
             }
         }
 
-        private class LiteralCharacterElement : QuestionMarkElement
+        private sealed class LiteralCharacterElement : QuestionMarkElement
         {
             private readonly char _literalCharacter;
 
@@ -1040,7 +1040,7 @@ namespace Assignment.Tests;
             }
         }
 
-        private class BracketExpressionElement : QuestionMarkElement
+        private sealed class BracketExpressionElement : QuestionMarkElement
         {
             private readonly Regex _Regex;
 
@@ -1064,7 +1064,7 @@ namespace Assignment.Tests;
             }
         }
 
-        private class AsterixElement : PatternElement
+        private sealed class AsterixElement : PatternElement
         {
             public override void ProcessStringCharacter(
                             char currentStringCharacter,
@@ -1088,7 +1088,7 @@ namespace Assignment.Tests;
             }
         }
 
-        private class MyWildcardPatternParser : WildcardPatternParser
+        private sealed class MyWildcardPatternParser : WildcardPatternParser
         {
             private readonly List<PatternElement> _patternElements = new();
             private CharacterNormalizer _characterNormalizer;
@@ -1191,7 +1191,7 @@ namespace Assignment.Tests;
     /// <summary>
     /// Translates a <see cref="WildcardPattern"/> into a DOS wildcard
     /// </summary>
-    internal class WildcardPatternToDosWildcardParser : WildcardPatternParser
+    internal sealed class WildcardPatternToDosWildcardParser : WildcardPatternParser
     {
         private readonly StringBuilder _result = new();
 
