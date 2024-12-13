@@ -19,7 +19,7 @@ public class PingProcessTests
     [TestMethod]
     public void Start_PingProcess_Success()
     {
-        Process process = Process.Start("ping", "localhost");
+        Process process = Process.Start("ping", "localhost -c 4");
         process.WaitForExit();
         Assert.AreEqual<int>(0, process.ExitCode);
     }
@@ -93,7 +93,7 @@ public class PingProcessTests
     async public Task RunAsync_UsingTpl_Success()
     {
         // DO use async/await in this test.
-        PingResult result = await Sut.RunAsync("localhost");
+        PingResult result = await Sut.RunAsync("localhost -c 4");
 
         // Test Sut.RunAsync("localhost");
         AssertValidPingOutput(result);
