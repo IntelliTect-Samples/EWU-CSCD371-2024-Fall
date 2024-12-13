@@ -48,7 +48,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_CaptureStdOutput_Success()
     {
-        PingResult result = Sut.Run("localhost");
+        PingResult result = Sut.Run("localhost -c 4");
         AssertValidPingOutput(result);
     }
 
@@ -109,7 +109,7 @@ public class PingProcessTests
         CancellationToken cancellationToken = new(true);
 
         //Act
-        Task<PingResult> results = Sut.RunAsync("localhost", cancellationToken);
+        Task<PingResult> results = Sut.RunAsync("localhost -c 4", cancellationToken);
         results.Wait();
 
         //Assert
@@ -129,7 +129,7 @@ public class PingProcessTests
         {
 
             //Act 
-            Task<PingResult> result = Sut.RunAsync("localhost", cancellationSourse.Token);
+            Task<PingResult> result = Sut.RunAsync("localhost -c 4", cancellationSourse.Token);
             result.Wait();
         }
         catch (AggregateException ex)
@@ -146,7 +146,7 @@ public class PingProcessTests
     [TestMethod]
     async public Task RunAsync_MultipleHostAddresses_True()
     {
-        string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
+        string[] hostNames = new string[] { "localhost -c 4", "localhost -c 4", "localhost -c 4", "localhost -c 4" };
         int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
         PingResult result = await Sut.RunAsync(hostNames);
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
