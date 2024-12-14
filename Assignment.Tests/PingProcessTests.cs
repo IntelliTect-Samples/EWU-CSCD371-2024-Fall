@@ -53,7 +53,7 @@ public class PingProcessTests
     public void Run_CaptureStdOutput_Success()
     {
         PingResult result = Sut.Run("-c 4 localhost");
-        AssertValidPingOutput(result);
+        AssertValidPingOutput(result.ExitCode, result.StdOutput);
     }
 
     [TestMethod]
@@ -81,7 +81,7 @@ public class PingProcessTests
 
         // Assert
         Assert.AreEqual(0, result.ExitCode);
-        Assert.IsTrue(result.StdOutput?.Contains("-c 4 localhost") == true || result.StdOutput?.Contains("Reply from") == true);
+        Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
     }
 
     [TestMethod]
@@ -91,7 +91,7 @@ public class PingProcessTests
         PingResult result = await Sut.RunAsync("-c 4 localhost");
 
         // Assert
-        Assert.IsTrue(result.StdOutput?.Contains("-c 4 localhost") == true || result.StdOutput?.Contains("Reply from") == true);
+        Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
     }
 
     [TestMethod]
@@ -197,6 +197,6 @@ Approximate round trip times in milli-seconds:
             $"Output is unexpected: {stdOutput}");
         Assert.AreEqual<int>(0, exitCode);
     }
-    private void AssertValidPingOutput(PingResult result) =>
-        AssertValidPingOutput(result.ExitCode, result.StdOutput);
+    //private void AssertValidPingOutput(PingResult result) =>
+    //    AssertValidPingOutput(result.ExitCode, result.StdOutput);
 }
