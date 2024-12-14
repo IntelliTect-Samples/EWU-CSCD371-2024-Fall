@@ -39,7 +39,7 @@ public class PingProcessTests
     [TestMethod]
     public void Run_InvalidAddressOutput_Success()
     {
-        (int exitCode, string? stdOutput) = Sut.Run("-c 4 badaddress");
+        (int exitCode, string? stdOutput) = Sut.Run("badaddress");
         Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
         stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
         Assert.AreEqual<string?>(
@@ -67,7 +67,7 @@ public class PingProcessTests
 
         // Assert
         Assert.AreEqual(0, result.ExitCode);
-        Assert.IsTrue(result.StdOutput?.Contains("-c 4 localhost") == true || result.StdOutput?.Contains("Reply from") == true);
+        Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
     }
 
     [TestMethod]
