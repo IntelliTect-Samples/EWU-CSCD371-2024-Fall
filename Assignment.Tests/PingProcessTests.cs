@@ -36,62 +36,62 @@ public class PingProcessTests
         Assert.AreEqual<int>(1, exitCode);
     }
 
-    //[TestMethod]
-    //public void Run_InvalidAddressOutput_Success()
-    //{
-    //   (int exitCode, string? stdOutput) = Sut.Run("badaddress");
-    //   Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-    //   stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-    //   Assert.AreEqual<string?>(
-    //       "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
-    //       stdOutput,
-    //       $"Output is unexpected: {stdOutput}");
-    //   Assert.AreEqual<int>(1, exitCode);
-    //}
+    [TestMethod]
+    public void Run_InvalidAddressOutput_Success()
+    {
+        (int exitCode, string? stdOutput) = Sut.Run("-c 4 badaddress");
+        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
+        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        Assert.AreEqual<string?>(
+            "Ping request could not find host badaddress. Please check the name and try again.".Trim(),
+            stdOutput,
+            $"Output is unexpected: {stdOutput}");
+        Assert.AreEqual<int>(1, exitCode);
+    }
 
-    //[TestMethod]
-    //public void Run_CaptureStdOutput_Success()
-    //{
-    //    PingResult result = Sut.Run("localhost");
-    //    Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
-    //}
+    [TestMethod]
+    public void Run_CaptureStdOutput_Success()
+    {
+        PingResult result = Sut.Run("-c 4 localhost");
+        Assert.IsTrue(result.StdOutput?.Contains("-c 4 localhost") == true || result.StdOutput?.Contains("Reply from") == true);
+    }
 
     [TestMethod]
     public void RunTaskAsync_Success()
     {
         // Act
-        Task<PingResult> task = Sut.RunTaskAsync("localhost");
+        Task<PingResult> task = Sut.RunTaskAsync("-c 4 localhost");
         task.Wait();
 
         PingResult result = task.Result;
 
         // Assert
         Assert.AreEqual(0, result.ExitCode);
-        Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
+        Assert.IsTrue(result.StdOutput?.Contains("-c 4 localhost") == true || result.StdOutput?.Contains("Reply from") == true);
     }
 
     [TestMethod]
     public void RunAsync_UsingTaskReturn_Success()
     {
         // Act
-        Task<PingResult> task = Sut.RunAsync("localhost");
+        Task<PingResult> task = Sut.RunAsync("-c 4 localhost");
         task.Wait();
 
         PingResult result = task.Result;
 
         // Assert
         Assert.AreEqual(0, result.ExitCode);
-        Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
+        Assert.IsTrue(result.StdOutput?.Contains("-c 4 localhost") == true || result.StdOutput?.Contains("Reply from") == true);
     }
 
     [TestMethod]
     public async Task RunAsync_UsingTpl_Success()
     {
         // Act
-        PingResult result = await Sut.RunAsync("localhost");
+        PingResult result = await Sut.RunAsync("-c 4 localhost");
 
         // Assert
-        Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
+        Assert.IsTrue(result.StdOutput?.Contains("-c 4 localhost") == true || result.StdOutput?.Contains("Reply from") == true);
     }
 
     [TestMethod]
@@ -99,7 +99,7 @@ public class PingProcessTests
     public void RunAsync_UsingTplWithCancellation_CatchAggregateExceptionWrapping()
     {
         // Act
-        Task<PingResult> task = Sut.RunAsync("localhost", new CancellationToken(true));
+        Task<PingResult> task = Sut.RunAsync("-c 4 localhost", new CancellationToken(true));
         task.Wait();
     }
 
@@ -110,7 +110,7 @@ public class PingProcessTests
         // Arrange
         var cts = new CancellationTokenSource();
         cts.Cancel();
-        Task<PingResult> task = Sut.RunAsync("localhost", cts.Token);
+        Task<PingResult> task = Sut.RunAsync("-c 4 localhost", cts.Token);
 
         // Act
         try
@@ -131,7 +131,7 @@ public class PingProcessTests
     public async Task RunAsync_MultipleHostAddresses_True()
     {
         // Arrange
-        string[] hostNames = new string[] { "localhost", "localhost", "localhost", "localhost" };
+        string[] hostNames = new string[] { "-c 4 localhost", "-c 4 localhost", "-c 4 localhost", "-c 4 localhost" };
         int expectedLineCount = PingOutputLikeExpression.Split(Environment.NewLine).Length * hostNames.Length;
 
         // Act
@@ -142,7 +142,7 @@ public class PingProcessTests
         int? lineCount = result.StdOutput?.Trim().Split(Environment.NewLine).Length;
         Assert.AreEqual(expectedLineCount, lineCount);
         Assert.AreEqual(0, result.ExitCode);
-        Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
+        Assert.IsTrue(result.StdOutput?.Contains("-c 4 localhost") == true || result.StdOutput?.Contains("Reply from") == true);
     }
 
 
@@ -189,14 +189,14 @@ Ping statistics for ::1:
     Packets: Sent = *, Received = *, Lost = 0 (0% loss),
 Approximate round trip times in milli-seconds:
     Minimum = *, Maximum = *, Average = *".Trim();
-    // private void AssertValidPingOutput(int exitCode, string? stdOutput)
-    // {
-    //     Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
-    //     stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
-    //     Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression)??false,
-    //         $"Output is unexpected: {stdOutput}");
-    //     Assert.AreEqual<int>(0, exitCode);
-    // }
-    // private void AssertValidPingOutput(PingResult result) =>
-    //     AssertValidPingOutput(result.ExitCode, result.StdOutput);
+    private void AssertValidPingOutput(int exitCode, string? stdOutput)
+    {
+        Assert.IsFalse(string.IsNullOrWhiteSpace(stdOutput));
+        stdOutput = WildcardPattern.NormalizeLineEndings(stdOutput!.Trim());
+        Assert.IsTrue(stdOutput?.IsLike(PingOutputLikeExpression) ?? false,
+            $"Output is unexpected: {stdOutput}");
+        Assert.AreEqual<int>(0, exitCode);
+    }
+    private void AssertValidPingOutput(PingResult result) =>
+        AssertValidPingOutput(result.ExitCode, result.StdOutput);
 }
