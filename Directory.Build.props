@@ -1,0 +1,12 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+    <LangVersion>12.0</LangVersion>
+	<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	<AnalysisLevel>latest</AnalysisLevel>
+  </PropertyGroup>
+</Project>
