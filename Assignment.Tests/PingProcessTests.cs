@@ -53,7 +53,7 @@ public class PingProcessTests
     public void Run_CaptureStdOutput_Success()
     {
         PingResult result = Sut.Run("-c 4 localhost");
-        Assert.IsTrue(result.StdOutput?.Contains("-c 4 localhost") == true || result.StdOutput?.Contains("Reply from") == true);
+        AssertValidPingOutput(result);
     }
 
     [TestMethod]
