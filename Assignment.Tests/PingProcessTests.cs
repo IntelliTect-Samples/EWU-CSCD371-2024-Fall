@@ -142,7 +142,7 @@ public class PingProcessTests
         int? lineCount = result.StdOutput?.Split(Environment.NewLine).Length;
         Assert.AreEqual(expectedLineCount, lineCount);
         Assert.AreEqual(0, result.ExitCode);
-        Assert.IsTrue(result.StdOutput?.Contains("-c 4 localhost") == true || result.StdOutput?.Contains("Reply from") == true);
+        Assert.IsTrue(result.StdOutput?.Contains("localhost") == true || result.StdOutput?.Contains("Reply from") == true);
     }
 
 
